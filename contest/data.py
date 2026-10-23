@@ -110,10 +110,10 @@ def _implied_vol(price, s, k, t, r, call):
         return None
 
 
-def _atm_iv(tk, expiry: str, spot: float, asof: dt.date) -> dict | None:
+def _atm_iv(tk, expiry: str, spot: float, asof: dt.date, chain=None) -> dict | None:
     """ATM implied vol for one expiry: own Black-Scholes inversion of mid
     prices for the strikes bracketing spot, with Yahoo's IV as a fallback."""
-    chain = tk.option_chain(expiry)
+    chain = chain if chain is not None else tk.option_chain(expiry)
     t = max((dt.date.fromisoformat(expiry) - asof).days, 1) / 365.0
     ivs, yivs = [], []
     for df, call in ((chain.calls, True), (chain.puts, False)):
@@ -135,7 +135,26 @@ def _atm_iv(tk, expiry: str, spot: float, asof: dt.date) -> dict | None:
             "iv_yahoo": float(np.median(yivs)) if yivs else None, "t_years": t}
 
 
-def _ticker_meta(ticker: str, asof: dt.date) -> dict:
+CHAIN_COLS = ("strike", "bid", "ask", "lastPrice", "impliedVolatility", "openInterest", "volume")
+
+
+def _chain_rows(chain, ticker: str, expiry: str, spot: float) -> list[dict]:
+    """Full option chain (both sides) for one expiry, for the right-tail check."""
+    rows = []
+    for df, kind in ((chain.calls, "C"), (chain.puts, "P")):
+        if df is None or df.empty:
+            continue
+        for _, r in df.iterrows():
+            row = {"ticker": ticker, "expiry": expiry, "type": kind, "spot": spot}
+            row.update({c: _num(r.get(c)) for c in CHAIN_COLS})
+            rows.append(row)
+    return rows
+
+
+def _ticker_meta(ticker: str, asof: dt.date, term: bool = False) -> dict:
+    """Per-ticker metadata. ``term``: also ATM IV for every expiry up to the
+    end of period 2 (event-vol extraction around earnings) and the full chains
+    of the two period-end expiries."""
     import yfinance as yf
     tk = yf.Ticker(ticker)
     m: dict = {"ticker": ticker, "errors": {}}
@@ -169,15 +188,35 @@ def _ticker_meta(ticker: str, asof: dt.date) -> dict:
             spot = m["info"].get("regularMarketPrice") or m["info"].get("previousClose")
             exps = list(_retry(lambda: tk.options) or [])
             m["iv"] = {}
+            m["chains"] = []
             for label, target in (("p1", config.P1_END), ("p2", config.P2_END)):
                 cands = [e for e in exps if dt.date.fromisoformat(e) >= target]
                 if spot and cands:
-                    res = _atm_iv(tk, cands[0], float(spot), asof)
+                    chain = _retry(lambda: tk.option_chain(cands[0]))
+                    res = _atm_iv(tk, cands[0], float(spot), asof, chain=chain)
                     if res:
                         m["iv"][label] = res
+                    m["chains"] += _chain_rows(chain, ticker, cands[0], float(spot))
+            if term and spot:
+                m["iv_term"] = []
+                horizon = config.P2_END + dt.timedelta(days=14)
+                for e in exps:
+                    d = dt.date.fromisoformat(e)
+                    if d <= asof or d > horizon:
+                        continue
+                    try:
+                        res = _retry(lambda: _atm_iv(tk, e, float(spot), asof))
+                        if res:
+                            m["iv_term"].append(res)
+                    except Exception as ex:
+                        m["errors"][f"term_{e}"] = str(ex)
+                    time.sleep(0.2)
         except Exception as e:
             m["errors"]["options"] = str(e)
     return m
+
+
+TERM_TOP_N = 40      # US names (by 60d vol) that get the full ATM term structure
 
 
 def _num(x):
@@ -247,9 +286,16 @@ def fetch_all(cache_dir: Path = config.CACHE_DIR, end: dt.date | None = None,
         px[f].to_csv(cache_dir / f"{name}.csv.gz", float_format="%.6f")
     failed = [t for t in tickers + [config.FX_TICKER] if px["Close"][t].dropna().empty]
 
-    log.info("fetching per-ticker metadata (earnings, dividends, options)")
+    # high-vol US names get the ATM term structure (earnings event vols)
+    lr = np.log(px["Close"][tickers]).diff().iloc[-60:]
+    v60 = lr.std() * math.sqrt(252)
+    term_names = set(v60[[t for t in tickers if is_us(t)]].nlargest(TERM_TOP_N).index)
+    log.info("fetching per-ticker metadata (earnings, dividends, options; term structure for %d)",
+             len(term_names))
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        metas = list(ex.map(lambda t: _ticker_meta(t, asof), tickers))
+        metas = list(ex.map(lambda t: _ticker_meta(t, asof, term=t in term_names), tickers))
+    chains = [row for m in metas for row in m.pop("chains", [])]
+    pd.DataFrame(chains).to_csv(cache_dir / "option_chains.csv.gz", index=False, float_format="%.6g")
     meta = {m["ticker"]: m for m in metas}
     (cache_dir / "meta.json").write_text(json.dumps(meta, indent=1, default=str))
 
@@ -271,6 +317,8 @@ def fetch_all(cache_dir: Path = config.CACHE_DIR, end: dt.date | None = None,
         "meta_errors": {t: m["errors"] for t, m in meta.items() if m["errors"]},
         "nasdaq_calendar_errors": [d for d, v in ncal.items() if isinstance(v, dict)],
         "nasdaq_dividend_errors": [t for t, v in ndiv.items() if isinstance(v, dict)],
+        "option_chain_rows": len(chains),
+        "term_structure_names": sorted(term_names),
     }
     (cache_dir / "fetch_report.json").write_text(json.dumps(report, indent=1))
     return report
