@@ -1,14 +1,16 @@
 {
  "pick": "CRWV",
- "p_win_8w_switch": 0.2711604166666667,
- "p_win_4w": 0.247325,
+ "rank_by": "p_win_8w_policy",
+ "p_win_8w_policy": 0.23578333333333334,
+ "policy_8w": "cons@1.25",
+ "p_win_4w": 0.21694166666666664,
  "robust_pick": "CRWV",
- "price_date": "2026-10-22",
+ "price_date": "2026-10-23",
  "field": "div 60% / mod 25% / all-in 15%",
  "n_entrants": 60,
- "field_max_4w_median": 1.189796568053206,
- "field_max_8w_median": 1.262792560091488,
+ "field_max_4w_median": 1.1831362289855054,
+ "field_max_8w_median": 1.2490969773111154,
  "shares": {
-  "CRWV": 202
+  "CRWV": 206
  }
 }

@@ -89,6 +89,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--quick", action="store_true",
                    help="period1: skip the secondary sensitivities (used by --mode stress)")
     p.add_argument("--workers", type=int, default=4, help="stress: parallel processes")
+    p.add_argument("--stress-only", type=lambda x: x.split(";"), default=None,
+                   help="stress: re-run only these variants (';'-separated names), rebuild the summary")
     p.add_argument("--rank-by", default="p_win_8w_policy",
                    help="metric used to rank candidates")
     p.add_argument("--my-return", type=str, default=None,

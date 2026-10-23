@@ -1,0 +1,11 @@
+{
+ "pick": "CRWV",
+ "p_win": 0.08284041666666667,
+ "se": 0.0018637672241603289,
+ "policy_8w": "cons@1.5",
+ "worlds_search": 48,
+ "worlds_validation": 160,
+ "scenarios_per_world": 500,
+ "price_date": "2026-10-23",
+ "runtime_s": 146
+}

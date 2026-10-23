@@ -1,14 +1,16 @@
 {
  "pick": "CRWV",
- "p_win_8w_switch": 0.18380708333333332,
- "p_win_4w": 0.17594041666666668,
+ "rank_by": "p_win_8w_policy",
+ "p_win_8w_policy": 0.16292083333333332,
+ "policy_8w": "cons@1.35",
+ "p_win_4w": 0.15151958333333332,
  "robust_pick": "CRWV",
- "price_date": "2026-10-22",
+ "price_date": "2026-10-23",
  "field": "div 60% / mod 25% / all-in 15%, spain popularity x2",
  "n_entrants": 180,
- "field_max_4w_median": 1.2721847592035271,
- "field_max_8w_median": 1.3769257273677664,
+ "field_max_4w_median": 1.2634948728235522,
+ "field_max_8w_median": 1.3563256739789082,
  "shares": {
-  "CRWV": 202
+  "CRWV": 206
  }
 }

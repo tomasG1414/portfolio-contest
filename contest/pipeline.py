@@ -429,8 +429,14 @@ def run_stress(a, argv_common: list[str], workers: int = 4):
         os.environ[k] = "1"
     jobs = {name: ["--mode", "period1", "--quick", "--out", str(out / _slug(name))] + argv_common + extra
             for name, extra in STRESS_VARIANTS.items()}
+    only = getattr(a, "stress_only", None)
+    run = {k: v for k, v in jobs.items() if not only or k in only}
     with ProcessPoolExecutor(max_workers=workers, mp_context=mp.get_context("spawn")) as ex:
-        list(ex.map(_stress_worker, jobs.values()))
+        list(ex.map(_stress_worker, run.values()))
+    return stress_summary(out, jobs)
+
+
+def stress_summary(out, jobs):
     rows = []
     for name in jobs:
         d = out / _slug(name)

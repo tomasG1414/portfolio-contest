@@ -768,10 +768,10 @@ def call_iv_at(chains: pd.DataFrame | None, ticker: str, expiry: str, k_rel: flo
             return np.nan
         r = row.iloc[0]
         bid, ask = r.get("bid") or 0, r.get("ask") or 0
-        mid = 0.5 * (bid + ask) if bid > 0 and ask > 0 else (r.get("lastPrice") or 0)
-        iv = _implied_vol(float(mid), spot, float(r["strike"]), t, 0.04, True) if mid else None
-        if not iv:
-            iv = r.get("impliedVolatility")
+        # live two-sided quote only: deep OTM strikes often have just a stale last trade
+        if not (bid > 0 and ask > 0 and ask >= bid):
+            return np.nan
+        iv = _implied_vol(0.5 * (bid + ask), spot, float(r["strike"]), t, 0.04, True)
         if not iv or not np.isfinite(iv):
             return np.nan
         ivs.append((float(r["strike"]), float(iv)))
@@ -855,7 +855,8 @@ def compute_features(md: MarketData, prices: Prices, lam: float = 0.94) -> tuple
         iv2 = ((md.meta.get(t, {}).get("iv") or {}).get("p2") or {})
         atm = iv2.get("iv")
         v130 = call_iv_at(md.chains, t, iv2.get("expiry"), 1.3, iv2.get("t_years")) if atm else np.nan
-        sk.append(v130 / atm if atm and np.isfinite(v130) else np.nan)
+        x = v130 / atm if atm and np.isfinite(v130) else np.nan
+        sk.append(x if 0.7 <= x <= 1.5 else np.nan)   # outside: quote problem, not skew
     f["skew_130_p2"] = sk
     mv = {t: moves.get(t, {}).get("moves", []) for t in tickers}
     f["earn_move_n"] = [len(mv[t]) for t in tickers]

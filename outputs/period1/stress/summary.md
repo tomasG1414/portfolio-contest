@@ -1,17 +1,31 @@
 # Stress tests - period 1 (full search per variant)
 
-Each row re-runs the candidate search and validation with a different field. P(win) = P(win at Dec 18) with the switch-if-leading policy; tracked portfolios use the search-set scenarios (same returns in every row, common random numbers).
+Each row re-runs the candidate search and validation with a different field. P(win) = P(win at Dec 18) with the best realistic Nov 22 policy; tracked portfolios use the search-set scenarios (same returns in every row, common random numbers).
 
-| variant | entrants | pick | P(win) pick | random entrant | winning score median | CRWV P(win) | CRWV rank | MRNA P(win) | MRNA rank | SNDK 20% + CRWV 80% P(win) | SNDK 20% + CRWV 80% rank |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| base | 180 | CRWV | 17.16% | 0.56% | 1.397 | 17.30% | #1 | 13.94% | #4 | 14.39% | #2 |
-| participants 60 | 60 | CRWV | 27.12% | 1.67% | 1.263 | 27.15% | #1 | 22.73% | #13 | 24.73% | #2 |
-| participants 120 | 120 | CRWV | 20.66% | 0.83% | 1.344 | 20.54% | #1 | 17.07% | #4 | 17.66% | #2 |
-| participants 200 | 200 | CRWV | 16.20% | 0.50% | 1.412 | 16.05% | #1 | 13.29% | #2 | 13.18% | #3 |
-| 30% non-Spanish EU | 180 | CRWV | 17.14% | 0.56% | 1.397 | 17.07% | #1 | 13.72% | #4 | 14.21% | #2 |
-| 50% non-Spanish EU | 180 | CRWV | 17.30% | 0.56% | 1.396 | 17.02% | #1 | 13.39% | #4 | 14.11% | #2 |
-| hype names x2 | 180 | CRWV | 14.01% | 0.56% | 1.445 | 14.20% | #1 | 11.49% | #2 | 10.98% | #4 |
-| Spanish bias x2 | 180 | CRWV | 18.38% | 0.56% | 1.377 | 18.45% | #1 | 15.04% | #4 | 15.65% | #2 |
-| US mega-caps x2 | 180 | CRWV | 18.77% | 0.56% | 1.372 | 18.84% | #1 | 15.47% | #4 | 16.10% | #2 |
-| group noise 50% | 180 | CRWV | 17.69% | 0.56% | 1.390 | 18.97% | #1 | 14.91% | #6 | 16.03% | #2 |
-| combo: 120, 30% EU, hype x2 | 120 | CRWV | 17.46% | 0.83% | 1.390 | 16.96% | #1 | 13.94% | #3 | 14.02% | #2 |
+| variant | entrants | pick | P(win) pick | random entrant | winning score median | CRWV P(win) | CRWV rank | MRNA P(win) | MRNA rank | NBIS P(win) | NBIS rank | SNDK 20% + CRWV 80% P(win) | SNDK 20% + CRWV 80% rank |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| base | 180 | CRWV | 15.11% | 0.56% | 1.374 | 14.33% | #1 | 13.56% | #2 | 11.50% | #8 | 12.06% | #3 |
+| participants 60 | 60 | CRWV | 23.58% | 1.67% | 1.249 | 23.34% | #1 | 21.87% | #2 | 19.49% | #28 | 21.59% | #3 |
+| participants 120 | 120 | CRWV | 17.97% | 0.83% | 1.326 | 17.51% | #1 | 16.37% | #2 | 13.91% | #13 | 15.37% | #3 |
+| participants 200 | 200 | CRWV | 14.03% | 0.50% | 1.389 | 13.53% | #1 | 12.82% | #2 | 10.43% | #8 | 11.40% | #3 |
+| 30% non-Spanish EU | 180 | CRWV | 14.45% | 0.56% | 1.377 | 14.50% | #1 | 13.55% | #2 | 11.42% | #7 | 12.24% | #3 |
+| 50% non-Spanish EU | 180 | CRWV | 14.74% | 0.56% | 1.375 | 14.54% | #1 | 13.55% | #2 | 11.31% | #8 | 12.26% | #3 |
+| hype names x2 | 180 | CRWV | 12.19% | 0.56% | 1.416 | 11.67% | #1 | 11.39% | #2 | 9.37% | #5 | 9.38% | #4 |
+| Spanish bias x2 | 180 | CRWV | 16.29% | 0.56% | 1.356 | 15.41% | #1 | 14.46% | #2 | 12.50% | #8 | 13.30% | #3 |
+| US mega-caps x2 | 180 | CRWV | 16.63% | 0.56% | 1.351 | 15.92% | #1 | 14.88% | #2 | 12.84% | #8 | 13.63% | #3 |
+| group noise 50% | 180 | CRWV | 15.07% | 0.56% | 1.369 | 15.98% | #1 | 14.96% | #2 | 12.74% | #8 | 13.65% | #3 |
+| combo: 120, 30% EU, hype x2 | 120 | CRWV | 14.88% | 0.83% | 1.367 | 14.93% | #1 | 13.64% | #2 | 11.87% | #7 | 12.50% | #3 |
+| all-in ~ pop x vol^2 | 180 | CRWV | 10.94% | 0.56% | 1.428 | 10.43% | #1 | 9.91% | #2 | 8.60% | #5 | 7.92% | #10 |
+| all-in ~ pop x vol^3 | 180 | CRWV | 7.98% | 0.56% | 1.470 | 7.70% | #1 | 6.86% | #6 | 6.29% | #10 | 5.29% | #58 |
+| 3 savvy max-vol opponents | 180 | CRWV | 10.65% | 0.56% | 1.421 | 10.48% | #1 | 10.06% | #2 | 8.45% | #8 | 7.96% | #9 |
+| 10% momentum buyers | 180 | CRWV | 13.13% | 0.56% | 1.411 | 13.08% | #1 | 8.56% | #49 | 10.09% | #7 | 10.90% | #2 |
+| fads (50% of worlds) | 180 | CRWV | 14.33% | 0.56% | 1.378 | 13.96% | #1 | 12.94% | #2 | 10.97% | #6 | 11.51% | #3 |
+| trailing re-pickers go all-in | 180 | CRWV | 13.22% | 0.56% | 1.399 | 13.15% | #1 | 12.44% | #2 | 10.35% | #7 | 11.10% | #3 |
+| popularity noise 50% | 180 | CRWV | 15.33% | 0.56% | 1.368 | 14.62% | #1 | 13.95% | #2 | 11.94% | #7 | 12.39% | #4 |
+| no vol-of-vol | 180 | CRWV | 15.27% | 0.56% | 1.379 | 15.11% | #1 | 13.99% | #2 | 11.53% | #12 | 12.70% | #3 |
+| vol-of-vol 30/30 | 180 | CRWV | 13.55% | 0.56% | 1.355 | 12.91% | #1 | 12.32% | #2 | 10.44% | #7 | 10.83% | #4 |
+| residual clip 6 sigma | 180 | CRWV | 15.05% | 0.56% | 1.373 | 14.35% | #1 | 13.80% | #2 | 11.86% | #6 | 12.09% | #3 |
+| AI cluster corr +0.4 | 180 | MRNA | 14.08% | 0.56% | 1.366 | 13.96% | #2 | 14.07% | #1 | 11.37% | #9 | 12.03% | #3 |
+| IV weight 1.0 | 180 | CRWV | 16.50% | 0.56% | 1.346 | 15.74% | #1 | 11.73% | #16 | 12.69% | #5 | 13.28% | #2 |
+| call-skew tilt | 180 | CRWV | 14.86% | 0.56% | 1.375 | 14.10% | #1 | 13.61% | #2 | 11.16% | #8 | 11.92% | #3 |
+| pessimistic combo | 180 | CRWV | 8.02% | 0.56% | 1.437 | 7.56% | #1 | 7.46% | #2 | 6.31% | #8 | 5.30% | #25 |

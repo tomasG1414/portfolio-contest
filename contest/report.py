@@ -238,7 +238,7 @@ def period1_markdown(c: dict) -> str:
         "shadowed": top["shadowed_when_hits"].map(lambda x: f"{x:.0%}"),
         "flags": top["flags"]})
     L += ["## Top 10 (re-scored on fresh scenarios)", "", _md_table(t), "",
-          "P(win) Dec18 = switch-if-leading policy; hold 8w = no rebalance; P(lead) Nov20 = rank 1 "
+          "P(win) Dec18 = best realistic Nov 22 policy (no leaderboard); hold 8w = no rebalance; P(lead) Nov20 = rank 1 "
           "after period 1. co-holders = avg. number of opponents holding my best-performing name; "
           "shadowed = when that name is a top-3 performer, share of scenarios where an opponent "
           "holds it at least as heavily as I do. Flags: E1/E2 earnings reaction day in period 1/2 "
@@ -392,6 +392,6 @@ def stress_markdown(tab: pd.DataFrame) -> str:
     return "\n".join([
         "# Stress tests - period 1 (full search per variant)", "",
         "Each row re-runs the candidate search and validation with a different field. "
-        "P(win) = P(win at Dec 18) with the switch-if-leading policy; tracked portfolios use the "
+        "P(win) = P(win at Dec 18) with the best realistic Nov 22 policy; tracked portfolios use the "
         "search-set scenarios (same returns in every row, common random numbers).", "",
         _md_table(t), ""])

@@ -1,37 +1,35 @@
-# Stock contest - period 1 submission (Oct 25, prices 2026-10-22)
+# Stock contest - period 1 submission (Oct 25, prices 2026-10-23)
 
-Objective: maximise the probability of finishing **first** of 180 (not expected return). Ranking metric: `p_win_8w_switch` = P(win at Dec 18) if I hold this portfolio through period 1 and, on Nov 22, switch to the consensus basket only when I am leading, otherwise keep it.
+Objective: maximise the probability of finishing **first** of 180 (not expected return). Ranking metric: `p_win_8w_policy` = P(win at Dec 18) with the best realistic Nov 22 policy for that portfolio: there is no leaderboard, so on Nov 22 I only know my own score; if it is at least a threshold (1.25, 1.35, 1.5) I switch to the consensus basket (`cons`) or to the chaser basket (`chase`: period 1's best performers among the names most likely held all-in), else I hold. The policy is picked on the search scenarios and re-scored on fresh ones.
 
 ## Submission (do not trade - enter these in the contest platform)
 
-**CRWV** - P(win Dec 18) 18.77%, P(lead Nov 20) 18.03%, P(top 5 Nov 20) 33.8% (validated on 40,000 fresh scenarios).
+**CRWV** - P(win Dec 18) 16.63%, P(lead Nov 20) 15.56%, P(top 5 Nov 20) 30.1% (validated on 40,000 fresh scenarios).
 
 | ticker | name | shares | price_local | currency | price_eur | value_eur | weight | last_close |
 |---|---|---|---|---|---|---|---|---|
-| CRWV | CoreWeave, Inc. Class A Common Stock | 202 | 55.60 | USD | 49.49 | 9,996.89 | 100.0% | 2026-10-22 |
+| CRWV | CoreWeave, Inc. Class A Common Stock | 206 | 54.24 | USD | 48.44 | 9,978.08 | 99.8% | 2026-10-23 |
 
-Invested 9,996.89 EUR, cash left 3.11 EUR (earns nothing). EUR/USD used: 1.1235.
-
-> Prices are the 2026-10-22 close. The contest uses the Fri 2026-10-23 close: re-run `python -m contest --mode fetch` and `--mode period1` after the close (or recompute shares = floor(10,000 / EUR price)) before submitting.
+Invested 9,978.08 EUR, cash left 21.92 EUR (earns nothing). EUR/USD used: 1.1197.
 
 ## Top 10 (re-scored on fresh scenarios)
 
 | # | portfolio | P(win) Dec18 | P(win) hold 8w | P(lead) Nov20 | P(top5) Nov20 | median 4w | p10 / p90 4w | vol | corr cons. | co-holders | shadowed | flags |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | CRWV | 18.77% | 18.24% | 18.03% | 33.8% | -0.7% | -33.9% / 48.2% | 113% | 0.31 | 9.3 | 21% | CRWV: E1 2026-11-12? |
-| 2 | SNDK 20% + CRWV 80% | 15.96% | 15.69% | 14.71% | 32.7% | -0.2% | -30.6% / 44.1% | 102% | 0.33 | 6.1 | 31% | SNDK: E1 2026-10-30 | CRWV: E1 2026-11-12? |
-| 3 | MPWR 20% + CRWV 80% | 15.79% | 15.39% | 14.49% | 32.4% | -0.5% | -30.7% / 43.8% | 102% | 0.33 | 4.8 | 20% | MPWR: E1 2026-10-30 | CRWV: E1 2026-11-12? |
-| 4 | MRNA | 15.47% | 14.34% | 14.88% | 29.0% | -3.9% | -34.7% / 42.5% | 112% | 0.14 | 11.8 | 29% | MRNA: E1 2026-11-06 |
-| 5 | MU 20% + CRWV 80% | 15.02% | 14.69% | 13.66% | 32.0% | -0.3% | -29.7% / 42.3% | 99% | 0.35 | 8.6 | 25% | MU: E2 2026-12-17? (50%; else outside 2026-12-24) | CRWV: E1 2026-11-12? |
-| 6 | NBIS 20% + CRWV 80% | 14.88% | 14.67% | 13.84% | 32.0% | -0.3% | -30.1% / 42.0% | 99% | 0.36 | 8.3 | 31% | NBIS: E1 2026-11-10 | CRWV: E1 2026-11-12? |
-| 7 | ALAB 20% + CRWV 80% | 14.48% | 14.25% | 13.55% | 31.7% | -0.3% | -29.3% / 41.5% | 97% | 0.36 | 6.3 | 26% | ALAB: E1 2026-11-04 | CRWV: E1 2026-11-12? |
-| 8 | STX 20% + CRWV 80% | 14.48% | 14.25% | 13.58% | 31.6% | -0.3% | -29.2% / 41.5% | 97% | 0.35 | 5.1 | 21% | STX: E1 2026-10-28 | CRWV: E1 2026-11-12? |
-| 9 | ARM 20% + CRWV 80% | 14.42% | 14.16% | 13.38% | 31.8% | -0.2% | -29.6% / 41.5% | 98% | 0.35 | 9.4 | 35% | ARM: E1 2026-11-05 | CRWV: E1 2026-11-12? |
-| 10 | CRWV 80% + HONA 20% | 14.35% | 14.31% | 13.36% | 31.7% | 0.3% | -26.9% / 40.3% | 91% | 0.34 | 5.2 | 21% | CRWV: E1 2026-11-12? | HONA: E1 2026-10-29; short history |
+| 1 | CRWV | 16.63% | 15.28% | 15.56% | 30.1% | -3.5% | -34.8% / 44.2% | 113% | 0.38 | 9.3 | 21% | CRWV: E1 2026-11-12? |
+| 2 | MRNA | 15.16% | 14.26% | 14.33% | 28.0% | -4.0% | -33.7% / 39.9% | 109% | 0.12 | 11.8 | 29% | MRNA: E1 2026-11-06 |
+| 3 | SNDK 20% + CRWV 80% | 14.18% | 13.20% | 12.62% | 29.1% | -2.9% | -31.9% / 40.7% | 103% | 0.40 | 5.9 | 31% | SNDK: E1 2026-10-30 | CRWV: E1 2026-11-12? |
+| 4 | MPWR 20% + CRWV 80% | 14.06% | 13.03% | 12.57% | 28.8% | -3.0% | -31.7% / 40.6% | 103% | 0.39 | 4.5 | 20% | MPWR: E1 2026-10-30 | CRWV: E1 2026-11-12? |
+| 5 | LITE 20% + CRWV 80% | 13.48% | 12.52% | 12.22% | 28.7% | -3.0% | -31.2% / 39.7% | 101% | 0.41 | 5.5 | 24% | LITE: E1 2026-11-06 | CRWV: E1 2026-11-12? |
+| 6 | NBIS 20% + CRWV 80% | 13.42% | 12.62% | 12.16% | 28.6% | -2.6% | -31.1% / 39.3% | 100% | 0.42 | 8.2 | 33% | NBIS: E1 2026-11-10 | CRWV: E1 2026-11-12? |
+| 7 | ALAB | 13.19% | 12.49% | 13.19% | 27.7% | -1.8% | -29.7% / 36.0% | 94% | 0.38 | 3.3 | 7% | ALAB: E1 2026-11-04 |
+| 8 | MU 20% + CRWV 80% | 13.13% | 12.32% | 11.84% | 28.3% | -2.7% | -30.7% / 39.0% | 99% | 0.41 | 8.3 | 26% | MU: E2 2026-12-17? (50%; else outside 2026-12-24) | CRWV: E1 2026-11-12? |
+| 9 | STX 20% + CRWV 80% | 13.01% | 12.26% | 11.93% | 28.1% | -2.6% | -30.5% / 38.6% | 98% | 0.41 | 4.8 | 22% | STX: E1 2026-10-28 | CRWV: E1 2026-11-12? |
+| 10 | ALAB 20% + CRWV 80% | 12.97% | 12.23% | 11.83% | 28.2% | -2.5% | -30.4% / 38.6% | 98% | 0.42 | 6.1 | 27% | ALAB: E1 2026-11-04 | CRWV: E1 2026-11-12? |
 
 P(win) Dec18 = switch-if-leading policy; hold 8w = no rebalance; P(lead) Nov20 = rank 1 after period 1. co-holders = avg. number of opponents holding my best-performing name; shadowed = when that name is a top-3 performer, share of scenarios where an opponent holds it at least as heavily as I do. Flags: E1/E2 earnings reaction day in period 1/2 (`?` = date not confirmed by a second source), D1/D2 ex-dividend drop (`~` = estimated).
 
-Benchmarks for scale: IBEX blue chips (EW) 0.06%; Consensus basket 0.00%; Top-10 popular (EW) 0.00%; Magnificent 7 (EW) 0.00%. A random entrant has 0.56%.
+Benchmarks for scale: IBEX blue chips (EW) 0.08%; Consensus basket 0.00%; Top-10 popular (EW) 0.00%; Magnificent 7 (EW) 0.00%. A random entrant has 0.56%.
 
 ## Sensitivity to the field mixture
 
@@ -39,25 +37,25 @@ P(win Dec 18) and rank within the shortlist when the share of all-in opponents c
 
 | portfolio | all-in 15% | worst rank | robust |
 |---|---|---|---|
-| CRWV | 18.77% (#1) | 1 | **yes** |
-| SNDK 20% + CRWV 80% | 15.96% (#2) | 2 | **yes** |
-| MPWR 20% + CRWV 80% | 15.79% (#3) | 3 | **yes** |
-| MRNA | 15.47% (#4) | 4 | **yes** |
-| MU 20% + CRWV 80% | 15.02% (#5) | 5 | **yes** |
-| NBIS 20% + CRWV 80% | 14.88% (#6) | 6 | **yes** |
-| ALAB 20% + CRWV 80% | 14.48% (#7) | 7 | **yes** |
-| STX 20% + CRWV 80% | 14.48% (#7) | 7 | **yes** |
-| ARM 20% + CRWV 80% | 14.42% (#9) | 9 | **yes** |
-| CRWV 80% + HONA 20% | 14.35% (#10) | 10 | **yes** |
-| TER 20% + CRWV 80% | 14.23% (#11) | 11 |  |
-| LRCX 20% + CRWV 80% | 14.18% (#12) | 12 |  |
-| RKLB 20% + CRWV 80% | 14.04% (#13) | 13 |  |
-| LITE 20% + CRWV 80% | 14.04% (#14) | 14 |  |
-| WDC 20% + CRWV 80% | 14.02% (#15) | 15 |  |
+| CRWV | 16.63% (#1) | 1 | **yes** |
+| MRNA | 15.16% (#2) | 2 | **yes** |
+| SNDK 20% + CRWV 80% | 14.18% (#3) | 3 | **yes** |
+| MPWR 20% + CRWV 80% | 14.06% (#4) | 4 | **yes** |
+| LITE 20% + CRWV 80% | 13.48% (#5) | 5 | **yes** |
+| NBIS 20% + CRWV 80% | 13.42% (#6) | 6 | **yes** |
+| ALAB | 13.19% (#7) | 7 | **yes** |
+| MU 20% + CRWV 80% | 13.13% (#8) | 8 | **yes** |
+| STX 20% + CRWV 80% | 13.01% (#9) | 9 | **yes** |
+| ALAB 20% + CRWV 80% | 12.97% (#10) | 10 | **yes** |
+| NBIS | 12.83% (#11) | 11 |  |
+| ARM 20% + CRWV 80% | 12.83% (#12) | 12 |  |
+| AMAT 20% + CRWV 80% | 12.74% (#13) | 13 |  |
+| WDC 20% + CRWV 80% | 12.67% (#14) | 14 |  |
+| TER 20% + CRWV 80% | 12.62% (#15) | 15 |  |
 
 ## What it takes to win
 
-Best opponent after 4 weeks: median score 1.267 (10-90%: 1.121-1.575). Winning score at Dec 18: median 1.372 (10-90%: 1.167-1.771).
+Best opponent after 4 weeks: median score 1.260 (10-90%: 1.115-1.573). Winning score at Dec 18: median 1.351 (10-90%: 1.157-1.748).
 
 ![P(win) vs vol](pwin_vs_vol.png)
 
@@ -70,32 +68,31 @@ Names in the top 10:
 | ticker | name | last reported | next earnings | timing | reaction day | period | status | hist. |move| | ex-div P1 | ex-div P2 |
 |---|---|---|---|---|---|---|---|---|---|---|
 | CRWV | CoreWeave, Inc. Class A Common Stock | 2026-08-11 | 2026-11-11 | AMC | 2026-11-12 | P1 | sources differ, same window | 15.7% |  |  |
+| MRNA | Moderna, Inc. Common Stock | 2026-07-31 | 2026-11-06 | BMO | 2026-11-06 | P1 | confirmed (2 sources) | 7.2% |  |  |
 | SNDK | Sandisk Corporation Common Stock | 2026-08-05 | 2026-10-29 | AMC | 2026-10-30 | P1 | confirmed (2 sources) | 7.4% |  |  |
 | MPWR | Monolithic Power Systems, Inc. Common Stock | 2026-07-30 | 2026-10-29 | AMC | 2026-10-30 | P1 | confirmed (2 sources) | 8.3% |  |  |
-| MRNA | Moderna, Inc. Common Stock | 2026-07-31 | 2026-11-06 | BMO | 2026-11-06 | P1 | confirmed (2 sources) | 7.2% |  |  |
-| MU | Micron Technology, Inc. Common Stock | 2026-09-30 | 2026-12-16 | AMC | 2026-12-17 | P2 | unconfirmed (manual check) | 8.2% |  |  |
+| LITE | Lumentum Holdings Inc. Common Stock | 2026-08-11 | 2026-11-05 | AMC | 2026-11-06 | P1 | confirmed (2 sources) | 9.7% |  |  |
 | NBIS | Nebius Group N.V. Class A Ordinary Shares | 2026-08-12 | 2026-11-10 | BMO | 2026-11-10 | P1 | confirmed (2 sources) | 10.9% |  |  |
 | ALAB | Astera Labs, Inc. Common Stock | 2026-08-04 | 2026-11-03 | AMC | 2026-11-04 | P1 | confirmed (2 sources) | 13.4% |  |  |
+| MU | Micron Technology, Inc. Common Stock | 2026-09-30 | 2026-12-16 | AMC | 2026-12-17 | P2 | unconfirmed (manual check) | 8.2% |  |  |
 | STX | Seagate Technology Holdings PLC Ordinary Shares (Ireland) | 2026-07-28 | 2026-10-27 | AMC | 2026-10-28 | P1 | confirmed (2 sources) | 7.0% |  |  |
-| ARM | Arm Holdings plc American Depositary Shares | 2026-07-29 | 2026-11-04 | AMC | 2026-11-05 | P1 | confirmed (2 sources) | 9.3% |  |  |
-| HONA | Honeywell Aerospace Inc. Common Stock  | 2026-08-05 | 2026-10-28 | AMC | 2026-10-29 | P1 | confirmed (2 sources) | 26.6% |  |  |
 
 Consensus names:
 
 | ticker | name | last reported | next earnings | timing | reaction day | period | status | hist. |move| | ex-div P1 | ex-div P2 |
 |---|---|---|---|---|---|---|---|---|---|---|
 | BBVA.MC | BBVA | 2026-07-30 | 2026-10-29 | DMH | 2026-10-29 | P1 | yahoo-confirmed | 3.5% | 2026-11-04 (-1.44%, est: same window last year) |  |
-| CABK.MC | CaixaBank | 2026-07-29 | 2026-10-30 | DMH | 2026-10-30 | P1 | yahoo-confirmed | 2.7% | 2026-11-04 (-1.51%, est: same window last year) |  |
-| IAG.MC | International Airlines Group | 2026-07-31 | 2026-11-06 | DMH | 2026-11-06 | P1 | yahoo-confirmed | 4.1% |  | 2026-11-26 (-0.99%, est: same window last year) |
+| CABK.MC | CaixaBank | 2026-07-29 | 2026-10-30 | DMH | 2026-10-30 | P1 | yahoo-confirmed | 2.7% | 2026-11-04 (-1.50%, est: same window last year) |  |
+| IAG.MC | International Airlines Group | 2026-07-31 | 2026-11-06 | DMH | 2026-11-06 | P1 | yahoo-confirmed | 4.1% |  | 2026-11-26 (-1.02%, est: same window last year) |
 | IBE.MC | Iberdrola | 2026-10-21 |  |  |  | - | none | 1.5% |  |  |
 | IDR.MC | Indra | 2026-07-23 | 2026-10-29 | DMH | 2026-10-29 | P1 | yahoo-confirmed | 3.1% |  |  |
-| ITX.MC | Inditex | 2026-09-09 | 2026-12-02 | DMH | 2026-12-02 | P2 | yahoo-confirmed | 3.5% | 2026-10-29 (-1.56%, yahoo) |  |
+| ITX.MC | Inditex | 2026-09-09 | 2026-12-02 | DMH | 2026-12-02 | P2 | yahoo-confirmed | 3.5% | 2026-10-29 (-1.54%, yahoo) |  |
 | REP.MC | Repsol | 2026-07-23 | 2026-10-29 | DMH | 2026-10-29 | P1 | yahoo-confirmed | 2.5% |  |  |
 | SAN.MC | Santander | 2026-07-22 | 2026-10-28 | DMH | 2026-10-28 | P1 | yahoo-confirmed | 3.2% | 2026-10-29 (-1.09%, yahoo) |  |
-| TEF.MC | Telefónica | 2026-07-29 | 2026-11-12 | DMH | 2026-11-12 | P1 | yahoo-confirmed | 2.5% |  | 2026-12-15 (-4.31%, est: same window last year) |
+| TEF.MC | Telefónica | 2026-07-29 | 2026-11-12 | DMH | 2026-11-12 | P1 | yahoo-confirmed | 2.5% |  | 2026-12-15 (-4.39%, est: same window last year) |
 | ASML.AS | ASML Holding | 2026-10-14 |  |  |  | - | none | 6.4% | 2026-10-26 (-0.13%, yahoo) |  |
 | RACE.MI | Ferrari | 2026-07-30 | 2026-11-03 | BMO | 2026-11-03 | P1 | yahoo-confirmed | 5.7% |  |  |
-| MC.PA | LVMH Moët Hennessy Louis Vuitton |  |  |  |  | - | none |  |  | 2026-12-01 (-1.93%, yahoo) |
+| MC.PA | LVMH Moët Hennessy Louis Vuitton |  |  |  |  | - | none |  |  | 2026-12-01 (-1.96%, yahoo) |
 | RHM.DE | Rheinmetall | 2026-08-06 | 2026-11-05 | DMH | 2026-11-05 | P1 | yahoo-confirmed | 4.9% |  |  |
 | AAPL | Apple Inc. Common Stock | 2026-07-30 | 2026-11-02 | AMC | 2026-11-03 | P1 | confirmed (2 sources) | 2.4% | 2026-11-09 (-0.08%, est: quarterly cadence) |  |
 | MSFT | Microsoft Corporation Common Stock | 2026-07-29 | 2026-10-28 | AMC | 2026-10-29 | P1 | confirmed (2 sources) | 5.4% | 2026-11-19 (-0.19%, nasdaq) |  |
@@ -126,8 +123,9 @@ Field: 179 opponents per scenario, div 60% / mod 25% / all-in 15%, us_mega popul
 ## Method
 
 - 20,000 search scenarios + 40,000 validation scenarios, seed 20261025. Joint daily EUR total-return block bootstrap (5-day blocks) over the last 2 years, filtered-historical-simulation residuals rescaled to the current vol (`blend` = avg of EWMA(0.94) and 60d, ex-earnings, jumps winsorised at 4 sigma). US names: period variance moved 50% toward ATM option-implied variance for the Nov 20 expiry (= end of period 1), level-neutral (IV rescaled by the median model/IV ratio, so only the US cross-section changes).
-- Drift: CAPM, rf 2% + beta to consensus x 5% ERP. Horizon 20 + 20 trading days.
-- Earnings: historical reaction days are replaced by their market component; inside a window the reaction day gets a jump = (own earnings move multiple, shrunk to the pooled one) x current daily vol, random sign.
+- Drift: CAPM, rf 2% + beta to consensus x 5% ERP. Horizon 20 + 20 trading days (19 for US names in period 2: Thanksgiving).
+- Vol-of-vol: each scenario scales the shocks by variance-neutral lognormal multipliers (market-wide sd 0.12, per stock 0.12; calibrated in `--mode validate`). Residuals clipped at 12 sigma.
+- Earnings: historical reaction days are replaced by their market component; inside a window the reaction day gets a jump = (own earnings move multiple, shrunk to the pooled one) x current daily vol; size blended 50% toward the option-implied event move (term structure, level-neutral) where available; sign drawn with the stock's historical up-frequency shrunk to 50/50 (prior 8), mean kept.
 - Price-only scoring: known/estimated ex-dividend drops are subtracted in the window.
-- Candidates: 6,084 (all singles, pairs of the 40 highest-vol names in 5 weightings, greedy triples, benchmarks), whole shares at the latest close. Ties split.
-- The switch policy uses the realised field leader (an oracle: on Nov 22 you only have an estimate), so P(win Dec18) is slightly optimistic for every candidate alike.
+- Candidates: 5,984 (all singles, pairs of the 40 highest-vol names in 5 weightings, greedy triples, benchmarks), whole shares at the latest close. Ties split.
+- Period 2: no leaderboard, so the ranking uses realistic threshold policies on my own score; `P(win) oracle` in the CSV (`p_win_8w_switch`) is the v1 metric that switches only when actually leading.

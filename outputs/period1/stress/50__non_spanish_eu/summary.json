@@ -1,14 +1,16 @@
 {
  "pick": "CRWV",
- "p_win_8w_switch": 0.17303333333333332,
- "p_win_4w": 0.16658374999999997,
+ "rank_by": "p_win_8w_policy",
+ "p_win_8w_policy": 0.14737916666666664,
+ "policy_8w": "cons@1.35",
+ "p_win_4w": 0.13987999999999998,
  "robust_pick": "CRWV",
- "price_date": "2026-10-22",
+ "price_date": "2026-10-23",
  "field": "div 60% / mod 25% / all-in 15%, 50% non-Spanish European students",
  "n_entrants": 180,
- "field_max_4w_median": 1.2849323134911699,
- "field_max_8w_median": 1.3955113239917156,
+ "field_max_4w_median": 1.276117265384093,
+ "field_max_8w_median": 1.3749481090183011,
  "shares": {
-  "CRWV": 202
+  "CRWV": 206
  }
 }

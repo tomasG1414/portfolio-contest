@@ -184,8 +184,9 @@ def rn_tail(chains: pd.DataFrame, ticker: str, expiry: str, t: float, xs=(1.2, 1
         if not 0.7 * spot <= k <= 2.2 * spot:
             continue
         bid, ask = r.get("bid") or 0, r.get("ask") or 0
-        mid = 0.5 * (bid + ask) if bid > 0 and ask > 0 else (r.get("lastPrice") or 0)
-        iv = data._implied_vol(float(mid), spot, k, t, 0.04, True) if mid else None
+        if not (bid > 0 and ask > 0 and ask >= bid):
+            continue                      # stale last trades distort the far wing
+        iv = data._implied_vol(0.5 * (bid + ask), spot, k, t, 0.04, True)
         if iv and 0.05 < iv < 5:
             pts.append((k, iv))
     if len(pts) < 4:
@@ -199,7 +200,8 @@ def rn_tail(chains: pd.DataFrame, ticker: str, expiry: str, t: float, xs=(1.2, 1
             continue
         h = 0.01 * spot
         cK = [data._bs_price(spot, kk, t, 0.04, float(np.interp(kk, ks, ivs)), True) for kk in (K - h, K + h)]
-        out[f"rn_p{x:g}"] = float(-(cK[1] - cK[0]) / (2 * h) * math.exp(0.04 * t))
+        p = float(-(cK[1] - cK[0]) / (2 * h) * math.exp(0.04 * t))
+        out[f"rn_p{x:g}"] = p if 0 <= p <= 1 else np.nan   # wing interpolation noise
         out[f"iv_{x:g}"] = float(np.interp(K, ks, ivs))
     return out
 

@@ -1,0 +1,16 @@
+{
+ "pick": "MRNA",
+ "rank_by": "p_win_8w_policy",
+ "p_win_8w_policy": 0.14078541666666666,
+ "policy_8w": "cons@1.35",
+ "p_win_4w": 0.13559374999999999,
+ "robust_pick": "MRNA",
+ "price_date": "2026-10-23",
+ "field": "div 60% / mod 25% / all-in 15%",
+ "n_entrants": 180,
+ "field_max_4w_median": 1.269013023390696,
+ "field_max_8w_median": 1.366094575773897,
+ "shares": {
+  "MRNA": 55
+ }
+}
