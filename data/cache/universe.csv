@@ -1,0 +1,181 @@
+ticker,name,index,currency,sector,popularity
+ACS.MC,ACS,IBEX,EUR,Construction,1.5
+ACX.MC,Acerinox,IBEX,EUR,Steel,0.3
+AMS.MC,Amadeus IT Group,IBEX,EUR,Tourism,1.5
+ANA.MC,Acciona,IBEX,EUR,Construction,1.0
+ANE.MC,Acciona Energía,IBEX,EUR,Energy,1.0
+BBVA.MC,BBVA,IBEX+SX5E,EUR,Financial Services,5.0
+BKT.MC,Bankinter,IBEX,EUR,Financial Services,1.0
+CABK.MC,CaixaBank,IBEX,EUR,Financial Services,3.0
+CLNX.MC,Cellnex Telecom,IBEX,EUR,Telecommunications,1.0
+COL.MC,Inmobiliaria Colonial,IBEX,EUR,Real Estate,0.3
+AENA.MC,AENA,IBEX,EUR,Aviation,2.5
+ELE.MC,Endesa,IBEX,EUR,Energy,1.0
+ENG.MC,Enagás,IBEX,EUR,Energy,0.3
+FDR.MC,Fluidra,IBEX,EUR,Manufacturing,0.3
+FER.MC,Ferrovial,IBEX+NDX,EUR,Infrastructure,2.0
+GRF.MC,Grifols,IBEX,EUR,Pharmaceuticals,1.5
+IAG.MC,International Airlines Group,IBEX,EUR,Aviation,3.0
+IBE.MC,Iberdrola,IBEX+SX5E,EUR,Energy,5.0
+IDR.MC,Indra,IBEX,EUR,Information Technology,4.0
+ITX.MC,Inditex,IBEX+SX5E,EUR,Textile,7.0
+LOG.MC,Logista,IBEX,EUR,Logistics,0.3
+MAP.MC,Mapfre,IBEX,EUR,Insurance,1.0
+MRL.MC,Merlin Properties,IBEX,EUR,Real Estate,0.3
+MTS.MC,ArcelorMittal,IBEX,EUR,Steel,0.8
+NTGY.MC,Naturgy,IBEX,EUR,Energy,1.0
+PUIG.MC,Puig,IBEX,EUR,Clothes and Cosmetics,1.5
+RED.MC,Redeia Corporación,IBEX,EUR,Energy,1.0
+REP.MC,Repsol,IBEX,EUR,Oil and Gas,4.0
+ROVI.MC,Laboratorios Rovi [es],IBEX,EUR,Pharmaceuticals,0.3
+SAB.MC,Banco Sabadell,IBEX,EUR,Financial Services,2.0
+SAN.MC,Santander,IBEX+SX5E,EUR,Financial Services,7.0
+SCYR.MC,Sacyr,IBEX,EUR,Construction,0.3
+SLR.MC,Solaria,IBEX,EUR,Solar Energy,1.5
+TEF.MC,Telefónica,IBEX,EUR,Telecommunications,4.0
+UNI.MC,Unicaja,IBEX,EUR,Financial Services,0.3
+ADS.DE,Adidas,SX5E,EUR,Consumer Discretionary,2.5
+ADYEN.AS,Adyen,SX5E,EUR,Financials,1.0
+AD.AS,Ahold Delhaize,SX5E,EUR,Consumer Staples,0.3
+AI.PA,Air Liquide,SX5E,EUR,Materials,0.3
+AIR.PA,Airbus,SX5E,EUR,Industrials,2.5
+ALV.DE,Allianz,SX5E,EUR,Financials,1.0
+ABI.BR,Anheuser-Busch InBev,SX5E,EUR,Consumer Staples,1.0
+ARGX.BR,Argenx,SX5E,EUR,Health Care,0.3
+ASML.AS,ASML Holding,NDX+SX5E,EUR,Information Technology,5.0
+CS.PA,Axa,SX5E,EUR,Financials,0.3
+BAS.DE,BASF,SX5E,EUR,Materials,0.3
+BAYN.DE,Bayer,SX5E,EUR,Health Care,0.3
+BMW.DE,BMW,SX5E,EUR,Consumer Discretionary,2.0
+BNP.PA,BNP Paribas,SX5E,EUR,Financials,1.0
+BN.PA,Danone,SX5E,EUR,Consumer Staples,0.3
+DBK.DE,Deutsche Bank,SX5E,EUR,Financials,0.3
+DB1.DE,Deutsche Börse,SX5E,EUR,Financials,0.3
+DHL.DE,Deutsche Post,SX5E,EUR,Industrials,0.3
+DTE.DE,Deutsche Telekom,SX5E,EUR,Communication,1.0
+ENEL.MI,Enel,SX5E,EUR,Utilities,1.0
+ENI.MI,Eni,SX5E,EUR,Energy,0.3
+EL.PA,EssilorLuxottica,SX5E,EUR,Health Care,1.0
+RACE.MI,Ferrari,SX5E,EUR,Consumer Discretionary,3.0
+RMS.PA,Hermès,SX5E,EUR,Consumer Discretionary,2.0
+IFX.DE,Infineon Technologies,SX5E,EUR,Information Technology,1.0
+INGA.AS,ING Group,SX5E,EUR,Financials,0.3
+ISP.MI,Intesa Sanpaolo,SX5E,EUR,Financials,0.3
+OR.PA,L'Oréal,SX5E,EUR,Consumer Staples,2.5
+MC.PA,LVMH Moët Hennessy Louis Vuitton,SX5E,EUR,Consumer Discretionary,4.0
+MBG.DE,Mercedes-Benz Group,SX5E,EUR,Consumer Discretionary,1.5
+MUV2.DE,Munich Re,SX5E,EUR,Financials,0.3
+NDA-FI.HE,Nordea,SX5E,EUR,Financials,0.3
+PRX.AS,Prosus,SX5E,EUR,Consumer Discretionary,0.3
+RHM.DE,Rheinmetall,SX5E,EUR,Industrials,3.5
+SAF.PA,Safran,SX5E,EUR,Industrials,0.8
+SGO.PA,Saint-Gobain,SX5E,EUR,Industrials,0.3
+SAN.PA,Sanofi,SX5E,EUR,Health Care,1.0
+SAP.DE,SAP,SX5E,EUR,Information Technology,2.5
+SU.PA,Schneider Electric,SX5E,EUR,Industrials,1.0
+SIE.DE,Siemens,SX5E,EUR,Industrials,1.5
+ENR.DE,Siemens Energy,SX5E,EUR,Industrials,1.5
+TTE.PA,TotalEnergies,SX5E,EUR,Energy,1.0
+DG.PA,Vinci SA,SX5E,EUR,Industrials,0.3
+UCG.MI,UniCredit,SX5E,EUR,Financials,1.0
+VOW3.DE,Volkswagen Group,SX5E,EUR,Consumer Discretionary,1.5
+WKL.AS,Wolters Kluwer,SX5E,EUR,Industrials,0.3
+AAPL,Apple Inc. Common Stock,NDX,USD,,8.0
+AMAT,"Applied Materials, Inc. Common Stock",NDX,USD,,0.8
+AMGN,Amgen Inc. Common Stock,NDX,USD,,0.3
+CMCSA,Comcast Corporation Class A Common Stock,NDX,USD,,0.3
+INTC,Intel Corporation Common Stock,NDX,USD,,2.5
+KLAC,KLA Corporation Common Stock,NDX,USD,,0.3
+PCAR,PACCAR Inc. Common Stock,NDX,USD,,0.3
+CTAS,Cintas Corporation Common Stock,NDX,USD,,0.3
+PAYX,"Paychex, Inc. Common Stock",NDX,USD,,0.3
+LRCX,Lam Research Corporation Common Stock,NDX,USD,,0.8
+ADSK,"Autodesk, Inc. Common Stock",NDX,USD,,0.3
+ROST,"Ross Stores, Inc. Common Stock",NDX,USD,,0.3
+MNST,Monster Beverage Corporation,NDX,USD,,0.3
+MSFT,Microsoft Corporation Common Stock,NDX,USD,,7.0
+ADBE,Adobe Inc. Common Stock,NDX,USD,,1.2
+FAST,Fastenal Company Common Stock,NDX,USD,,0.3
+CSCO,"Cisco Systems, Inc. Common Stock (DE)",NDX,USD,,1.0
+REGN,"Regeneron Pharmaceuticals, Inc. Common Stock",NDX,USD,,0.3
+IDXX,"IDEXX Laboratories, Inc. Common Stock",NDX,USD,,0.3
+VRTX,Vertex Pharmaceuticals Incorporated Common Stock,NDX,USD,,0.3
+ODFL,"Old Dominion Freight Line, Inc. Common Stock",NDX,USD,,0.3
+QCOM,QUALCOMM Incorporated Common Stock,NDX,USD,,1.2
+GILD,"Gilead Sciences, Inc. Common Stock",NDX,USD,,0.3
+SNPS,"Synopsys, Inc. Common Stock",NDX,USD,,0.3
+SBUX,Starbucks Corporation Common Stock,NDX,USD,,1.5
+INTU,Intuit Inc. Common Stock,NDX,USD,,0.3
+MCHP,Microchip Technology Incorporated Common Stock,NDX,USD,,0.3
+ORLY,"O'Reilly Automotive, Inc. Common Stock",NDX,USD,,0.3
+COST,Costco Wholesale Corporation Common Stock,NDX,USD,,2.0
+CPRT,"Copart, Inc. (DE) Common Stock",NDX,USD,,0.3
+TTWO,"Take-Two Interactive Software, Inc. Common Stock",NDX,USD,,2.0
+AMZN,"Amazon.com, Inc. Common Stock",NDX,USD,,7.0
+MSTR,Strategy Inc Common Stock Class A,NDX,USD,,3.0
+NVDA,NVIDIA Corporation Common Stock,NDX,USD,,10.0
+BKNG,Booking Holdings Inc. Common Stock,NDX,USD,,1.2
+ISRG,"Intuitive Surgical, Inc. Common Stock",NDX,USD,,0.3
+MRVL,"Marvell Technology, Inc. Common Stock",NDX,USD,,0.8
+ADI,"Analog Devices, Inc. Common Stock",NDX,USD,,0.3
+AEP,"American Electric Power Company, Inc. Common Stock",NDX,USD,,0.3
+AMD,"Advanced Micro Devices, Inc. Common Stock",NDX,USD,,5.0
+ADP,"Automatic Data Processing, Inc. Common Stock",NDX,USD,,0.3
+CDNS,"Cadence Design Systems, Inc. Common Stock",NDX,USD,,0.3
+CSX,CSX Corporation Common Stock,NDX,USD,,0.3
+HON,Honeywell International Inc. Common Stock,NDX,USD,,0.3
+MAR,Marriott International Class A Common Stock,NDX,USD,,0.8
+MU,"Micron Technology, Inc. Common Stock",NDX,USD,,3.0
+XEL,Xcel Energy Inc. Common Stock,NDX,USD,,0.3
+EXC,Exelon Corporation Common Stock,NDX,USD,,0.3
+PEP,"PepsiCo, Inc. Common Stock",NDX,USD,,1.2
+ROP,"Roper Technologies, Inc. Common Stock",NDX,USD,,0.3
+TER,"Teradyne, Inc. Common Stock",NDX,USD,,0.3
+TXN,Texas Instruments Incorporated Common Stock,NDX,USD,,0.3
+WDC,Western Digital Corporation Common Stock,NDX,USD,,0.3
+WMT,Walmart Inc. Common Stock,NDX,USD,,2.0
+AXON,"Axon Enterprise, Inc. Common Stock",NDX,USD,,0.3
+MDLZ,"Mondelez International, Inc. Class A Common Stock",NDX,USD,,0.3
+NFLX,"Netflix, Inc. Common Stock",NDX,USD,,4.0
+STX,Seagate Technology Holdings PLC Ordinary Shares (Ireland),NDX,USD,,0.3
+ALNY,"Alnylam Pharmaceuticals, Inc. Common Stock",NDX,USD,,0.3
+GOOGL,Alphabet Inc. Class A Common Stock,NDX,USD,,6.0
+MPWR,"Monolithic Power Systems, Inc. Common Stock",NDX,USD,,0.3
+DXCM,"DexCom, Inc. Common Stock",NDX,USD,,0.3
+TMUS,"T-Mobile US, Inc. Common Stock",NDX,USD,,0.8
+MELI,"MercadoLibre, Inc. Common Stock",NDX,USD,,1.5
+KDP,Keurig Dr Pepper Inc. Common Stock,NDX,USD,,0.3
+NBIS,Nebius Group N.V. Class A Ordinary Shares,NDX,USD,,1.5
+AVGO,Broadcom Inc. Common Stock,NDX,USD,,3.0
+FTNT,"Fortinet, Inc. Common Stock",NDX,USD,,0.3
+TSLA,"Tesla, Inc. Common Stock",NDX,USD,,8.0
+NXPI,NXP Semiconductors N.V. Common Stock,NDX,USD,,0.3
+FANG,"Diamondback Energy, Inc. Common Stock",NDX,USD,,0.3
+META,"Meta Platforms, Inc. Class A Common Stock",NDX,USD,,6.0
+PANW,"Palo Alto Networks, Inc. Common Stock",NDX,USD,,1.0
+WDAY,"Workday, Inc. Class A Common Stock",NDX,USD,,0.3
+GOOG,Alphabet Inc. Class C Capital Stock,NDX,USD,,1.0
+PYPL,"PayPal Holdings, Inc. Common Stock",NDX,USD,,1.5
+SHOP,Shopify Inc. Class A Subordinate Voting Shares,NDX,USD,,1.5
+LITE,Lumentum Holdings Inc. Common Stock,NDX,USD,,0.8
+CCEP,Coca-Cola Europacific Partners plc Ordinary Shares,NDX,USD,,0.3
+BKR,Baker Hughes Company Class A Common Stock,NDX,USD,,0.3
+PDD,PDD Holdings Inc. American Depositary Shares,NDX,USD,,1.0
+MRNA,"Moderna, Inc. Common Stock",NDX,USD,,1.0
+CRWD,"CrowdStrike Holdings, Inc. Class A Common Stock",NDX,USD,,1.5
+DDOG,"Datadog, Inc. Class A Common Stock",NDX,USD,,0.8
+RKLB,Rocket Lab Corporation Common Stock,NDX,USD,,2.0
+PLTR,Palantir Technologies Inc. Class A Common Stock,NDX,USD,,6.0
+ABNB,"Airbnb, Inc. Class A Common Stock",NDX,USD,,1.5
+DASH,"DoorDash, Inc. Class A Common Stock",NDX,USD,,1.0
+APP,Applovin Corporation Class A Common Stock,NDX,USD,,2.0
+CEG,Constellation Energy Corporation Common Stock ,NDX,USD,,0.3
+GEHC,GE HealthCare Technologies Inc. Common Stock ,NDX,USD,,0.3
+LIN,Linde plc Ordinary Shares,NDX,USD,,0.3
+ARM,Arm Holdings plc American Depositary Shares,NDX,USD,,2.0
+TRI,Thomson Reuters Corporation Common Shares,NDX,USD,,0.3
+ALAB,"Astera Labs, Inc. Common Stock",NDX,USD,,0.8
+SNDK,Sandisk Corporation Common Stock,NDX,USD,,2.0
+CRWV,"CoreWeave, Inc. Class A Common Stock",NDX,USD,,2.0
+SPCX,Space Exploration Technologies Corp. Class A Common Stock,NDX,USD,,7.0
+HONA,Honeywell Aerospace Inc. Common Stock ,NDX,USD,,0.3

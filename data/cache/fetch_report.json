@@ -1,0 +1,30 @@
+{
+ "fetched_at_utc": "2026-10-23T11:28:45+00:00",
+ "last_price_date": "2026-10-23",
+ "universe": {
+  "IBEX": {
+   "source": "scraped",
+   "count": 35,
+   "added_vs_snapshot": [],
+   "removed_vs_snapshot": []
+  },
+  "SX5E": {
+   "source": "scraped",
+   "count": 50,
+   "added_vs_snapshot": [],
+   "removed_vs_snapshot": []
+  },
+  "NDX": {
+   "source": "scraped",
+   "count": 101,
+   "added_vs_snapshot": [],
+   "removed_vs_snapshot": []
+  }
+ },
+ "n_tickers": 180,
+ "failed_downloads": [],
+ "stale_tickers": [],
+ "meta_errors": {},
+ "nasdaq_calendar_errors": [],
+ "nasdaq_dividend_errors": []
+}
