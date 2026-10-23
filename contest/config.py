@@ -40,6 +40,7 @@ US_P2_DAYS = 19             # US is closed on Thanksgiving (Nov 26)
 
 HISTORY_YEARS = 2           # bootstrap sample length
 HISTORY_BUFFER_DAYS = 45    # extra history so the 1y vol / EWMA have warm-up
+LISTING_SKIP_DAYS = 5       # drop the first returns after a listing (IPO / spin-off price discovery)
 
 # Cross-listed names: drop the USD line, keep the EUR primary listing.
 CROSS_LISTINGS = {"ASML": "ASML.AS", "FER": "FER.MC"}

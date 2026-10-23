@@ -406,6 +406,13 @@ def build_prices(md: MarketData, asof: dt.date | None = None) -> Prices:
     close_eur[usd] = close[usd].div(fx, axis=0)
     adj_eur[usd] = adj[usd].div(fx, axis=0)
     ret = np.log(adj_eur).diff()
+    # IPO / spin-off price discovery is not representative of the stock's vol:
+    # drop the first LISTING_SKIP_DAYS returns of listings that start inside the sample
+    first = close.notna().idxmax()
+    for t in ret.columns:
+        if close[t].notna().any() and first[t] > idx[0]:
+            pos = idx.get_loc(first[t])
+            ret.iloc[pos:pos + config.LISTING_SKIP_DAYS + 1, ret.columns.get_loc(t)] = np.nan
     return Prices(dates=idx, close_eur=close_eur, close_local=close, ret_eur=ret.iloc[1:],
                   fx=fx, asof=idx.max())
 
