@@ -1,0 +1,62 @@
+{
+ "asof": "2026-10-23",
+ "portfolio": "206x CRWV",
+ "my_return": 0.0,
+ "conditional": {
+  "p_lead_nov20": 0.13532083333333333,
+  "p_win_dec18_hold": 0.138325,
+  "p_win_dec18_best_policy": 0.14656666666666665,
+  "policy": "cons@1.35",
+  "p_top5_nov20": 0.288775,
+  "days_left_p1": 20,
+  "field_leader_now_median": 1.0,
+  "field_leader_now_p10_p90": [
+   1.0,
+   1.0
+  ],
+  "p_leading_now": 0.0,
+  "random_entrant": 0.005555555555555556
+ },
+ "table": [
+  {
+   "ticker": "CRWV",
+   "name": "CoreWeave, Inc. Class A Common Stock",
+   "since Oct 23": 0.0,
+   "last week": -0.11586628442686575,
+   "popularity": 2.0,
+   "next earnings": "2026-11-12"
+  },
+  {
+   "ticker": "MRNA",
+   "name": "Moderna, Inc. Common Stock",
+   "since Oct 23": 0.0,
+   "last week": -0.08144191779295862,
+   "popularity": 2.5,
+   "next earnings": "2026-11-06"
+  },
+  {
+   "ticker": "NBIS",
+   "name": "Nebius Group N.V. Class A Ordinary Shares",
+   "since Oct 23": 0.0,
+   "last week": -0.03992967499485178,
+   "popularity": 1.5,
+   "next earnings": "2026-11-10"
+  },
+  {
+   "ticker": "ALAB",
+   "name": "Astera Labs, Inc. Common Stock",
+   "since Oct 23": 0.0,
+   "last week": -0.09957670038111233,
+   "popularity": 0.8,
+   "next earnings": "2026-11-04"
+  },
+  {
+   "ticker": "SNDK",
+   "name": "Sandisk Corporation Common Stock",
+   "since Oct 23": 0.0,
+   "last week": -0.046418866336360165,
+   "popularity": 2.0,
+   "next earnings": "2026-10-30"
+  }
+ ]
+}
