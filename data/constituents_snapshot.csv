@@ -1,0 +1,187 @@
+ticker,name,index,currency,sector
+ACS.MC,ACS,IBEX,EUR,Construction
+ACX.MC,Acerinox,IBEX,EUR,Steel
+AMS.MC,Amadeus IT Group,IBEX,EUR,Tourism
+ANA.MC,Acciona,IBEX,EUR,Construction
+ANE.MC,Acciona Energía,IBEX,EUR,Energy
+BBVA.MC,BBVA,IBEX,EUR,Financial Services
+BKT.MC,Bankinter,IBEX,EUR,Financial Services
+CABK.MC,CaixaBank,IBEX,EUR,Financial Services
+CLNX.MC,Cellnex Telecom,IBEX,EUR,Telecommunications
+COL.MC,Inmobiliaria Colonial,IBEX,EUR,Real Estate
+AENA.MC,AENA,IBEX,EUR,Aviation
+ELE.MC,Endesa,IBEX,EUR,Energy
+ENG.MC,Enagás,IBEX,EUR,Energy
+FDR.MC,Fluidra,IBEX,EUR,Manufacturing
+FER.MC,Ferrovial,IBEX,EUR,Infrastructure
+GRF.MC,Grifols,IBEX,EUR,Pharmaceuticals
+IAG.MC,International Airlines Group,IBEX,EUR,Aviation
+IBE.MC,Iberdrola,IBEX,EUR,Energy
+IDR.MC,Indra,IBEX,EUR,Information Technology
+ITX.MC,Inditex,IBEX,EUR,Textile
+LOG.MC,Logista,IBEX,EUR,Logistics
+MAP.MC,Mapfre,IBEX,EUR,Insurance
+MRL.MC,Merlin Properties,IBEX,EUR,Real Estate
+MTS.MC,ArcelorMittal,IBEX,EUR,Steel
+NTGY.MC,Naturgy,IBEX,EUR,Energy
+PUIG.MC,Puig,IBEX,EUR,Clothes and Cosmetics
+RED.MC,Redeia Corporación,IBEX,EUR,Energy
+REP.MC,Repsol,IBEX,EUR,Oil and Gas
+ROVI.MC,Laboratorios Rovi,IBEX,EUR,Pharmaceuticals
+SAB.MC,Banco Sabadell,IBEX,EUR,Financial Services
+SAN.MC,Santander,IBEX,EUR,Financial Services
+SCYR.MC,Sacyr,IBEX,EUR,Construction
+SLR.MC,Solaria,IBEX,EUR,Solar Energy
+TEF.MC,Telefónica,IBEX,EUR,Telecommunications
+UNI.MC,Unicaja,IBEX,EUR,Financial Services
+ADS.DE,Adidas,SX5E,EUR,Consumer Discretionary
+ADYEN.AS,Adyen,SX5E,EUR,Financials
+AD.AS,Ahold Delhaize,SX5E,EUR,Consumer Staples
+AI.PA,Air Liquide,SX5E,EUR,Materials
+AIR.PA,Airbus,SX5E,EUR,Industrials
+ALV.DE,Allianz,SX5E,EUR,Financials
+ABI.BR,Anheuser-Busch InBev,SX5E,EUR,Consumer Staples
+ARGX.BR,Argenx,SX5E,EUR,Health Care
+ASML.AS,ASML Holding,SX5E,EUR,Information Technology
+CS.PA,Axa,SX5E,EUR,Financials
+BAS.DE,BASF,SX5E,EUR,Materials
+BAYN.DE,Bayer,SX5E,EUR,Health Care
+BBVA.MC,BBVA,SX5E,EUR,Financials
+SAN.MC,Banco Santander,SX5E,EUR,Financials
+BMW.DE,BMW,SX5E,EUR,Consumer Discretionary
+BNP.PA,BNP Paribas,SX5E,EUR,Financials
+BN.PA,Danone,SX5E,EUR,Consumer Staples
+DBK.DE,Deutsche Bank,SX5E,EUR,Financials
+DB1.DE,Deutsche Börse,SX5E,EUR,Financials
+DHL.DE,Deutsche Post,SX5E,EUR,Industrials
+DTE.DE,Deutsche Telekom,SX5E,EUR,Communication
+ENEL.MI,Enel,SX5E,EUR,Utilities
+ENI.MI,Eni,SX5E,EUR,Energy
+EL.PA,EssilorLuxottica,SX5E,EUR,Health Care
+RACE.MI,Ferrari,SX5E,EUR,Consumer Discretionary
+RMS.PA,Hermès,SX5E,EUR,Consumer Discretionary
+IBE.MC,Iberdrola,SX5E,EUR,Utilities
+ITX.MC,Inditex,SX5E,EUR,Consumer Discretionary
+IFX.DE,Infineon Technologies,SX5E,EUR,Information Technology
+INGA.AS,ING Group,SX5E,EUR,Financials
+ISP.MI,Intesa Sanpaolo,SX5E,EUR,Financials
+OR.PA,L'Oréal,SX5E,EUR,Consumer Staples
+MC.PA,LVMH Moët Hennessy Louis Vuitton,SX5E,EUR,Consumer Discretionary
+MBG.DE,Mercedes-Benz Group,SX5E,EUR,Consumer Discretionary
+MUV2.DE,Munich Re,SX5E,EUR,Financials
+NDA-FI.HE,Nordea,SX5E,EUR,Financials
+PRX.AS,Prosus,SX5E,EUR,Consumer Discretionary
+RHM.DE,Rheinmetall,SX5E,EUR,Industrials
+SAF.PA,Safran,SX5E,EUR,Industrials
+SGO.PA,Saint-Gobain,SX5E,EUR,Industrials
+SAN.PA,Sanofi,SX5E,EUR,Health Care
+SAP.DE,SAP,SX5E,EUR,Information Technology
+SU.PA,Schneider Electric,SX5E,EUR,Industrials
+SIE.DE,Siemens,SX5E,EUR,Industrials
+ENR.DE,Siemens Energy,SX5E,EUR,Industrials
+TTE.PA,TotalEnergies,SX5E,EUR,Energy
+DG.PA,Vinci SA,SX5E,EUR,Industrials
+UCG.MI,UniCredit,SX5E,EUR,Financials
+VOW3.DE,Volkswagen (pref.),SX5E,EUR,Consumer Discretionary
+WKL.AS,Wolters Kluwer,SX5E,EUR,Industrials
+AAPL,Apple,NDX,USD,
+AMAT,Applied Materials,NDX,USD,
+AMGN,Amgen,NDX,USD,
+CMCSA,Comcast,NDX,USD,
+INTC,Intel,NDX,USD,
+KLAC,KLA,NDX,USD,
+PCAR,PACCAR,NDX,USD,
+CTAS,Cintas,NDX,USD,
+PAYX,Paychex,NDX,USD,
+LRCX,Lam Research,NDX,USD,
+ADSK,Autodesk,NDX,USD,
+ROST,Ross Stores,NDX,USD,
+MNST,Monster Beverage,NDX,USD,
+MSFT,Microsoft,NDX,USD,
+ADBE,Adobe,NDX,USD,
+FAST,Fastenal,NDX,USD,
+CSCO,Cisco Systems,NDX,USD,
+REGN,Regeneron Pharmaceuticals,NDX,USD,
+IDXX,IDEXX Laboratories,NDX,USD,
+VRTX,Vertex Pharmaceuticals,NDX,USD,
+ODFL,Old Dominion Freight Line,NDX,USD,
+QCOM,Qualcomm,NDX,USD,
+GILD,Gilead Sciences,NDX,USD,
+SNPS,Synopsys,NDX,USD,
+SBUX,Starbucks,NDX,USD,
+INTU,Intuit,NDX,USD,
+MCHP,Microchip Technology,NDX,USD,
+ORLY,O'Reilly Automotive,NDX,USD,
+COST,Costco Wholesale,NDX,USD,
+CPRT,Copart,NDX,USD,
+ASML,ASML Holding (ADR),NDX,USD,
+TTWO,Take-Two Interactive,NDX,USD,
+AMZN,Amazon.com,NDX,USD,
+MSTR,Strategy,NDX,USD,
+NVDA,NVIDIA,NDX,USD,
+BKNG,Booking Holdings,NDX,USD,
+ISRG,Intuitive Surgical,NDX,USD,
+MRVL,Marvell Technology,NDX,USD,
+ADI,Analog Devices,NDX,USD,
+AEP,American Electric Power,NDX,USD,
+AMD,Advanced Micro Devices,NDX,USD,
+ADP,Automatic Data Processing,NDX,USD,
+CDNS,Cadence Design Systems,NDX,USD,
+CSX,CSX,NDX,USD,
+HON,Honeywell International,NDX,USD,
+MAR,Marriott International,NDX,USD,
+MU,Micron Technology,NDX,USD,
+XEL,Xcel Energy,NDX,USD,
+EXC,Exelon,NDX,USD,
+PEP,PepsiCo,NDX,USD,
+ROP,Roper Technologies,NDX,USD,
+TER,Teradyne,NDX,USD,
+TXN,Texas Instruments,NDX,USD,
+WDC,Western Digital,NDX,USD,
+WMT,Walmart,NDX,USD,
+AXON,Axon Enterprise,NDX,USD,
+MDLZ,Mondelez International,NDX,USD,
+NFLX,Netflix,NDX,USD,
+STX,Seagate Technology,NDX,USD,
+ALNY,Alnylam Pharmaceuticals,NDX,USD,
+GOOGL,Alphabet (Class A),NDX,USD,
+MPWR,Monolithic Power Systems,NDX,USD,
+DXCM,DexCom,NDX,USD,
+TMUS,T-Mobile US,NDX,USD,
+MELI,MercadoLibre,NDX,USD,
+KDP,Keurig Dr Pepper,NDX,USD,
+NBIS,Nebius Group,NDX,USD,
+AVGO,Broadcom,NDX,USD,
+FTNT,Fortinet,NDX,USD,
+TSLA,Tesla,NDX,USD,
+NXPI,NXP Semiconductors,NDX,USD,
+FANG,Diamondback Energy,NDX,USD,
+META,Meta Platforms,NDX,USD,
+PANW,Palo Alto Networks,NDX,USD,
+WDAY,Workday,NDX,USD,
+GOOG,Alphabet (Class C),NDX,USD,
+PYPL,PayPal,NDX,USD,
+SHOP,Shopify,NDX,USD,
+LITE,Lumentum,NDX,USD,
+CCEP,Coca-Cola Europacific Partners,NDX,USD,
+BKR,Baker Hughes,NDX,USD,
+PDD,PDD Holdings,NDX,USD,
+MRNA,Moderna,NDX,USD,
+CRWD,CrowdStrike,NDX,USD,
+DDOG,Datadog,NDX,USD,
+RKLB,Rocket Lab,NDX,USD,
+PLTR,Palantir Technologies,NDX,USD,
+ABNB,Airbnb,NDX,USD,
+DASH,DoorDash,NDX,USD,
+APP,AppLovin,NDX,USD,
+CEG,Constellation Energy,NDX,USD,
+GEHC,GE HealthCare,NDX,USD,
+LIN,Linde,NDX,USD,
+ARM,Arm Holdings,NDX,USD,
+TRI,Thomson Reuters,NDX,USD,
+FER,Ferrovial (US listing),NDX,USD,
+ALAB,Astera Labs,NDX,USD,
+SNDK,Sandisk,NDX,USD,
+CRWV,CoreWeave,NDX,USD,
+SPCX,SpaceX (Space Exploration Technologies),NDX,USD,
+HONA,Honeywell Aerospace,NDX,USD,
