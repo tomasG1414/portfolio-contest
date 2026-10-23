@@ -44,7 +44,9 @@ POPULARITY = {
     "RKLB": 2, "CRWV": 2, "SNDK": 2, "TTWO": 2, "APP": 2,
     "SBUX": 1.5, "PYPL": 1.5, "ABNB": 1.5, "SHOP": 1.5, "MELI": 1.5,
     "CRWD": 1.5, "NBIS": 1.5, "PEP": 1.2, "BKNG": 1.2, "ADBE": 1.2,
-    "QCOM": 1.2, "PANW": 1.0, "DASH": 1.0, "MRNA": 1.0, "PDD": 1.0,
+    "QCOM": 1.2, "PANW": 1.0, "DASH": 1.0, "PDD": 1.0,
+    "MRNA": 2.5,   # 7x in a year (+177% on Aug 19 2026): news-driven hype
+
     "CSCO": 1.0, "GOOG": 1.0, "TMUS": 0.8, "LITE": 0.8, "ALAB": 0.8,
     "AMAT": 0.8, "LRCX": 0.8, "MRVL": 0.8, "MAR": 0.8, "DDOG": 0.8,
     # Spanish blue chips (home bias)

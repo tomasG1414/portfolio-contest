@@ -1,0 +1,8 @@
+# Manually checked next-earnings dates. Rows here take precedence over Yahoo/Nasdaq.
+# timing: BMO (before open), AMC (after close), DMH (during market hours), unknown.
+# alt_date/p_primary: date not confirmed by the company -> p_primary = probability the
+# primary date is right; otherwise the event happens on alt_date.
+ticker,date,timing,alt_date,p_primary,source
+NVDA,2026-11-18,AMC,2026-11-25,0.85,"Not yet announced by NVIDIA (IR events page, Oct 23); Yahoo Nov 17 / Nasdaq Nov 18; trackers 17-25 Nov; FY26 Q3 was Wed Nov 19 2025"
+MU,2026-12-16,AMC,2026-12-23,0.5,"Not yet announced by Micron; Nasdaq Dec 16 vs Yahoo / Wall Street Horizon Dec 23 (unconfirmed); FY26 Q1 was Wed Dec 17 2025"
+GRF.MC,2026-11-10,unknown,,,"Investing.com next report 10.11.2026 (Yahoo has no date); company agenda not yet updated"

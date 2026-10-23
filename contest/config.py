@@ -65,7 +65,8 @@ class SimConfig:
     rf: float = 0.02              # EUR risk-free (annual) for the CAPM drift
     erp: float = 0.05             # equity risk premium (annual) x beta to consensus
     earnings_prior_n: int = 4     # shrink own earnings moves toward the pooled multiple
-    use_iv: bool = False          # rescale US vols toward option-implied vol
+    use_iv: bool = True           # move US period variance toward option-implied (level-neutral)
+    iv_weight: float = 0.5        # weight on the options market in that blend
 
 
 @dataclass(frozen=True)

@@ -44,7 +44,9 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--block", type=int, default=config.SimConfig.block)
     p.add_argument("--vol-target", choices=["ewma", "60d", "1y", "blend"],
                    default=config.SimConfig.vol_target)
-    p.add_argument("--use-iv", action="store_true", help="blend US vols toward option IV")
+    p.add_argument("--no-iv", action="store_true",
+                   help="do not calibrate US vols to option-implied variance")
+    p.add_argument("--iv-weight", type=float, default=config.SimConfig.iv_weight)
     p.add_argument("--mix", type=str, default=None,
                    help="field mixture 'diversified,moderate,allin', e.g. 0.6,0.25,0.15")
     p.add_argument("--sensitivity", type=str,
@@ -75,7 +77,7 @@ def _mix_from_args(a) -> config.FieldMix:
 def _sim_cfg(a) -> config.SimConfig:
     return config.SimConfig(n_scenarios=a.scenarios, n_validate=a.validate_scenarios,
                             seed=a.seed, block=a.block, vol_target=a.vol_target,
-                            use_iv=a.use_iv)
+                            use_iv=not a.no_iv, iv_weight=a.iv_weight)
 
 
 def main(argv=None):

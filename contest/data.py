@@ -392,7 +392,9 @@ def _timing_from_local_hour(ts_local: pd.Timestamp, us: bool) -> str:
         return "unknown"
     if h < (9.5 if us else 9.0):
         return "BMO"
-    if h >= (16.0 if us else 17.5):
+    # Yahoo's calendar shifts future US times by an hour across DST (a 4 PM
+    # release shows as 3 PM EST), so 3 PM already counts as after the close.
+    if h >= (15.0 if us else 17.5):
         return "AMC"
     return "DMH"   # during market hours: reaction the same day
 
@@ -490,15 +492,17 @@ def earnings_table(md: MarketData, prices: Prices) -> tuple[pd.DataFrame, dict]:
         if nd:
             src["nasdaq"] = min(nd)
         o = ovr[ovr["ticker"] == t] if not ovr.empty else ovr
-        if len(o):
-            r = o.iloc[0]
-            src["override"] = (pd.Timestamp(r["date"]), r.get("timing") or "unknown")
+        ovr_row = o.iloc[0] if len(o) else None
+        if ovr_row is not None:
+            src["override"] = (pd.Timestamp(ovr_row["date"]), ovr_row.get("timing") or "unknown")
 
         primary_key = next((k for k in ("override", "yahoo_cal", "yahoo_ts", "yahoo_quote", "nasdaq")
                             if k in src), None)
         row = {"ticker": t, "earn_date": None, "earn_timing": None, "earn_reaction": None,
                "earn_period": 0, "earn_status": "none", "earn_sources": "",
-               "earn_alt_date": None, "earn_n_hist": len(history[t])}
+               "earn_alt_date": None, "earn_alt_reaction": None, "earn_alt_period": 0,
+               "earn_p_primary": 1.0, "earn_n_hist": len(history[t]),
+               "earn_last": max(past)[0].date() if past else None}
         if primary_key:
             d, timing = src[primary_key]
             if timing == "unknown":
@@ -513,7 +517,7 @@ def earnings_table(md: MarketData, prices: Prices) -> tuple[pd.DataFrame, dict]:
             agree = [k for k, v in others.items() if abs((v - d.normalize()).days) <= 1]
             conflict = [k for k, v in others.items() if abs((v - d.normalize()).days) > 1]
             if primary_key == "override":
-                status = "verified (manual)"
+                status = "manual (see overrides)"
             elif "nasdaq" in agree:
                 status = "confirmed (2 sources)"
             elif conflict:
@@ -524,8 +528,24 @@ def earnings_table(md: MarketData, prices: Prices) -> tuple[pd.DataFrame, dict]:
                 status = "estimate/single source"
             row.update(earn_date=d.normalize().date(), earn_timing=timing, earn_reaction=react.date() if react is not None else None,
                        earn_period=_period_of(react), earn_status=status,
-                       earn_sources=",".join(f"{k}:{v[0].date()}" for k, v in src.items()),
-                       earn_alt_date=(others[conflict[0]].date() if conflict else None))
+                       earn_sources=",".join(f"{k}:{v[0].date()}" for k, v in src.items()))
+            # Date uncertainty: an unconfirmed date can fall in the other window.
+            alt, p_primary = None, 1.0
+            if ovr_row is not None and str(ovr_row.get("alt_date") or ""):
+                alt = pd.Timestamp(ovr_row["alt_date"])
+                p_primary = float(ovr_row.get("p_primary") or 0.5)
+                row["earn_status"] = "unconfirmed (manual check)"
+            elif conflict:
+                alt, p_primary = others[conflict[0]], 0.5
+            if alt is not None:
+                alt_react = _reaction_day(alt, react_timing, fut_cal)
+                alt_period = _period_of(alt_react)
+                if alt_period == row["earn_period"]:
+                    p_primary = 1.0
+                    if row["earn_status"] == "CONFLICT":
+                        row["earn_status"] = "sources differ, same window"
+                row.update(earn_alt_date=alt.date(), earn_alt_reaction=alt_react.date() if alt_react is not None else None,
+                           earn_alt_period=alt_period, earn_p_primary=p_primary)
             if timing == "unknown" and react is not None:
                 row["earn_status"] += " (time unknown)"
         rows.append(row)
@@ -627,7 +647,9 @@ def exdiv_table(md: MarketData, prices: Prices) -> pd.DataFrame:
                 else:
                     ly = hist.loc[a - pd.Timedelta(days=371):b - pd.Timedelta(days=357)]
                     for d, amt in ly.items():
-                        est.append((d + pd.Timedelta(days=364), float(amt), "est: same window last year"))
+                        d2 = d + pd.Timedelta(days=364)
+                        if a <= d2 <= b:
+                            est.append((d2, float(amt), "est: same window last year"))
             ev = conf or est
             price = prices.close_local[t].dropna().iloc[-1]
             amt = sum(e[1] for e in ev)
@@ -662,7 +684,11 @@ def compute_features(md: MarketData, prices: Prices, lam: float = 0.94) -> tuple
         days = [d for d in moves.get(t, {}).get("days", []) if d in r_x.index]
         if days:
             r_x.loc[days, t] = beta[t] * cons.loc[days]
-    ew_x = ewma_vol(r_x, lam)
+    # Robust "normal" vol: winsorise residual jumps (results we have no date
+    # for, other news) at 4 sigma so one day cannot inflate the target vol.
+    ew_raw = ewma_vol(r_x, lam)
+    r_w = r_x.clip(lower=-4 * ew_raw, upper=4 * ew_raw)
+    ew_x = ewma_vol(r_w, lam)
     corr = {t: float(one_y[t].corr(cons.loc[one_y.index])) for t in tickers}
     ex = exdiv_table(md, prices)
 
@@ -681,16 +707,23 @@ def compute_features(md: MarketData, prices: Prices, lam: float = 0.94) -> tuple
     f["vol20"] = r.iloc[-20:].std() * ann
     f["vol60"] = r.iloc[-60:].std() * ann
     f["vol1y"] = one_y.std() * ann
-    f["vol60_ex_earn"] = r_x.iloc[-60:].std() * ann
-    f["vol1y_ex_earn"] = r_x.iloc[-252:].std() * ann
+    f["vol60_ex_earn"] = r_w.iloc[-60:].std() * ann
+    f["vol1y_ex_earn"] = r_w.iloc[-252:].std() * ann
     # next-day EWMA forecast (includes today's return)
-    f["ewma_vol_ex_earn"] = np.sqrt(lam * ew_x.iloc[-1] ** 2 + (1 - lam) * r_x.iloc[-1].fillna(0) ** 2) * ann
+    f["ewma_vol_ex_earn"] = np.sqrt(lam * ew_x.iloc[-1] ** 2 + (1 - lam) * r_w.iloc[-1].fillna(0) ** 2) * ann
     f["beta_cons"] = pd.Series(beta)
     f["corr_cons"] = pd.Series(corr)
+    # ATM implied vol for the Nov 20 / Dec 18 expiries (own BS inversion of
+    # mid prices; Yahoo's own IV field is often stale outside US hours).
+    fetched = pd.Timestamp((md.fetch_report or {}).get("fetched_at_utc") or prices.asof)
+    first_day = (fetched + pd.Timedelta(days=1)).normalize() if fetched.hour >= 20 else fetched.normalize()
+    first_day = first_day.tz_localize(None) if first_day.tzinfo else first_day
     for p in ("p1", "p2"):
-        f[f"iv_{p}"] = [((md.meta.get(t, {}).get("iv") or {}).get(p) or {}).get("iv") or
-                        ((md.meta.get(t, {}).get("iv") or {}).get(p) or {}).get("iv_yahoo")
-                        for t in tickers]
+        ivd = [((md.meta.get(t, {}).get("iv") or {}).get(p) or {}) for t in tickers]
+        f[f"iv_{p}"] = [d.get("iv") for d in ivd]
+        f[f"iv_{p}_t"] = [d.get("t_years") for d in ivd]
+        f[f"iv_{p}_bdays"] = [len(pd.bdate_range(first_day, d["expiry"])) if d.get("expiry") else None
+                              for d in ivd]
     f = f.join(earn).join(ex)
     mv = {t: moves.get(t, {}).get("moves", []) for t in tickers}
     f["earn_move_n"] = [len(mv[t]) for t in tickers]
