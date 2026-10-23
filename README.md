@@ -41,6 +41,7 @@ python -m contest --mode period2 --my-return 0.083      # or 8.3%
 Useful options: `--scenarios 50000`, `--seed`, `--mix 0.6,0.25,0.15`,
 `--sensitivity 0.05,0.15,0.30`, `--vol-target ewma|60d|1y|blend`, `--no-iv`, `--iv-weight 0.5`,
 `--p-rebalance 0.5`, `--chase 0.5` (opponents chase period-1 winners),
+`--pop-noise 0.2` (uncertainty on the popularity weights, 0 = exact),
 `--rank-by p_win_4w`, `--asof 2026-10-22`. `--mode period2 --dry-run` exercises the
 period-2 code with a simulated period-1 outcome before real data exists.
 
@@ -61,7 +62,8 @@ from that stock's history (shrunk toward the pooled distribution). Known or
 estimated ex-dividend drops are subtracted because the contest scores price only.
 Each scenario gets a fresh field of 179 opponents from a mixture of diversified,
 moderately concentrated and all-in archetypes sampled by popularity (all-in by
-popularity x vol), with whole shares. Candidates are scored on P(rank 1) and
+popularity x vol), with whole shares; the popularity weights themselves are
+uncertain (one lognormal draw, sigma 20%, per ~1,000 scenarios, shared by the field). Candidates are scored on P(rank 1) and
 P(top 5) with ties split, at 4 weeks and at 8 weeks (buy-and-hold, and a policy
 that switches to the consensus basket on Nov 22 only when leading). The shortlist
 is re-scored on fresh scenarios to remove selection bias, under 5/15/30%

@@ -12,6 +12,7 @@ end/start price ratio in scenario s, which is exactly what the contest scores.
 """
 from __future__ import annotations
 
+import dataclasses
 import itertools
 import math
 from dataclasses import dataclass
@@ -323,10 +324,21 @@ class _Pool:
         return idx, eff
 
 
+def _popularity_worlds(n_scen: int, mix: config.FieldMix) -> int:
+    """Number of popularity draws ("worlds") per field: one per ~1,000 scenarios."""
+    return 1 if mix.pop_noise <= 0 else max(20, n_scen // 1000)
+
+
 def simulate_field(inp: SimInputs, G1: np.ndarray, G2: np.ndarray, mix: config.FieldMix,
                    rng: np.random.Generator, n_opp: int = config.N_OPPONENTS,
                    chunk: int = 500, pool_inp: SimInputs | None = None) -> FieldResult:
     """Fresh 179-opponent field for every scenario.
+
+    Popularity is uncertain (the weights are judgement calls): scenarios are
+    split into "worlds", each drawing one true popularity vector
+    pop_i x lognormal(sigma = ``mix.pop_noise``, mean 1) shared by every
+    opponent in that world. Noise is per contest, not per student, so it
+    does not average away across the 179 opponents.
 
     Period 2: a share ``p_rebalance`` of opponents re-pick (same archetype,
     optionally tilted to period-1 winners via ``mix.chase``); the rest keep
@@ -336,45 +348,64 @@ def simulate_field(inp: SimInputs, G1: np.ndarray, G2: np.ndarray, mix: config.F
     S, N = G1.shape
     probs = np.array([mix.diversified, mix.moderate, mix.allin])
     probs = probs / probs.sum()
-    pool1 = _Pool(inp, mix, rng)
-    pool2 = _Pool(pool_inp or inp, mix, rng) if not mix.chase else None
     top1 = np.empty((S, TOPK))
     top8 = np.empty((S, TOPK))
     n_hold = np.zeros((S, N), np.int16)
     max_w = np.zeros((S, N), np.float32)
-    for s0 in range(0, S, chunk):
-        s1 = min(S, s0 + chunk)
-        m = s1 - s0
-        rows = m * n_opp
-        scen = np.repeat(np.arange(s0, s1), n_opp)
-        types = rng.choice(3, size=rows, p=probs)
-        idx, eff = pool1.draw(rng, types)
-        g1 = G1[scen[:, None], idx]
-        cash = 1.0 - eff.sum(axis=1)
-        r1 = (eff * g1).sum(axis=1) + cash
-        # period 2
-        reb = rng.random(rows) < mix.p_rebalance
-        r8 = (eff * g1 * G2[scen[:, None], idx]).sum(axis=1) + cash
-        if reb.any():
-            if mix.chase:
-                lg = np.log(G1[s0:s1])
-                z = (lg - lg.mean(1, keepdims=True)) / (lg.std(1, keepdims=True) + 1e-12)
-                extra = np.repeat(mix.chase * z, n_opp, axis=0)
-                idx2, eff2 = _draw_field_rows(rng, pool_inp or inp, mix, types, extra)
-            else:
-                idx2, eff2 = pool2.draw(rng, types)
-            r2 = (eff2 * G2[scen[:, None], idx2]).sum(axis=1) + 1.0 - eff2.sum(axis=1)
-            r8 = np.where(reb, r1 * r2, r8)
-        r1m = r1.reshape(m, n_opp)
-        r8m = r8.reshape(m, n_opp)
-        top1[s0:s1] = -np.sort(-r1m, axis=1)[:, :TOPK]
-        top8[s0:s1] = -np.sort(-r8m, axis=1)[:, :TOPK]
-        held = eff > 0
-        flat = (scen[:, None] * N + idx)[held] - s0 * N
-        n_hold[s0:s1] += np.bincount(flat, minlength=m * N).reshape(m, N).astype(np.int16)
-        big = eff[held] >= 0.15   # only concentrated holdings matter for "shadowing"
-        np.maximum.at(max_w[s0:s1].reshape(-1), flat[big], eff[held][big].astype(np.float32))
+    n_worlds = _popularity_worlds(S, mix)
+    pool_size = 60_000 if n_worlds == 1 else 12_000
+    bounds = np.linspace(0, S, n_worlds + 1).astype(int)
+    for w in range(n_worlds):
+        inp_w, pinp_w = inp, pool_inp or inp
+        if mix.pop_noise > 0:
+            sig = mix.pop_noise
+            factor = np.exp(sig * rng.standard_normal(inp.n) - 0.5 * sig ** 2)
+            inp_w = dataclasses.replace(inp, popularity=inp.popularity * factor)
+            pinp_w = dataclasses.replace(pinp_w, popularity=pinp_w.popularity * factor)
+        pool1 = _Pool(inp_w, mix, rng, pool_size)
+        # re-picks come from the same pool unless period-2 prices differ
+        pool2 = None if mix.chase else (pool1 if pool_inp is None else _Pool(pinp_w, mix, rng, pool_size))
+        for s0 in range(bounds[w], bounds[w + 1], chunk):
+            s1 = min(bounds[w + 1], s0 + chunk)
+            _field_chunk(s0, s1, G1, G2, mix, rng, n_opp, probs, pool1, pool2, pinp_w,
+                         top1, top8, n_hold, max_w)
     return FieldResult(top1=top1, top8=top8, n_hold=n_hold, max_w=max_w, mix=mix)
+
+
+def _field_chunk(s0, s1, G1, G2, mix, rng, n_opp, probs, pool1, pool2, pool_inp,
+                 top1, top8, n_hold, max_w):
+    """Score opponents for scenarios s0:s1 and record leaderboard stats."""
+    N = G1.shape[1]
+    m = s1 - s0
+    rows = m * n_opp
+    scen = np.repeat(np.arange(s0, s1), n_opp)
+    types = rng.choice(3, size=rows, p=probs)
+    idx, eff = pool1.draw(rng, types)
+    g1 = G1[scen[:, None], idx]
+    cash = 1.0 - eff.sum(axis=1)
+    r1 = (eff * g1).sum(axis=1) + cash
+    # period 2
+    reb = rng.random(rows) < mix.p_rebalance
+    r8 = (eff * g1 * G2[scen[:, None], idx]).sum(axis=1) + cash
+    if reb.any():
+        if mix.chase:
+            lg = np.log(G1[s0:s1])
+            z = (lg - lg.mean(1, keepdims=True)) / (lg.std(1, keepdims=True) + 1e-12)
+            extra = np.repeat(mix.chase * z, n_opp, axis=0)
+            idx2, eff2 = _draw_field_rows(rng, pool_inp, mix, types, extra)
+        else:
+            idx2, eff2 = pool2.draw(rng, types)
+        r2 = (eff2 * G2[scen[:, None], idx2]).sum(axis=1) + 1.0 - eff2.sum(axis=1)
+        r8 = np.where(reb, r1 * r2, r8)
+    r1m = r1.reshape(m, n_opp)
+    r8m = r8.reshape(m, n_opp)
+    top1[s0:s1] = -np.sort(-r1m, axis=1)[:, :TOPK]
+    top8[s0:s1] = -np.sort(-r8m, axis=1)[:, :TOPK]
+    held = eff > 0
+    flat = (scen[:, None] * N + idx)[held] - s0 * N
+    n_hold[s0:s1] += np.bincount(flat, minlength=m * N).reshape(m, N).astype(np.int16)
+    big = eff[held] >= 0.15   # only concentrated holdings matter for "shadowing"
+    np.maximum.at(max_w[s0:s1].reshape(-1), flat[big], eff[held][big].astype(np.float32))
 
 
 # ==========================================================================

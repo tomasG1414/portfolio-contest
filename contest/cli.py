@@ -54,6 +54,8 @@ def build_parser() -> argparse.ArgumentParser:
                    help="all-in shares for the sensitivity runs")
     p.add_argument("--p-rebalance", type=float, default=config.FieldMix.p_rebalance)
     p.add_argument("--chase", type=float, default=config.FieldMix.chase)
+    p.add_argument("--pop-noise", type=float, default=config.FieldMix.pop_noise,
+                   help="lognormal sigma of popularity uncertainty (0 = take weights as exact)")
     p.add_argument("--rank-by", default="p_win_8w_switch",
                    help="metric used to rank candidates")
     p.add_argument("--my-return", type=str, default=None,
@@ -66,7 +68,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _mix_from_args(a) -> config.FieldMix:
-    mix = config.FieldMix(p_rebalance=a.p_rebalance, chase=a.chase)
+    mix = config.FieldMix(p_rebalance=a.p_rebalance, chase=a.chase, pop_noise=a.pop_noise)
     if a.mix:
         d, m, x = (float(v) for v in a.mix.split(","))
         tot = d + m + x

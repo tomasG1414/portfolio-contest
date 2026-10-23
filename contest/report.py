@@ -300,7 +300,10 @@ def period1_markdown(c: dict) -> str:
           f"Field: {config.N_OPPONENTS} opponents per scenario, {mix.label()}; diversified = "
           f"{mix.div_k[0]}-{mix.div_k[1]} names ~ popularity, moderate = {mix.mod_k[0]}-{mix.mod_k[1]} "
           f"names ~ popularity^{mix.mod_pop_power}, all-in = 1-2 names ~ popularity x vol; Dirichlet "
-          f"weights, whole shares. On Nov 22 {mix.p_rebalance:.0%} of opponents re-pick, the rest hold.", "",
+          f"weights, whole shares. On Nov 22 {mix.p_rebalance:.0%} of opponents re-pick, the rest hold."
+          + (f" Popularity is uncertain: every ~1,000 scenarios draw one true popularity vector = weights "
+             f"x lognormal(sigma {mix.pop_noise:.0%}), shared by the whole field." if mix.pop_noise > 0 else ""),
+          "",
           "## Method", "",
           f"- {cfg.n_scenarios:,} search scenarios + {cfg.n_validate:,} validation scenarios, seed "
           f"{cfg.seed}. Joint daily EUR total-return block bootstrap ({cfg.block}-day blocks) over the "

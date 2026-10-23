@@ -82,6 +82,7 @@ class FieldMix:
     dirichlet_alpha: float = 4.0  # weight dispersion within a portfolio (high = near equal)
     p_rebalance: float = 0.5      # opponents who re-pick at the Nov 22 rebalance
     chase: float = 0.0            # >0: re-pickers tilt toward period-1 winners
+    pop_noise: float = 0.20       # lognormal sigma on the popularity weights (they are judgement calls)
 
     def with_allin(self, allin: float) -> "FieldMix":
         """Same mixture with a different all-in share; others keep their ratio."""

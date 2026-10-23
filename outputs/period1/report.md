@@ -4,7 +4,7 @@ Objective: maximise the probability of finishing **first** of 180 (not expected 
 
 ## Submission (do not trade - enter these in the contest platform)
 
-**CRWV** - P(win Dec 18) 17.17%, P(lead Nov 20) 16.31%, P(top 5 Nov 20) 32.7% (validated on 40,000 fresh scenarios).
+**CRWV** - P(win Dec 18) 17.05%, P(lead Nov 20) 16.49%, P(top 5 Nov 20) 32.7% (validated on 40,000 fresh scenarios).
 
 | ticker | name | shares | price_local | currency | price_eur | value_eur | weight | last_close |
 |---|---|---|---|---|---|---|---|---|
@@ -18,20 +18,20 @@ Invested 9,996.89 EUR, cash left 3.11 EUR (earns nothing). EUR/USD used: 1.1235.
 
 | # | portfolio | P(win) Dec18 | P(win) hold 8w | P(lead) Nov20 | P(top5) Nov20 | median 4w | p10 / p90 4w | vol | corr cons. | co-holders | shadowed | flags |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | CRWV | 17.17% | 16.61% | 16.31% | 32.7% | -0.7% | -33.9% / 48.2% | 113% | 0.31 | 11.4 | 27% | CRWV: E1 2026-11-12? |
-| 2 | SNDK 20% + CRWV 80% | 14.18% | 13.91% | 12.83% | 31.3% | -0.2% | -30.6% / 44.1% | 102% | 0.33 | 7.5 | 37% | SNDK: E1 2026-10-30 | CRWV: E1 2026-11-12? |
-| 3 | MPWR 20% + CRWV 80% | 13.98% | 13.66% | 12.61% | 30.9% | -0.5% | -30.7% / 43.8% | 102% | 0.33 | 5.9 | 25% | MPWR: E1 2026-10-30 | CRWV: E1 2026-11-12? |
-| 4 | MRNA | 13.98% | 13.16% | 13.50% | 27.9% | -3.9% | -34.7% / 42.5% | 112% | 0.14 | 14.2 | 35% | MRNA: E1 2026-11-06 |
-| 5 | NBIS 20% + CRWV 80% | 13.25% | 13.08% | 12.01% | 30.4% | -0.3% | -30.1% / 42.0% | 99% | 0.36 | 10.0 | 38% | NBIS: E1 2026-11-10 | CRWV: E1 2026-11-12? |
-| 6 | MU 20% + CRWV 80% | 13.18% | 12.98% | 11.81% | 30.4% | -0.3% | -29.7% / 42.3% | 99% | 0.35 | 10.7 | 30% | MU: E2 2026-12-17? (50%; else outside 2026-12-24) | CRWV: E1 2026-11-12? |
-| 7 | ALAB 20% + CRWV 80% | 12.90% | 12.74% | 11.73% | 30.1% | -0.3% | -29.3% / 41.5% | 97% | 0.36 | 7.9 | 34% | ALAB: E1 2026-11-04 | CRWV: E1 2026-11-12? |
-| 8 | STX 20% + CRWV 80% | 12.68% | 12.51% | 11.70% | 30.1% | -0.3% | -29.2% / 41.5% | 97% | 0.35 | 6.2 | 27% | STX: E1 2026-10-28 | CRWV: E1 2026-11-12? |
-| 9 | ARM 20% + CRWV 80% | 12.67% | 12.52% | 11.54% | 30.3% | -0.2% | -29.6% / 41.5% | 98% | 0.35 | 11.3 | 43% | ARM: E1 2026-11-05 | CRWV: E1 2026-11-12? |
-| 10 | CRWV 80% + HONA 20% | 12.62% | 12.60% | 11.48% | 30.1% | 0.3% | -26.9% / 40.3% | 91% | 0.34 | 6.2 | 26% | CRWV: E1 2026-11-12? | HONA: E1 2026-10-29; short history |
+| 1 | CRWV | 17.05% | 16.67% | 16.49% | 32.7% | -0.7% | -33.9% / 48.2% | 113% | 0.31 | 11.3 | 27% | CRWV: E1 2026-11-12? |
+| 2 | SNDK 20% + CRWV 80% | 14.23% | 14.06% | 12.80% | 31.4% | -0.2% | -30.6% / 44.1% | 102% | 0.33 | 7.4 | 37% | SNDK: E1 2026-10-30 | CRWV: E1 2026-11-12? |
+| 3 | MPWR 20% + CRWV 80% | 13.95% | 13.76% | 12.68% | 31.0% | -0.5% | -30.7% / 43.8% | 102% | 0.33 | 5.8 | 26% | MPWR: E1 2026-10-30 | CRWV: E1 2026-11-12? |
+| 4 | MRNA | 13.93% | 13.25% | 13.60% | 28.0% | -3.9% | -34.7% / 42.5% | 112% | 0.14 | 14.1 | 34% | MRNA: E1 2026-11-06 |
+| 5 | NBIS 20% + CRWV 80% | 13.23% | 13.18% | 12.11% | 30.6% | -0.3% | -30.1% / 42.0% | 99% | 0.36 | 10.1 | 39% | NBIS: E1 2026-11-10 | CRWV: E1 2026-11-12? |
+| 6 | MU 20% + CRWV 80% | 13.20% | 13.09% | 11.86% | 30.6% | -0.3% | -29.7% / 42.3% | 99% | 0.35 | 10.2 | 31% | MU: E2 2026-12-17? (50%; else outside 2026-12-24) | CRWV: E1 2026-11-12? |
+| 7 | ALAB 20% + CRWV 80% | 12.88% | 12.78% | 11.72% | 30.2% | -0.3% | -29.3% / 41.5% | 97% | 0.36 | 7.7 | 33% | ALAB: E1 2026-11-04 | CRWV: E1 2026-11-12? |
+| 8 | STX 20% + CRWV 80% | 12.85% | 12.76% | 11.61% | 30.2% | -0.3% | -29.2% / 41.5% | 97% | 0.35 | 6.1 | 27% | STX: E1 2026-10-28 | CRWV: E1 2026-11-12? |
+| 9 | ARM 20% + CRWV 80% | 12.73% | 12.83% | 11.59% | 30.4% | -0.2% | -29.6% / 41.5% | 98% | 0.35 | 11.2 | 42% | ARM: E1 2026-11-05 | CRWV: E1 2026-11-12? |
+| 10 | CRWV 80% + HONA 20% | 12.63% | 12.75% | 11.56% | 30.4% | 0.3% | -26.9% / 40.3% | 91% | 0.34 | 6.2 | 26% | CRWV: E1 2026-11-12? | HONA: E1 2026-10-29; short history |
 
 P(win) Dec18 = switch-if-leading policy; hold 8w = no rebalance; P(lead) Nov20 = rank 1 after period 1. co-holders = avg. number of opponents holding my best-performing name; shadowed = when that name is a top-3 performer, share of scenarios where an opponent holds it at least as heavily as I do. Flags: E1/E2 earnings reaction day in period 1/2 (`?` = date not confirmed by a second source), D1/D2 ex-dividend drop (`~` = estimated).
 
-Benchmarks for scale: IBEX blue chips (EW) 0.05%; Magnificent 7 (EW) 0.00%; Top-10 popular (EW) 0.00%; Consensus basket 0.00%. A random entrant has 0.56%.
+Benchmarks for scale: IBEX blue chips (EW) 0.06%; Magnificent 7 (EW) 0.01%; Top-10 popular (EW) 0.00%; Consensus basket 0.00%. A random entrant has 0.56%.
 
 ## Sensitivity to the field mixture
 
@@ -39,38 +39,38 @@ P(win Dec 18) and rank within the shortlist when the share of all-in opponents c
 
 | portfolio | all-in 5% | all-in 15% | all-in 30% | vol model: realised vol only | worst rank | robust |
 |---|---|---|---|---|---|---|
-| CRWV | 25.18% (#1) | 17.17% (#1) | 11.74% (#1) | 15.96% (#1) | 1 | **yes** |
-| SNDK 20% + CRWV 80% | 22.55% (#2) | 14.18% (#2) | 8.61% (#3) | 13.22% (#3) | 3 | **yes** |
-| MPWR 20% + CRWV 80% | 22.27% (#3) | 13.98% (#3) | 8.40% (#4) | 12.98% (#4) | 4 | **yes** |
-| NBIS 20% + CRWV 80% | 21.57% (#4) | 13.25% (#5) | 7.96% (#5) | 12.40% (#5) | 5 | **yes** |
-| MU 20% + CRWV 80% | 21.51% (#5) | 13.18% (#6) | 7.84% (#7) | 12.31% (#6) | 7 | **yes** |
-| MRNA | 20.90% (#9) | 13.98% (#4) | 9.50% (#2) | 14.29% (#2) | 9 | **yes** |
-| ALAB 20% + CRWV 80% | 21.01% (#7) | 12.90% (#7) | 7.61% (#9) | 12.07% (#7) | 9 | **yes** |
-| STX 20% + CRWV 80% | 20.99% (#8) | 12.68% (#8) | 7.60% (#10) | 12.01% (#8) | 10 | **yes** |
-| ARM 20% + CRWV 80% | 21.09% (#6) | 12.67% (#9) | 7.48% (#11) | 11.98% (#9) | 11 |  |
-| TER 20% + CRWV 80% | 20.69% (#11) | 12.59% (#11) | 7.62% (#8) | 11.76% (#13) | 11 |  |
-| CRWV 80% + HONA 20% | 20.84% (#10) | 12.62% (#10) | 7.37% (#12) | 11.88% (#10) | 12 |  |
-| LRCX 20% + CRWV 80% | 20.65% (#12) | 12.39% (#12) | 7.30% (#13) | 11.60% (#14) | 13 |  |
-| RKLB 20% + CRWV 80% | 20.39% (#16) | 12.26% (#15) | 7.20% (#15) | 11.36% (#25) | 16 |  |
-| LITE 20% + CRWV 80% | 20.37% (#17) | 12.26% (#14) | 7.20% (#14) | 11.85% (#11) | 17 |  |
-| WDC 20% + CRWV 80% | 20.44% (#14) | 12.20% (#17) | 7.18% (#16) | 11.45% (#18) | 17 |  |
+| CRWV | 25.20% (#1) | 17.05% (#1) | 11.84% (#1) | 15.92% (#1) | 1 | **yes** |
+| SNDK 20% + CRWV 80% | 22.81% (#2) | 14.23% (#2) | 8.72% (#3) | 13.13% (#3) | 3 | **yes** |
+| MPWR 20% + CRWV 80% | 22.54% (#3) | 13.95% (#3) | 8.49% (#4) | 12.85% (#4) | 4 | **yes** |
+| NBIS 20% + CRWV 80% | 21.72% (#4) | 13.23% (#5) | 7.94% (#6) | 12.20% (#5) | 6 | **yes** |
+| MU 20% + CRWV 80% | 21.68% (#5) | 13.20% (#6) | 7.85% (#7) | 12.16% (#6) | 7 | **yes** |
+| ALAB 20% + CRWV 80% | 21.09% (#8) | 12.88% (#7) | 7.63% (#8) | 11.79% (#9) | 8 | **yes** |
+| STX 20% + CRWV 80% | 21.14% (#7) | 12.85% (#8) | 7.61% (#9) | 11.83% (#8) | 9 | **yes** |
+| ARM 20% + CRWV 80% | 21.39% (#6) | 12.73% (#9) | 7.49% (#11) | 11.87% (#7) | 11 |  |
+| TER 20% + CRWV 80% | 20.90% (#10) | 12.58% (#11) | 7.51% (#10) | 11.59% (#12) | 11 |  |
+| MRNA | 20.71% (#12) | 13.93% (#4) | 9.27% (#2) | 14.18% (#2) | 12 |  |
+| CRWV 80% + HONA 20% | 21.09% (#9) | 12.63% (#10) | 7.47% (#12) | 11.74% (#11) | 12 |  |
+| LRCX 20% + CRWV 80% | 20.79% (#11) | 12.49% (#12) | 7.27% (#15) | 11.42% (#14) | 15 |  |
+| RKLB 20% + CRWV 80% | 20.58% (#17) | 12.39% (#14) | 7.25% (#18) | 11.33% (#16) | 18 |  |
+| CEG 20% + CRWV 80% | 20.52% (#18) | 12.34% (#17) | 7.30% (#13) | 11.31% (#17) | 18 |  |
+| WDC 20% + CRWV 80% | 20.59% (#16) | 12.27% (#18) | 7.25% (#17) | 11.13% (#26) | 18 |  |
 
 Crowding check (popularity is the softest assumption): P(win Dec 18) when one lead name is three times as popular with the field as assumed.
 
 | portfolio | base | CRWV popularity x3 | MRNA popularity x3 |
 |---|---|---|---|
-| CRWV | 17.17% | 13.08% | 16.63% |
-| SNDK 20% + CRWV 80% | 14.18% | 9.14% | 13.86% |
-| MPWR 20% + CRWV 80% | 13.98% | 8.71% | 13.60% |
-| MRNA | 13.98% | 13.44% | 9.88% |
-| NBIS 20% + CRWV 80% | 13.25% | 8.56% | 13.01% |
-| MU 20% + CRWV 80% | 13.18% | 8.11% | 12.87% |
-| ALAB 20% + CRWV 80% | 12.90% | 8.12% | 12.44% |
-| STX 20% + CRWV 80% | 12.68% | 7.84% | 12.45% |
+| CRWV | 17.05% | 13.15% | 16.56% |
+| SNDK 20% + CRWV 80% | 14.23% | 9.34% | 13.87% |
+| MPWR 20% + CRWV 80% | 13.95% | 8.89% | 13.58% |
+| MRNA | 13.93% | 13.43% | 9.85% |
+| NBIS 20% + CRWV 80% | 13.23% | 8.73% | 13.01% |
+| MU 20% + CRWV 80% | 13.20% | 8.36% | 12.84% |
+| ALAB 20% + CRWV 80% | 12.88% | 8.33% | 12.62% |
+| STX 20% + CRWV 80% | 12.85% | 8.14% | 12.43% |
 
 ## What it takes to win
 
-Best opponent after 4 weeks: median score 1.287 (10-90%: 1.132-1.606). Winning score at Dec 18: median 1.399 (10-90%: 1.181-1.819).
+Best opponent after 4 weeks: median score 1.286 (10-90%: 1.131-1.606). Winning score at Dec 18: median 1.397 (10-90%: 1.180-1.817).
 
 ![P(win) vs vol](pwin_vs_vol.png)
 
@@ -134,7 +134,7 @@ Popularity weights (students' likely holdings; base weight 0.3 for everything el
 
 NVDA 7.1%, AAPL 5.7%, TSLA 5.7%, AMZN 5.0%, ITX.MC 5.0%, MSFT 5.0%, SPCX 5.0%, SAN.MC 5.0%, META 4.3%, GOOGL 4.3%, PLTR 4.3%, BBVA.MC 3.6%, AMD 3.6%, IBE.MC 3.6%, ASML.AS 3.6%, IDR.MC 2.8%, REP.MC 2.8%, MC.PA 2.8%, TEF.MC 2.8%, NFLX 2.8%, RHM.DE 2.5%, CABK.MC 2.1%, IAG.MC 2.1%, RACE.MI 2.1%, MSTR 2.1%, AVGO 2.1%, MU 2.1%
 
-Field: 179 opponents per scenario, div 60% / mod 25% / all-in 15%; diversified = 8-15 names ~ popularity, moderate = 3-5 names ~ popularity^1.5, all-in = 1-2 names ~ popularity x vol; Dirichlet weights, whole shares. On Nov 22 50% of opponents re-pick, the rest hold.
+Field: 179 opponents per scenario, div 60% / mod 25% / all-in 15%; diversified = 8-15 names ~ popularity, moderate = 3-5 names ~ popularity^1.5, all-in = 1-2 names ~ popularity x vol; Dirichlet weights, whole shares. On Nov 22 50% of opponents re-pick, the rest hold. Popularity is uncertain: every ~1,000 scenarios draw one true popularity vector = weights x lognormal(sigma 20%), shared by the whole field.
 
 ## Method
 
