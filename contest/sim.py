@@ -115,7 +115,10 @@ def prepare_inputs(feat: pd.DataFrame, extras: dict, cfg: config.SimConfig,
         idio = (idio - idio.mean()) / max(idio.std(), 1e-9)
         eps = rng.choice(idio, size=(~ok).sum())
         col[~ok] = rho * zc[~ok] + math.sqrt(max(1 - rho ** 2, 0.0)) * eps
-        Z[:, i] = col
+        # The filled stretch inherits the market's drift over the pre-listing
+        # window (and the luck of the draw); re-centre and rescale the whole
+        # column so drift only comes from mu_d and the vol from sigma_d.
+        Z[:, i] = (col - col.mean()) / (col.std() or 1.0)
 
     vol = target_vol(feat, cfg.vol_target, cfg.vol_floor, cfg.vol_cap)
     sigma_d = vol.to_numpy() / math.sqrt(252)
