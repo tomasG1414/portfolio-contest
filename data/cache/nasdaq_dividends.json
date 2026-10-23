@@ -1253,6 +1253,15 @@
  "VRTX": [],
  "ODFL": [
   {
+   "exOrEffDate": "12/02/2026",
+   "type": "Cash",
+   "amount": "$0.29",
+   "declarationDate": "10/22/2026",
+   "recordDate": "12/02/2026",
+   "paymentDate": "12/16/2026",
+   "currency": "USD"
+  },
+  {
    "exOrEffDate": "09/02/2026",
    "type": "Cash",
    "amount": "$0.29",
@@ -1314,18 +1323,18 @@
    "recordDate": "03/05/2025",
    "paymentDate": "03/19/2025",
    "currency": "USD"
-  },
-  {
-   "exOrEffDate": "12/04/2024",
-   "type": "Cash",
-   "amount": "$0.26",
-   "declarationDate": "10/17/2024",
-   "recordDate": "12/04/2024",
-   "paymentDate": "12/18/2024",
-   "currency": "USD"
   }
  ],
  "QCOM": [
+  {
+   "exOrEffDate": "12/03/2026",
+   "type": "Cash",
+   "amount": "$0.92",
+   "declarationDate": "10/08/2026",
+   "recordDate": "12/03/2026",
+   "paymentDate": "12/17/2026",
+   "currency": "USD"
+  },
   {
    "exOrEffDate": "09/03/2026",
    "type": "Cash",
@@ -1387,15 +1396,6 @@
    "declarationDate": "01/10/2025",
    "recordDate": "03/06/2025",
    "paymentDate": "03/27/2025",
-   "currency": "USD"
-  },
-  {
-   "exOrEffDate": "12/05/2024",
-   "type": "Cash",
-   "amount": "$0.85",
-   "declarationDate": "10/07/2024",
-   "recordDate": "12/05/2024",
-   "paymentDate": "12/19/2024",
    "currency": "USD"
   }
  ],

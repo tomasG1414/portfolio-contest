@@ -8,11 +8,11 @@
    "shortName": "ACS,ACTIVIDADES DE CONSTRUCCION",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 22413682688,
+   "marketCap": 24259921920,
    "beta": 0.645,
    "sector": "Industrials",
    "industry": "Engineering & Construction",
-   "regularMarketPrice": 85.95,
+   "regularMarketPrice": 87.55,
    "previousClose": 86.95,
    "exDividendDate": 1782691200,
    "dividendRate": 2.32,
@@ -390,11 +390,11 @@
    "shortName": "AMADEUS IT GROUP, S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 23687249920,
+   "marketCap": 23771246592,
    "beta": 0.662,
    "sector": "Technology",
    "industry": "Information Technology Services",
-   "regularMarketPrice": 56.4,
+   "regularMarketPrice": 56.6,
    "previousClose": 56.92,
    "exDividendDate": 1782864000,
    "dividendRate": 1.54,
@@ -581,11 +581,11 @@
    "shortName": "ACCIONA, S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 10885636096,
+   "marketCap": 10928198656,
    "beta": 0.816,
    "sector": "Industrials",
    "industry": "Engineering & Construction",
-   "regularMarketPrice": 204.6,
+   "regularMarketPrice": 205.4,
    "previousClose": 206.2,
    "exDividendDate": 1783382400,
    "dividendRate": 5.75,
@@ -772,11 +772,11 @@
    "shortName": "CORPORACI...N ACCIONA ENERG...A",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 6977812992,
+   "marketCap": 6984304128,
    "beta": 0.486,
    "sector": "Utilities",
    "industry": "Utilities - Renewable",
-   "regularMarketPrice": 21.5,
+   "regularMarketPrice": 21.52,
    "previousClose": 21.38,
    "exDividendDate": 1781568000,
    "dividendRate": 0.03,
@@ -843,11 +843,11 @@
    "shortName": "BANCO BILBAO VIZCAYA ARGENTARIA",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 121164627968,
+   "marketCap": 122264616960,
    "beta": 0.902,
    "sector": "Financial Services",
    "industry": "Banks - Diversified",
-   "regularMarketPrice": 22.03,
+   "regularMarketPrice": 22.23,
    "previousClose": 22.19,
    "exDividendDate": 1791849600,
    "dividendRate": 0.97,
@@ -1034,11 +1034,11 @@
    "shortName": "BANKINTER, S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 12613201920,
+   "marketCap": 12586241024,
    "beta": null,
    "sector": "Financial Services",
    "industry": "Banks - Regional",
-   "regularMarketPrice": 14.035,
+   "regularMarketPrice": 14.005,
    "previousClose": 14.13,
    "exDividendDate": 1782086400,
    "dividendRate": 0.62,
@@ -1225,11 +1225,11 @@
    "shortName": "CAIXABANK, S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 77598498816,
+   "marketCap": 77737369600,
    "beta": 0.133,
    "sector": "Financial Services",
    "industry": "Banks - Regional",
-   "regularMarketPrice": 11.175,
+   "regularMarketPrice": 11.195,
    "previousClose": 11.13,
    "exDividendDate": 1775520000,
    "dividendRate": 0.5,
@@ -1416,11 +1416,11 @@
    "shortName": "CELLNEX TELECOM, S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 17326397440,
+   "marketCap": 17267083264,
    "beta": 1.316,
    "sector": "Real Estate",
    "industry": "Real Estate Services",
-   "regularMarketPrice": 26.29,
+   "regularMarketPrice": 26.2,
    "previousClose": 25.95,
    "exDividendDate": 1783900800,
    "dividendRate": 0.75,
@@ -1601,11 +1601,11 @@
    "shortName": "COLONIAL SFL, SOCIMI. S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 3174283520,
+   "marketCap": 3180544256,
    "beta": 1.221,
    "sector": "Real Estate",
    "industry": "REIT - Office",
-   "regularMarketPrice": 5.07,
+   "regularMarketPrice": 5.08,
    "previousClose": 5.1,
    "exDividendDate": 1783555200,
    "dividendRate": 0.32,
@@ -1792,11 +1792,11 @@
    "shortName": "AENA, S.M.E., S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 39540002816,
+   "marketCap": 39750000640,
    "beta": 0.802,
    "sector": "Industrials",
    "industry": "Airports & Air Services",
-   "regularMarketPrice": 26.36,
+   "regularMarketPrice": 26.5,
    "previousClose": 26.38,
    "exDividendDate": 1776902400,
    "dividendRate": 1.09,
@@ -1983,11 +1983,11 @@
    "shortName": "ENDESA,S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 43493715968,
+   "marketCap": 44346138624,
    "beta": 0.52,
    "sector": "Utilities",
    "industry": "Utilities - Regulated Electric",
-   "regularMarketPrice": 42.86,
+   "regularMarketPrice": 43.7,
    "previousClose": 42.81,
    "exDividendDate": 1783468800,
    "dividendRate": 1.58,
@@ -2174,11 +2174,11 @@
    "shortName": "ENAGAS,S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 4513567744,
+   "marketCap": 4565627904,
    "beta": 0.265,
    "sector": "Utilities",
    "industry": "Utilities - Regulated Gas",
-   "regularMarketPrice": 17.34,
+   "regularMarketPrice": 17.54,
    "previousClose": 17.46,
    "exDividendDate": 1782777600,
    "dividendRate": 1.0,
@@ -2365,11 +2365,11 @@
    "shortName": "FLUIDRA, S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 3377032192,
+   "marketCap": 3399570944,
    "beta": 0.852,
    "sector": "Consumer Cyclical",
    "industry": "Leisure",
-   "regularMarketPrice": 17.98,
+   "regularMarketPrice": 18.1,
    "previousClose": 18.0,
    "exDividendDate": 1796688000,
    "dividendRate": 0.66,
@@ -2556,11 +2556,11 @@
    "shortName": "FERROVIAL N.V.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 31742832640,
+   "marketCap": 31965968384,
    "beta": 0.809,
    "sector": "Industrials",
    "industry": "Engineering & Construction",
-   "regularMarketPrice": 44.1,
+   "regularMarketPrice": 44.41,
    "previousClose": 44.03,
    "exDividendDate": 1779062400,
    "dividendRate": 1.11,
@@ -2723,11 +2723,11 @@
    "shortName": "GRIFOLS S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 6860251136,
+   "marketCap": 6921503744,
    "beta": 1.203,
    "sector": "Healthcare",
    "industry": "Drug Manufacturers - General",
-   "regularMarketPrice": 10.08,
+   "regularMarketPrice": 10.17,
    "previousClose": 10.08,
    "exDividendDate": 1782777600,
    "dividendRate": 0.08,
@@ -2914,11 +2914,11 @@
    "shortName": "INTL CONSOLIDATED AIRLINES GROU",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 20905461760,
+   "marketCap": 20578543616,
    "beta": 1.357,
    "sector": "Industrials",
    "industry": "Airlines",
-   "regularMarketPrice": 4.796,
+   "regularMarketPrice": 4.721,
    "previousClose": 4.873,
    "exDividendDate": 1782345600,
    "dividendRate": 0.1,
@@ -3105,11 +3105,11 @@
    "shortName": "ACCIONES IBERDROLA",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 144606986240,
+   "marketCap": 146118459392,
    "beta": 0.49,
    "sector": "Utilities",
    "industry": "Utilities - Diversified",
-   "regularMarketPrice": 21.67,
+   "regularMarketPrice": 21.9,
    "previousClose": 21.74,
    "exDividendDate": 1799712000,
    "dividendRate": 0.68,
@@ -3145,7 +3145,7 @@
     "ts": "2026-10-20T20:00:00-04:00",
     "eps_est": 0.25,
     "eps_rep": 0.22,
-    "surprise": -10.72
+    "surprise": -10.76
    },
    {
     "ts": "2026-07-21T20:00:00-04:00",
@@ -3296,11 +3296,11 @@
    "shortName": "INDRA SISTEMAS S.A., SERIE A",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 10553546752,
+   "marketCap": 10487040000,
    "beta": 1.002,
    "sector": "Technology",
    "industry": "Information Technology Services",
-   "regularMarketPrice": 60.3,
+   "regularMarketPrice": 59.92,
    "previousClose": 62.1,
    "exDividendDate": 1783382400,
    "dividendRate": 0.3,
@@ -3487,11 +3487,11 @@
    "shortName": null,
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 175063531520,
+   "marketCap": 176745627648,
    "beta": 0.959,
    "sector": "Consumer Cyclical",
    "industry": "Apparel Retail",
-   "regularMarketPrice": 56.2,
+   "regularMarketPrice": 56.74,
    "previousClose": 56.24,
    "exDividendDate": 1793232000,
    "dividendRate": 0.65,
@@ -3678,11 +3678,11 @@
    "shortName": "COMPA...IA DE DISTRIBUCION INTE",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 4847434240,
+   "marketCap": 4892366848,
    "beta": 0.446,
    "sector": "Industrials",
    "industry": "Integrated Freight & Logistics",
-   "regularMarketPrice": 36.68,
+   "regularMarketPrice": 37.02,
    "previousClose": 37.26,
    "exDividendDate": 1787616000,
    "dividendRate": 2.03,
@@ -3791,11 +3791,11 @@
    "shortName": "MAPFRE, S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 13333129216,
+   "marketCap": 13474317312,
    "beta": 0.277,
    "sector": "Financial Services",
    "industry": "Insurance - Diversified",
-   "regularMarketPrice": 4.344,
+   "regularMarketPrice": 4.39,
    "previousClose": 4.4,
    "exDividendDate": 1779753600,
    "dividendRate": 0.18,
@@ -3982,11 +3982,11 @@
    "shortName": "MERLIN PROPERTIES SOCIMI, S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 6947231744,
+   "marketCap": 6965807104,
    "beta": 0.934,
    "sector": "Real Estate",
    "industry": "REIT - Office",
-   "regularMarketPrice": 11.22,
+   "regularMarketPrice": 11.25,
    "previousClose": 11.31,
    "exDividendDate": 1778112000,
    "dividendRate": 0.22,
@@ -4173,11 +4173,11 @@
    "shortName": "ARCELORMITTAL SA",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 39732244480,
+   "marketCap": 40078135296,
    "beta": 1.755,
    "sector": "Basic Materials",
    "industry": "Steel",
-   "regularMarketPrice": 52.84,
+   "regularMarketPrice": 53.3,
    "previousClose": 53.9,
    "exDividendDate": 1794441600,
    "dividendRate": 0.54,
@@ -4364,11 +4364,11 @@
    "shortName": "NATURGY ENERGY GROUP, S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 28421756928,
+   "marketCap": 28810842112,
    "beta": 0.46,
    "sector": "Utilities",
    "industry": "Utilities - Regulated Gas",
-   "regularMarketPrice": 30.68,
+   "regularMarketPrice": 31.1,
    "previousClose": 30.76,
    "exDividendDate": 1785110400,
    "dividendRate": 2.4,
@@ -4553,11 +4553,11 @@
    "shortName": "PUIG BRANDS, S.A. CLASE B",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 10770145280,
+   "marketCap": 10781410304,
    "beta": 0.382,
    "sector": "Consumer Defensive",
    "industry": "Household & Personal Products",
-   "regularMarketPrice": 19.12,
+   "regularMarketPrice": 19.14,
    "previousClose": 19.29,
    "exDividendDate": 1781481600,
    "dividendRate": 0.42,
@@ -4600,11 +4600,11 @@
    "shortName": "REDEIA CORPORACION, S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 7932059648,
+   "marketCap": 8002207232,
    "beta": 0.467,
    "sector": "Utilities",
    "industry": "Utilities - Regulated Electric",
-   "regularMarketPrice": 14.7,
+   "regularMarketPrice": 14.83,
    "previousClose": 14.84,
    "exDividendDate": 1782691200,
    "dividendRate": 0.8,
@@ -4791,11 +4791,11 @@
    "shortName": "REPSOL,  S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 31532013568,
+   "marketCap": 31693385728,
    "beta": -0.12,
    "sector": "Energy",
    "industry": "Oil & Gas Integrated",
-   "regularMarketPrice": 29.31,
+   "regularMarketPrice": 29.46,
    "previousClose": 28.26,
    "exDividendDate": 1783296000,
    "dividendRate": 1.1,
@@ -4982,11 +4982,11 @@
    "shortName": "LABORATORIOS FARMACEUTICOS ROVI",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 3071144448,
+   "marketCap": 3076259072,
    "beta": 0.265,
    "sector": "Healthcare",
    "industry": "Drug Manufacturers - Specialty & Generic",
-   "regularMarketPrice": 60.05,
+   "regularMarketPrice": 60.15,
    "previousClose": 59.45,
    "exDividendDate": 1783900800,
    "dividendRate": 0.96,
@@ -5173,11 +5173,11 @@
    "shortName": "BANCO DE SABADELL",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 16096568320,
+   "marketCap": 16218797056,
    "beta": 0.556,
    "sector": "Financial Services",
    "industry": "Banks - Diversified",
-   "regularMarketPrice": 3.424,
+   "regularMarketPrice": 3.45,
    "previousClose": 3.415,
    "exDividendDate": 1779840000,
    "dividendRate": 0.2,
@@ -5364,11 +5364,11 @@
    "shortName": "BANCO SANTANDER S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 165969854464,
+   "marketCap": 166314967040,
    "beta": 0.942,
    "sector": "Financial Services",
    "industry": "Banks - Diversified",
-   "regularMarketPrice": 11.48,
+   "regularMarketPrice": 11.51,
    "previousClose": 11.484,
    "exDividendDate": 1793232000,
    "dividendRate": 0.25,
@@ -5555,11 +5555,11 @@
    "shortName": "SACYR, S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 3158260480,
+   "marketCap": 3142358016,
    "beta": 0.788,
    "sector": "Industrials",
    "industry": "Engineering & Construction",
-   "regularMarketPrice": 3.972,
+   "regularMarketPrice": 3.952,
    "previousClose": 3.96,
    "exDividendDate": 1782691200,
    "dividendRate": 0.2,
@@ -5746,11 +5746,11 @@
    "shortName": "SOLARIA ENERGIA Y MEDIO AMBIENT",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 1850288256,
+   "marketCap": 1806845056,
    "beta": 1.058,
    "sector": "Utilities",
    "industry": "Utilities - Renewable",
-   "regularMarketPrice": 14.055,
+   "regularMarketPrice": 13.725,
    "previousClose": 14.055,
    "exDividendDate": 1317600000,
    "dividendRate": null,
@@ -5895,11 +5895,11 @@
    "shortName": "TELEFONICA,S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 19237371904,
+   "marketCap": 19231744000,
    "beta": 0.306,
    "sector": "Communication Services",
    "industry": "Telecom Services",
-   "regularMarketPrice": 3.418,
+   "regularMarketPrice": 3.417,
    "previousClose": 3.477,
    "exDividendDate": 1781568000,
    "dividendRate": 0.15,
@@ -6086,11 +6086,11 @@
    "shortName": "UNICAJA BANCO, S.A.",
    "exchange": "MCE",
    "quoteType": "EQUITY",
-   "marketCap": 7950256128,
+   "marketCap": 7960534528,
    "beta": 0.431,
    "sector": "Financial Services",
    "industry": "Banks - Regional",
-   "regularMarketPrice": 3.094,
+   "regularMarketPrice": 3.098,
    "previousClose": 3.124,
    "exDividendDate": 1790035200,
    "dividendRate": 0.19,
@@ -6277,11 +6277,11 @@
    "shortName": "adidas AG                     N",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 27441106944,
+   "marketCap": 27572404224,
    "beta": 1.173,
    "sector": "Consumer Cyclical",
    "industry": "Footwear & Accessories",
-   "regularMarketPrice": 156.75,
+   "regularMarketPrice": 157.5,
    "previousClose": 159.0,
    "exDividendDate": 1778198400,
    "dividendRate": 2.8,
@@ -6292,7 +6292,7 @@
    "earningsTimestampStart": 1793287800,
    "earningsTimestampEnd": 1793287800,
    "isEarningsDateEstimate": false,
-   "earningsCallTimestampStart": 1785416400
+   "earningsCallTimestampStart": 1793260800
   },
   "calendar": {
    "Ex-Dividend Date": "2026-05-08",
@@ -6468,11 +6468,11 @@
    "shortName": "ADYEN",
    "exchange": "AMS",
    "quoteType": "EQUITY",
-   "marketCap": 29931522048,
+   "marketCap": 29843136512,
    "beta": 1.892,
    "sector": "Technology",
    "industry": "Software - Infrastructure",
-   "regularMarketPrice": 948.2,
+   "regularMarketPrice": 945.4,
    "previousClose": 954.4,
    "exDividendDate": null,
    "dividendRate": null,
@@ -6723,11 +6723,11 @@
    "shortName": "AIR LIQUIDE",
    "exchange": "PAR",
    "quoteType": "EQUITY",
-   "marketCap": 110657724416,
+   "marketCap": 111474581504,
    "beta": 0.612,
    "sector": "Basic Materials",
    "industry": "Specialty Chemicals",
-   "regularMarketPrice": 173.4,
+   "regularMarketPrice": 174.68,
    "previousClose": 173.58,
    "exDividendDate": 1779062400,
    "dividendRate": 3.36,
@@ -6836,11 +6836,11 @@
    "shortName": "AIRBUS SE",
    "exchange": "PAR",
    "quoteType": "EQUITY",
-   "marketCap": 151885103104,
+   "marketCap": 152328339456,
    "beta": 0.887,
    "sector": "Industrials",
    "industry": "Aerospace & Defense",
-   "regularMarketPrice": 191.9,
+   "regularMarketPrice": 192.46,
    "previousClose": 194.78,
    "exDividendDate": 1776729600,
    "dividendRate": 3.2,
@@ -7031,7 +7031,7 @@
    "beta": 0.688,
    "sector": "Financial Services",
    "industry": "Insurance - Diversified",
-   "regularMarketPrice": 426.0,
+   "regularMarketPrice": 427.9,
    "previousClose": 432.6,
    "exDividendDate": 1778198400,
    "dividendRate": 17.1,
@@ -7218,11 +7218,11 @@
    "shortName": "AB INBEV",
    "exchange": "BRU",
    "quoteType": "EQUITY",
-   "marketCap": 149338718208,
+   "marketCap": 148472315904,
    "beta": 0.779,
    "sector": "Consumer Defensive",
    "industry": "Beverages - Brewers",
-   "regularMarketPrice": 75.84,
+   "regularMarketPrice": 75.4,
    "previousClose": 75.82,
    "exDividendDate": 1778112000,
    "dividendRate": 1.15,
@@ -7409,11 +7409,11 @@
    "shortName": "ARGENX SE",
    "exchange": "BRU",
    "quoteType": "EQUITY",
-   "marketCap": 49290100736,
+   "marketCap": 49189486592,
    "beta": -0.043,
    "sector": "Healthcare",
    "industry": "Biotechnology",
-   "regularMarketPrice": 783.8,
+   "regularMarketPrice": 782.2,
    "previousClose": 783.4,
    "exDividendDate": null,
    "dividendRate": null,
@@ -7599,11 +7599,11 @@
    "shortName": "ASML HOLDING",
    "exchange": "AMS",
    "quoteType": "EQUITY",
-   "marketCap": 538813988864,
+   "marketCap": 542359814144,
    "beta": 1.302,
    "sector": "Technology",
    "industry": "Semiconductor Equipment & Materials",
-   "regularMarketPrice": 1398.0,
+   "regularMarketPrice": 1407.2,
    "previousClose": 1419.6,
    "exDividendDate": 1792972800,
    "dividendRate": 7.52,
@@ -7790,11 +7790,11 @@
    "shortName": "AXA",
    "exchange": "PAR",
    "quoteType": "EQUITY",
-   "marketCap": 86653812736,
+   "marketCap": 87218405376,
    "beta": 0.589,
    "sector": "Financial Services",
    "industry": "Insurance - Diversified",
-   "regularMarketPrice": 41.44,
+   "regularMarketPrice": 41.71,
    "previousClose": 42.02,
    "exDividendDate": 1778457600,
    "dividendRate": 2.32,
@@ -7843,11 +7843,11 @@
    "shortName": "BASF SE                       N",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 45344755712,
+   "marketCap": 45155356672,
    "beta": 0.767,
    "sector": "Basic Materials",
    "industry": "Chemicals",
-   "regularMarketPrice": 52.67,
+   "regularMarketPrice": 52.45,
    "previousClose": 52.37,
    "exDividendDate": 1777852800,
    "dividendRate": 2.25,
@@ -8034,11 +8034,11 @@
    "shortName": "Bayer AG                      N",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 43472265216,
+   "marketCap": 43207008256,
    "beta": 0.839,
    "sector": "Healthcare",
    "industry": "Drug Manufacturers - General",
-   "regularMarketPrice": 44.25,
+   "regularMarketPrice": 43.98,
    "previousClose": 44.21,
    "exDividendDate": 1777248000,
    "dividendRate": 0.11,
@@ -8225,11 +8225,11 @@
    "shortName": "BAYERISCHE MOTOREN WERKE AG   S",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 34956808192,
+   "marketCap": 34370203648,
    "beta": 0.813,
    "sector": "Consumer Cyclical",
    "industry": "Auto Manufacturers",
-   "regularMarketPrice": 58.4,
+   "regularMarketPrice": 57.42,
    "previousClose": 57.48,
    "exDividendDate": 1778716800,
    "dividendRate": 4.4,
@@ -8416,11 +8416,11 @@
    "shortName": "BNP PARIBAS ACT.A",
    "exchange": "PAR",
    "quoteType": "EQUITY",
-   "marketCap": 90584399872,
+   "marketCap": 91537915904,
    "beta": 1.068,
    "sector": "Financial Services",
    "industry": "Banks - Regional",
-   "regularMarketPrice": 82.65,
+   "regularMarketPrice": 83.52,
    "previousClose": 82.57,
    "exDividendDate": 1790208000,
    "dividendRate": 6.46,
@@ -8607,11 +8607,11 @@
    "shortName": "DANONE",
    "exchange": "PAR",
    "quoteType": "EQUITY",
-   "marketCap": 39972564992,
+   "marketCap": 40088502272,
    "beta": 0.195,
    "sector": "Consumer Defensive",
    "industry": "Packaged Foods",
-   "regularMarketPrice": 62.06,
+   "regularMarketPrice": 62.24,
    "previousClose": 62.38,
    "exDividendDate": 1777852800,
    "dividendRate": 2.25,
@@ -8672,11 +8672,11 @@
    "shortName": "DEUTSCHE BANK AG              N",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 52085878784,
+   "marketCap": 52471074816,
    "beta": 1.036,
    "sector": "Financial Services",
    "industry": "Banks - Regional",
-   "regularMarketPrice": 27.72,
+   "regularMarketPrice": 27.925,
    "previousClose": 28.005,
    "exDividendDate": 1780012800,
    "dividendRate": 1.0,
@@ -8863,11 +8863,11 @@
    "shortName": "DEUTSCHE BOERSE AG            N",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 55979319296,
+   "marketCap": 56628355072,
    "beta": 0.302,
    "sector": "Financial Services",
    "industry": "Financial Data & Stock Exchanges",
-   "regularMarketPrice": 310.5,
+   "regularMarketPrice": 314.1,
    "previousClose": 317.2,
    "exDividendDate": 1778716800,
    "dividendRate": 4.2,
@@ -9054,11 +9054,11 @@
    "shortName": "DHL AG                        N",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 63203397632,
+   "marketCap": 63580798976,
    "beta": 1.099,
    "sector": "Industrials",
    "industry": "Integrated Freight & Logistics",
-   "regularMarketPrice": 56.94,
+   "regularMarketPrice": 57.28,
    "previousClose": 57.12,
    "exDividendDate": 1778025600,
    "dividendRate": 1.9,
@@ -9245,11 +9245,11 @@
    "shortName": "DEUTSCHE TELEKOM AG           N",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 122147872768,
+   "marketCap": 121239175168,
    "beta": 0.34,
    "sector": "Communication Services",
    "industry": "Telecom Services",
-   "regularMarketPrice": 25.54,
+   "regularMarketPrice": 25.35,
    "previousClose": 26.18,
    "exDividendDate": 1775088000,
    "dividendRate": 1.0,
@@ -9436,11 +9436,11 @@
    "shortName": "ENEL",
    "exchange": "MIL",
    "quoteType": "EQUITY",
-   "marketCap": 90948452352,
+   "marketCap": 91604336640,
    "beta": 0.869,
    "sector": "Utilities",
    "industry": "Utilities - Diversified",
-   "regularMarketPrice": 9.152,
+   "regularMarketPrice": 9.218,
    "previousClose": 9.197,
    "exDividendDate": 1784505600,
    "dividendRate": 0.52,
@@ -9627,11 +9627,11 @@
    "shortName": "ENI",
    "exchange": "MIL",
    "quoteType": "EQUITY",
-   "marketCap": 78670692352,
+   "marketCap": 79186190336,
    "beta": 0.264,
    "sector": "Energy",
    "industry": "Oil & Gas Integrated",
-   "regularMarketPrice": 27.47,
+   "regularMarketPrice": 27.65,
    "previousClose": 26.13,
    "exDividendDate": 1795392000,
    "dividendRate": 1.08,
@@ -9649,12 +9649,12 @@
    "Earnings Date": [
     "2026-10-23"
    ],
-   "Earnings High": 0.88,
-   "Earnings Low": 0.78,
-   "Earnings Average": 0.83082,
-   "Revenue High": 50513112340,
-   "Revenue Low": 23461140750,
-   "Revenue Average": 34072702700
+   "Earnings High": 1.16291,
+   "Earnings Low": 0.73462,
+   "Earnings Average": 0.89481,
+   "Revenue High": 48898616360,
+   "Revenue Low": 24946310550,
+   "Revenue Average": 35253468300
   },
   "earnings_dates": [
    {
@@ -9662,6 +9662,12 @@
     "eps_est": 0.83,
     "eps_rep": null,
     "surprise": null
+   },
+   {
+    "ts": "2026-10-22T20:00:00-04:00",
+    "eps_est": 0.83,
+    "eps_rep": 0.95,
+    "surprise": 14.2
    },
    {
     "ts": "2026-07-28T20:00:00-04:00",
@@ -9800,12 +9806,6 @@
     "eps_est": 0.01,
     "eps_rep": 0.02,
     "surprise": 58.1
-   },
-   {
-    "ts": "2020-10-28T08:00:00-04:00",
-    "eps_est": -0.05,
-    "eps_rep": -0.04,
-    "surprise": 19.44
    }
   ]
  },
@@ -9818,11 +9818,11 @@
    "shortName": "ESSILORLUXOTTICA",
    "exchange": "PAR",
    "quoteType": "EQUITY",
-   "marketCap": 83034144768,
+   "marketCap": 83057065984,
    "beta": 0.574,
    "sector": "Healthcare",
    "industry": "Medical Instruments & Supplies",
-   "regularMarketPrice": 181.15,
+   "regularMarketPrice": 181.2,
    "previousClose": 177.15,
    "exDividendDate": 1777939200,
    "dividendRate": 4.0,
@@ -9863,11 +9863,11 @@
    "shortName": "FERRARI",
    "exchange": "MIL",
    "quoteType": "EQUITY",
-   "marketCap": 61653090304,
+   "marketCap": 61275299840,
    "beta": 0.611,
    "sector": "Consumer Cyclical",
    "industry": "Auto Manufacturers",
-   "regularMarketPrice": 351.5,
+   "regularMarketPrice": 349.5,
    "previousClose": 354.05,
    "exDividendDate": 1776643200,
    "dividendRate": 3.62,
@@ -10054,11 +10054,11 @@
    "shortName": "HERMES INTL",
    "exchange": "PAR",
    "quoteType": "EQUITY",
-   "marketCap": 131076546560,
+   "marketCap": 129714978816,
    "beta": 1.038,
    "sector": "Consumer Cyclical",
    "industry": "Luxury Goods",
-   "regularMarketPrice": 1251.5,
+   "regularMarketPrice": 1238.5,
    "previousClose": 1289.5,
    "exDividendDate": 1776729600,
    "dividendRate": 18.0,
@@ -10099,11 +10099,11 @@
    "shortName": "INFINEON TECHNOLOGIES AG      N",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 64559140864,
+   "marketCap": 63246647296,
    "beta": 1.907,
    "sector": "Technology",
    "industry": "Semiconductors",
-   "regularMarketPrice": 49.68,
+   "regularMarketPrice": 48.67,
    "previousClose": 49.885,
    "exDividendDate": 1771545600,
    "dividendRate": 0.35,
@@ -10290,11 +10290,11 @@
    "shortName": "ING GROEP N.V.",
    "exchange": "AMS",
    "quoteType": "EQUITY",
-   "marketCap": 80699015168,
+   "marketCap": 80855261184,
    "beta": 0.911,
    "sector": "Financial Services",
    "industry": "Banks - Diversified",
-   "regularMarketPrice": 28.405,
+   "regularMarketPrice": 28.46,
    "previousClose": 28.79,
    "exDividendDate": 1785715200,
    "dividendRate": 1.14,
@@ -10481,11 +10481,11 @@
    "shortName": "INTESA SANPAOLO",
    "exchange": "MIL",
    "quoteType": "EQUITY",
-   "marketCap": 99827286016,
+   "marketCap": 99278274560,
    "beta": 0.857,
    "sector": "Financial Services",
    "industry": "Banks - Regional",
-   "regularMarketPrice": 5.773,
+   "regularMarketPrice": 5.86,
    "previousClose": 5.839,
    "exDividendDate": 1779062400,
    "dividendRate": 0.38,
@@ -10496,7 +10496,7 @@
    "earningsTimestampStart": 1793374200,
    "earningsTimestampEnd": 1793374200,
    "isEarningsDateEstimate": false,
-   "earningsCallTimestampStart": 1785330000
+   "earningsCallTimestampStart": 1793693100
   },
   "calendar": {
    "Ex-Dividend Date": "2026-05-18",
@@ -10672,11 +10672,11 @@
    "shortName": "L'OREAL",
    "exchange": "PAR",
    "quoteType": "EQUITY",
-   "marketCap": 231462977536,
+   "marketCap": 232395112448,
    "beta": 0.862,
    "sector": "Consumer Defensive",
    "industry": "Household & Personal Products",
-   "regularMarketPrice": 434.55,
+   "regularMarketPrice": 436.3,
    "previousClose": 413.0,
    "exDividendDate": 1777420800,
    "dividendRate": 7.2,
@@ -10729,11 +10729,11 @@
    "shortName": "LVMH",
    "exchange": "PAR",
    "quoteType": "EQUITY",
-   "marketCap": 189076799488,
+   "marketCap": 188805677056,
    "beta": 0.879,
    "sector": "Consumer Cyclical",
    "industry": "Luxury Goods",
-   "regularMarketPrice": 383.55,
+   "regularMarketPrice": 383.0,
    "previousClose": 387.8,
    "exDividendDate": 1796083200,
    "dividendRate": 13.0,
@@ -10776,11 +10776,11 @@
    "shortName": "Mercedes-Benz Group AG        N",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 39431110656,
+   "marketCap": 38671724544,
    "beta": 0.747,
    "sector": "Consumer Cyclical",
    "industry": "Auto Manufacturers",
-   "regularMarketPrice": 41.54,
+   "regularMarketPrice": 40.74,
    "previousClose": 41.52,
    "exDividendDate": 1776384000,
    "dividendRate": 3.5,
@@ -10967,11 +10967,11 @@
    "shortName": "MUENCHENER RUECKVERS.-GES. AG N",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 69927673856,
+   "marketCap": 70028328960,
    "beta": 0.321,
    "sector": "Financial Services",
    "industry": "Insurance - Reinsurance",
-   "regularMarketPrice": 555.8,
+   "regularMarketPrice": 556.6,
    "previousClose": 556.6,
    "exDividendDate": 1777507200,
    "dividendRate": 24.0,
@@ -11158,11 +11158,11 @@
    "shortName": "Nordea Bank Abp",
    "exchange": "HEL",
    "quoteType": "EQUITY",
-   "marketCap": 51415367680,
+   "marketCap": 51822620672,
    "beta": 0.684,
    "sector": "Financial Services",
    "industry": "Banks - Regional",
-   "regularMarketPrice": 15.15,
+   "regularMarketPrice": 15.27,
    "previousClose": 15.275,
    "exDividendDate": 1785888000,
    "dividendRate": 1.3,
@@ -11349,11 +11349,11 @@
    "shortName": "PROSUS",
    "exchange": "AMS",
    "quoteType": "EQUITY",
-   "marketCap": 71925841920,
+   "marketCap": 71413792768,
    "beta": 0.781,
    "sector": "Consumer Cyclical",
    "industry": "Internet Retail",
-   "regularMarketPrice": 34.415,
+   "regularMarketPrice": 34.17,
    "previousClose": 33.93,
    "exDividendDate": 1793836800,
    "dividendRate": 0.28,
@@ -11396,11 +11396,11 @@
    "shortName": "RHEINMETALL AG                I",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 47648092160,
+   "marketCap": 47554756608,
    "beta": 0.484,
    "sector": "Industrials",
    "industry": "Aerospace & Defense",
-   "regularMarketPrice": 1021.0,
+   "regularMarketPrice": 1019.0,
    "previousClose": 1015.0,
    "exDividendDate": 1778630400,
    "dividendRate": 11.5,
@@ -11587,11 +11587,11 @@
    "shortName": "SAFRAN",
    "exchange": "PAR",
    "quoteType": "EQUITY",
-   "marketCap": 114272550912,
+   "marketCap": 112533610496,
    "beta": 0.97,
    "sector": "Industrials",
    "industry": "Aerospace & Defense",
-   "regularMarketPrice": 276.0,
+   "regularMarketPrice": 271.8,
    "previousClose": 302.0,
    "exDividendDate": 1779753600,
    "dividendRate": 3.35,
@@ -11632,11 +11632,11 @@
    "shortName": "SAINT GOBAIN",
    "exchange": "PAR",
    "quoteType": "EQUITY",
-   "marketCap": 32866648064,
+   "marketCap": 32681070592,
    "beta": 1.23,
    "sector": "Industrials",
    "industry": "Building Products & Equipment",
-   "regularMarketPrice": 67.3,
+   "regularMarketPrice": 66.92,
    "previousClose": 66.4,
    "exDividendDate": 1780876800,
    "dividendRate": 2.3,
@@ -11685,11 +11685,11 @@
    "shortName": "SANOFI",
    "exchange": "PAR",
    "quoteType": "EQUITY",
-   "marketCap": 89256124416,
+   "marketCap": 88800854016,
    "beta": 0.281,
    "sector": "Healthcare",
    "industry": "Drug Manufacturers - General",
-   "regularMarketPrice": 74.5,
+   "regularMarketPrice": 74.12,
    "previousClose": 74.95,
    "exDividendDate": 1777939200,
    "dividendRate": 4.12,
@@ -11876,11 +11876,11 @@
    "shortName": "SAP SE                        I",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 245672394752,
+   "marketCap": 247461396480,
    "beta": 0.758,
    "sector": "Technology",
    "industry": "Software - Application",
-   "regularMarketPrice": 212.85,
+   "regularMarketPrice": 214.4,
    "previousClose": 215.35,
    "exDividendDate": 1778025600,
    "dividendRate": 2.5,
@@ -12067,11 +12067,11 @@
    "shortName": "SCHNEIDER ELECTRIC SE",
    "exchange": "PAR",
    "quoteType": "EQUITY",
-   "marketCap": 131164684288,
+   "marketCap": 136132886528,
    "beta": 1.134,
    "sector": "Industrials",
    "industry": "Specialty Industrial Machinery",
-   "regularMarketPrice": 232.85,
+   "regularMarketPrice": 231.4,
    "previousClose": 235.75,
    "exDividendDate": 1778457600,
    "dividendRate": 4.2,
@@ -12156,11 +12156,11 @@
    "shortName": "SIEMENS AG                    N",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 196326768640,
+   "marketCap": 196250353664,
    "beta": 1.295,
    "sector": "Industrials",
    "industry": "Specialty Industrial Machinery",
-   "regularMarketPrice": 256.9,
+   "regularMarketPrice": 256.8,
    "previousClose": 255.7,
    "exDividendDate": 1770940800,
    "dividendRate": 5.35,
@@ -12347,11 +12347,11 @@
    "shortName": "Siemens Energy AG             N",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 103412137984,
+   "marketCap": 100978712576,
    "beta": 1.847,
    "sector": "Industrials",
    "industry": "Specialty Industrial Machinery",
-   "regularMarketPrice": 121.54,
+   "regularMarketPrice": 118.68,
    "previousClose": 122.2,
    "exDividendDate": 1772150400,
    "dividendRate": 0.7,
@@ -12538,11 +12538,11 @@
    "shortName": "TOTALENERGIES",
    "exchange": "PAR",
    "quoteType": "EQUITY",
-   "marketCap": 180465238016,
+   "marketCap": 183992975360,
    "beta": 0.092,
    "sector": "Energy",
    "industry": "Oil & Gas Integrated",
-   "regularMarketPrice": 81.85,
+   "regularMarketPrice": 83.45,
    "previousClose": 79.98,
    "exDividendDate": 1798675200,
    "dividendRate": 3.6,
@@ -12729,11 +12729,11 @@
    "shortName": "VINCI",
    "exchange": "PAR",
    "quoteType": "EQUITY",
-   "marketCap": 58409037824,
+   "marketCap": 58712387584,
    "beta": 0.745,
    "sector": "Industrials",
    "industry": "Engineering & Construction",
-   "regularMarketPrice": 105.9,
+   "regularMarketPrice": 106.45,
    "previousClose": 105.95,
    "exDividendDate": 1791849600,
    "dividendRate": 5.05,
@@ -12776,11 +12776,11 @@
    "shortName": "UNICREDIT",
    "exchange": "MIL",
    "quoteType": "EQUITY",
-   "marketCap": 107305943040,
+   "marketCap": 108632940544,
    "beta": 1.09,
    "sector": "Financial Services",
    "industry": "Banks - Regional",
-   "regularMarketPrice": 71.16,
+   "regularMarketPrice": 72.04,
    "previousClose": 71.65,
    "exDividendDate": 1776643200,
    "dividendRate": 3.15,
@@ -12967,11 +12967,11 @@
    "shortName": "VOLKSWAGEN AG                 V",
    "exchange": "GER",
    "quoteType": "EQUITY",
-   "marketCap": 34880126976,
+   "marketCap": 34639503360,
    "beta": 1.01,
    "sector": "Consumer Cyclical",
    "industry": "Auto Manufacturers",
-   "regularMarketPrice": 69.58,
+   "regularMarketPrice": 69.1,
    "previousClose": 69.38,
    "exDividendDate": 1781827200,
    "dividendRate": 5.26,
@@ -13158,11 +13158,11 @@
    "shortName": "WOLTERS KLUWER",
    "exchange": "AMS",
    "quoteType": "EQUITY",
-   "marketCap": 19485489152,
+   "marketCap": 19614502912,
    "beta": 0.184,
    "sector": "Industrials",
    "industry": "Specialty Business Services",
-   "regularMarketPrice": 87.6,
+   "regularMarketPrice": 88.18,
    "previousClose": 86.8,
    "exDividendDate": 1788220800,
    "dividendRate": 2.6,
@@ -13289,12 +13289,12 @@
    "shortName": "Apple Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 5081985449984,
+   "marketCap": 5074761285632,
    "beta": 1.069,
    "sector": "Technology",
    "industry": "Consumer Electronics",
-   "regularMarketPrice": 348.22,
-   "previousClose": 343.99,
+   "regularMarketPrice": 347.725,
+   "previousClose": 348.22,
    "exDividendDate": 1786320000,
    "dividendRate": 1.08,
    "dividendYield": 0.31,
@@ -13474,14 +13474,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.28369749186674453,
-    "iv_yahoo": null,
+    "iv": 0.27468003209729974,
+    "iv_yahoo": 0.27295648925781246,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.2617342016014312,
-    "iv_yahoo": null,
+    "iv": 0.2568374666030019,
+    "iv_yahoo": 0.2579572496032715,
     "t_years": 0.15342465753424658
    }
   }
@@ -13495,12 +13495,12 @@
    "shortName": "Applied Materials, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 298059300864,
+   "marketCap": 299376705536,
    "beta": 1.591,
    "sector": "Technology",
    "industry": "Semiconductor Equipment & Materials",
-   "regularMarketPrice": 375.58,
-   "previousClose": 408.94,
+   "regularMarketPrice": 377.24,
+   "previousClose": 375.58,
    "exDividendDate": 1795046400,
    "dividendRate": 2.12,
    "dividendYield": 0.56,
@@ -13680,14 +13680,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.6254173513166577,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5876225434355894,
+    "iv_yahoo": 0.5784954260253907,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.5716764780119781,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5407171950466053,
+    "iv_yahoo": 0.5325669302368164,
     "t_years": 0.15342465753424658
    }
   }
@@ -13701,12 +13701,12 @@
    "shortName": "Amgen Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 241813880832,
+   "marketCap": 237478019072,
    "beta": 0.407,
    "sector": "Healthcare",
    "industry": "Drug Manufacturers - General",
-   "regularMarketPrice": 447.28,
-   "previousClose": 438.34,
+   "regularMarketPrice": 439.26,
+   "previousClose": 447.28,
    "exDividendDate": 1787270400,
    "dividendRate": 10.08,
    "dividendYield": 2.25,
@@ -13886,14 +13886,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.37262312150491284,
-    "iv_yahoo": null,
+    "iv": 0.34740074670439536,
+    "iv_yahoo": 0.3888916091918946,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3262580923200562,
-    "iv_yahoo": null,
+    "iv": 0.3164884321812409,
+    "iv_yahoo": 0.3449619947814941,
     "t_years": 0.15342465753424658
    }
   }
@@ -13907,12 +13907,12 @@
    "shortName": "Comcast Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 81050861568,
+   "marketCap": 80518569984,
    "beta": null,
    "sector": "Communication Services",
    "industry": "Telecom Services",
-   "regularMarketPrice": 22.84,
-   "previousClose": 22.08,
+   "regularMarketPrice": 22.69,
+   "previousClose": 22.84,
    "exDividendDate": 1799193600,
    "dividendRate": 1.32,
    "dividendYield": 5.78,
@@ -14092,14 +14092,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.3704571992551181,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.3525724228935337,
+    "iv_yahoo": 0.45752495605468757,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3595619663141323,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.349389951027852,
+    "iv_yahoo": 0.41358008300781246,
     "t_years": 0.15342465753424658
    }
   }
@@ -14113,12 +14113,12 @@
    "shortName": "Intel Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 451909124096,
+   "marketCap": 459679694848,
    "beta": 2.23,
    "sector": "Technology",
    "industry": "Semiconductors",
-   "regularMarketPrice": 85.49,
-   "previousClose": 92.96,
+   "regularMarketPrice": 86.96,
+   "previousClose": 85.49,
    "exDividendDate": 1722988800,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -14298,14 +14298,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.7015003503700695,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.6737610724126999,
+    "iv_yahoo": 0.6624789611816407,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.6298146674039866,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.6140076090504796,
+    "iv_yahoo": 0.6096840789794923,
     "t_years": 0.15342465753424658
    }
   }
@@ -14319,12 +14319,12 @@
    "shortName": "KLA Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 192919109632,
+   "marketCap": 190021992448,
    "beta": 1.447,
    "sector": "Technology",
    "industry": "Semiconductor Equipment & Materials",
-   "regularMarketPrice": 147.83,
-   "previousClose": 163.43,
+   "regularMarketPrice": 145.61,
+   "previousClose": 147.83,
    "exDividendDate": 1786924800,
    "dividendRate": 0.92,
    "dividendYield": 0.62,
@@ -14504,14 +14504,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.6440278376548096,
-    "iv_yahoo": null,
+    "iv": 0.6446091955679802,
+    "iv_yahoo": 0.6283606500244142,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.6013628534005586,
-    "iv_yahoo": null,
+    "iv": 0.5853785520228503,
+    "iv_yahoo": 0.5743450769042968,
     "t_years": 0.15342465753424658
    }
   }
@@ -14525,12 +14525,12 @@
    "shortName": "PACCAR Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 57684332544,
+   "marketCap": 56299995136,
    "beta": 0.988,
    "sector": "Industrials",
    "industry": "Farm & Heavy Construction Machinery",
-   "regularMarketPrice": 109.59,
-   "previousClose": 110.22,
+   "regularMarketPrice": 106.96,
+   "previousClose": 109.59,
    "exDividendDate": 1794268800,
    "dividendRate": 1.4,
    "dividendYield": 1.28,
@@ -14710,14 +14710,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.3438387345985348,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.33101566404328325,
+    "iv_yahoo": 0.4572197833251953,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3261050291439015,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.30216043429680295,
+    "iv_yahoo": 0.38580936462402343,
     "t_years": 0.15342465753424658
    }
   }
@@ -14731,12 +14731,12 @@
    "shortName": "Cintas Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 88960704512,
+   "marketCap": 88984535040,
    "beta": 0.917,
    "sector": "Industrials",
    "industry": "Specialty Business Services",
-   "regularMarketPrice": 224.04,
-   "previousClose": 220.15,
+   "regularMarketPrice": 224.1,
+   "previousClose": 224.04,
    "exDividendDate": 1786665600,
    "dividendRate": 2.08,
    "dividendYield": 0.93,
@@ -14916,14 +14916,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.24998239054778731,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.23900888604501042,
+    "iv_yahoo": 0.30548790222167965,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.2671493468352976,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.263933239408233,
+    "iv_yahoo": 0.30963825134277345,
     "t_years": 0.15342465753424658
    }
   }
@@ -14937,12 +14937,12 @@
    "shortName": "Paychex, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 42294038528,
+   "marketCap": 42019934208,
    "beta": 0.848,
    "sector": "Technology",
    "industry": "Software - Application",
-   "regularMarketPrice": 118.81,
-   "previousClose": 112.5,
+   "regularMarketPrice": 118.04,
+   "previousClose": 118.81,
    "exDividendDate": 1792972800,
    "dividendRate": 4.76,
    "dividendYield": 4.01,
@@ -15122,14 +15122,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.34794342309381154,
-    "iv_yahoo": 0.04688453125,
+    "iv": 0.29633678817584097,
+    "iv_yahoo": 0.35834381896972656,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3223536523826161,
-    "iv_yahoo": 0.04688453125,
+    "iv": 0.3049787842541041,
+    "iv_yahoo": 0.3855041918945312,
     "t_years": 0.15342465753424658
    }
   }
@@ -15143,12 +15143,12 @@
    "shortName": "Lam Research Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 288015319040,
+   "marketCap": 287952764928,
    "beta": 1.854,
    "sector": "Technology",
    "industry": "Semiconductor Equipment & Materials",
-   "regularMarketPrice": 230.15,
-   "previousClose": 260.81,
+   "regularMarketPrice": 230.1,
+   "previousClose": 230.15,
    "exDividendDate": 1790121600,
    "dividendRate": 1.32,
    "dividendYield": 0.57,
@@ -15328,14 +15328,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.5918485237770614,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5621353775592296,
+    "iv_yahoo": 0.550358500366211,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.552627584775676,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5494857034570333,
+    "iv_yahoo": 0.5409591802978516,
     "t_years": 0.15342465753424658
    }
   }
@@ -15349,12 +15349,12 @@
    "shortName": "Autodesk, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 53284548608,
+   "marketCap": 52709797888,
    "beta": 1.327,
    "sector": "Technology",
    "industry": "Software - Application",
-   "regularMarketPrice": 254.95,
-   "previousClose": 244.84,
+   "regularMarketPrice": 252.2,
+   "previousClose": 254.95,
    "exDividendDate": 1111449600,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -15533,14 +15533,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.471224954228611,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.4435197307193208,
+    "iv_yahoo": 0.5409286630249024,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.4718783800551366,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.4682010048665508,
+    "iv_yahoo": 0.5753216296386718,
     "t_years": 0.15342465753424658
    }
   }
@@ -15554,12 +15554,12 @@
    "shortName": "Ross Stores, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 75919261696,
+   "marketCap": 73555107840,
    "beta": 0.837,
    "sector": "Consumer Cyclical",
    "industry": "Apparel Retail",
-   "regularMarketPrice": 236.67,
-   "previousClose": 234.18,
+   "regularMarketPrice": 229.3,
+   "previousClose": 236.67,
    "exDividendDate": 1788825600,
    "dividendRate": 1.78,
    "dividendYield": 0.75,
@@ -15739,14 +15739,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.39111501934796244,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.38105144940051594,
+    "iv_yahoo": 0.4380244186401367,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.37044105991590087,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.3442181186318447,
+    "iv_yahoo": 0.3975890319824219,
     "t_years": 0.15342465753424658
    }
   }
@@ -15760,12 +15760,12 @@
    "shortName": "Monster Beverage Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 92663144448,
+   "marketCap": 90488602624,
    "beta": 0.492,
    "sector": "Consumer Defensive",
    "industry": "Beverages - Non-Alcoholic",
-   "regularMarketPrice": 47.3,
-   "previousClose": 46.63,
+   "regularMarketPrice": 46.19,
+   "previousClose": 47.3,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -15943,14 +15943,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.3754140888100964,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.36893686076495114,
+    "iv_yahoo": 0.3967345483398438,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3371324103405199,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.31038731274235204,
+    "iv_yahoo": 0.35230139892578116,
     "t_years": 0.15342465753424658
    }
   }
@@ -15964,12 +15964,12 @@
    "shortName": "Microsoft Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 3869303373824,
+   "marketCap": 3894773022720,
    "beta": 1.099,
    "sector": "Technology",
    "industry": "Software - Infrastructure",
-   "regularMarketPrice": 521.08,
-   "previousClose": 532.95,
+   "regularMarketPrice": 524.51,
+   "previousClose": 521.08,
    "exDividendDate": 1795046400,
    "dividendRate": 3.92,
    "dividendYield": 0.75,
@@ -16149,14 +16149,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.3395802032319246,
-    "iv_yahoo": null,
+    "iv": 0.33404047506516593,
+    "iv_yahoo": 0.33454034606933597,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.30680291452925285,
-    "iv_yahoo": null,
+    "iv": 0.30369222309438615,
+    "iv_yahoo": 0.3104774763488769,
     "t_years": 0.15342465753424658
    }
   }
@@ -16170,12 +16170,12 @@
    "shortName": "Adobe Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 105298059264,
+   "marketCap": 102678749184,
    "beta": 1.415,
    "sector": "Technology",
    "industry": "Software - Application",
-   "regularMarketPrice": 270.55,
-   "previousClose": 255.06,
+   "regularMarketPrice": 263.82,
+   "previousClose": 270.55,
    "exDividendDate": 1111622400,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -16354,14 +16354,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.4485550212078958,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.44114042332127346,
+    "iv_yahoo": 0.48077911804199225,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.4770128204695836,
-    "iv_yahoo": null,
+    "iv": 0.48612132799249236,
+    "iv_yahoo": 0.5178423460388184,
     "t_years": 0.15342465753424658
    }
   }
@@ -16375,12 +16375,12 @@
    "shortName": "Fastenal Company",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 60507549696,
+   "marketCap": 59566600192,
    "beta": 0.69,
    "sector": "Industrials",
    "industry": "Industrial Distribution",
-   "regularMarketPrice": 52.73,
-   "previousClose": 52.49,
+   "regularMarketPrice": 51.91,
+   "previousClose": 52.73,
    "exDividendDate": 1793145600,
    "dividendRate": 1.04,
    "dividendYield": 1.97,
@@ -16560,14 +16560,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.2652867891763635,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.297974023083207,
+    "iv_yahoo": 0.3737855590820312,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.24371934661499467,
-    "iv_yahoo": 0.04688453125,
+    "iv": 0.2646366365446052,
+    "iv_yahoo": 0.33252620605468747,
     "t_years": 0.15342465753424658
    }
   }
@@ -16581,12 +16581,12 @@
    "shortName": "Cisco Systems, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 413537927168,
+   "marketCap": 419885514752,
    "beta": 0.979,
    "sector": "Technology",
    "industry": "Communication Equipment",
-   "regularMarketPrice": 104.89,
-   "previousClose": 107.26,
+   "regularMarketPrice": 106.5,
+   "previousClose": 104.89,
    "exDividendDate": 1790899200,
    "dividendRate": 1.68,
    "dividendYield": 1.6,
@@ -16766,14 +16766,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.4916443758403636,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.4801915632544543,
+    "iv_yahoo": 0.4883474017333985,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.42203309251717347,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.4152392040559236,
+    "iv_yahoo": 0.41974457214355465,
     "t_years": 0.15342465753424658
    }
   }
@@ -16787,12 +16787,12 @@
    "shortName": "Regeneron Pharmaceuticals, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 84329406464,
+   "marketCap": 82880831488,
    "beta": 0.153,
    "sector": "Healthcare",
    "industry": "Biotechnology",
-   "regularMarketPrice": 819.09,
-   "previousClose": 805.67,
+   "regularMarketPrice": 805.02,
+   "previousClose": 819.09,
    "exDividendDate": 1787011200,
    "dividendRate": 3.76,
    "dividendYield": 0.46,
@@ -16972,14 +16972,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.39702128954925464,
-    "iv_yahoo": null,
+    "iv": 0.3863481430094192,
+    "iv_yahoo": 0.431570015411377,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3790630932907537,
-    "iv_yahoo": null,
+    "iv": 0.35774307084887924,
+    "iv_yahoo": 0.4008086042785644,
     "t_years": 0.15342465753424658
    }
   }
@@ -16993,12 +16993,12 @@
    "shortName": "IDEXX Laboratories, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 44649988096,
+   "marketCap": 44147363840,
    "beta": 1.548,
    "sector": "Healthcare",
    "industry": "Diagnostics & Research",
-   "regularMarketPrice": 566.76,
-   "previousClose": 553.48,
+   "regularMarketPrice": 560.38,
+   "previousClose": 566.76,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -17176,14 +17176,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.451504382779223,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.43869445558557324,
+    "iv_yahoo": 0.4972126695251465,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.361852465752674,
-    "iv_yahoo": null,
+    "iv": 0.37964382834120747,
+    "iv_yahoo": 0.42899130584716794,
     "t_years": 0.15342465753424658
    }
   }
@@ -17197,12 +17197,12 @@
    "shortName": "Vertex Pharmaceuticals Incorpor",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 135644684288,
+   "marketCap": 132795785216,
    "beta": 0.281,
    "sector": "Healthcare",
    "industry": "Biotechnology",
-   "regularMarketPrice": 535.17,
-   "previousClose": 524.52,
+   "regularMarketPrice": 523.93,
+   "previousClose": 535.17,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -17380,14 +17380,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.38048451344387413,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.3673337605165161,
+    "iv_yahoo": 0.40193774337768556,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3738867132614997,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.3466740180034378,
+    "iv_yahoo": 0.37525038818359374,
     "t_years": 0.15342465753424658
    }
   }
@@ -17401,12 +17401,12 @@
    "shortName": "Old Dominion Freight Line, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 39491096576,
+   "marketCap": 37995806720,
    "beta": 1.203,
    "sector": "Industrials",
    "industry": "Trucking",
-   "regularMarketPrice": 189.89,
-   "previousClose": 188.9,
+   "regularMarketPrice": 182.7,
+   "previousClose": 189.89,
    "exDividendDate": 1796169600,
    "dividendRate": 1.16,
    "dividendYield": 0.61,
@@ -17586,14 +17586,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.4009504582196121,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.4131306942878492,
+    "iv_yahoo": 0.4603325451660156,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.4035506969105383,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.37897989725447834,
+    "iv_yahoo": 0.43561355407714847,
     "t_years": 0.15342465753424658
    }
   }
@@ -17607,12 +17607,12 @@
    "shortName": "QUALCOMM Incorporated",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 184554700800,
+   "marketCap": 187843641344,
    "beta": 1.651,
    "sector": "Technology",
    "industry": "Semiconductors",
-   "regularMarketPrice": 172.83,
-   "previousClose": 177.96,
+   "regularMarketPrice": 175.91,
+   "previousClose": 172.83,
    "exDividendDate": 1796256000,
    "dividendRate": 3.68,
    "dividendYield": 2.13,
@@ -17792,14 +17792,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.6033779237911857,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.562792686435966,
+    "iv_yahoo": 0.5499922930908203,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.5152491417411627,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5006544137939726,
+    "iv_yahoo": 0.5077563873291016,
     "t_years": 0.15342465753424658
    }
   }
@@ -17813,12 +17813,12 @@
    "shortName": "Gilead Sciences, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 194908553216,
+   "marketCap": 193482604544,
    "beta": 0.332,
    "sector": "Healthcare",
    "industry": "Drug Manufacturers - General",
-   "regularMarketPrice": 157.19,
-   "previousClose": 153.57,
+   "regularMarketPrice": 156.04,
+   "previousClose": 157.19,
    "exDividendDate": 1789430400,
    "dividendRate": 3.28,
    "dividendYield": 2.09,
@@ -17998,14 +17998,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.38953252425928225,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.36869409487844207,
+    "iv_yahoo": 0.43256182678222665,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.34935177227984937,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.34438052875497893,
+    "iv_yahoo": 0.3841919491577148,
     "t_years": 0.15342465753424658
    }
   }
@@ -18019,12 +18019,12 @@
    "shortName": "Synopsys, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 80962650112,
+   "marketCap": 82430590976,
    "beta": 1.208,
    "sector": "Technology",
    "industry": "Software - Infrastructure",
-   "regularMarketPrice": 422.48,
-   "previousClose": 451.19,
+   "regularMarketPrice": 430.14,
+   "previousClose": 422.48,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -18202,14 +18202,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.5852378111471744,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.4449925075121802,
+    "iv_yahoo": 0.48935447174072266,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.47682515971970496,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.48193435633387904,
+    "iv_yahoo": 0.49817396362304694,
     "t_years": 0.15342465753424658
    }
   }
@@ -18223,12 +18223,12 @@
    "shortName": "Starbucks Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 116177403904,
+   "marketCap": 114912002048,
    "beta": 0.975,
    "sector": "Consumer Cyclical",
    "industry": "Restaurants",
-   "regularMarketPrice": 101.91,
-   "previousClose": 99.08,
+   "regularMarketPrice": 100.8,
+   "previousClose": 101.91,
    "exDividendDate": 1794528000,
    "dividendRate": 2.52,
    "dividendYield": 2.47,
@@ -18408,14 +18408,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.36393638938449646,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.3545513713951768,
+    "iv_yahoo": 0.38104867004394527,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3128381185776612,
-    "iv_yahoo": 0.04688453125,
+    "iv": 0.30764596544627587,
+    "iv_yahoo": 0.33399103515625,
     "t_years": 0.15342465753424658
    }
   }
@@ -18429,12 +18429,12 @@
    "shortName": "Intuit Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 94842052608,
+   "marketCap": 91766177792,
    "beta": 1.009,
    "sector": "Technology",
    "industry": "Software - Application",
-   "regularMarketPrice": 354.9,
-   "previousClose": 335.61,
+   "regularMarketPrice": 343.39,
+   "previousClose": 354.9,
    "exDividendDate": 1791417600,
    "dividendRate": 5.52,
    "dividendYield": 1.56,
@@ -18614,14 +18614,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.547643142061049,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5450706052131904,
+    "iv_yahoo": 0.5466201344299317,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.5367371092065654,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5236702327090155,
+    "iv_yahoo": 0.5370529693603516,
     "t_years": 0.15342465753424658
    }
   }
@@ -18635,12 +18635,12 @@
    "shortName": "Microchip Technology Incorporat",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 40465006592,
+   "marketCap": 40209797120,
    "beta": 1.759,
    "sector": "Technology",
    "industry": "Semiconductors",
-   "regularMarketPrice": 74.52,
-   "previousClose": 77.15,
+   "regularMarketPrice": 74.05,
+   "previousClose": 74.52,
    "exDividendDate": 1787529600,
    "dividendRate": 1.82,
    "dividendYield": 2.44,
@@ -18820,14 +18820,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.690167523389335,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.6412480350004046,
+    "iv_yahoo": 0.6235389208984375,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.6003032431205448,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5800840369763703,
+    "iv_yahoo": 0.5674481732177734,
     "t_years": 0.15342465753424658
    }
   }
@@ -18841,12 +18841,12 @@
    "shortName": "O'Reilly Automotive, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 74424393728,
+   "marketCap": 72741748736,
    "beta": 0.542,
    "sector": "Consumer Cyclical",
    "industry": "Auto Parts",
-   "regularMarketPrice": 92.0,
-   "previousClose": 89.2,
+   "regularMarketPrice": 89.92,
+   "previousClose": 92.0,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -19024,14 +19024,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.34674162304827294,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.3135560463868263,
+    "iv_yahoo": 0.4094297338867187,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.31860746527398054,
-    "iv_yahoo": 0.04688453125,
+    "iv": 0.2929751164554654,
+    "iv_yahoo": 0.41498387756347654,
     "t_years": 0.15342465753424658
    }
   }
@@ -19045,12 +19045,12 @@
    "shortName": "Costco Wholesale Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 451198746624,
+   "marketCap": 444600549376,
    "beta": 0.87,
    "sector": "Consumer Defensive",
    "industry": "Discount Stores",
-   "regularMarketPrice": 1018.21,
-   "previousClose": 998.31,
+   "regularMarketPrice": 1003.32,
+   "previousClose": 1018.21,
    "exDividendDate": 1793318400,
    "dividendRate": 5.88,
    "dividendYield": 0.58,
@@ -19230,14 +19230,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.20955499301438246,
-    "iv_yahoo": null,
+    "iv": 0.19526344419688008,
+    "iv_yahoo": 0.2049640051269531,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.22803738964014225,
-    "iv_yahoo": null,
+    "iv": 0.22313639446966305,
+    "iv_yahoo": 0.23297886169433593,
     "t_years": 0.15342465753424658
    }
   }
@@ -19251,12 +19251,12 @@
    "shortName": "Copart, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 26946953216,
+   "marketCap": 26863583232,
    "beta": 1.058,
    "sector": "Industrials",
    "industry": "Specialty Business Services",
-   "regularMarketPrice": 29.09,
-   "previousClose": 27.585,
+   "regularMarketPrice": 29.0,
+   "previousClose": 29.09,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -19434,14 +19434,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.41464623726029337,
-    "iv_yahoo": 0.0937590625,
+    "iv": 0.37727719035979246,
+    "iv_yahoo": 0.42603113037109375,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3807135681678306,
-    "iv_yahoo": 0.04688453125,
+    "iv": 0.37239767988427036,
+    "iv_yahoo": 0.4138242211914062,
     "t_years": 0.15342465753424658
    }
   }
@@ -19455,12 +19455,12 @@
    "shortName": "Take-Two Interactive Software, ",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 38856404992,
+   "marketCap": 38086049792,
    "beta": 0.974,
    "sector": "Communication Services",
    "industry": "Electronic Gaming & Multimedia",
-   "regularMarketPrice": 207.81,
-   "previousClose": 206.16,
+   "regularMarketPrice": 203.69,
+   "previousClose": 207.81,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -19638,14 +19638,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.574782117229798,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.5478032762969804,
+    "iv_yahoo": 0.5445297012329103,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.5221017249955582,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5217066728915788,
+    "iv_yahoo": 0.533635034790039,
     "t_years": 0.15342465753424658
    }
   }
@@ -19659,12 +19659,12 @@
    "shortName": "Amazon.com, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 2700677218304,
+   "marketCap": 2675005718528,
    "beta": 1.456,
    "sector": "Consumer Cyclical",
    "industry": "Internet Retail",
-   "regularMarketPrice": 250.38,
-   "previousClose": 262.37,
+   "regularMarketPrice": 248.0,
+   "previousClose": 250.38,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -19842,14 +19842,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.443409142476371,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.4524284116992817,
+    "iv_yahoo": 0.44763735961914064,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3831699530493096,
-    "iv_yahoo": null,
+    "iv": 0.3896882403074456,
+    "iv_yahoo": 0.3881286773681641,
     "t_years": 0.15342465753424658
    }
   }
@@ -19863,12 +19863,12 @@
    "shortName": "Strategy Inc",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 61738586112,
+   "marketCap": 61827506176,
    "beta": 3.571,
    "sector": "Technology",
    "industry": "Software - Application",
-   "regularMarketPrice": 145.8,
-   "previousClose": 153.48,
+   "regularMarketPrice": 146.01,
+   "previousClose": 145.8,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -20047,14 +20047,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.739434112397843,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.7299065637849815,
+    "iv_yahoo": 0.717776259765625,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.7177819040920468,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.7006645111752079,
+    "iv_yahoo": 0.6932708895874025,
     "t_years": 0.15342465753424658
    }
   }
@@ -20068,12 +20068,12 @@
    "shortName": "NVIDIA Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 5124234674176,
+   "marketCap": 5094050889728,
    "beta": 2.216,
    "sector": "Technology",
    "industry": "Semiconductors",
-   "regularMarketPrice": 212.21,
-   "previousClose": 221.97,
+   "regularMarketPrice": 210.96,
+   "previousClose": 212.21,
    "exDividendDate": 1788998400,
    "dividendRate": 1.0,
    "dividendYield": 0.47,
@@ -20253,14 +20253,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.44426484756697787,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.4360462405096742,
+    "iv_yahoo": 0.4298152722167969,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.4031651961694922,
-    "iv_yahoo": null,
+    "iv": 0.4001487402654314,
+    "iv_yahoo": 0.39761954925537113,
     "t_years": 0.15342465753424658
    }
   }
@@ -20274,12 +20274,12 @@
    "shortName": "Booking Holdings Inc. Common St",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 121047400448,
+   "marketCap": 117087625216,
    "beta": 1.128,
    "sector": "Consumer Cyclical",
    "industry": "Travel Services",
-   "regularMarketPrice": 161.1,
-   "previousClose": 158.38,
+   "regularMarketPrice": 155.83,
+   "previousClose": 161.1,
    "exDividendDate": 1789084800,
    "dividendRate": 1.68,
    "dividendYield": 1.04,
@@ -20459,14 +20459,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.47886655782496,
-    "iv_yahoo": 0.04688453125,
+    "iv": 0.4721809467550846,
+    "iv_yahoo": 0.49066671447753907,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.41928944424358894,
-    "iv_yahoo": null,
+    "iv": 0.43460479453271617,
+    "iv_yahoo": 0.577976632385254,
     "t_years": 0.15342465753424658
    }
   }
@@ -20480,12 +20480,12 @@
    "shortName": "Intuitive Surgical, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 156802465792,
+   "marketCap": 159784124416,
    "beta": 1.463,
    "sector": "Healthcare",
    "industry": "Medical Instruments & Supplies",
-   "regularMarketPrice": 443.85,
-   "previousClose": 428.12,
+   "regularMarketPrice": 452.29,
+   "previousClose": 443.85,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -20663,14 +20663,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.33739512509230385,
-    "iv_yahoo": null,
+    "iv": 0.3143051394318754,
+    "iv_yahoo": 0.37293107543945314,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3296836283775146,
-    "iv_yahoo": null,
+    "iv": 0.31277789027094827,
+    "iv_yahoo": 0.3574130421447754,
     "t_years": 0.15342465753424658
    }
   }
@@ -20684,12 +20684,12 @@
    "shortName": "Marvell Technology, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 200833531904,
+   "marketCap": 205362987008,
    "beta": 2.26,
    "sector": "Technology",
    "industry": "Semiconductors",
-   "regularMarketPrice": 223.47,
-   "previousClose": 244.76,
+   "regularMarketPrice": 228.51,
+   "previousClose": 223.47,
    "exDividendDate": 1791504000,
    "dividendRate": 0.24,
    "dividendYield": 0.11,
@@ -20869,14 +20869,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.6806350726527328,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.6686493202522109,
+    "iv_yahoo": 0.6584506811523438,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.6811469816567863,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.6774274100501007,
+    "iv_yahoo": 0.6712679357910156,
     "t_years": 0.15342465753424658
    }
   }
@@ -20890,12 +20890,12 @@
    "shortName": "Analog Devices, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 186925973504,
+   "marketCap": 189499015168,
    "beta": 1.231,
    "sector": "Technology",
    "industry": "Semiconductors",
-   "regularMarketPrice": 385.76,
-   "previousClose": 405.96,
+   "regularMarketPrice": 391.07,
+   "previousClose": 385.76,
    "exDividendDate": 1788220800,
    "dividendRate": 4.4,
    "dividendYield": 1.14,
@@ -21075,14 +21075,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.46732866462793143,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.4243828154740036,
+    "iv_yahoo": 0.44431097686767573,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.4442877908430225,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.42608770067828794,
+    "iv_yahoo": 0.4447382186889648,
     "t_years": 0.15342465753424658
    }
   }
@@ -21096,12 +21096,12 @@
    "shortName": "American Electric Power Company",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 71120076800,
+   "marketCap": 70602899456,
    "beta": 0.469,
    "sector": "Utilities",
    "industry": "Utilities - Regulated Electric",
-   "regularMarketPrice": 130.64,
-   "previousClose": 127.39,
+   "regularMarketPrice": 129.69,
+   "previousClose": 130.64,
    "exDividendDate": 1794268800,
    "dividendRate": 3.88,
    "dividendYield": 2.97,
@@ -21281,14 +21281,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.2302530001927351,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.2321358102987576,
+    "iv_yahoo": 0.3010323803710937,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.21103955976445016,
-    "iv_yahoo": 0.2929758203125,
+    "iv": 0.21985299166482863,
+    "iv_yahoo": 0.2618482019042969,
     "t_years": 0.15342465753424658
    }
   }
@@ -21302,12 +21302,12 @@
    "shortName": "Advanced Micro Devices, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 829183033344,
+   "marketCap": 843646697472,
    "beta": 2.454,
    "sector": "Technology",
    "industry": "Semiconductors",
-   "regularMarketPrice": 507.93,
-   "previousClose": 552.72,
+   "regularMarketPrice": 516.79,
+   "previousClose": 507.93,
    "exDividendDate": 798940800,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -21486,14 +21486,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.6458280224688333,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.6212206229130598,
+    "iv_yahoo": 0.6086922676086426,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.5764967678987332,
-    "iv_yahoo": null,
+    "iv": 0.5674317697273412,
+    "iv_yahoo": 0.5606885972595215,
     "t_years": 0.15342465753424658
    }
   }
@@ -21507,12 +21507,12 @@
    "shortName": "Automatic Data Processing, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 122021707776,
+   "marketCap": 120523874304,
    "beta": 0.841,
    "sector": "Technology",
    "industry": "Software - Application",
-   "regularMarketPrice": 307.94,
-   "previousClose": 294.5,
+   "regularMarketPrice": 304.16,
+   "previousClose": 307.94,
    "exDividendDate": 1789084800,
    "dividendRate": 6.8,
    "dividendYield": 2.21,
@@ -21692,14 +21692,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.3568348398822589,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.33710716609317387,
+    "iv_yahoo": 0.37851573638916014,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3078584053100002,
-    "iv_yahoo": 0.642203366165161,
+    "iv": 0.30070215204436507,
+    "iv_yahoo": 0.3245917150878906,
     "t_years": 0.15342465753424658
    }
   }
@@ -21713,12 +21713,12 @@
    "shortName": "Cadence Design Systems, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 85275435008,
+   "marketCap": 87159128064,
    "beta": 1.128,
    "sector": "Technology",
    "industry": "Software - Application",
-   "regularMarketPrice": 309.65,
-   "previousClose": 326.07,
+   "regularMarketPrice": 316.49,
+   "previousClose": 309.65,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -21896,14 +21896,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.6386542331822083,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5163994025588058,
+    "iv_yahoo": 0.5325364129638672,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.48443516665025205,
-    "iv_yahoo": null,
+    "iv": 0.47834768035519215,
+    "iv_yahoo": 0.5125323405456543,
     "t_years": 0.15342465753424658
    }
   }
@@ -21917,12 +21917,12 @@
    "shortName": "CSX Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 95717376000,
+   "marketCap": 94087200768,
    "beta": 1.203,
    "sector": "Industrials",
    "industry": "Railroads",
-   "regularMarketPrice": 51.67,
-   "previousClose": 48.4,
+   "regularMarketPrice": 50.79,
+   "previousClose": 51.67,
    "exDividendDate": 1795996800,
    "dividendRate": 0.56,
    "dividendYield": 1.08,
@@ -22102,14 +22102,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.27450855910010086,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.23584711907363992,
+    "iv_yahoo": 0.27539787109374997,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.24770890421149813,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.22897224440659766,
+    "iv_yahoo": 0.30933307861328124,
     "t_years": 0.15342465753424658
    }
   }
@@ -22123,12 +22123,12 @@
    "shortName": "Honeywell International Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 69191172096,
+   "marketCap": 70091276288,
    "beta": null,
    "sector": "Industrials",
    "industry": "Conglomerates",
-   "regularMarketPrice": 218.31,
-   "previousClose": 214.73,
+   "regularMarketPrice": 221.15,
+   "previousClose": 218.31,
    "exDividendDate": 1794528000,
    "dividendRate": 2.8,
    "dividendYield": 1.28,
@@ -22308,14 +22308,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.3248391703558355,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.30111434281954685,
+    "iv_yahoo": 0.35028725891113277,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3003602690719424,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.2849635717608273,
+    "iv_yahoo": 0.316840327758789,
     "t_years": 0.15342465753424658
    }
   }
@@ -22329,12 +22329,12 @@
    "shortName": "Marriott International",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 103472062464,
+   "marketCap": 101883994112,
    "beta": 1.167,
    "sector": "Consumer Cyclical",
    "industry": "Lodging",
-   "regularMarketPrice": 396.8,
-   "previousClose": 404.0,
+   "regularMarketPrice": 390.71,
+   "previousClose": 396.8,
    "exDividendDate": 1787184000,
    "dividendRate": 2.92,
    "dividendYield": 0.74,
@@ -22514,14 +22514,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.30855553564692206,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.31837419912245646,
+    "iv_yahoo": 0.3370732797241211,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.2795158255651555,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.2768871480072299,
+    "iv_yahoo": 0.30727316268920896,
     "t_years": 0.15342465753424658
    }
   }
@@ -22535,12 +22535,12 @@
    "shortName": "Micron Technology, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 969052651520,
+   "marketCap": 992880427008,
    "beta": 2.226,
    "sector": "Technology",
    "industry": "Semiconductors",
-   "regularMarketPrice": 856.49,
-   "previousClose": 913.67,
+   "regularMarketPrice": 877.55,
+   "previousClose": 856.49,
    "exDividendDate": 1791936000,
    "dividendRate": 0.6,
    "dividendYield": 0.07,
@@ -22720,14 +22720,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.5707487216266469,
-    "iv_yahoo": null,
+    "iv": 0.5411083279558203,
+    "iv_yahoo": 0.5313691272735597,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.5461389120048542,
-    "iv_yahoo": null,
+    "iv": 0.5286569095403009,
+    "iv_yahoo": 0.5231981274414064,
     "t_years": 0.15342465753424658
    }
   }
@@ -22741,12 +22741,12 @@
    "shortName": "Xcel Energy Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 49283649536,
+   "marketCap": 48752709632,
    "beta": 0.373,
    "sector": "Utilities",
    "industry": "Utilities - Regulated Electric",
-   "regularMarketPrice": 78.9,
-   "previousClose": 76.713,
+   "regularMarketPrice": 78.05,
+   "previousClose": 78.967,
    "exDividendDate": 1789430400,
    "dividendRate": 2.37,
    "dividendYield": 3.0,
@@ -22926,14 +22926,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.28769178933660955,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.2821426000703897,
+    "iv_yahoo": 0.34058276611328125,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.2640323917197227,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.26945374333627725,
+    "iv_yahoo": 0.34552656433105466,
     "t_years": 0.15342465753424658
    }
   }
@@ -22947,12 +22947,12 @@
    "shortName": "Exelon Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 46206889984,
+   "marketCap": 45774184448,
    "beta": 0.402,
    "sector": "Utilities",
    "industry": "Utilities - Regulated Electric",
-   "regularMarketPrice": 44.85,
-   "previousClose": 43.05,
+   "regularMarketPrice": 44.43,
+   "previousClose": 44.85,
    "exDividendDate": 1788480000,
    "dividendRate": 1.68,
    "dividendYield": 3.75,
@@ -23132,14 +23132,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.20870351758137762,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.19711150764356505,
+    "iv_yahoo": 0.223640576171875,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.21589824861086676,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.20445025111801374,
+    "iv_yahoo": 0.23206334350585936,
     "t_years": 0.15342465753424658
    }
   }
@@ -23153,12 +23153,12 @@
    "shortName": "Pepsico, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 189189357568,
+   "marketCap": 185019367424,
    "beta": 0.364,
    "sector": "Consumer Defensive",
    "industry": "Beverages - Non-Alcoholic",
-   "regularMarketPrice": 138.83,
-   "previousClose": 134.7,
+   "regularMarketPrice": 135.77,
+   "previousClose": 138.83,
    "exDividendDate": 1788480000,
    "dividendRate": 5.92,
    "dividendYield": 4.26,
@@ -23338,14 +23338,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.23201468580521262,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.2210964901539692,
+    "iv_yahoo": 0.24146266357421875,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.2214145876106704,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.2196382329660279,
+    "iv_yahoo": 0.23807524627685545,
     "t_years": 0.15342465753424658
    }
   }
@@ -23359,12 +23359,12 @@
    "shortName": "Roper Technologies, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 43143528448,
+   "marketCap": 43332427776,
    "beta": null,
    "sector": "Technology",
    "industry": "Software - Application",
-   "regularMarketPrice": 436.23,
-   "previousClose": 397.56,
+   "regularMarketPrice": 438.14,
+   "previousClose": 436.23,
    "exDividendDate": 1790899200,
    "dividendRate": 3.64,
    "dividendYield": 0.83,
@@ -23544,14 +23544,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.32926474672581596,
-    "iv_yahoo": 0.3906463523864746,
+    "iv": 0.30289106598169535,
+    "iv_yahoo": 0.3658815853881836,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.5355498896035191,
-    "iv_yahoo": 0.12500875,
+    "iv": 0.4862379916245713,
+    "iv_yahoo": 0.5383346948242189,
     "t_years": 0.15342465753424658
    }
   }
@@ -23565,12 +23565,12 @@
    "shortName": "Teradyne, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 48270209024,
+   "marketCap": 48285843456,
    "beta": 1.747,
    "sector": "Technology",
    "industry": "Semiconductor Equipment & Materials",
-   "regularMarketPrice": 308.75,
-   "previousClose": 345.49,
+   "regularMarketPrice": 308.85,
+   "previousClose": 308.75,
    "exDividendDate": 1788480000,
    "dividendRate": 0.52,
    "dividendYield": 0.17,
@@ -23750,14 +23750,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.8171283124670812,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.7974125175921933,
+    "iv_yahoo": 0.7902547830200196,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.7126098469839024,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.7077363443128831,
+    "iv_yahoo": 0.7083311637878418,
     "t_years": 0.15342465753424658
    }
   }
@@ -23771,12 +23771,12 @@
    "shortName": "Texas Instruments Incorporated",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 255252725760,
+   "marketCap": 259992485888,
    "beta": 1.339,
    "sector": "Technology",
    "industry": "Semiconductors",
-   "regularMarketPrice": 279.5,
-   "previousClose": 284.65,
+   "regularMarketPrice": 284.69,
+   "previousClose": 279.5,
    "exDividendDate": 1793318400,
    "dividendRate": 6.08,
    "dividendYield": 2.18,
@@ -23956,14 +23956,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.45210139175708797,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.42170324260899594,
+    "iv_yahoo": 0.442937699584961,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3987294314450223,
-    "iv_yahoo": null,
+    "iv": 0.398719181822637,
+    "iv_yahoo": 0.4159756889343261,
     "t_years": 0.15342465753424658
    }
   }
@@ -23977,12 +23977,12 @@
    "shortName": "Western Digital Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 132581556224,
+   "marketCap": 128643678208,
    "beta": 2.169,
    "sector": "Technology",
    "industry": "Computer Hardware",
-   "regularMarketPrice": 354.19,
-   "previousClose": 378.51,
+   "regularMarketPrice": 343.67,
+   "previousClose": 354.19,
    "exDividendDate": 1796342400,
    "dividendRate": 0.6,
    "dividendYield": 0.17,
@@ -24162,14 +24162,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.7373391537868024,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.6717791431757204,
+    "iv_yahoo": 0.6624179266357423,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.6715379348285332,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.646466483268865,
+    "iv_yahoo": 0.6390111782836916,
     "t_years": 0.15342465753424658
    }
   }
@@ -24183,12 +24183,12 @@
    "shortName": "Walmart Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 963882516480,
+   "marketCap": 954094059520,
    "beta": 0.578,
    "sector": "Consumer Defensive",
    "industry": "Discount Stores",
-   "regularMarketPrice": 121.12,
-   "previousClose": 117.8,
+   "regularMarketPrice": 119.89,
+   "previousClose": 121.12,
    "exDividendDate": 1796947200,
    "dividendRate": 0.99,
    "dividendYield": 0.82,
@@ -24368,14 +24368,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.3294052510570713,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.33078132181723063,
+    "iv_yahoo": 0.33563896789550784,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.2876379222527805,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.2847694905126298,
+    "iv_yahoo": 0.29846892944335934,
     "t_years": 0.15342465753424658
    }
   }
@@ -24389,12 +24389,12 @@
    "shortName": "Axon Enterprise, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 33681033216,
+   "marketCap": 34149771264,
    "beta": 1.439,
    "sector": "Industrials",
    "industry": "Aerospace & Defense",
-   "regularMarketPrice": 414.6,
-   "previousClose": 402.6,
+   "regularMarketPrice": 420.37,
+   "previousClose": 414.6,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -24572,14 +24572,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.837584663923254,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.8213303697530752,
+    "iv_yahoo": 0.801057897644043,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.7269768314630015,
-    "iv_yahoo": null,
+    "iv": 0.6987084839320787,
+    "iv_yahoo": 0.6887390745544435,
     "t_years": 0.15342465753424658
    }
   }
@@ -24593,12 +24593,12 @@
    "shortName": "Mondelez International, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 83202531328,
+   "marketCap": 81428455424,
    "beta": 0.391,
    "sector": "Consumer Defensive",
    "industry": "Confectioners",
-   "regularMarketPrice": 65.19,
-   "previousClose": 62.74,
+   "regularMarketPrice": 63.8,
+   "previousClose": 65.19,
    "exDividendDate": 1790726400,
    "dividendRate": 2.08,
    "dividendYield": 3.19,
@@ -24778,14 +24778,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.28251144702968195,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.2635405347710613,
+    "iv_yahoo": 0.33814138427734375,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.24305451341865303,
-    "iv_yahoo": 0.04688453125,
+    "iv": 0.26282774775271517,
+    "iv_yahoo": 0.3143379113769531,
     "t_years": 0.15342465753424658
    }
   }
@@ -24799,12 +24799,12 @@
    "shortName": "Netflix, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 279192174592,
+   "marketCap": 274195415040,
    "beta": 1.613,
    "sector": "Communication Services",
    "industry": "Entertainment",
-   "regularMarketPrice": 67.05,
-   "previousClose": 65.04,
+   "regularMarketPrice": 65.85,
+   "previousClose": 67.05,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -24982,14 +24982,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.3250763272204793,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.3081256411057021,
+    "iv_yahoo": 0.30811238769531246,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.323404455374412,
-    "iv_yahoo": null,
+    "iv": 0.3154601687747533,
+    "iv_yahoo": 0.3164130859375,
     "t_years": 0.15342465753424658
    }
   }
@@ -25003,12 +25003,12 @@
    "shortName": "Seagate Technology Holdings PLC",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 146018156544,
+   "marketCap": 143369011200,
    "beta": 2.081,
    "sector": "Technology",
    "industry": "Computer Hardware",
-   "regularMarketPrice": 642.14,
-   "previousClose": 696.89,
+   "regularMarketPrice": 630.49,
+   "previousClose": 642.14,
    "exDividendDate": 1790208000,
    "dividendRate": 2.96,
    "dividendYield": 0.46,
@@ -25188,14 +25188,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.7755841672023843,
-    "iv_yahoo": null,
+    "iv": 0.7168348710830572,
+    "iv_yahoo": 0.7028609426116944,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.6978573287627456,
-    "iv_yahoo": null,
+    "iv": 0.6645329838176696,
+    "iv_yahoo": 0.6573139127349854,
     "t_years": 0.15342465753424658
    }
   }
@@ -25209,12 +25209,12 @@
    "shortName": "Alnylam Pharmaceuticals, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 30412136448,
+   "marketCap": 29977257984,
    "beta": 0.269,
    "sector": "Healthcare",
    "industry": "Biotechnology",
-   "regularMarketPrice": 227.28,
-   "previousClose": 225.1,
+   "regularMarketPrice": 224.03,
+   "previousClose": 227.28,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -25392,14 +25392,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.6515437293351194,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.6648714446786697,
+    "iv_yahoo": 0.6587863711547853,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.5814741629202371,
-    "iv_yahoo": 0.04688453125,
+    "iv": 0.5868063023244301,
+    "iv_yahoo": 0.5673261041259765,
     "t_years": 0.15342465753424658
    }
   }
@@ -25413,12 +25413,12 @@
    "shortName": "Alphabet Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 3965189619712,
+   "marketCap": 3916147458048,
    "beta": 1.211,
    "sector": "Communication Services",
    "industry": "Internet Content & Information",
-   "regularMarketPrice": 324.22,
-   "previousClose": 334.76,
+   "regularMarketPrice": 320.21,
+   "previousClose": 324.22,
    "exDividendDate": 1788480000,
    "dividendRate": 0.88,
    "dividendYield": 0.27,
@@ -25598,14 +25598,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.3868155616304434,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.37928234582370224,
+    "iv_yahoo": 0.37570814727783197,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.34545046553735276,
-    "iv_yahoo": null,
+    "iv": 0.3447393587737444,
+    "iv_yahoo": 0.34410751113891597,
     "t_years": 0.15342465753424658
    }
   }
@@ -25619,12 +25619,12 @@
    "shortName": "Monolithic Power Systems, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 57395585024,
+   "marketCap": 56028917760,
    "beta": 1.681,
    "sector": "Technology",
    "industry": "Semiconductors",
-   "regularMarketPrice": 1167.93,
-   "previousClose": 1283.32,
+   "regularMarketPrice": 1140.12,
+   "previousClose": 1167.93,
    "exDividendDate": 1790726400,
    "dividendRate": 8.0,
    "dividendYield": 0.69,
@@ -25804,14 +25804,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.7002621187600249,
-    "iv_yahoo": null,
+    "iv": 0.6691253406279347,
+    "iv_yahoo": 0.6545520995330811,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.6221739211573569,
-    "iv_yahoo": null,
+    "iv": 0.616038562033324,
+    "iv_yahoo": 0.5908244042968751,
     "t_years": 0.15342465753424658
    }
   }
@@ -25825,12 +25825,12 @@
    "shortName": "DexCom, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 29554894848,
+   "marketCap": 29411500032,
    "beta": 1.477,
    "sector": "Healthcare",
    "industry": "Medical Devices",
-   "regularMarketPrice": 78.32,
-   "previousClose": 80.26,
+   "regularMarketPrice": 77.94,
+   "previousClose": 78.32,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -26008,14 +26008,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.5571747032882394,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.5010635512719317,
+    "iv_yahoo": 0.5452926330566408,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.47000741274328295,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.42670966501251917,
+    "iv_yahoo": 0.5052539709472657,
     "t_years": 0.15342465753424658
    }
   }
@@ -26029,12 +26029,12 @@
    "shortName": "T-Mobile US, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 170329522176,
+   "marketCap": 157189292032,
    "beta": 0.317,
    "sector": "Communication Services",
    "industry": "Telecom Services",
-   "regularMarketPrice": 158.79,
-   "previousClose": 153.75,
+   "regularMarketPrice": 146.54,
+   "previousClose": 158.79,
    "exDividendDate": 1795564800,
    "dividendRate": 4.68,
    "dividendYield": 2.95,
@@ -26214,14 +26214,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.4092660200133972,
-    "iv_yahoo": 0.04688453125,
+    "iv": 0.4143844986847494,
+    "iv_yahoo": 0.4796804962158203,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3643290474052746,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.38490109781403714,
+    "iv_yahoo": 0.4152280157470703,
     "t_years": 0.15342465753424658
    }
   }
@@ -26235,12 +26235,12 @@
    "shortName": "MercadoLibre, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 92519120896,
+   "marketCap": 91768815616,
    "beta": 1.308,
    "sector": "Consumer Cyclical",
    "industry": "Internet Retail",
-   "regularMarketPrice": 1824.95,
-   "previousClose": 1854.88,
+   "regularMarketPrice": 1810.15,
+   "previousClose": 1824.955,
    "exDividendDate": 1514419200,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -26420,14 +26420,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.5547643885501355,
-    "iv_yahoo": null,
+    "iv": 0.5211104375923621,
+    "iv_yahoo": 0.5224542689132691,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.4523225629223627,
-    "iv_yahoo": null,
+    "iv": 0.45546145250391346,
+    "iv_yahoo": 0.490952813911438,
     "t_years": 0.15342465753424658
    }
   }
@@ -26441,12 +26441,12 @@
    "shortName": "Keurig Dr Pepper Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 47887466496,
+   "marketCap": 47193444352,
    "beta": 0.41,
    "sector": "Consumer Defensive",
    "industry": "Beverages - Non-Alcoholic",
-   "regularMarketPrice": 35.19,
-   "previousClose": 34.47,
+   "regularMarketPrice": 34.68,
+   "previousClose": 35.19,
    "exDividendDate": 1790553600,
    "dividendRate": 0.92,
    "dividendYield": 2.61,
@@ -26626,14 +26626,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.32307594701467635,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.33979588471702826,
+    "iv_yahoo": 0.48535670898437505,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.29854009410373594,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.28601057370319244,
+    "iv_yahoo": 0.36719382812499995,
     "t_years": 0.15342465753424658
    }
   }
@@ -26647,12 +26647,12 @@
    "shortName": "Nebius Group N.V.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 43271196672,
+   "marketCap": 43154300928,
    "beta": 1.46,
    "sector": "Communication Services",
    "industry": "Internet Content & Information",
-   "regularMarketPrice": 159.17,
-   "previousClose": 171.57,
+   "regularMarketPrice": 158.74,
+   "previousClose": 159.17,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -26830,14 +26830,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 1.052890254730651,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.998869628965247,
+    "iv_yahoo": 0.9849244671630859,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.9413214413649565,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.92172564440538,
+    "iv_yahoo": 0.9127511166381835,
     "t_years": 0.15342465753424658
    }
   }
@@ -26851,12 +26851,12 @@
    "shortName": "Broadcom Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 1543028080640,
+   "marketCap": 1535581224960,
    "beta": 1.476,
    "sector": "Technology",
    "industry": "Semiconductors",
-   "regularMarketPrice": 323.24,
-   "previousClose": 337.8,
+   "regularMarketPrice": 321.68,
+   "previousClose": 323.24,
    "exDividendDate": 1789948800,
    "dividendRate": 2.6,
    "dividendYield": 0.8,
@@ -27036,14 +27036,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.4376102726165412,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.41387848239502745,
+    "iv_yahoo": 0.41000956207275385,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.46193294506859495,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.456098598972487,
+    "iv_yahoo": 0.45419857330322266,
     "t_years": 0.15342465753424658
    }
   }
@@ -27057,12 +27057,12 @@
    "shortName": "Fortinet, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 126917787648,
+   "marketCap": 132061126656,
    "beta": 1.037,
    "sector": "Technology",
    "industry": "Software - Infrastructure",
-   "regularMarketPrice": 172.98,
-   "previousClose": 174.05,
+   "regularMarketPrice": 179.99,
+   "previousClose": 172.98,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -27240,14 +27240,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.6486174639811196,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.6803125758394393,
+    "iv_yahoo": 0.6623568920898439,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.5565411784632134,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5717834156889665,
+    "iv_yahoo": 0.5640607559204103,
     "t_years": 0.15342465753424658
    }
   }
@@ -27261,12 +27261,12 @@
    "shortName": "Tesla, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 1479421460480,
+   "marketCap": 1471285166080,
    "beta": 1.916,
    "sector": "Consumer Cyclical",
    "industry": "Auto Manufacturers",
-   "regularMarketPrice": 374.58,
-   "previousClose": 386.47,
+   "regularMarketPrice": 372.22,
+   "previousClose": 374.58,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -27444,14 +27444,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.41613201750532647,
-    "iv_yahoo": null,
+    "iv": 0.39727315528202833,
+    "iv_yahoo": 0.39124143920898435,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.40277136478363373,
-    "iv_yahoo": null,
+    "iv": 0.395261965240546,
+    "iv_yahoo": 0.39385066604614255,
     "t_years": 0.15342465753424658
    }
   }
@@ -27465,12 +27465,12 @@
    "shortName": "NXP Semiconductors N.V.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 59962118144,
+   "marketCap": 59238408192,
    "beta": 1.811,
    "sector": "Technology",
    "industry": "Semiconductors",
-   "regularMarketPrice": 237.79,
-   "previousClose": 242.36,
+   "regularMarketPrice": 234.92,
+   "previousClose": 237.79,
    "exDividendDate": 1789516800,
    "dividendRate": 4.06,
    "dividendYield": 1.71,
@@ -27650,14 +27650,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.5703128819044073,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5544864827727236,
+    "iv_yahoo": 0.5417831466674806,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.5155492917131557,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5147750666860709,
+    "iv_yahoo": 0.5191393301391601,
     "t_years": 0.15342465753424658
    }
   }
@@ -27671,12 +27671,12 @@
    "shortName": "Diamondback Energy, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 55203098624,
+   "marketCap": 57614069760,
    "beta": 0.537,
    "sector": "Energy",
    "industry": "Oil & Gas E&P",
-   "regularMarketPrice": 197.14,
-   "previousClose": 200.93,
+   "regularMarketPrice": 205.75,
+   "previousClose": 197.14,
    "exDividendDate": 1786579200,
    "dividendRate": 4.4,
    "dividendYield": 2.23,
@@ -27856,14 +27856,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.39735152474073965,
-    "iv_yahoo": 0.04688453125,
+    "iv": 0.4033050030607226,
+    "iv_yahoo": 0.4426020095825195,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3823198069962307,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.3753058329432313,
+    "iv_yahoo": 0.42035491760253907,
     "t_years": 0.15342465753424658
    }
   }
@@ -27877,12 +27877,12 @@
    "shortName": "Meta Platforms, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 1652949385216,
+   "marketCap": 1637078401024,
    "beta": 1.185,
    "sector": "Communication Services",
    "industry": "Internet Content & Information",
-   "regularMarketPrice": 648.85,
-   "previousClose": 697.52,
+   "regularMarketPrice": 642.62,
+   "previousClose": 648.85,
    "exDividendDate": 1789948800,
    "dividendRate": 2.1,
    "dividendYield": 0.32,
@@ -28062,14 +28062,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.3883324440976548,
-    "iv_yahoo": null,
+    "iv": 0.37836986721052024,
+    "iv_yahoo": 0.37216814361572265,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3725855620566534,
-    "iv_yahoo": null,
+    "iv": 0.3701216001650061,
+    "iv_yahoo": 0.3693681838226318,
     "t_years": 0.15342465753424658
    }
   }
@@ -28083,12 +28083,12 @@
    "shortName": "Palo Alto Networks, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 290324578304,
+   "marketCap": 311289905152,
    "beta": 0.933,
    "sector": "Technology",
    "industry": "Software - Infrastructure",
-   "regularMarketPrice": 354.92,
-   "previousClose": 347.25,
+   "regularMarketPrice": 380.55,
+   "previousClose": 354.92,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -28266,14 +28266,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.6468677649264887,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.63060032563184,
+    "iv_yahoo": 0.617465983581543,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.6075928040282876,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.6165989332757312,
+    "iv_yahoo": 0.6084633880615236,
     "t_years": 0.15342465753424658
    }
   }
@@ -28292,7 +28292,7 @@
    "sector": "Technology",
    "industry": "Software - Application",
    "regularMarketPrice": 209.99,
-   "previousClose": 202.96,
+   "previousClose": 209.99,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -28470,14 +28470,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.45898720437487484,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.44191979039036267,
+    "iv_yahoo": 0.5121813919067383,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.4733141511549577,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.45007069705119107,
+    "iv_yahoo": 0.49731947998046877,
     "t_years": 0.15342465753424658
    }
   }
@@ -28491,12 +28491,12 @@
    "shortName": "Alphabet Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 3922874073088,
+   "marketCap": 3880313683968,
    "beta": 1.211,
    "sector": "Communication Services",
    "industry": "Internet Content & Information",
-   "regularMarketPrice": 320.76,
-   "previousClose": 330.95,
+   "regularMarketPrice": 317.28,
+   "previousClose": 320.76,
    "exDividendDate": 1788480000,
    "dividendRate": 0.88,
    "dividendYield": 0.27,
@@ -28676,14 +28676,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.38197074609508863,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.37550159444904996,
+    "iv_yahoo": 0.37244279907226563,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.34801535847038656,
-    "iv_yahoo": null,
+    "iv": 0.33828564131646444,
+    "iv_yahoo": 0.3462589788818359,
     "t_years": 0.15342465753424658
    }
   }
@@ -28697,12 +28697,12 @@
    "shortName": "PayPal Holdings, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 49218940928,
+   "marketCap": 48778379264,
    "beta": 1.28,
    "sector": "Financial Services",
    "industry": "Credit Services",
-   "regularMarketPrice": 57.535,
-   "previousClose": 57.2,
+   "regularMarketPrice": 57.02,
+   "previousClose": 57.535,
    "exDividendDate": 1788480000,
    "dividendRate": 0.56,
    "dividendYield": 0.97,
@@ -28882,14 +28882,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.4618190618211185,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.4578077458459503,
+    "iv_yahoo": 0.4981739636230469,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.4011853105644957,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.40846924279711355,
+    "iv_yahoo": 0.4342097595214844,
     "t_years": 0.15342465753424658
    }
   }
@@ -28903,12 +28903,12 @@
    "shortName": "Shopify Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 219057078272,
+   "marketCap": 218888372224,
    "beta": 2.625,
    "sector": "Technology",
    "industry": "Software - Application",
-   "regularMarketPrice": 168.81,
-   "previousClose": 174.29,
+   "regularMarketPrice": 168.68,
+   "previousClose": 168.81,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -29086,14 +29086,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.7708562132547966,
-    "iv_yahoo": 0.04688453125,
+    "iv": 0.7465718167077113,
+    "iv_yahoo": 0.7397486962890625,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.6293518056277452,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.6336518442869534,
+    "iv_yahoo": 0.6267737518310547,
     "t_years": 0.15342465753424658
    }
   }
@@ -29107,12 +29107,12 @@
    "shortName": "Lumentum Holdings Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 68167221248,
+   "marketCap": 68496035840,
    "beta": 1.536,
    "sector": "Technology",
    "industry": "Communication Equipment",
-   "regularMarketPrice": 752.54,
-   "previousClose": 850.7,
+   "regularMarketPrice": 756.17,
+   "previousClose": 752.54,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -29290,14 +29290,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.8558339557076484,
-    "iv_yahoo": null,
+    "iv": 0.8246212670296786,
+    "iv_yahoo": 0.8089313540649414,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.7572298811549751,
-    "iv_yahoo": null,
+    "iv": 0.7401151279990558,
+    "iv_yahoo": 0.733126448059082,
     "t_years": 0.15342465753424658
    }
   }
@@ -29311,12 +29311,12 @@
    "shortName": "Coca-Cola Europacific Partners ",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 50198638592,
+   "marketCap": 48708894720,
    "beta": 0.473,
    "sector": "Consumer Defensive",
    "industry": "Beverages - Non-Alcoholic",
-   "regularMarketPrice": 114.23,
-   "previousClose": 110.29,
+   "regularMarketPrice": 110.84,
+   "previousClose": 114.23,
    "exDividendDate": 1778803200,
    "dividendRate": 2.41,
    "dividendYield": 2.11,
@@ -29448,14 +29448,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.37394785029714084,
-    "iv_yahoo": 0.04688453125,
+    "iv": 0.3205426669200446,
+    "iv_yahoo": 0.47095255615234377,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2027-02-19",
-    "iv": 0.3596913986717783,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.2531692278064596,
+    "iv_yahoo": 0.3271246487426757,
     "t_years": 0.32602739726027397
    }
   }
@@ -29469,12 +29469,12 @@
    "shortName": "Baker Hughes Company",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 53227180032,
+   "marketCap": 55450771456,
    "beta": 1.035,
    "sector": "Energy",
    "industry": "Oil & Gas Equipment & Services",
-   "regularMarketPrice": 53.62,
-   "previousClose": 56.0,
+   "regularMarketPrice": 55.86,
+   "previousClose": 53.62,
    "exDividendDate": 1786060800,
    "dividendRate": 0.92,
    "dividendYield": 1.72,
@@ -29654,14 +29654,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.43244866094994605,
-    "iv_yahoo": 0.0937590625,
+    "iv": 0.4182697932079494,
+    "iv_yahoo": 0.4368952795410156,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.39716929647205373,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.38163807258352916,
+    "iv_yahoo": 0.3947814428710938,
     "t_years": 0.15342465753424658
    }
   }
@@ -29675,12 +29675,12 @@
    "shortName": "PDD Holdings Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 112690298880,
+   "marketCap": 112505257984,
    "beta": -0.053,
    "sector": "Consumer Cyclical",
    "industry": "Internet Retail",
-   "regularMarketPrice": 79.17,
-   "previousClose": 78.72,
+   "regularMarketPrice": 79.04,
+   "previousClose": 79.17,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -29858,14 +29858,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.4159097814227521,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.3998753416422133,
+    "iv_yahoo": 0.4338435522460937,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.38042878110962425,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.3823967842477666,
+    "iv_yahoo": 0.38867798828125,
     "t_years": 0.15342465753424658
    }
   }
@@ -29879,12 +29879,12 @@
    "shortName": "Moderna, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 80897171456,
+   "marketCap": 79887106048,
    "beta": 1.095,
    "sector": "Healthcare",
    "industry": "Biotechnology",
-   "regularMarketPrice": 202.63,
-   "previousClose": 245.81,
+   "regularMarketPrice": 200.1,
+   "previousClose": 202.63,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -30062,14 +30062,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.9421597828986988,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.91575118548497,
+    "iv_yahoo": 0.8947459255981445,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.8473231502974948,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.8233087679063209,
+    "iv_yahoo": 0.8088398022460936,
     "t_years": 0.15342465753424658
    }
   }
@@ -30083,12 +30083,12 @@
    "shortName": "CrowdStrike Holdings, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 243635060736,
+   "marketCap": 263734902784,
    "beta": 1.197,
    "sector": "Technology",
    "industry": "Software - Infrastructure",
-   "regularMarketPrice": 237.94,
-   "previousClose": 239.34,
+   "regularMarketPrice": 257.57,
+   "previousClose": 237.94,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -30266,14 +30266,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.5970349307710976,
-    "iv_yahoo": null,
+    "iv": 0.6013923624212107,
+    "iv_yahoo": 0.5872844006347657,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.6382585420879077,
-    "iv_yahoo": null,
+    "iv": 0.6397461027434121,
+    "iv_yahoo": 0.625125819091797,
     "t_years": 0.15342465753424658
    }
   }
@@ -30287,12 +30287,12 @@
    "shortName": "Datadog, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 92551585792,
+   "marketCap": 96824573952,
    "beta": 1.512,
    "sector": "Technology",
    "industry": "Software - Application",
-   "regularMarketPrice": 257.75,
-   "previousClose": 273.09,
+   "regularMarketPrice": 269.65,
+   "previousClose": 257.75,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -30470,14 +30470,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.8266550768817491,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.8014365582068403,
+    "iv_yahoo": 0.7975484112548828,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.6746066383992615,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.7015644836718381,
+    "iv_yahoo": 0.6942932182312012,
     "t_years": 0.15342465753424658
    }
   }
@@ -30491,12 +30491,12 @@
    "shortName": "Rocket Lab Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 32750632960,
+   "marketCap": 33633017856,
    "beta": 2.938,
    "sector": "Industrials",
    "industry": "Aerospace & Defense",
-   "regularMarketPrice": 51.22,
-   "previousClose": 53.6558,
+   "regularMarketPrice": 52.6,
+   "previousClose": 51.22,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -30650,14 +30650,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.8077192052608706,
-    "iv_yahoo": 0.0937590625,
+    "iv": 0.810804100778248,
+    "iv_yahoo": 0.7976094458007812,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.7635807567687851,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.748398302980597,
+    "iv_yahoo": 0.7415797326660156,
     "t_years": 0.15342465753424658
    }
   }
@@ -30671,12 +30671,12 @@
    "shortName": "Palantir Technologies Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 471456055296,
+   "marketCap": 472801738752,
    "beta": 1.602,
    "sector": "Technology",
    "industry": "Software - Infrastructure",
-   "regularMarketPrice": 196.19,
-   "previousClose": 201.72,
+   "regularMarketPrice": 196.75,
+   "previousClose": 196.19,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -30854,14 +30854,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.6770780654506422,
-    "iv_yahoo": 0.04688453125,
+    "iv": 0.6690437272342541,
+    "iv_yahoo": 0.6570163693237305,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.5857070125784942,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5853218251345054,
+    "iv_yahoo": 0.5802959451293945,
     "t_years": 0.15342465753424658
    }
   }
@@ -30875,12 +30875,12 @@
    "shortName": "Airbnb, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 105242566656,
+   "marketCap": 102997114880,
    "beta": 1.244,
    "sector": "Consumer Cyclical",
    "industry": "Travel Services",
-   "regularMarketPrice": 175.76,
-   "previousClose": 173.69,
+   "regularMarketPrice": 172.01,
+   "previousClose": 175.76,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -31052,14 +31052,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.45525724158437997,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.44461652625916326,
+    "iv_yahoo": 0.47342445526123045,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.39576283530414597,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.3902786662745934,
+    "iv_yahoo": 0.4283504431152344,
     "t_years": 0.15342465753424658
    }
   }
@@ -31073,12 +31073,12 @@
    "shortName": "DoorDash, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 80567418880,
+   "marketCap": 77724991488,
    "beta": 1.893,
    "sector": "Consumer Cyclical",
    "industry": "Internet Retail",
-   "regularMarketPrice": 185.94,
-   "previousClose": 184.45,
+   "regularMarketPrice": 179.38,
+   "previousClose": 185.94,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -31250,14 +31250,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.7098708737507577,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.6642253732721846,
+    "iv_yahoo": 0.658328612060547,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.5414521414572766,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5652074538337408,
+    "iv_yahoo": 0.5434005621337892,
     "t_years": 0.15342465753424658
    }
   }
@@ -31271,12 +31271,12 @@
    "shortName": "Applovin Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 88782094336,
+   "marketCap": 87428259840,
    "beta": 2.557,
    "sector": "Communication Services",
    "industry": "Advertising Agencies",
-   "regularMarketPrice": 264.28,
-   "previousClose": 267.9,
+   "regularMarketPrice": 260.25,
+   "previousClose": 264.28,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -31442,14 +31442,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.835682497289163,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.8336697714309451,
+    "iv_yahoo": 0.8179034323120117,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.7178294395399601,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.693468914137719,
+    "iv_yahoo": 0.6987029641723634,
     "t_years": 0.15342465753424658
    }
   }
@@ -31463,12 +31463,12 @@
    "shortName": "Constellation Energy Corporatio",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 90422788096,
+   "marketCap": 89799204864,
    "beta": 1.129,
    "sector": "Utilities",
    "industry": "Utilities - Independent Power Producers",
-   "regularMarketPrice": 255.21,
-   "previousClose": 270.74,
+   "regularMarketPrice": 253.45,
+   "previousClose": 255.21,
    "exDividendDate": 1787011200,
    "dividendRate": 1.71,
    "dividendYield": 0.67,
@@ -31618,14 +31618,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.5491502310983851,
-    "iv_yahoo": 0.062509375,
+    "iv": 0.5248025342548633,
+    "iv_yahoo": 0.5364426239013673,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.4888168448039833,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.48706860785686956,
+    "iv_yahoo": 0.5067950932312011,
     "t_years": 0.15342465753424658
    }
   }
@@ -31639,12 +31639,12 @@
    "shortName": "GE HealthCare Technologies Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 32259430400,
+   "marketCap": 32272979968,
    "beta": 0.848,
    "sector": "Healthcare",
    "industry": "Medical Devices",
-   "regularMarketPrice": 71.42,
-   "previousClose": 69.01,
+   "regularMarketPrice": 71.45,
+   "previousClose": 71.38,
    "exDividendDate": 1792713600,
    "dividendRate": 0.16,
    "dividendYield": 0.22,
@@ -31770,14 +31770,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.42794576209827706,
-    "iv_yahoo": 0.04688453125,
+    "iv": 0.3975722443172274,
+    "iv_yahoo": 0.5501753967285157,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.3964067620646501,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.34407006308680643,
+    "iv_yahoo": 0.44727115234375003,
     "t_years": 0.15342465753424658
    }
   }
@@ -31791,12 +31791,12 @@
    "shortName": "Linde plc",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 235265835008,
+   "marketCap": 234560536576,
    "beta": 0.713,
    "sector": "Basic Materials",
    "industry": "Specialty Chemicals",
-   "regularMarketPrice": 510.36,
-   "previousClose": 500.57,
+   "regularMarketPrice": 508.83,
+   "previousClose": 510.36,
    "exDividendDate": 1788393600,
    "dividendRate": 6.4,
    "dividendYield": 1.25,
@@ -31976,14 +31976,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.249660593999037,
-    "iv_yahoo": null,
+    "iv": 0.2531548614202574,
+    "iv_yahoo": 0.2849955534362792,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.23613951583733395,
-    "iv_yahoo": 0.5417526293945314,
+    "iv": 0.23746382999583807,
+    "iv_yahoo": 0.2608869078063965,
     "t_years": 0.15342465753424658
    }
   }
@@ -31997,12 +31997,12 @@
    "shortName": "Arm Holdings plc",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 224386514944,
+   "marketCap": 224632143872,
    "beta": 3.789,
    "sector": "Technology",
    "industry": "Semiconductors",
-   "regularMarketPrice": 210.1,
-   "previousClose": 226.59,
+   "regularMarketPrice": 210.33,
+   "previousClose": 210.1,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -32108,14 +32108,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.8280735704349855,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.7782460475640981,
+    "iv_yahoo": 0.7597375100708008,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.7171151082258167,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.6915967802236731,
+    "iv_yahoo": 0.684420880432129,
     "t_years": 0.15342465753424658
    }
   }
@@ -32129,12 +32129,12 @@
    "shortName": "Thomson Reuters Corp",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 53402566656,
+   "marketCap": 53363572736,
    "beta": 0.201,
    "sector": "Industrials",
    "industry": "Specialty Business Services",
-   "regularMarketPrice": 123.26,
-   "previousClose": 115.26,
+   "regularMarketPrice": 123.17,
+   "previousClose": 123.26,
    "exDividendDate": 1787097600,
    "dividendRate": 2.62,
    "dividendYield": 2.13,
@@ -32314,14 +32314,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.5245580150326761,
-    "iv_yahoo": 0.0937590625,
+    "iv": 0.5023516767206264,
+    "iv_yahoo": 0.5490767749023437,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.751912088472055,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.8471562457460997,
+    "iv_yahoo": 0.5024463818359375,
     "t_years": 0.15342465753424658
    }
   }
@@ -32335,12 +32335,12 @@
    "shortName": "Astera Labs, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 44727930880,
+   "marketCap": 44613431296,
    "beta": 3.69,
    "sector": "Technology",
    "industry": "Semiconductors",
-   "regularMarketPrice": 257.82,
-   "previousClose": 290.06,
+   "regularMarketPrice": 257.16,
+   "previousClose": 257.82,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -32434,14 +32434,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.954312341087209,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.9237004575805784,
+    "iv_yahoo": 0.9075326629638671,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.8686504922161113,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.8433699299820119,
+    "iv_yahoo": 0.83554241607666,
     "t_years": 0.15342465753424658
    }
   }
@@ -32455,12 +32455,12 @@
    "shortName": "Sandisk Corporation",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 182239150080,
+   "marketCap": 178929467392,
    "beta": null,
    "sector": "Technology",
    "industry": "Computer Hardware",
-   "regularMarketPrice": 1260.93,
-   "previousClose": 1378.22,
+   "regularMarketPrice": 1238.03,
+   "previousClose": 1260.93,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -32530,14 +32530,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.8146854662194368,
-    "iv_yahoo": null,
+    "iv": 0.7659434086333107,
+    "iv_yahoo": 0.7514787730789185,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.7228391422769057,
-    "iv_yahoo": null,
+    "iv": 0.7010226580877275,
+    "iv_yahoo": 0.6924240352630616,
     "t_years": 0.15342465753424658
    }
   }
@@ -32551,12 +32551,12 @@
    "shortName": "CoreWeave, Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 30665433088,
+   "marketCap": 29912586240,
    "beta": null,
    "sector": "Technology",
    "industry": "Software - Infrastructure",
-   "regularMarketPrice": 55.6,
-   "previousClose": 61.82,
+   "regularMarketPrice": 54.235,
+   "previousClose": 55.6,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -32626,14 +32626,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 1.1325272376988802,
-    "iv_yahoo": 0.12500875,
+    "iv": 1.1127907462953432,
+    "iv_yahoo": 1.097050413208008,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 1.0020932764666366,
-    "iv_yahoo": 0.062509375,
+    "iv": 1.0022720281549597,
+    "iv_yahoo": 0.9877930908203125,
     "t_years": 0.15342465753424658
    }
   }
@@ -32647,12 +32647,12 @@
    "shortName": "Space Exploration Technologies ",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 1908062683136,
+   "marketCap": 2003071270912,
    "beta": null,
    "sector": "Industrials",
    "industry": "Aerospace & Defense",
-   "regularMarketPrice": 144.75,
-   "previousClose": 159.31,
+   "regularMarketPrice": 147.49,
+   "previousClose": 144.75,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -32698,14 +32698,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.5632803597171684,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5309169280818025,
+    "iv_yahoo": 0.5212450219726562,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.5265597376503311,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.5198510739048987,
+    "iv_yahoo": 0.5158739819335937,
     "t_years": 0.15342465753424658
    }
   }
@@ -32719,12 +32719,12 @@
    "shortName": "Honeywell Aerospace Inc.",
    "exchange": "NMS",
    "quoteType": "EQUITY",
-   "marketCap": 51669635072,
+   "marketCap": 51761549312,
    "beta": null,
    "sector": "Industrials",
    "industry": "Aerospace & Defense",
-   "regularMarketPrice": 163.02,
-   "previousClose": 162.46,
+   "regularMarketPrice": 163.31,
+   "previousClose": 163.02,
    "exDividendDate": null,
    "dividendRate": null,
    "dividendYield": 0.0,
@@ -32764,14 +32764,14 @@
   "iv": {
    "p1": {
     "expiry": "2026-11-20",
-    "iv": 0.5196427309894722,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.49950336228648484,
+    "iv_yahoo": 0.5412643530273438,
     "t_years": 0.07671232876712329
    },
    "p2": {
     "expiry": "2026-12-18",
-    "iv": 0.47487805998457877,
-    "iv_yahoo": 0.0312596875,
+    "iv": 0.4595466014337206,
+    "iv_yahoo": 0.5189257092285158,
     "t_years": 0.15342465753424658
    }
   }
