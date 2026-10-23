@@ -62,6 +62,7 @@ Tests: `python -m pytest tests -q` (synthetic data, no network).
 python -m contest --mode validate          # outputs/validation/report.md
 python -m contest --mode robust            # outputs/period1/robust/report.md
 python -m contest --mode stress --workers 2
+python -m contest --mode update            # weekly status: outputs/updates/<date>.md
 ```
 
 - **Period 2 without a leaderboard.** Default ranking metric is now `p_win_8w_policy`: on Nov 22

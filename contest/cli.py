@@ -31,7 +31,7 @@ def _parse_return(s: str | None) -> float | None:
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="python -m contest", description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--mode", choices=["fetch", "period1", "period2", "stress", "robust", "validate"], required=True)
+    p.add_argument("--mode", choices=["fetch", "period1", "period2", "stress", "robust", "validate", "update"], required=True)
     p.add_argument("--cache", type=Path, default=config.CACHE_DIR)
     p.add_argument("--out", type=Path, default=None, help="output directory")
     p.add_argument("--end", type=dt.date.fromisoformat, default=None,
@@ -151,6 +151,9 @@ def main(argv=None):
     elif a.mode == "robust":
         from .robust import run_robust
         run_robust(a, _sim_cfg(a), _mix_from_args(a))
+    elif a.mode == "update":
+        from .update import run_update
+        run_update(a, _sim_cfg(a), _mix_from_args(a))
     elif a.mode == "validate":
         from .validate import run_validate
         run_validate(a, _sim_cfg(a))
