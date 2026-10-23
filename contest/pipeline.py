@@ -16,7 +16,22 @@ from . import config, data, report, sim
 
 log = logging.getLogger(__name__)
 
-WIN_COLS = ("p_win_4w", "p_win_8w_hold", "p_win_8w_switch")
+WIN_COLS = ("p_win_4w", "p_win_8w_hold", "p_win_8w_switch", "p_win_8w_policy")
+
+
+def _ev(cs, G1, G2, field, inp, **kw):
+    """sim.evaluate with the chaser basket for the realistic period-2 policies."""
+    return sim.evaluate(cs, G1, G2, field, inp.cons_w, chase2=sim.chaser_returns(inp, G1, G2), **kw)
+
+
+def _fix_policy(val: pd.DataFrame, chosen: pd.Series, suffix: str = "") -> pd.Series:
+    """P(win) of each candidate under the policy picked on the *search*
+    scenarios (removes the selection bias of taking the max again)."""
+    out = []
+    for _, r in val.iterrows():
+        pol = chosen.get(r["candidate"], "hold")
+        out.append(r[f"p_win_8w_{pol}{suffix}"] if f"p_win_8w_{pol}{suffix}" in r else r[f"p_win_8w_policy{suffix}"])
+    return pd.Series(out, index=val.index, dtype=float)
 
 
 def _load(a, cfg: config.SimConfig, asof=None):
@@ -98,16 +113,17 @@ def run_period1(a, cfg: config.SimConfig, mix: config.FieldMix):
               for i, (k, m) in enumerate(mixes.items())}
     cs, top_vol = _candidates_stage1(inp, feat["sim_vol_p1"].to_numpy())
     log.info("scoring %d singles/pairs/benchmarks", len(cs))
-    res = sim.evaluate(cs, G1, G2, fields[base_key], inp.cons_w)
+    res = _ev(cs, G1, G2, fields[base_key], inp)
     cs3 = _candidates_triples(inp, res, cs, top_vol, rank_by)
-    res3 = sim.evaluate(cs3, G1, G2, fields[base_key], inp.cons_w)
+    res3 = _ev(cs3, G1, G2, fields[base_key], inp)
     cs_all = _concat(cs, cs3)
     res = pd.concat([res, res3], ignore_index=True)
     for k, f in fields.items():
         if k == base_key:
             continue
         log.info("re-scoring %d candidates under all-in %.0f%%", len(cs_all), 100 * k)
-        alt = sim.evaluate(cs_all, G1, G2, f, inp.cons_w)
+        alt = _ev(cs_all, G1, G2, f, inp)
+        alt["p_win_8w_policy"] = _fix_policy(alt, res.set_index("candidate")["policy_8w"])
         for c in WIN_COLS:
             res[f"{c}@allin{k:.0%}"] = alt[c].to_numpy()
     for c in WIN_COLS:
@@ -130,9 +146,14 @@ def run_period1(a, cfg: config.SimConfig, mix: config.FieldMix):
     log.info("validating %d shortlisted candidates on %d fresh scenarios", len(css), cfg.n_validate)
     fields_v = {k: sim.simulate_field(inp, G1v, G2v, m, np.random.default_rng(cfg.seed + 202 + i))
                 for i, (k, m) in enumerate(mixes.items())}
-    val = sim.evaluate(css, G1v, G2v, fields_v[base_key], inp.cons_w)
+    chosen = res.set_index("candidate")["policy_8w"]
+    val = _ev(css, G1v, G2v, fields_v[base_key], inp)
+    val["policy_8w"] = val["candidate"].map(chosen).fillna("hold")
+    val["p_win_8w_policy"] = _fix_policy(val, chosen)
     for k, f in fields_v.items():
-        alt = val if k == base_key else sim.evaluate(css, G1v, G2v, f, inp.cons_w)
+        alt = val if k == base_key else _ev(css, G1v, G2v, f, inp)
+        if k != base_key:
+            alt["p_win_8w_policy"] = _fix_policy(alt, chosen)
         for c in WIN_COLS:
             val[f"{c}@allin{k:.0%}"] = alt[c].to_numpy()
     ov = sim.overlap_metrics(css, G1v, fields_v[base_key])
@@ -147,7 +168,8 @@ def run_period1(a, cfg: config.SimConfig, mix: config.FieldMix):
         G1a = sim.simulate_period(inp_a, 1, config.P1_DAYS, cfg.n_validate, rnga, cfg.block, cfg.earnings_prior_n)
         G2a = sim.simulate_period(inp_a, 2, config.P2_DAYS, cfg.n_validate, rnga, cfg.block, cfg.earnings_prior_n)
         fa = sim.simulate_field(inp_a, G1a, G2a, mix, np.random.default_rng(cfg.seed + 303))
-        va = sim.evaluate(css, G1a, G2a, fa, inp_a.cons_w)
+        va = _ev(css, G1a, G2a, fa, inp_a)
+        va["p_win_8w_policy"] = _fix_policy(va, chosen)
         val[f"{rank_by}@volmodel"] = va[rank_by].to_numpy()
         val["rank@volmodel"] = val[f"{rank_by}@volmodel"].rank(ascending=False, method="min").astype(int)
     # robustness: worst ratio to the best P(win) in each mixture
@@ -177,7 +199,9 @@ def run_period1(a, cfg: config.SimConfig, mix: config.FieldMix):
         pop[inp.ix(t)] *= 3
         fc = sim.simulate_field(dataclasses.replace(inp, popularity=pop), G1v, G2v, mix,
                                 np.random.default_rng(cfg.seed + 404))
-        crowd[t] = sim.evaluate(top8, G1v, G2v, fc, inp.cons_w).set_index("candidate")[rank_by]
+        ec = _ev(top8, G1v, G2v, fc, inp)
+        ec["p_win_8w_policy"] = _fix_policy(ec, chosen)
+        crowd[t] = ec.set_index("candidate")[rank_by]
     crowd = pd.DataFrame(crowd)
     if len(crowd):
         crowd.insert(0, "base", val.set_index("candidate").loc[crowd.index, rank_by])
@@ -207,7 +231,8 @@ def run_period1(a, cfg: config.SimConfig, mix: config.FieldMix):
                base_key=base_key, rank_by=rank_by, pick=pick, hold=hold, robust=robust,
                hold_r=hold_r, field=fb, cfg=cfg, mix=mix, n_cands=len(cs_all), alt_label=alt_label, crowd=crowd)
     (out / "report.md").write_text(report.period1_markdown(ctx))
-    summary = {"pick": pick["candidate"], rank_by: float(pick[rank_by]),
+    summary = {"pick": pick["candidate"], "rank_by": rank_by, rank_by: float(pick[rank_by]),
+               "policy_8w": str(pick.get("policy_8w", "")),
                "p_win_4w": float(pick["p_win_4w"]), "robust_pick": robust["candidate"],
                "price_date": str(prices.asof.date()), "field": mix.label(),
                "n_entrants": mix.n_opponents + 1,
@@ -277,6 +302,13 @@ def run_period2(a, cfg: config.SimConfig, mix: config.FieldMix, my_return: float
     vol2 = feat["sim_vol_p2"].to_numpy()
     top_vol = list(np.argsort(-vol2)[:config.TOP_VOL_FOR_PAIRS])
     targets = sim.single_targets(inp2) + sim.benchmark_targets(inp2) + sim.pair_targets(inp2, top_vol)
+    # "cover the chasers": period 1's best performers among the names most
+    # likely held all-in (what the opponents who can still catch me hold)
+    likely = np.argsort(-(inp2.popularity * inp2.vol_ann))[:40]
+    best3 = likely[np.argsort(-g1[likely])[:3]]
+    wch = np.zeros(inp2.n)
+    wch[best3] = 1 / 3
+    targets.append(("Chasers: " + ", ".join(inp2.tickers[i] for i in best3), "benchmark", wch))
     cs = sim.CandidateSet.build(inp2, targets)
     res = _evaluate_final(cs, G2, field.top8, my_gross, inp2.cons_w)
     cs3 = _candidates_triples(inp2, res.assign(p_win_8w_switch=res["p_win"]), cs, top_vol, "p_win")
@@ -353,8 +385,25 @@ STRESS_VARIANTS = {
     "group noise 50%": ["--group-noise", "0.5"],
     "combo: 120, 30% EU, hype x2": ["--participants", "120", "--foreign-share", "0.3",
                                      "--group-mult", "hype=2"],
+    # v2: field behaviour
+    "all-in ~ pop x vol^2": ["--allin-vol-pow", "2"],
+    "all-in ~ pop x vol^3": ["--allin-vol-pow", "3"],
+    "3 savvy max-vol opponents": ["--savvy", "3"],
+    "10% momentum buyers": ["--momentum-share", "0.10"],
+    "fads (50% of worlds)": ["--fad-prob", "0.5"],
+    "trailing re-pickers go all-in": ["--p2-loser-allin", "1.0"],
+    "popularity noise 50%": ["--pop-noise", "0.5"],
+    # v2: return model
+    "no vol-of-vol": ["--volvol", "0,0"],
+    "vol-of-vol 30/30": ["--volvol", "0.3,0.3"],
+    "residual clip 6 sigma": ["--z-clip", "6"],
+    "AI cluster corr +0.4": ["--cluster-corr", "0.4"],
+    "IV weight 1.0": ["--iv-weight", "1.0"],
+    "call-skew tilt": ["--tail-skew-weight", "1.0"],
+    "pessimistic combo": ["--allin-vol-pow", "2", "--savvy", "1", "--p2-loser-allin", "1.0",
+                          "--volvol", "0.3,0.3", "--fad-prob", "0.5"],
 }
-TRACKED = ("CRWV", "MRNA", "SNDK 20% + CRWV 80%")
+TRACKED = ("CRWV", "MRNA", "NBIS", "SNDK 20% + CRWV 80%")
 
 
 def _stress_worker(argv):
@@ -387,12 +436,13 @@ def run_stress(a, argv_common: list[str], workers: int = 4):
         d = out / _slug(name)
         sm = json.loads((d / "summary.json").read_text())
         res = pd.read_csv(d / "candidates_ranked.csv").set_index("candidate")
+        rb = sm.get("rank_by", "p_win_8w_switch")
         row = {"variant": name, "entrants": sm["n_entrants"], "pick": sm["pick"],
-               "P(win) pick": sm["p_win_8w_switch"], "random entrant": 1 / sm["n_entrants"],
+               "P(win) pick": sm[rb], "random entrant": 1 / sm["n_entrants"],
                "winning score median": sm["field_max_8w_median"]}
         for t in TRACKED:
             if t in res.index:
-                row[f"{t} P(win)"] = res.at[t, "p_win_8w_switch"]
+                row[f"{t} P(win)"] = res.at[t, rb]
                 row[f"{t} rank"] = int(res.at[t, "rank"])
         rows.append(row)
     tab = pd.DataFrame(rows)

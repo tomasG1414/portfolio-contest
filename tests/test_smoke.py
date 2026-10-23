@@ -102,6 +102,38 @@ def test_whole_shares_and_ties():
     assert abs(win[0] - 0.5) < 1e-12 and top5[0] == 1.0
 
 
+def test_v2_field_and_modes():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        cache = make_cache(tmp)
+        common = ["--cache", str(cache)]
+        # v2 field knobs all on, quick period 1
+        cli.main(["--mode", "period1", "--quick", "--scenarios", "1500", "--validate-scenarios", "1500",
+                  "--savvy", "2", "--momentum-share", "0.1", "--fad-prob", "0.5", "--allin-vol-pow", "2",
+                  "--p2-loser-allin", "1", "--cluster-corr", "0.3", "--z-clip", "6",
+                  "--out", str(tmp / "p1")] + common)
+        val = pd.read_csv(tmp / "p1" / "shortlist_validated.csv")
+        assert val["p_win_8w_policy"].between(0, 1).all() and "policy_8w" in val
+        cli.main(["--mode", "robust", "--worlds", "2", "--world-scenarios", "300", "--val-worlds", "4",
+                  "--out", str(tmp / "rob")] + common)
+        rv = pd.read_csv(tmp / "rob" / "shortlist_validated.csv")
+        assert rv["p_win"].between(0, 1).all()
+        assert (tmp / "rob" / "decomposition.csv").exists()
+        cli.main(["--mode", "validate", "--out", str(tmp / "val")] + common)
+        assert (tmp / "val" / "vol_forecasters.csv").exists()
+
+
+def test_field_type_probs_and_volvol_neutral():
+    mix = config.FieldMix(n_savvy=3, momentum_share=0.1)
+    p = mix.type_probs()
+    assert abs(p.sum() - 1) < 1e-12 and abs(p[3] - 3 / mix.n_opponents) < 1e-12
+    # variance-neutral vol multipliers: E[m^2] = 1
+    rng = np.random.default_rng(0)
+    vm = 0.3
+    m = np.exp(vm * rng.standard_normal(400_000) - vm ** 2)
+    assert abs(np.mean(m ** 2) - 1) < 0.01
+
+
 if __name__ == "__main__":
     test_whole_shares_and_ties()
     test_period1_and_period2()

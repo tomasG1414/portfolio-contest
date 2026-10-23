@@ -339,6 +339,7 @@ class MarketData:
     nasdaq_div: dict
     fetch_report: dict
     failed: list = field(default_factory=list)
+    chains: pd.DataFrame | None = None  # full option chains of the period-end expiries
 
 
 def _read_wide(path: Path) -> pd.DataFrame:
@@ -357,11 +358,13 @@ def load_market_data(cache_dir: Path = config.CACHE_DIR) -> MarketData:
     report = rd("fetch_report.json", {})
     failed = [t for t in uni.index if t not in close.columns or close[t].dropna().empty]
     keep = [t for t in uni.index if t not in failed]
+    ch = cache_dir / "option_chains.csv.gz"
+    chains = pd.read_csv(ch) if ch.exists() and ch.stat().st_size > 50 else None
     return MarketData(universe=uni.loc[keep], close=close[keep], adj=adj[keep],
                       dividends=divs.reindex(columns=keep).fillna(0.0), fx=fx,
                       meta=rd("meta.json", {}), nasdaq_cal=rd("nasdaq_earnings.json", {}),
                       nasdaq_div=rd("nasdaq_dividends.json", {}), fetch_report=report,
-                      failed=failed)
+                      failed=failed, chains=chains)
 
 
 def _clean_spikes(px: pd.DataFrame, thresh: float = 0.35) -> pd.DataFrame:
@@ -709,6 +712,66 @@ def exdiv_table(md: MarketData, prices: Prices) -> pd.DataFrame:
     return pd.DataFrame(rows).set_index("ticker")
 
 
+def implied_event_move(term: list, reaction: pd.Timestamp | None) -> float:
+    """SD of the earnings-day log move implied by the ATM term structure.
+
+    With an expiry before (b) and after (a) the reaction day, assuming the
+    diffusive vol between them equals the pre-event vol:
+    var_E = (iv_a^2 - iv_b^2) * T_a. Without a pre-event expiry, two
+    post-event expiries give the diffusive vol from their forward variance.
+    """
+    if not term or reaction is None or pd.isna(reaction):
+        return np.nan
+    d = pd.Timestamp(reaction).normalize()
+    pts = sorted(((pd.Timestamp(x["expiry"]), x.get("iv") or x.get("iv_yahoo"), x.get("t_years"))
+                  for x in term), key=lambda z: z[0])
+    pts = [(e, iv, t) for e, iv, t in pts if iv and t and iv > 0.03 and t > 0]
+    before = [p for p in pts if p[0] < d]
+    after = [p for p in pts if p[0] >= d]
+    if not after:
+        return np.nan
+    _, iva, ta = after[0]
+    if before:
+        _, ivb, tb = before[-1]
+        var_e = (iva ** 2 - ivb ** 2) * ta
+    elif len(after) >= 2:
+        _, iv2, t2 = after[1]
+        if t2 <= ta:
+            return np.nan
+        var_d = (iv2 ** 2 * t2 - iva ** 2 * ta) / (t2 - ta)
+        var_e = iva ** 2 * ta - max(var_d, 0.0) * ta
+    else:
+        return np.nan
+    return float(np.sqrt(var_e)) if var_e > 0 else np.nan
+
+
+def call_iv_at(chains: pd.DataFrame | None, ticker: str, expiry: str, k_rel: float, t: float) -> float:
+    """Own Black-Scholes IV of the call struck at k_rel x spot (linear in strike)."""
+    if chains is None or not expiry or not t:
+        return np.nan
+    c = chains[(chains["ticker"] == ticker) & (chains["expiry"] == expiry) & (chains["type"] == "C")]
+    if c.empty:
+        return np.nan
+    spot = float(c["spot"].iloc[0])
+    k = k_rel * spot
+    lo, hi = c[c["strike"] <= k].nlargest(1, "strike"), c[c["strike"] >= k].nsmallest(1, "strike")
+    ivs = []
+    for row in (lo, hi):
+        if row.empty:
+            return np.nan
+        r = row.iloc[0]
+        bid, ask = r.get("bid") or 0, r.get("ask") or 0
+        mid = 0.5 * (bid + ask) if bid > 0 and ask > 0 else (r.get("lastPrice") or 0)
+        iv = _implied_vol(float(mid), spot, float(r["strike"]), t, 0.04, True) if mid else None
+        if not iv:
+            iv = r.get("impliedVolatility")
+        if not iv or not np.isfinite(iv):
+            return np.nan
+        ivs.append((float(r["strike"]), float(iv)))
+    (k0, v0), (k1, v1) = ivs
+    return v0 if k1 == k0 else v0 + (v1 - v0) * (k - k0) / (k1 - k0)
+
+
 def compute_features(md: MarketData, prices: Prices, lam: float = 0.94) -> tuple[pd.DataFrame, dict]:
     """Per-stock feature table plus the earnings-move dictionary for the sim."""
     r = prices.ret_eur
@@ -772,7 +835,21 @@ def compute_features(md: MarketData, prices: Prices, lam: float = 0.94) -> tuple
         f[f"iv_{p}_t"] = [d.get("t_years") for d in ivd]
         f[f"iv_{p}_bdays"] = [len(pd.bdate_range(first_day, d["expiry"])) if d.get("expiry") else None
                               for d in ivd]
+    f["ret_3m"] = np.exp(r.iloc[-63:].sum()) - 1
+    f["ret_1y"] = np.exp(r.iloc[-252:].sum()) - 1
     f = f.join(earn).join(ex)
+    # option-implied earnings move (term structure) and Dec-18 call skew
+    f["earn_implied_move"] = [
+        implied_event_move((md.meta.get(t, {}) or {}).get("iv_term") or [],
+                           pd.Timestamp(f.at[t, "earn_reaction"]) if f.at[t, "earn_reaction"] else None)
+        if f.at[t, "earn_period"] in (1, 2) else np.nan for t in tickers]
+    sk = []
+    for t in tickers:
+        iv2 = ((md.meta.get(t, {}).get("iv") or {}).get("p2") or {})
+        atm = iv2.get("iv")
+        v130 = call_iv_at(md.chains, t, iv2.get("expiry"), 1.3, iv2.get("t_years")) if atm else np.nan
+        sk.append(v130 / atm if atm and np.isfinite(v130) else np.nan)
+    f["skew_130_p2"] = sk
     mv = {t: moves.get(t, {}).get("moves", []) for t in tickers}
     f["earn_move_n"] = [len(mv[t]) for t in tickers]
     f["earn_move_mean_abs"] = [float(np.mean(np.abs(mv[t]))) if mv[t] else np.nan for t in tickers]

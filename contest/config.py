@@ -36,6 +36,7 @@ P2_END = dt.date(2026, 12, 18)          # valuation date
 # which we ignore: one fewer US day changes the vol by ~2.5%).
 P1_DAYS = 20
 P2_DAYS = 20
+US_P2_DAYS = 19             # US is closed on Thanksgiving (Nov 26)
 
 HISTORY_YEARS = 2           # bootstrap sample length
 HISTORY_BUFFER_DAYS = 45    # extra history so the 1y vol / EWMA have warm-up
@@ -67,6 +68,15 @@ class SimConfig:
     earnings_prior_n: int = 4     # shrink own earnings moves toward the pooled multiple
     use_iv: bool = True           # move US period variance toward option-implied (level-neutral)
     iv_weight: float = 0.5        # weight on the options market in that blend
+    # --- v2 return-model knobs --------------------------------------------
+    z_clip: float = 12.0          # clip on standardised bootstrap residuals (sigmas)
+    volvol_mkt: float = 0.12      # lognormal sd of a per-scenario market-wide vol multiplier
+    volvol_idio: float = 0.12     # ... and of a per-scenario, per-stock one (both variance-neutral)
+    cluster_corr: float = 0.0     # extra common-factor share of variance for the AI-infra cluster
+    earn_implied_weight: float = 0.5  # weight on option-implied earnings moves (term structure)
+    earn_sign_prior: int = 8      # shrink the historical up/down frequency of earnings moves to 50/50
+    tail_skew_weight: float = 0.0 # >0: tilt US vols by the Dec-18 call skew (IV at 1.3x / ATM), level-neutral
+    thanksgiving: bool = True     # US names get 19 trading days in period 2
 
 
 @dataclass(frozen=True)
@@ -87,6 +97,24 @@ class FieldMix:
     group_mult: tuple = ()        # deterministic stress, e.g. (("hype", 2.0),)
     foreign_share: float = 0.0    # opponents with the non-Spanish European profile
     n_opponents: int = N_OPPONENTS
+    # --- v2 field knobs ----------------------------------------------------
+    allin_vol_pow: float = 1.0    # all-in players sample ~ popularity x vol^pow
+    n_savvy: float = 0.0          # expected opponents who go all-in on max-vol names (ignore popularity)
+    savvy_pow: float = 6.0        # their sampling ~ vol^savvy_pow
+    momentum_share: float = 0.0   # opponents who buy recent winners (3-month return)
+    momentum_beta: float = 1.5    # their tilt per s.d. of trailing return
+    fad_prob: float = 0.0         # per popularity world: chance one high-vol name becomes a fad
+    fad_mult: float = 3.0         # median popularity multiplier of a fad (lognormal, sd 0.5)
+    p2_loser_allin: float = 0.0   # re-pickers in the bottom half switch to all-in with this prob.
+
+    def type_probs(self) -> "np.ndarray":
+        """Shares of the five archetypes: diversified, moderate, all-in, savvy, momentum."""
+        import numpy as np
+        sav = min(self.n_savvy / max(self.n_opponents, 1), 0.5)
+        mom = self.momentum_share
+        base = np.array([self.diversified, self.moderate, self.allin], float)
+        base = base / base.sum() * max(1.0 - sav - mom, 0.0)
+        return np.concatenate([base, [sav, mom]])
 
     def with_allin(self, allin: float) -> "FieldMix":
         """Same mixture with a different all-in share; others keep their ratio."""
@@ -104,10 +132,25 @@ class FieldMix:
             out += ", " + ", ".join(f"{g} popularity x{m:g}" for g, m in self.group_mult)
         if self.group_noise:
             out += f", group popularity noise {self.group_noise:.0%}"
+        if self.allin_vol_pow != 1.0:
+            out += f", all-in ~ pop x vol^{self.allin_vol_pow:g}"
+        if self.n_savvy:
+            out += f", {self.n_savvy:g} savvy max-vol opponents"
+        if self.momentum_share:
+            out += f", {self.momentum_share:.0%} momentum buyers"
+        if self.fad_prob:
+            out += f", fad prob {self.fad_prob:.0%} (x{self.fad_mult:g})"
+        if self.p2_loser_allin:
+            out += f", {self.p2_loser_allin:.0%} of trailing re-pickers go all-in"
         return out
 
 
 SENSITIVITY_ALLIN = (0.05, 0.15, 0.30)
+
+# AI-infrastructure / semis cluster (correlation stress)
+AI_CLUSTER = ("CRWV", "NBIS", "ALAB", "SNDK", "MU", "LITE", "ARM", "NVDA", "AMD", "AVGO",
+              "MRVL", "STX", "WDC", "TER", "LRCX", "AMAT", "KLAC", "MPWR", "INTC", "ASML.AS",
+              "QCOM", "ASM.AS", "IFX.DE", "PLTR", "APP", "CEG")
 
 # Candidate search
 TOP_VOL_FOR_PAIRS = 40

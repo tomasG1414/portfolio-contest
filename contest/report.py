@@ -6,7 +6,7 @@ import datetime as dt
 import numpy as np
 import pandas as pd
 
-from . import config, universe
+from . import config, sim, universe
 
 # Reference palette (light mode): surface, inks, categorical slots 1-3.
 SURFACE, INK, INK2, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#e4e3df"
@@ -95,6 +95,7 @@ def plot_pwin_vs_vol(res: pd.DataFrame, path, metric: str, highlight=(), n_entra
                 xytext=(-4, 4), textcoords="offset points", fontsize=8, color=INK2, ha="right")
     ax.set_xlabel("Simulated portfolio volatility, period 1 (annualised, %)", color=INK, fontsize=10)
     nice = {"p_win_8w_switch": "P(win at Dec 18), switch-if-leading policy",
+            "p_win_8w_policy": "P(win at Dec 18), best realistic Nov 22 policy",
             "p_win_4w": "P(lead at Nov 20)", "p_win_8w_hold": "P(win at Dec 18), buy and hold"}
     ax.set_ylabel(f"{nice.get(metric, metric)} (%)", color=INK, fontsize=10)
     ax.set_title("Win probability vs volatility, all candidates", color=INK, fontsize=12, loc="left")
@@ -187,9 +188,15 @@ def period1_markdown(c: dict) -> str:
     L = [f"# Stock contest - period 1 submission (Oct 25, prices {c['prices'].asof.date()})", ""]
     n_ent = mix.n_opponents + 1
     L += [f"Objective: maximise the probability of finishing **first** of {n_ent} "
-          "(not expected return). Ranking metric: `" + rank_by + "` = P(win at Dec 18) if I hold "
-          "this portfolio through period 1 and, on Nov 22, switch to the consensus basket only "
-          "when I am leading, otherwise keep it.", ""]
+          "(not expected return). Ranking metric: `" + rank_by + "` = " + (
+              "P(win at Dec 18) with the best realistic Nov 22 policy for that portfolio: there is no "
+              "leaderboard, so on Nov 22 I only know my own score; if it is at least a threshold "
+              f"({', '.join(f'{t:g}' for t in sim.POLICY_TAUS)}) I switch to the consensus basket "
+              "(`cons`) or to the chaser basket (`chase`: period 1's best performers among the names "
+              "most likely held all-in), else I hold. The policy is picked on the search scenarios and "
+              "re-scored on fresh ones." if rank_by == "p_win_8w_policy" else
+              "P(win at Dec 18) if I hold this portfolio through period 1 and, on Nov 22, switch to the "
+              "consensus basket only when I am leading (oracle), otherwise keep it."), ""]
     # ---- submission
     invested = hold["value_eur"].sum()
     L += ["## Submission (do not trade - enter these in the contest platform)", "",
@@ -316,16 +323,26 @@ def period1_markdown(c: dict) -> str:
              "for the Nov 20 expiry (= end of period 1), level-neutral (IV rescaled by the median "
              "model/IV ratio, so only the US cross-section changes)." if cfg.use_iv else ""),
           f"- Drift: CAPM, rf {cfg.rf:.0%} + beta to consensus x {cfg.erp:.0%} ERP. Horizon "
-          f"{config.P1_DAYS} + {config.P2_DAYS} trading days.",
+          f"{config.P1_DAYS} + {config.P2_DAYS} trading days"
+          + (f" ({config.US_P2_DAYS} for US names in period 2: Thanksgiving)." if cfg.thanksgiving else "."),
+          f"- Vol-of-vol: each scenario scales the shocks by variance-neutral lognormal multipliers "
+          f"(market-wide sd {cfg.volvol_mkt:.2f}, per stock {cfg.volvol_idio:.2f}; calibrated in "
+          f"`--mode validate`). Residuals clipped at {cfg.z_clip:g} sigma"
+          + (f"; AI-infra cluster gets {cfg.cluster_corr:.0%} extra common-factor variance" if cfg.cluster_corr else "")
+          + (f"; US vols tilted by the Dec-18 call skew (weight {cfg.tail_skew_weight:g})" if cfg.tail_skew_weight else "")
+          + ".",
           "- Earnings: historical reaction days are replaced by their market component; inside a "
           "window the reaction day gets a jump = (own earnings move multiple, shrunk to the pooled "
-          "one) x current daily vol, random sign.",
+          f"one) x current daily vol; size blended {cfg.earn_implied_weight:.0%} toward the option-implied "
+          "event move (term structure, level-neutral) where available; sign drawn with the stock's "
+          f"historical up-frequency shrunk to 50/50 (prior {cfg.earn_sign_prior}), mean kept.",
           "- Price-only scoring: known/estimated ex-dividend drops are subtracted in the window.",
           f"- Candidates: {c['n_cands']:,} (all singles, pairs of the {config.TOP_VOL_FOR_PAIRS} "
           f"highest-vol names in 5 weightings, greedy triples, benchmarks), whole shares at the "
           "latest close. Ties split.",
-          "- The switch policy uses the realised field leader (an oracle: on Nov 22 you only have "
-          "an estimate), so P(win Dec18) is slightly optimistic for every candidate alike.", ""]
+          "- Period 2: no leaderboard, so the ranking uses realistic threshold policies on my own "
+          "score; `P(win) oracle` in the CSV (`p_win_8w_switch`) is the v1 metric that switches only "
+          "when actually leading.", ""]
     return "\n".join(L)
 
 

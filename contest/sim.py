@@ -45,6 +45,14 @@ class SimInputs:
     iv_scale: np.ndarray | None = None   # vol multiplier from the IV calibration
     popularity_eu: np.ndarray | None = None  # non-Spanish European students
     groups: dict | None = None               # popularity group -> positions
+    # v2
+    earn_pup: np.ndarray | None = None       # (N,) P(earnings move is up), shrunk to 0.5
+    earn_scale: np.ndarray | None = None     # (N,) multiplier on drawn earnings-move multiples
+    h2_scale: np.ndarray | None = None       # (N,) period-2 trading days / P2_DAYS (Thanksgiving)
+    cluster: np.ndarray | None = None        # (N,) bool, AI-infra cluster
+    cluster_corr: float = 0.0
+    volvol: tuple = (0.0, 0.0)               # (market, idio) lognormal sd of vol multipliers
+    mom: np.ndarray | None = None            # (N,) z-score of the 3-month log return
 
     @property
     def n(self) -> int:
@@ -83,7 +91,7 @@ def prepare_inputs(feat: pd.DataFrame, extras: dict, cfg: config.SimConfig,
     s = extras["ewma_ex_earn"][tickers].reindex(r.index)
     Z = (r / s).to_numpy(dtype=float)
     Z[~np.isfinite(Z)] = np.nan
-    Z = np.clip(Z, -12, 12)
+    Z = np.clip(Z, -cfg.z_clip, cfg.z_clip)
 
     # Market factor for filling short histories.
     cw = extras["consensus_weights"].reindex(tickers).fillna(0.0).to_numpy()
@@ -135,10 +143,19 @@ def prepare_inputs(feat: pd.DataFrame, extras: dict, cfg: config.SimConfig,
                 if 0 <= k < len(days):
                     lst.append((i, int(k), own, prob))
         earn[p] = lst
+    earn_pup, earn_scale = _earnings_shape(feat, extras, tickers, sigma_d, pooled, cfg)
     iv_scale = np.ones(len(tickers))
     if cfg.use_iv:
-        iv_scale = _iv_scale(feat, sigma_d, earn, pooled, periods[0], cfg)
+        iv_scale = _iv_scale(feat, sigma_d, earn, pooled, periods[0], cfg, earn_scale)
         sigma_d = sigma_d * iv_scale
+    if cfg.tail_skew_weight and "skew_130_p2" in feat:
+        sk = feat["skew_130_p2"].to_numpy(float)
+        ok = np.isfinite(sk) & (sk > 0)
+        if ok.sum() >= 10:
+            tilt = np.ones(len(tickers))
+            tilt[ok] = (sk[ok] / np.median(sk[ok])) ** cfg.tail_skew_weight
+            sigma_d = sigma_d * tilt
+            iv_scale = iv_scale * tilt
     vol = pd.Series(sigma_d * math.sqrt(252), index=tickers)
     beta = feat["beta_cons"].fillna(1.0).clip(0.0, 2.5).to_numpy()
     mu_a = cfg.rf + beta * cfg.erp
@@ -150,10 +167,61 @@ def prepare_inputs(feat: pd.DataFrame, extras: dict, cfg: config.SimConfig,
                      vol_ann=vol.to_numpy(), earn=earn, pooled_mults=pooled,
                      exdiv=exdiv, cons_w=cw / cw.sum(), iv_scale=iv_scale,
                      popularity_eu=universe.popularity_vector_eu(tickers).to_numpy(float),
-                     groups={g: np.asarray(v, int) for g, v in universe.group_members(tickers).items()})
+                     groups={g: np.asarray(v, int) for g, v in universe.group_members(tickers).items()},
+                     earn_pup=earn_pup, earn_scale=earn_scale,
+                     h2_scale=np.array([(config.US_P2_DAYS if (cfg.thanksgiving and "." not in t)
+                                         else config.P2_DAYS) / config.P2_DAYS for t in tickers]),
+                     cluster=np.isin(tickers, config.AI_CLUSTER), cluster_corr=cfg.cluster_corr,
+                     volvol=(cfg.volvol_mkt, cfg.volvol_idio), mom=_momentum_z(feat))
 
 
-def _iv_scale(feat, sigma_d, earn, pooled, period, cfg) -> np.ndarray:
+def _momentum_z(feat: pd.DataFrame) -> np.ndarray:
+    """What a "buy the recent winners" student sees: average of the 3-month
+    and 1-year return z-scores (log), clipped at -2/+3 s.d."""
+    zs = []
+    for c in ("ret_3m", "ret_1y"):
+        if c in feat:
+            x = np.log1p(feat[c].astype(float))
+            x = x.fillna(x.median())
+            zs.append((x - x.mean()) / (x.std() or 1.0))
+    if not zs:
+        return np.zeros(len(feat))
+    return np.clip(sum(zs) / len(zs), -2.0, 3.0).to_numpy()
+
+
+def _earnings_shape(feat, extras, tickers, sigma_d, pooled, cfg):
+    """Up-probability of earnings moves (own history shrunk to 50/50) and a
+    per-stock scale on the move size that blends the historical moves with
+    the option-implied event move (cross-section only: implied event
+    variance is rescaled by the median historical/implied ratio)."""
+    n = len(tickers)
+    pup = np.full(n, 0.5)
+    scale = np.ones(n)
+    prior = cfg.earn_sign_prior
+    hist_m2 = np.full(n, np.nan)
+    for i, t in enumerate(tickers):
+        mv = np.asarray(extras["moves"].get(t, {}).get("moves", []), float)
+        mv = mv[np.isfinite(mv)]
+        if len(mv):
+            pup[i] = ((mv > 0).sum() + 0.5 * prior) / (len(mv) + prior)
+        own = np.asarray(extras["moves"].get(t, {}).get("mults", []), float)
+        own = own[np.isfinite(own)]
+        k = len(own)
+        hist_m2[i] = ((k * np.mean(own ** 2) if k else 0.0) + cfg.earnings_prior_n * np.mean(pooled ** 2)) \
+            / (k + cfg.earnings_prior_n)
+    if cfg.earn_implied_weight > 0 and "earn_implied_move" in feat:
+        imp = feat["earn_implied_move"].to_numpy(float)          # sd of the event log move
+        imp_m2 = (imp / sigma_d) ** 2
+        ok = np.isfinite(imp_m2) & (imp_m2 > 0) & np.isfinite(hist_m2)
+        if ok.sum() >= 5:
+            k = np.median(hist_m2[ok] / imp_m2[ok])
+            w = cfg.earn_implied_weight
+            target = (1 - w) * hist_m2[ok] + w * k * imp_m2[ok]
+            scale[ok] = np.sqrt(target / hist_m2[ok])
+    return pup, scale
+
+
+def _iv_scale(feat, sigma_d, earn, pooled, period, cfg, earn_scale=None) -> np.ndarray:
     """Scale factors that move each US stock's simulated period variance
     (diffusion + earnings jump) toward the variance implied by its ATM
     options for the expiry that ends the period (Nov 20 / Dec 18 are the
@@ -170,7 +238,8 @@ def _iv_scale(feat, sigma_d, earn, pooled, period, cfg) -> np.ndarray:
     for i, _, own, prob in earn.get(period, []):
         n = len(own)
         em2 = (n * np.mean(own ** 2) if n else 0.0) + prior * np.mean(pooled ** 2)
-        jump_m2[i] += prob * (em2 / (n + prior) - 1.0)
+        es = 1.0 if earn_scale is None else earn_scale[i] ** 2
+        jump_m2[i] += prob * (es * em2 / (n + prior) - 1.0)
     model_var = sigma_d ** 2 * (H + jump_m2)
     iv = feat[f"iv_p{period}"].to_numpy(float)
     t = feat.get(f"iv_p{period}_t", pd.Series(np.nan, index=feat.index)).to_numpy(float)
@@ -206,7 +275,17 @@ def simulate_period(inp: SimInputs, period: int, horizon: int, n_scen: int,
     zsum = np.zeros((n_scen, N))
     for b, ln in enumerate(lens):
         zsum += C[starts[:, b] + ln] - C[starts[:, b]]
-    L = horizon * inp.mu_d + inp.sigma_d * zsum
+    sig = inp.sigma_d
+    mu = inp.mu_d
+    if period == 2 and inp.h2_scale is not None:
+        # fewer trading days (US Thanksgiving): shrink the diffusive variance
+        sig = sig * np.sqrt(inp.h2_scale)
+        mu = mu * inp.h2_scale
+    if inp.cluster_corr > 0 and inp.cluster is not None and inp.cluster.any():
+        c = inp.cluster_corr
+        f = rng.standard_normal(n_scen)[:, None] * math.sqrt(horizon)
+        zsum[:, inp.cluster] = math.sqrt(1 - c) * zsum[:, inp.cluster] + math.sqrt(c) * f
+    L = horizon * mu + sig * zsum
     if with_earnings:
         prior = prior_n
         for i, k, own, prob in inp.earn.get(period, []):
@@ -219,10 +298,22 @@ def simulate_period(inp: SimInputs, period: int, horizon: int, n_scen: int,
             m = rng.choice(inp.pooled_mults, size=n_scen)
             if n_own:
                 m = np.where(use_own, rng.choice(own, size=n_scen), m)
-            jump = rng.choice([-1.0, 1.0], size=n_scen) * m * inp.sigma_d[i]
-            jump -= 0.5 * np.mean(jump ** 2)       # keep the arithmetic mean
+            if inp.earn_scale is not None:
+                m = m * inp.earn_scale[i]
+            pup = 0.5 if inp.earn_pup is None else inp.earn_pup[i]
+            sign = np.where(rng.random(n_scen) < pup, 1.0, -1.0)
+            jump = sign * m * inp.sigma_d[i]
+            jump -= np.log(np.mean(np.exp(jump)))  # skew allowed, arithmetic mean kept
             here = rng.random(n_scen) < prob       # uncertain date: maybe other window
             L[:, i] += np.where(here, jump - inp.sigma_d[i] * Z[t, i], 0.0)
+    vm, vi = inp.volvol
+    if vm > 0 or vi > 0:
+        # vol uncertainty: scale each scenario's shocks by variance-neutral
+        # lognormal multipliers (market-wide x per-stock)
+        mult = np.exp(vm * rng.standard_normal((n_scen, 1)) - vm ** 2) * \
+            np.exp(vi * rng.standard_normal((n_scen, N)) - vi ** 2)
+        drift = horizon * mu
+        L = drift + (L - drift) * mult
     G = np.exp(L) * (1.0 - inp.exdiv.get(period, 0.0))
     return (G, L) if return_log else G
 
@@ -254,12 +345,19 @@ def _draw_portfolios(rng, n_rows: int, logq: np.ndarray, k_lo: int, k_hi: int,
     return idx.astype(np.int32), eff
 
 
+N_TYPES = 5   # diversified, moderate, all-in, savvy (max vol), momentum
+
+
 def _type_specs(inp: SimInputs, mix: config.FieldMix):
     pop = inp.popularity
+    lv = np.log(inp.vol_ann)
+    mom = inp.mom if inp.mom is not None else np.zeros(inp.n)
     return [
         (np.log(pop), mix.div_k[0], mix.div_k[1]),
         (mix.mod_pop_power * np.log(pop), mix.mod_k[0], mix.mod_k[1]),
-        (np.log(pop * inp.vol_ann), 1, 2),
+        (np.log(pop) + mix.allin_vol_pow * lv, 1, 2),
+        (mix.savvy_pow * lv, 1, 1),
+        (0.5 * np.log(pop) + mix.momentum_beta * mom, 1, 5),
     ]
 
 
@@ -313,16 +411,24 @@ class _Pool:
 
     def __init__(self, inp, mix, rng, size=60_000):
         self.idx, self.eff = [], []
-        for t in range(3):
-            i_, e_ = _draw_field_rows(rng, inp, mix, np.full(size, t))
+        probs = mix.type_probs()
+        for t in range(N_TYPES):
+            # every type a re-picker can switch into (all-in) gets a pool
+            n_t = size if (probs[t] > 0 or t == 2) else 0
+            if n_t and t >= 3:
+                n_t = max(2_000, size // 4)
+            i_, e_ = _draw_field_rows(rng, inp, mix, np.full(n_t, t)) if n_t else \
+                (np.zeros((0, 15), np.int32), np.zeros((0, 15)))
             self.idx.append(i_)
             self.eff.append(e_)
 
     def draw(self, rng, types):
         idx = np.zeros((len(types), 15), np.int32)
         eff = np.zeros((len(types), 15))
-        for t in range(3):
+        for t in range(N_TYPES):
             rows = np.flatnonzero(types == t)
+            if not len(rows):
+                continue
             pick = rng.integers(0, len(self.idx[t]), size=len(rows))
             idx[rows], eff[rows] = self.idx[t][pick], self.eff[t][pick]
         return idx, eff
@@ -330,7 +436,7 @@ class _Pool:
 
 def _popularity_worlds(n_scen: int, mix: config.FieldMix) -> int:
     """Number of popularity draws ("worlds") per field: one per ~1,000 scenarios."""
-    noisy = mix.pop_noise > 0 or mix.group_noise > 0
+    noisy = mix.pop_noise > 0 or mix.group_noise > 0 or mix.fad_prob > 0
     return max(20, n_scen // 1000) if noisy else 1
 
 
@@ -348,12 +454,19 @@ def _world_multiplier(inp: SimInputs, mix: config.FieldMix, rng) -> np.ndarray:
     if mix.pop_noise > 0:
         sig = mix.pop_noise
         mult *= np.exp(sig * rng.standard_normal(inp.n) - 0.5 * sig ** 2)
+    if mix.fad_prob > 0 and rng.random() < mix.fad_prob:
+        # one high-vol name becomes "the" stock everyone talks about
+        top = np.argsort(-inp.vol_ann)[:30]
+        q = inp.vol_ann[top] / inp.vol_ann[top].sum()
+        j = rng.choice(top, p=q)
+        mult[j] *= mix.fad_mult * math.exp(0.5 * rng.standard_normal())
     return mult
 
 
 def simulate_field(inp: SimInputs, G1: np.ndarray, G2: np.ndarray, mix: config.FieldMix,
                    rng: np.random.Generator, n_opp: int | None = None,
-                   chunk: int = 500, pool_inp: SimInputs | None = None) -> FieldResult:
+                   chunk: int = 500, pool_inp: SimInputs | None = None,
+                   n_worlds: int | None = None, pool_size: int | None = None) -> FieldResult:
     """Fresh field of ``mix.n_opponents`` opponents for every scenario.
 
     Popularity is uncertain (the weights are judgement calls): scenarios are
@@ -371,14 +484,13 @@ def simulate_field(inp: SimInputs, G1: np.ndarray, G2: np.ndarray, mix: config.F
     """
     S, N = G1.shape
     n_opp = n_opp or mix.n_opponents
-    probs = np.array([mix.diversified, mix.moderate, mix.allin])
-    probs = probs / probs.sum()
+    probs = mix.type_probs()
     top1 = np.empty((S, TOPK))
     top8 = np.empty((S, TOPK))
     n_hold = np.zeros((S, N), np.int16)
     max_w = np.zeros((S, N), np.float32)
-    n_worlds = _popularity_worlds(S, mix)
-    pool_size = 60_000 if n_worlds == 1 else 12_000
+    n_worlds = n_worlds or _popularity_worlds(S, mix)
+    pool_size = pool_size or (60_000 if n_worlds == 1 else 12_000)
     bounds = np.linspace(0, S, n_worlds + 1).astype(int)
     eu = mix.foreign_share > 0 and inp.popularity_eu is not None
     for w in range(n_worlds):
@@ -417,7 +529,7 @@ def _field_chunk(s0, s1, G1, G2, mix, rng, n_opp, probs, pools1, pools2, chase_i
     m = s1 - s0
     rows = m * n_opp
     scen = np.repeat(np.arange(s0, s1), n_opp)
-    types = rng.choice(3, size=rows, p=probs)
+    types = rng.choice(N_TYPES, size=rows, p=probs)
     origin = rng.random(rows) < mix.foreign_share
     idx, eff = _draw_mixed(rng, pools1, types, origin)
     g1 = G1[scen[:, None], idx]
@@ -426,14 +538,19 @@ def _field_chunk(s0, s1, G1, G2, mix, rng, n_opp, probs, pools1, pools2, chase_i
     # period 2
     reb = rng.random(rows) < mix.p_rebalance
     r8 = (eff * g1 * G2[scen[:, None], idx]).sum(axis=1) + cash
+    types2 = types
+    if mix.p2_loser_allin > 0:
+        med = np.median(r1.reshape(m, n_opp), axis=1)
+        behind = r1 < np.repeat(med, n_opp)
+        types2 = np.where(behind & (rng.random(rows) < mix.p2_loser_allin), 2, types)
     if reb.any():
         if mix.chase:
             lg = np.log(G1[s0:s1])
             z = (lg - lg.mean(1, keepdims=True)) / (lg.std(1, keepdims=True) + 1e-12)
             extra = np.repeat(mix.chase * z, n_opp, axis=0)
-            idx2, eff2 = _draw_field_rows(rng, chase_inp, mix, types, extra)
+            idx2, eff2 = _draw_field_rows(rng, chase_inp, mix, types2, extra)
         else:
-            idx2, eff2 = _draw_mixed(rng, pools2, types, origin)
+            idx2, eff2 = _draw_mixed(rng, pools2, types2, origin)
         r2 = (eff2 * G2[scen[:, None], idx2]).sum(axis=1) + 1.0 - eff2.sum(axis=1)
         r8 = np.where(reb, r1 * r2, r8)
     r1m = r1.reshape(m, n_opp)
@@ -578,13 +695,42 @@ def _win_top5(R: np.ndarray, top: np.ndarray, exact_ties: bool):
     return win.mean(axis=1), top5.mean(axis=1)
 
 
+# Period-2 policies without a leaderboard: on Nov 22 I only know my own
+# score and the realised stock returns. If my score is at least TAU, move to
+# a defensive basket; otherwise keep the portfolio.
+POLICY_TAUS = (1.25, 1.35, 1.50)
+
+
+def chaser_returns(inp: SimInputs, G1: np.ndarray, G2: np.ndarray, k: int = 3, pool: int = 40) -> np.ndarray:
+    """"Cover the chasers": the opponents who can still catch a leader are the
+    all-in holders of period 1's best performers. Among the ``pool`` names
+    most likely to be held all-in (popularity x vol), take the ``k`` best
+    period-1 performers, equal weight, and return their period-2 gross."""
+    likely = np.argsort(-(inp.popularity * inp.vol_ann))[:pool]
+    sub = G1[:, likely]
+    top = np.argpartition(-sub, k - 1, axis=1)[:, :k]
+    names = likely[top]
+    return np.take_along_axis(G2, names, axis=1).mean(axis=1)
+
+
+def policy_names() -> list[str]:
+    return [f"{a}@{t:g}" for t in POLICY_TAUS for a in ("cons", "chase")]
+
+
 def evaluate(cs: CandidateSet, G1: np.ndarray, G2: np.ndarray, field: FieldResult,
-             cons_w: np.ndarray, horizon1: int = config.P1_DAYS, chunk: int = 128) -> pd.DataFrame:
-    """Score every candidate on the same scenarios (common random numbers)."""
+             cons_w: np.ndarray, horizon1: int = config.P1_DAYS, chunk: int = 128,
+             chase2: np.ndarray | None = None, extra_stats: bool = True) -> pd.DataFrame:
+    """Score every candidate on the same scenarios (common random numbers).
+
+    8-week metrics: ``8w_hold`` (no rebalance), ``8w_switch`` (oracle: switch
+    to the consensus only when actually leading; kept for comparison) and,
+    per realistic policy, ``8w_<basket>@<tau>``; ``p_win_8w_policy`` is the
+    best realistic policy and ``policy_8w`` names it (hold if none helps)."""
     G12 = G1 * G2
     cons1 = G1 @ cons_w
     cons2 = G2 @ cons_w
     lead_bar = field.field_max1
+    pols = policy_names()
     out = []
     n_names = (cs.W > 0).sum(axis=1)
     for c0 in range(0, len(cs), chunk):
@@ -596,8 +742,13 @@ def evaluate(cs: CandidateSet, G1: np.ndarray, G2: np.ndarray, field: FieldResul
         R8s = np.where(R1 > lead_bar[None, :] + TIE_TOL, R1 * cons2[None, :], R8)
         single = n_names[c0:c1] == 1
         res = {}
-        for name, R, top in (("4w", R1, field.top1), ("8w_hold", R8, field.top8),
-                             ("8w_switch", R8s, field.top8)):
+        runs = [("4w", R1, field.top1), ("8w_hold", R8, field.top8), ("8w_switch", R8s, field.top8)]
+        for t in POLICY_TAUS:
+            hit = R1 >= t
+            runs.append((f"8w_cons@{t:g}", np.where(hit, R1 * cons2[None, :], R8), field.top8))
+            if chase2 is not None:
+                runs.append((f"8w_chase@{t:g}", np.where(hit, R1 * chase2[None, :], R8), field.top8))
+        for name, R, top in runs:
             win = np.zeros(c1 - c0)
             t5 = np.zeros(c1 - c0)
             for flag in (True, False):
@@ -605,6 +756,18 @@ def evaluate(cs: CandidateSet, G1: np.ndarray, G2: np.ndarray, field: FieldResul
                 if sel.any():
                     win[sel], t5[sel] = _win_top5(R[sel], top, exact_ties=flag)
             res[f"p_win_{name}"], res[f"p_top5_{name}"] = win, t5
+        avail = ["8w_hold"] + [f"8w_{p}" for p in pols if f"p_win_8w_{p}" in res]
+        stack = np.vstack([res[f"p_win_{a}"] for a in avail])
+        best = stack.argmax(axis=0)
+        res["p_win_8w_policy"] = stack.max(axis=0)
+        pol_names = np.array(["hold"] + [a[3:] for a in avail[1:]])
+        if not extra_stats:
+            for j in range(c1 - c0):
+                row = {"candidate": cs.labels[c0 + j], "kind": cs.kinds[c0 + j],
+                       "n_names": int(n_names[c0 + j]), "policy_8w": pol_names[best[j]]}
+                row.update({k: float(v[j]) for k, v in res.items()})
+                out.append(row)
+            continue
         q1 = np.percentile(R1, [10, 50, 90], axis=1)
         q8 = np.percentile(R8, [10, 50, 90], axis=1)
         lr = np.log(R1)
@@ -620,6 +783,7 @@ def evaluate(cs: CandidateSet, G1: np.ndarray, G2: np.ndarray, field: FieldResul
                    "ret_p10_8w": q8[0, j] - 1, "ret_median_8w": q8[1, j] - 1,
                    "ret_p90_8w": q8[2, j] - 1}
             row.update({k: float(v[j]) for k, v in res.items()})
+            row["policy_8w"] = pol_names[best[j]]
             out.append(row)
     return pd.DataFrame(out)
 

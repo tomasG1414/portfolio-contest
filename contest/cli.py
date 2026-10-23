@@ -31,7 +31,7 @@ def _parse_return(s: str | None) -> float | None:
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="python -m contest", description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--mode", choices=["fetch", "period1", "period2", "stress"], required=True)
+    p.add_argument("--mode", choices=["fetch", "period1", "period2", "stress", "robust", "validate"], required=True)
     p.add_argument("--cache", type=Path, default=config.CACHE_DIR)
     p.add_argument("--out", type=Path, default=None, help="output directory")
     p.add_argument("--end", type=dt.date.fromisoformat, default=None,
@@ -65,10 +65,31 @@ def build_parser() -> argparse.ArgumentParser:
                         "(groups: us_mega, hype, spain, europe)")
     p.add_argument("--group-noise", type=float, default=0.0,
                    help="lognormal sigma of a shared popularity factor per group")
+    # v2 return model
+    p.add_argument("--z-clip", type=float, default=config.SimConfig.z_clip)
+    p.add_argument("--volvol", type=str, default=f"{config.SimConfig.volvol_mkt},{config.SimConfig.volvol_idio}",
+                   help="vol-of-vol 'market,idio' lognormal sds, e.g. 0.15,0.10 (0,0 = off)")
+    p.add_argument("--cluster-corr", type=float, default=config.SimConfig.cluster_corr)
+    p.add_argument("--earn-implied-weight", type=float, default=config.SimConfig.earn_implied_weight)
+    p.add_argument("--earn-sign-prior", type=int, default=config.SimConfig.earn_sign_prior)
+    p.add_argument("--tail-skew-weight", type=float, default=config.SimConfig.tail_skew_weight)
+    p.add_argument("--no-thanksgiving", action="store_true")
+    # v2 field
+    p.add_argument("--allin-vol-pow", type=float, default=config.FieldMix.allin_vol_pow)
+    p.add_argument("--savvy", type=float, default=config.FieldMix.n_savvy,
+                   help="expected number of opponents all-in on max-vol names")
+    p.add_argument("--momentum-share", type=float, default=config.FieldMix.momentum_share)
+    p.add_argument("--fad-prob", type=float, default=config.FieldMix.fad_prob)
+    p.add_argument("--fad-mult", type=float, default=config.FieldMix.fad_mult)
+    p.add_argument("--p2-loser-allin", type=float, default=config.FieldMix.p2_loser_allin)
+    # robust mode
+    p.add_argument("--worlds", type=int, default=48, help="robust: parameter worlds in the search")
+    p.add_argument("--world-scenarios", type=int, default=500)
+    p.add_argument("--val-worlds", type=int, default=160)
     p.add_argument("--quick", action="store_true",
                    help="period1: skip the secondary sensitivities (used by --mode stress)")
     p.add_argument("--workers", type=int, default=4, help="stress: parallel processes")
-    p.add_argument("--rank-by", default="p_win_8w_switch",
+    p.add_argument("--rank-by", default="p_win_8w_policy",
                    help="metric used to rank candidates")
     p.add_argument("--my-return", type=str, default=None,
                    help="period2: my realised period-1 return, e.g. 0.083 or 8.3%%")
@@ -83,7 +104,10 @@ def _mix_from_args(a) -> config.FieldMix:
     gm = tuple((g.split("=")[0], float(g.split("=")[1])) for g in a.group_mult.split(",") if g)
     mix = config.FieldMix(p_rebalance=a.p_rebalance, chase=a.chase, pop_noise=a.pop_noise,
                           n_opponents=a.participants - 1, foreign_share=a.foreign_share,
-                          group_mult=gm, group_noise=a.group_noise)
+                          group_mult=gm, group_noise=a.group_noise,
+                          allin_vol_pow=a.allin_vol_pow, n_savvy=a.savvy,
+                          momentum_share=a.momentum_share, fad_prob=a.fad_prob,
+                          fad_mult=a.fad_mult, p2_loser_allin=a.p2_loser_allin)
     if a.mix:
         d, m, x = (float(v) for v in a.mix.split(","))
         tot = d + m + x
@@ -94,7 +118,12 @@ def _mix_from_args(a) -> config.FieldMix:
 def _sim_cfg(a) -> config.SimConfig:
     return config.SimConfig(n_scenarios=a.scenarios, n_validate=a.validate_scenarios,
                             seed=a.seed, block=a.block, vol_target=a.vol_target,
-                            use_iv=not a.no_iv, iv_weight=a.iv_weight)
+                            use_iv=not a.no_iv, iv_weight=a.iv_weight, z_clip=a.z_clip,
+                            volvol_mkt=float(a.volvol.split(",")[0]),
+                            volvol_idio=float(a.volvol.split(",")[1]),
+                            cluster_corr=a.cluster_corr, earn_implied_weight=a.earn_implied_weight,
+                            earn_sign_prior=a.earn_sign_prior, tail_skew_weight=a.tail_skew_weight,
+                            thanksgiving=not a.no_thanksgiving)
 
 
 def main(argv=None):
@@ -119,6 +148,12 @@ def main(argv=None):
         if a.no_iv:
             common += ["--no-iv"]
         run_stress(a, common, workers=a.workers)
+    elif a.mode == "robust":
+        from .robust import run_robust
+        run_robust(a, _sim_cfg(a), _mix_from_args(a))
+    elif a.mode == "validate":
+        from .validate import run_validate
+        run_validate(a, _sim_cfg(a))
     elif a.mode == "period1":
         from .pipeline import run_period1
         run_period1(a, _sim_cfg(a), _mix_from_args(a))

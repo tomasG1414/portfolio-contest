@@ -14,6 +14,8 @@ probability of finishing first rather than by expected return or Sharpe.
 | `contest/data.py` | **data module**: download (fetch mode only), cache loading, EUR returns, features (vols, IV, earnings, ex-dividends, beta/corr to consensus) |
 | `contest/sim.py` | **sim module**: block bootstrap with vol rescaling and earnings jumps, opponent field, whole-share candidates, win/top-5 metrics |
 | `contest/pipeline.py` | period-1 and period-2 runs (search, validation, sensitivity) |
+| `contest/robust.py` | **v2** `--mode robust`: ranking averaged over model uncertainty (priors on return model and field), variance decomposition |
+| `contest/validate.py` | **v2** `--mode validate`: vol-forecaster backtest (QLIKE), vol-of-vol calibration, tail reliability, options right tail and implied earnings moves |
 | `contest/report.py` | markdown report and plots |
 | `contest/cli.py` | **CLI** |
 | `data/constituents_snapshot.csv` | index members as of Oct 22, 2026 (fallback if scraping fails) |
@@ -53,6 +55,36 @@ popularity noise, a combination), 4 processes at a time; summary in
 `--participants`, `--foreign-share`, `--group-mult hype=2`, `--group-noise 0.5`.
 
 Tests: `python -m pytest tests -q` (synthetic data, no network).
+
+## v2
+
+```bash
+python -m contest --mode validate          # outputs/validation/report.md
+python -m contest --mode robust            # outputs/period1/robust/report.md
+python -m contest --mode stress --workers 2
+```
+
+- **Period 2 without a leaderboard.** Default ranking metric is now `p_win_8w_policy`: on Nov 22
+  you only know your own score, so the policy is "if my score >= tau (1.25 / 1.35 / 1.50), switch to
+  the consensus (`cons`) or to the chaser basket (`chase`), else hold", picked per portfolio on the
+  search scenarios and re-scored on fresh ones. The chaser basket = period 1's best performers among
+  the names most likely held all-in (who can still catch a leader). `p_win_8w_switch` (oracle) is
+  kept for comparison. Period 2 mode adds the chaser basket as a candidate.
+- **Return model:** variance-neutral vol-of-vol multipliers (`--volvol 0.12,0.12`, calibrated by
+  `--mode validate`), residual clip (`--z-clip`), extra AI-infra cluster correlation
+  (`--cluster-corr`), earnings moves blended toward the option-implied event move from the ATM term
+  structure (`--earn-implied-weight`), earnings sign from the stock's history shrunk to 50/50
+  (`--earn-sign-prior`, mean kept), call-skew tilt of US vols (`--tail-skew-weight`), US period 2
+  = 19 days (Thanksgiving; `--no-thanksgiving`).
+- **Field:** all-in sampling ~ popularity x vol^k (`--allin-vol-pow`), savvy opponents all-in on
+  max-vol names (`--savvy`), momentum buyers of recent winners (`--momentum-share`), fads that make
+  one high-vol name x3 popular in a share of worlds (`--fad-prob`, `--fad-mult`), trailing
+  re-pickers going all-in on Nov 22 (`--p2-loser-allin`).
+- **Fetcher:** full option chains for the Nov 20 / Dec 18 expiries (`data/cache/option_chains.csv.gz`)
+  and the ATM term structure up to Jan 1 for the 40 highest-vol US names (in `meta.json`).
+- **Robust mode:** each world draws all of the above (plus IV weight, vol forecaster, block length,
+  all-in share, popularity noise, re-pick share, 160-200 entrants) from the priors in
+  `contest/robust.py`; candidates are ranked on the world-averaged P(win).
 
 ## Model in one paragraph
 
