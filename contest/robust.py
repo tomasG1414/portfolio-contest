@@ -28,7 +28,9 @@ from .pipeline import _load
 log = logging.getLogger(__name__)
 
 VOL_TARGETS = ("blend", "ewma", "60d", "1y")
-VOL_TARGET_P = (0.40, 0.25, 0.15, 0.20)
+# weights from the out-of-sample QLIKE backtest (--mode validate): blend is best on
+# high-vol names, 1y worst (and biased low)
+VOL_TARGET_P = (0.50, 0.20, 0.20, 0.10)
 BLOCKS = (3, 5, 10)
 
 # name: (description, sampler) -- sampler(rng) -> value
@@ -37,14 +39,14 @@ PRIORS = {
     "iv_weight":           ("weight on option-implied variance (US)", lambda r: r.uniform(0.0, 1.0)),
     "vol_target":          ("vol forecaster", lambda r: r.choice(len(VOL_TARGETS), p=VOL_TARGET_P)),
     "z_clip":              ("clip on bootstrap residuals (sigmas)", lambda r: r.uniform(6.0, 12.0)),
-    "volvol_mkt":          ("vol-of-vol, market-wide (lognormal sd)", lambda r: r.uniform(0.05, 0.30)),
-    "volvol_idio":         ("vol-of-vol, per stock", lambda r: r.uniform(0.0, 0.20)),
+    "volvol_mkt":          ("vol-of-vol, market-wide (lognormal sd)", lambda r: r.uniform(0.05, 0.25)),
+    "volvol_idio":         ("vol-of-vol, per stock", lambda r: r.uniform(0.05, 0.20)),
     "cluster_corr":        ("extra AI-infra cluster correlation", lambda r: r.uniform(0.0, 0.5)),
     "earn_implied_weight": ("weight on option-implied earnings moves", lambda r: r.uniform(0.0, 1.0)),
     "tail_skew_weight":    ("call-skew tilt of US vols", lambda r: r.uniform(0.0, 1.0)),
     "block":               ("bootstrap block length (days)", lambda r: r.choice(len(BLOCKS))),
     # field
-    "allin":               ("share of all-in opponents", lambda r: r.uniform(0.05, 0.30)),
+    "allin":               ("share of all-in opponents", lambda r: r.uniform(0.05, 0.25)),
     "allin_vol_pow":       ("all-in sampling ~ pop x vol^k", lambda r: r.uniform(1.0, 3.0)),
     "n_savvy":             ("expected savvy max-vol opponents", lambda r: r.uniform(0.0, 4.0)),
     "momentum_share":      ("share of momentum buyers", lambda r: r.uniform(0.0, 0.15)),
