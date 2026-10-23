@@ -1427,11 +1427,11 @@
    "dividendYield": 2.9,
    "lastDividendValue": 0.37687,
    "lastDividendDate": 1783900800,
-   "earningsTimestamp": 1785425400,
+   "earningsTimestamp": 1793892600,
    "earningsTimestampStart": 1793892600,
    "earningsTimestampEnd": 1793892600,
-   "isEarningsDateEstimate": true,
-   "earningsCallTimestampStart": 1785429000
+   "isEarningsDateEstimate": false,
+   "earningsCallTimestampStart": 1793952000
   },
   "calendar": {
    "Ex-Dividend Date": "2026-07-13",
@@ -8704,7 +8704,7 @@
   "earnings_dates": [
    {
     "ts": "2026-10-28T02:00:00-04:00",
-    "eps_est": 0.81,
+    "eps_est": 0.98,
     "eps_rep": null,
     "surprise": null
    },
@@ -10496,7 +10496,7 @@
    "earningsTimestampStart": 1793374200,
    "earningsTimestampEnd": 1793374200,
    "isEarningsDateEstimate": false,
-   "earningsCallTimestampStart": 1793693100
+   "earningsCallTimestampStart": 1793714400
   },
   "calendar": {
    "Ex-Dividend Date": "2026-05-18",
@@ -16972,7 +16972,7 @@
   "earnings_dates": [
    {
     "ts": "2026-10-30T08:00:00-04:00",
-    "eps_est": 16.2,
+    "eps_est": 16.19,
     "eps_rep": null,
     "surprise": null
    },
@@ -22540,10 +22540,10 @@
    ],
    "Earnings High": 2.51,
    "Earnings Low": 2.42,
-   "Earnings Average": 2.45403,
+   "Earnings Average": 2.45602,
    "Revenue High": 5246905000,
    "Revenue Low": 5074200000,
-   "Revenue Average": 5149201700
+   "Revenue Average": 5154830940
   },
   "earnings_dates": [
    {
@@ -33442,7 +33442,7 @@
   "earnings_dates": [
    {
     "ts": "2026-11-03T07:00:00-05:00",
-    "eps_est": 0.86,
+    "eps_est": 0.87,
     "eps_rep": null,
     "surprise": null
    },
