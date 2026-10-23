@@ -31,7 +31,7 @@ def _parse_return(s: str | None) -> float | None:
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="python -m contest", description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--mode", choices=["fetch", "period1", "period2"], required=True)
+    p.add_argument("--mode", choices=["fetch", "period1", "period2", "stress"], required=True)
     p.add_argument("--cache", type=Path, default=config.CACHE_DIR)
     p.add_argument("--out", type=Path, default=None, help="output directory")
     p.add_argument("--end", type=dt.date.fromisoformat, default=None,
@@ -56,6 +56,18 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--chase", type=float, default=config.FieldMix.chase)
     p.add_argument("--pop-noise", type=float, default=config.FieldMix.pop_noise,
                    help="lognormal sigma of popularity uncertainty (0 = take weights as exact)")
+    p.add_argument("--participants", type=int, default=config.N_OPPONENTS + 1,
+                   help="number of entrants including me")
+    p.add_argument("--foreign-share", type=float, default=0.0,
+                   help="share of opponents with the non-Spanish European profile")
+    p.add_argument("--group-mult", type=str, default="",
+                   help="popularity stress per group, e.g. hype=2,spain=0.5 "
+                        "(groups: us_mega, hype, spain, europe)")
+    p.add_argument("--group-noise", type=float, default=0.0,
+                   help="lognormal sigma of a shared popularity factor per group")
+    p.add_argument("--quick", action="store_true",
+                   help="period1: skip the secondary sensitivities (used by --mode stress)")
+    p.add_argument("--workers", type=int, default=4, help="stress: parallel processes")
     p.add_argument("--rank-by", default="p_win_8w_switch",
                    help="metric used to rank candidates")
     p.add_argument("--my-return", type=str, default=None,
@@ -68,7 +80,10 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _mix_from_args(a) -> config.FieldMix:
-    mix = config.FieldMix(p_rebalance=a.p_rebalance, chase=a.chase, pop_noise=a.pop_noise)
+    gm = tuple((g.split("=")[0], float(g.split("=")[1])) for g in a.group_mult.split(",") if g)
+    mix = config.FieldMix(p_rebalance=a.p_rebalance, chase=a.chase, pop_noise=a.pop_noise,
+                          n_opponents=a.participants - 1, foreign_share=a.foreign_share,
+                          group_mult=gm, group_noise=a.group_noise)
     if a.mix:
         d, m, x = (float(v) for v in a.mix.split(","))
         tot = d + m + x
@@ -94,6 +109,16 @@ def main(argv=None):
                                               "stale_tickers")}, indent=1))
         for idx, r in rep["universe"].items():
             print(f"{idx}: {r['source']} ({r['count']}) +{r['added_vs_snapshot']} -{r['removed_vs_snapshot']}")
+    elif a.mode == "stress":
+        from .pipeline import run_stress
+        common = ["--cache", str(a.cache), "--scenarios", str(a.scenarios),
+                  "--validate-scenarios", str(a.validate_scenarios), "--seed", str(a.seed),
+                  "--vol-target", a.vol_target, "--pop-noise", str(a.pop_noise)]
+        if a.asof:
+            common += ["--asof", a.asof.isoformat()]
+        if a.no_iv:
+            common += ["--no-iv"]
+        run_stress(a, common, workers=a.workers)
     elif a.mode == "period1":
         from .pipeline import run_period1
         run_period1(a, _sim_cfg(a), _mix_from_args(a))

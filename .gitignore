@@ -2,3 +2,7 @@ __pycache__/
 *.pyc
 .venv/
 .pytest_cache/
+# stress-test variants: keep summaries and shortlists, not the bulky per-variant files
+outputs/period1/stress/*/candidates_ranked.csv
+outputs/period1/stress/*/stock_features.csv
+outputs/period1/stress/*/*.png

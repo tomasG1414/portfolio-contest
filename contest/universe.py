@@ -67,6 +67,53 @@ POPULARITY = {
 BASE_POPULARITY = 0.3
 CONSENSUS_MIN = 3.0
 
+# Students from elsewhere in Europe (France, Belgium, Portugal, Italy,
+# Germany, NL): no Spanish home bias (only Spanish brands known abroad keep
+# weight), more weight on their own markets' household names. Portugal has
+# no eligible names, so those students fall back on the pan-European/US set.
+# US names keep the POPULARITY values.
+POPULARITY_EU = {
+    "ITX.MC": 3, "SAN.MC": 2.5, "IBE.MC": 2, "BBVA.MC": 1.5, "TEF.MC": 1.0,
+    "IAG.MC": 1.0, "FER.MC": 0.8, "AENA.MC": 0.8, "AMS.MC": 0.8,
+    "MC.PA": 6, "ASML.AS": 5, "AIR.PA": 4, "OR.PA": 4, "RACE.MI": 4, "RHM.DE": 4,
+    "RMS.PA": 3.5, "TTE.PA": 3.5, "SAP.DE": 3, "ADS.DE": 3, "ABI.BR": 3,
+    "BNP.PA": 2.5, "SAN.PA": 2.5, "SIE.DE": 2.5, "BMW.DE": 2.5, "MBG.DE": 2.5,
+    "SU.PA": 2, "SAF.PA": 2, "ENR.DE": 2, "VOW3.DE": 2, "UCG.MI": 2,
+    "EL.PA": 1.5, "CS.PA": 1.5, "BN.PA": 1.5, "AI.PA": 1.5, "ARGX.BR": 1.5,
+    "ALV.DE": 1.5, "DBK.DE": 1.5, "IFX.DE": 1.5, "ISP.MI": 1.5, "ENEL.MI": 1.5,
+    "ENI.MI": 1.5, "INGA.AS": 1.5, "ADYEN.AS": 1.5, "DG.PA": 1.2, "SGO.PA": 1.2,
+    "DTE.DE": 1.2, "BAYN.DE": 1.2, "BAS.DE": 1.0, "DHL.DE": 1.0, "PRX.AS": 1.0,
+    "AD.AS": 1.0, "MUV2.DE": 1.0, "WKL.AS": 0.8, "NDA-FI.HE": 0.8,
+}
+
+# Groups whose popularity could be misjudged *together* (stress tests and
+# group-level popularity noise). Spain / Europe are filled in by suffix.
+GROUPS = {
+    "us_mega": ["AAPL", "MSFT", "AMZN", "GOOGL", "GOOG", "META", "NVDA", "TSLA",
+                "AVGO", "NFLX", "COST", "WMT"],
+    "hype": ["SPCX", "PLTR", "MSTR", "CRWV", "NBIS", "ALAB", "APP", "ARM", "MU",
+             "SNDK", "RKLB", "AMD", "LITE", "MRVL", "INTC", "STX", "WDC", "TER",
+             "MRNA", "HONA", "SHOP", "CRWD"],
+}
+
+
+def popularity_vector_eu(tickers: list[str]) -> pd.Series:
+    """Popularity for non-Spanish European students."""
+    def one(t):
+        if t in POPULARITY_EU:
+            return POPULARITY_EU[t]
+        return BASE_POPULARITY if t.endswith(".MC") else POPULARITY.get(t, BASE_POPULARITY)
+    return pd.Series({t: float(one(t)) for t in tickers})
+
+
+def group_members(tickers: list[str]) -> dict:
+    """Group name -> positions in ``tickers``."""
+    pos = {t: i for i, t in enumerate(tickers)}
+    out = {g: [pos[t] for t in names if t in pos] for g, names in GROUPS.items()}
+    out["spain"] = [i for t, i in pos.items() if t.endswith(".MC")]
+    out["europe"] = [i for t, i in pos.items() if "." in t and not t.endswith(".MC")]
+    return out
+
 
 def popularity_vector(tickers: list[str]) -> pd.Series:
     return pd.Series({t: float(POPULARITY.get(t, BASE_POPULARITY)) for t in tickers})

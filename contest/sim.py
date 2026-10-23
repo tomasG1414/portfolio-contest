@@ -20,7 +20,7 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 
-from . import config
+from . import config, universe
 
 TOPK = 32          # opponents' best scores kept per scenario (ties + top-5)
 TIE_TOL = 1e-9
@@ -43,6 +43,8 @@ class SimInputs:
     exdiv: dict            # period -> (N,) fraction of price lost to ex-div
     cons_w: np.ndarray     # (N,) consensus basket weights
     iv_scale: np.ndarray | None = None   # vol multiplier from the IV calibration
+    popularity_eu: np.ndarray | None = None  # non-Spanish European students
+    groups: dict | None = None               # popularity group -> positions
 
     @property
     def n(self) -> int:
@@ -146,7 +148,9 @@ def prepare_inputs(feat: pd.DataFrame, extras: dict, cfg: config.SimConfig,
                      price_eur=feat["price_eur"].to_numpy(float),
                      popularity=feat["popularity"].to_numpy(float),
                      vol_ann=vol.to_numpy(), earn=earn, pooled_mults=pooled,
-                     exdiv=exdiv, cons_w=cw / cw.sum(), iv_scale=iv_scale)
+                     exdiv=exdiv, cons_w=cw / cw.sum(), iv_scale=iv_scale,
+                     popularity_eu=universe.popularity_vector_eu(tickers).to_numpy(float),
+                     groups={g: np.asarray(v, int) for g, v in universe.group_members(tickers).items()})
 
 
 def _iv_scale(feat, sigma_d, earn, pooled, period, cfg) -> np.ndarray:
@@ -326,26 +330,47 @@ class _Pool:
 
 def _popularity_worlds(n_scen: int, mix: config.FieldMix) -> int:
     """Number of popularity draws ("worlds") per field: one per ~1,000 scenarios."""
-    return 1 if mix.pop_noise <= 0 else max(20, n_scen // 1000)
+    noisy = mix.pop_noise > 0 or mix.group_noise > 0
+    return max(20, n_scen // 1000) if noisy else 1
+
+
+def _world_multiplier(inp: SimInputs, mix: config.FieldMix, rng) -> np.ndarray:
+    """Popularity multiplier for one world: deterministic group stress x
+    shared group factor x per-name noise (lognormal factors have mean 1)."""
+    mult = np.ones(inp.n)
+    groups = inp.groups or {}
+    for g, m in mix.group_mult:
+        mult[groups[g]] *= m
+    if mix.group_noise > 0:
+        sig = mix.group_noise
+        for idx in groups.values():
+            mult[idx] *= math.exp(sig * rng.standard_normal() - 0.5 * sig ** 2)
+    if mix.pop_noise > 0:
+        sig = mix.pop_noise
+        mult *= np.exp(sig * rng.standard_normal(inp.n) - 0.5 * sig ** 2)
+    return mult
 
 
 def simulate_field(inp: SimInputs, G1: np.ndarray, G2: np.ndarray, mix: config.FieldMix,
-                   rng: np.random.Generator, n_opp: int = config.N_OPPONENTS,
+                   rng: np.random.Generator, n_opp: int | None = None,
                    chunk: int = 500, pool_inp: SimInputs | None = None) -> FieldResult:
-    """Fresh 179-opponent field for every scenario.
+    """Fresh field of ``mix.n_opponents`` opponents for every scenario.
 
     Popularity is uncertain (the weights are judgement calls): scenarios are
-    split into "worlds", each drawing one true popularity vector
-    pop_i x lognormal(sigma = ``mix.pop_noise``, mean 1) shared by every
-    opponent in that world. Noise is per contest, not per student, so it
-    does not average away across the 179 opponents.
+    split into "worlds", each drawing one true popularity vector shared by
+    every opponent in that world (per-name lognormal noise, optional shared
+    factor per group, optional deterministic group stress). Noise is per
+    contest, not per student, so it does not average away across opponents.
+    A share ``mix.foreign_share`` of opponents uses the non-Spanish European
+    popularity profile instead of the Spanish one.
 
-    Period 2: a share ``p_rebalance`` of opponents re-pick (same archetype,
-    optionally tilted to period-1 winners via ``mix.chase``); the rest keep
-    their shares, so their final score is the buy-and-hold value.
+    Period 2: a share ``p_rebalance`` of opponents re-pick (same archetype
+    and origin, optionally tilted to period-1 winners via ``mix.chase``);
+    the rest keep their shares, so their final score is buy-and-hold.
     ``pool_inp`` (prices for the re-pick) defaults to ``inp``.
     """
     S, N = G1.shape
+    n_opp = n_opp or mix.n_opponents
     probs = np.array([mix.diversified, mix.moderate, mix.allin])
     probs = probs / probs.sum()
     top1 = np.empty((S, TOPK))
@@ -355,24 +380,37 @@ def simulate_field(inp: SimInputs, G1: np.ndarray, G2: np.ndarray, mix: config.F
     n_worlds = _popularity_worlds(S, mix)
     pool_size = 60_000 if n_worlds == 1 else 12_000
     bounds = np.linspace(0, S, n_worlds + 1).astype(int)
+    eu = mix.foreign_share > 0 and inp.popularity_eu is not None
     for w in range(n_worlds):
-        inp_w, pinp_w = inp, pool_inp or inp
-        if mix.pop_noise > 0:
-            sig = mix.pop_noise
-            factor = np.exp(sig * rng.standard_normal(inp.n) - 0.5 * sig ** 2)
-            inp_w = dataclasses.replace(inp, popularity=inp.popularity * factor)
-            pinp_w = dataclasses.replace(pinp_w, popularity=pinp_w.popularity * factor)
-        pool1 = _Pool(inp_w, mix, rng, pool_size)
-        # re-picks come from the same pool unless period-2 prices differ
-        pool2 = None if mix.chase else (pool1 if pool_inp is None else _Pool(pinp_w, mix, rng, pool_size))
+        mult = _world_multiplier(inp, mix, rng)
+        pinp = pool_inp or inp
+        profiles = [("es", lambda x: x.popularity)] + ([("eu", lambda x: x.popularity_eu)] if eu else [])
+        pools1, pools2 = [], []
+        for _, getpop in profiles:
+            inp_w = dataclasses.replace(inp, popularity=getpop(inp) * mult)
+            pinp_w = dataclasses.replace(pinp, popularity=getpop(pinp) * mult)
+            p1 = _Pool(inp_w, mix, rng, pool_size)
+            pools1.append(p1)
+            # re-picks come from the same pool unless period-2 prices differ
+            pools2.append(None if mix.chase else (p1 if pool_inp is None else _Pool(pinp_w, mix, rng, pool_size)))
+        chase_inp = dataclasses.replace(pinp, popularity=pinp.popularity * mult)
         for s0 in range(bounds[w], bounds[w + 1], chunk):
             s1 = min(bounds[w + 1], s0 + chunk)
-            _field_chunk(s0, s1, G1, G2, mix, rng, n_opp, probs, pool1, pool2, pinp_w,
+            _field_chunk(s0, s1, G1, G2, mix, rng, n_opp, probs, pools1, pools2, chase_inp,
                          top1, top8, n_hold, max_w)
     return FieldResult(top1=top1, top8=top8, n_hold=n_hold, max_w=max_w, mix=mix)
 
 
-def _field_chunk(s0, s1, G1, G2, mix, rng, n_opp, probs, pool1, pool2, pool_inp,
+def _draw_mixed(rng, pools, types, origin):
+    """Draw from the Spanish pool, or the European one where ``origin`` is set."""
+    idx, eff = pools[0].draw(rng, types)
+    if len(pools) > 1 and origin.any():
+        i2, e2 = pools[1].draw(rng, types[origin])
+        idx[origin], eff[origin] = i2, e2
+    return idx, eff
+
+
+def _field_chunk(s0, s1, G1, G2, mix, rng, n_opp, probs, pools1, pools2, chase_inp,
                  top1, top8, n_hold, max_w):
     """Score opponents for scenarios s0:s1 and record leaderboard stats."""
     N = G1.shape[1]
@@ -380,7 +418,8 @@ def _field_chunk(s0, s1, G1, G2, mix, rng, n_opp, probs, pool1, pool2, pool_inp,
     rows = m * n_opp
     scen = np.repeat(np.arange(s0, s1), n_opp)
     types = rng.choice(3, size=rows, p=probs)
-    idx, eff = pool1.draw(rng, types)
+    origin = rng.random(rows) < mix.foreign_share
+    idx, eff = _draw_mixed(rng, pools1, types, origin)
     g1 = G1[scen[:, None], idx]
     cash = 1.0 - eff.sum(axis=1)
     r1 = (eff * g1).sum(axis=1) + cash
@@ -392,9 +431,9 @@ def _field_chunk(s0, s1, G1, G2, mix, rng, n_opp, probs, pool1, pool2, pool_inp,
             lg = np.log(G1[s0:s1])
             z = (lg - lg.mean(1, keepdims=True)) / (lg.std(1, keepdims=True) + 1e-12)
             extra = np.repeat(mix.chase * z, n_opp, axis=0)
-            idx2, eff2 = _draw_field_rows(rng, pool_inp, mix, types, extra)
+            idx2, eff2 = _draw_field_rows(rng, chase_inp, mix, types, extra)
         else:
-            idx2, eff2 = pool2.draw(rng, types)
+            idx2, eff2 = _draw_mixed(rng, pools2, types, origin)
         r2 = (eff2 * G2[scen[:, None], idx2]).sum(axis=1) + 1.0 - eff2.sum(axis=1)
         r8 = np.where(reb, r1 * r2, r8)
     r1m = r1.reshape(m, n_opp)

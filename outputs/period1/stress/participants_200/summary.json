@@ -1,0 +1,14 @@
+{
+ "pick": "CRWV",
+ "p_win_8w_switch": 0.16201458333333335,
+ "p_win_4w": 0.15681833333333334,
+ "robust_pick": "CRWV",
+ "price_date": "2026-10-22",
+ "field": "div 60% / mod 25% / all-in 15%",
+ "n_entrants": 200,
+ "field_max_4w_median": 1.2966103420403754,
+ "field_max_8w_median": 1.4123218072837571,
+ "shares": {
+  "CRWV": 202
+ }
+}

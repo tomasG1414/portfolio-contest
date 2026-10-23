@@ -83,6 +83,10 @@ class FieldMix:
     p_rebalance: float = 0.5      # opponents who re-pick at the Nov 22 rebalance
     chase: float = 0.0            # >0: re-pickers tilt toward period-1 winners
     pop_noise: float = 0.20       # lognormal sigma on the popularity weights (they are judgement calls)
+    group_noise: float = 0.0      # lognormal sigma of a shared factor per popularity group
+    group_mult: tuple = ()        # deterministic stress, e.g. (("hype", 2.0),)
+    foreign_share: float = 0.0    # opponents with the non-Spanish European profile
+    n_opponents: int = N_OPPONENTS
 
     def with_allin(self, allin: float) -> "FieldMix":
         """Same mixture with a different all-in share; others keep their ratio."""
@@ -92,8 +96,15 @@ class FieldMix:
                        moderate=self.moderate * scale, allin=allin)
 
     def label(self) -> str:
-        return (f"div {self.diversified:.0%} / mod {self.moderate:.0%} / "
-                f"all-in {self.allin:.0%}")
+        out = (f"div {self.diversified:.0%} / mod {self.moderate:.0%} / "
+               f"all-in {self.allin:.0%}")
+        if self.foreign_share:
+            out += f", {self.foreign_share:.0%} non-Spanish European students"
+        if self.group_mult:
+            out += ", " + ", ".join(f"{g} popularity x{m:g}" for g, m in self.group_mult)
+        if self.group_noise:
+            out += f", group popularity noise {self.group_noise:.0%}"
+        return out
 
 
 SENSITIVITY_ALLIN = (0.05, 0.15, 0.30)

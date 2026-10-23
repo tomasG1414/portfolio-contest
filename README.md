@@ -45,6 +45,13 @@ Useful options: `--scenarios 50000`, `--seed`, `--mix 0.6,0.25,0.15`,
 `--rank-by p_win_4w`, `--asof 2026-10-22`. `--mode period2 --dry-run` exercises the
 period-2 code with a simulated period-1 outcome before real data exists.
 
+Stress tests: `python -m contest --mode stress` re-runs the full period-1 search
+under alternative fields (60/120/200 entrants, 30%/50% non-Spanish European
+students, hype names / Spanish bias / US mega-caps twice as popular, group-level
+popularity noise, a combination), 4 processes at a time; summary in
+`outputs/period1/stress/summary.md`. The same field options work on their own:
+`--participants`, `--foreign-share`, `--group-mult hype=2`, `--group-noise 0.5`.
+
 Tests: `python -m pytest tests -q` (synthetic data, no network).
 
 ## Model in one paragraph

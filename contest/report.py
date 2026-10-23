@@ -68,7 +68,7 @@ def _style(ax):
     ax.set_axisbelow(True)
 
 
-def plot_pwin_vs_vol(res: pd.DataFrame, path, metric: str, highlight=()):
+def plot_pwin_vs_vol(res: pd.DataFrame, path, metric: str, highlight=(), n_entrants=config.N_OPPONENTS + 1):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -90,8 +90,8 @@ def plot_pwin_vs_vol(res: pd.DataFrame, path, metric: str, highlight=()):
                        edgecolors=INK, linewidths=1.2, zorder=4)
             ax.annotate(lab, (100 * r["vol_ann"], 100 * r[metric]), xytext=(-10, 8 - 14 * n),
                         textcoords="offset points", fontsize=8, color=INK, ha="right")
-    ax.axhline(100 / (config.N_OPPONENTS + 1), color=INK2, linewidth=1, linestyle=(0, (4, 3)))
-    ax.annotate("1/180 (random entrant)", (ax.get_xlim()[1], 100 / (config.N_OPPONENTS + 1)),
+    ax.axhline(100 / n_entrants, color=INK2, linewidth=1, linestyle=(0, (4, 3)))
+    ax.annotate(f"1/{n_entrants} (random entrant)", (ax.get_xlim()[1], 100 / n_entrants),
                 xytext=(-4, 4), textcoords="offset points", fontsize=8, color=INK2, ha="right")
     ax.set_xlabel("Simulated portfolio volatility, period 1 (annualised, %)", color=INK, fontsize=10)
     nice = {"p_win_8w_switch": "P(win at Dec 18), switch-if-leading policy",
@@ -185,7 +185,8 @@ def period1_markdown(c: dict) -> str:
     mixes, base_key, rank_by, cfg, mix = c["mixes"], c["base_key"], c["rank_by"], c["cfg"], c["mix"]
     f = c["field"]
     L = [f"# Stock contest - period 1 submission (Oct 25, prices {c['prices'].asof.date()})", ""]
-    L += ["Objective: maximise the probability of finishing **first** of 180 "
+    n_ent = mix.n_opponents + 1
+    L += [f"Objective: maximise the probability of finishing **first** of {n_ent} "
           "(not expected return). Ranking metric: `" + rank_by + "` = P(win at Dec 18) if I hold "
           "this portfolio through period 1 and, on Nov 22, switch to the consensus basket only "
           "when I am leading, otherwise keep it.", ""]
@@ -237,7 +238,7 @@ def period1_markdown(c: dict) -> str:
           "(`?` = date not confirmed by a second source), D1/D2 ex-dividend drop (`~` = estimated).",
           "", "Benchmarks for scale: " + "; ".join(
               f"{r.candidate} {_pct(getattr(r, rank_by), 2)}" for r in val[val['kind'] == 'benchmark'].itertuples())
-          + f". A random entrant has {_pct(1 / 180, 2)}.", ""]
+          + f". A random entrant has {_pct(1 / n_ent, 2)}.", ""]
     # ---- sensitivity
     keys = list(mixes)
     sens = val[val["kind"] != "benchmark"].sort_values("worst_rank").head(15)
@@ -246,8 +247,9 @@ def period1_markdown(c: dict) -> str:
         row = {"portfolio": r["candidate"]}
         for k in keys:
             row[f"all-in {k:.0%}"] = f"{_pct(r[f'{rank_by}@allin{k:.0%}'], 2)} (#{int(r[f'rank@allin{k:.0%}'])})"
-        row[f"vol model: {c['alt_label']}"] = (f"{_pct(r[f'{rank_by}@volmodel'], 2)} (#{int(r['rank@volmodel'])})"
-                                               if f"{rank_by}@volmodel" in r else "")
+        if c.get("alt_label"):
+            row[f"vol model: {c['alt_label']}"] = (f"{_pct(r[f'{rank_by}@volmodel'], 2)} "
+                                                   f"(#{int(r['rank@volmodel'])})")
         row["worst rank"] = int(r["worst_rank"])
         row["robust"] = "**yes**" if r["worst_rank"] <= 10 else ""
         srows.append(row)
@@ -297,7 +299,7 @@ def period1_markdown(c: dict) -> str:
           f"{universe.BASE_POPULARITY} for everything else). Consensus basket = names with "
           f"popularity >= {universe.CONSENSUS_MIN}, weighted by popularity:", "",
           ", ".join(f"{t} {w:.1%}" for t, w in cons.sort_values(ascending=False).items()), "",
-          f"Field: {config.N_OPPONENTS} opponents per scenario, {mix.label()}; diversified = "
+          f"Field: {mix.n_opponents} opponents per scenario, {mix.label()}; diversified = "
           f"{mix.div_k[0]}-{mix.div_k[1]} names ~ popularity, moderate = {mix.mod_k[0]}-{mix.mod_k[1]} "
           f"names ~ popularity^{mix.mod_pop_power}, all-in = 1-2 names ~ popularity x vol; Dirichlet "
           f"weights, whole shares. On Nov 22 {mix.p_rebalance:.0%} of opponents re-pick, the rest hold."
@@ -360,3 +362,19 @@ def period2_markdown(c: dict) -> str:
           "Where they disagree, follow the simulation.", "",
           "![winning score](winning_score_hist.png)", ""]
     return "\n".join(L)
+
+
+def stress_markdown(tab: pd.DataFrame) -> str:
+    t = tab.copy()
+    for col in t.columns:
+        if "P(win)" in col or col == "random entrant":
+            t[col] = t[col].map(lambda x: _pct(x, 2))
+    t["winning score median"] = t["winning score median"].map(lambda x: f"{x:.3f}")
+    for col in [c for c in t.columns if c.endswith(" rank")]:
+        t[col] = t[col].map(lambda x: "" if pd.isna(x) else f"#{int(x)}")
+    return "\n".join([
+        "# Stress tests - period 1 (full search per variant)", "",
+        "Each row re-runs the candidate search and validation with a different field. "
+        "P(win) = P(win at Dec 18) with the switch-if-leading policy; tracked portfolios use the "
+        "search-set scenarios (same returns in every row, common random numbers).", "",
+        _md_table(t), ""])

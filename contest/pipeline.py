@@ -80,7 +80,8 @@ def run_period1(a, cfg: config.SimConfig, mix: config.FieldMix):
     log.info("universe %d names, prices to %s", len(feat), prices.asof.date())
     inp = sim.prepare_inputs(feat, extras, cfg)
     rank_by = a.rank_by
-    allins = [float(x) for x in a.sensitivity.split(",") if x]
+    quick = getattr(a, "quick", False)
+    allins = [] if quick else [float(x) for x in a.sensitivity.split(",") if x]
     mixes = _mixes(mix, allins)
     base_key = round(mix.allin, 4)
 
@@ -137,16 +138,18 @@ def run_period1(a, cfg: config.SimConfig, mix: config.FieldMix):
     ov = sim.overlap_metrics(css, G1v, fields_v[base_key])
     val = val.merge(ov, on="candidate")
     # vol-model sensitivity: the other choice of US vol (with / without IV calibration)
-    alt_cfg = dataclasses.replace(cfg, use_iv=not cfg.use_iv)
-    alt_label = "realised vol only" if cfg.use_iv else "IV-calibrated"
-    inp_a = sim.prepare_inputs(feat, extras, alt_cfg)
-    rnga = np.random.default_rng(cfg.seed + 2)
-    G1a = sim.simulate_period(inp_a, 1, config.P1_DAYS, cfg.n_validate, rnga, cfg.block, cfg.earnings_prior_n)
-    G2a = sim.simulate_period(inp_a, 2, config.P2_DAYS, cfg.n_validate, rnga, cfg.block, cfg.earnings_prior_n)
-    fa = sim.simulate_field(inp_a, G1a, G2a, mix, np.random.default_rng(cfg.seed + 303))
-    va = sim.evaluate(css, G1a, G2a, fa, inp_a.cons_w)
-    val[f"{rank_by}@volmodel"] = va[rank_by].to_numpy()
-    val["rank@volmodel"] = val[f"{rank_by}@volmodel"].rank(ascending=False, method="min").astype(int)
+    alt_label = None
+    if not quick:
+        alt_cfg = dataclasses.replace(cfg, use_iv=not cfg.use_iv)
+        alt_label = "realised vol only" if cfg.use_iv else "IV-calibrated"
+        inp_a = sim.prepare_inputs(feat, extras, alt_cfg)
+        rnga = np.random.default_rng(cfg.seed + 2)
+        G1a = sim.simulate_period(inp_a, 1, config.P1_DAYS, cfg.n_validate, rnga, cfg.block, cfg.earnings_prior_n)
+        G2a = sim.simulate_period(inp_a, 2, config.P2_DAYS, cfg.n_validate, rnga, cfg.block, cfg.earnings_prior_n)
+        fa = sim.simulate_field(inp_a, G1a, G2a, mix, np.random.default_rng(cfg.seed + 303))
+        va = sim.evaluate(css, G1a, G2a, fa, inp_a.cons_w)
+        val[f"{rank_by}@volmodel"] = va[rank_by].to_numpy()
+        val["rank@volmodel"] = val[f"{rank_by}@volmodel"].rank(ascending=False, method="min").astype(int)
     # robustness: worst ratio to the best P(win) in each mixture
     ratios = []
     for k in mixes:
@@ -169,14 +172,15 @@ def run_period1(a, cfg: config.SimConfig, mix: config.FieldMix):
         if t not in leads:
             leads.append(t)
     top8 = css.subset([css.labels.index(l) for l in val[val["kind"] != "benchmark"]["candidate"].head(8)])
-    for t in leads[:3]:
+    for t in ([] if quick else leads[:3]):
         pop = inp.popularity.copy()
         pop[inp.ix(t)] *= 3
         fc = sim.simulate_field(dataclasses.replace(inp, popularity=pop), G1v, G2v, mix,
                                 np.random.default_rng(cfg.seed + 404))
         crowd[t] = sim.evaluate(top8, G1v, G2v, fc, inp.cons_w).set_index("candidate")[rank_by]
     crowd = pd.DataFrame(crowd)
-    crowd.insert(0, "base", val.set_index("candidate").loc[crowd.index, rank_by])
+    if len(crowd):
+        crowd.insert(0, "base", val.set_index("candidate").loc[crowd.index, rank_by])
 
     # ---- pick the submission --------------------------------------------
     pick = val.iloc[0]
@@ -193,7 +197,8 @@ def run_period1(a, cfg: config.SimConfig, mix: config.FieldMix):
     feat.to_csv(out / "stock_features.csv", float_format="%.6g")
     hold.to_csv(out / "submission_shares.csv", index=False, float_format="%.6g")
     fb = fields_v[base_key]
-    report.plot_pwin_vs_vol(res, out / "pwin_vs_vol.png", rank_by, highlight=list(val["candidate"].head(5)))
+    report.plot_pwin_vs_vol(res, out / "pwin_vs_vol.png", rank_by, highlight=list(val["candidate"].head(5)),
+                            n_entrants=mix.n_opponents + 1)
     best_R1 = G1v @ css.W[j] + css.cash[j]
     best_R8 = (G1v * G2v) @ css.W[j] + css.cash[j]
     report.plot_winning_score(fb.field_max1, fb.field_max8, out / "winning_score_hist.png",
@@ -204,7 +209,10 @@ def run_period1(a, cfg: config.SimConfig, mix: config.FieldMix):
     (out / "report.md").write_text(report.period1_markdown(ctx))
     summary = {"pick": pick["candidate"], rank_by: float(pick[rank_by]),
                "p_win_4w": float(pick["p_win_4w"]), "robust_pick": robust["candidate"],
-               "price_date": str(prices.asof.date()),
+               "price_date": str(prices.asof.date()), "field": mix.label(),
+               "n_entrants": mix.n_opponents + 1,
+               "field_max_4w_median": float(np.median(fb.field_max1)),
+               "field_max_8w_median": float(np.median(fb.field_max8)),
                "shares": {r.ticker: int(r.shares) for r in hold.itertuples()}}
     (out / "summary.json").write_text(json.dumps(summary, indent=1))
     print(json.dumps(summary, indent=1))
@@ -327,3 +335,69 @@ def run_period2(a, cfg: config.SimConfig, mix: config.FieldMix, my_return: float
     print(f"pick: {pick['candidate']}  P(win)={pick['p_win']:.2%}")
     print(f"wrote {out}/report.md")
     return ctx
+
+
+# ==========================================================================
+# Stress tests: full period-1 searches under alternative fields, in parallel
+# ==========================================================================
+STRESS_VARIANTS = {
+    "base": [],
+    "participants 60": ["--participants", "60"],
+    "participants 120": ["--participants", "120"],
+    "participants 200": ["--participants", "200"],
+    "30% non-Spanish EU": ["--foreign-share", "0.3"],
+    "50% non-Spanish EU": ["--foreign-share", "0.5"],
+    "hype names x2": ["--group-mult", "hype=2"],
+    "Spanish bias x2": ["--group-mult", "spain=2"],
+    "US mega-caps x2": ["--group-mult", "us_mega=2"],
+    "group noise 50%": ["--group-noise", "0.5"],
+    "combo: 120, 30% EU, hype x2": ["--participants", "120", "--foreign-share", "0.3",
+                                     "--group-mult", "hype=2"],
+}
+TRACKED = ("CRWV", "MRNA", "SNDK 20% + CRWV 80%")
+
+
+def _stress_worker(argv):
+    from . import cli
+    cli.main(argv)
+    return argv
+
+
+def _slug(name: str) -> str:
+    return "".join(ch if ch.isalnum() else "_" for ch in name).strip("_").lower()
+
+
+def run_stress(a, argv_common: list[str], workers: int = 4):
+    """Run every variant as a quick full search (search + validation, no
+    secondary sensitivities), ``workers`` processes at a time with one BLAS
+    thread each, then tabulate picks and the tracked portfolios."""
+    import os
+    from concurrent.futures import ProcessPoolExecutor
+    import multiprocessing as mp
+    out = a.out or (config.OUTPUT_DIR / "period1" / "stress")
+    out.mkdir(parents=True, exist_ok=True)
+    for k in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS"):
+        os.environ[k] = "1"
+    jobs = {name: ["--mode", "period1", "--quick", "--out", str(out / _slug(name))] + argv_common + extra
+            for name, extra in STRESS_VARIANTS.items()}
+    with ProcessPoolExecutor(max_workers=workers, mp_context=mp.get_context("spawn")) as ex:
+        list(ex.map(_stress_worker, jobs.values()))
+    rows = []
+    for name in jobs:
+        d = out / _slug(name)
+        sm = json.loads((d / "summary.json").read_text())
+        res = pd.read_csv(d / "candidates_ranked.csv").set_index("candidate")
+        row = {"variant": name, "entrants": sm["n_entrants"], "pick": sm["pick"],
+               "P(win) pick": sm["p_win_8w_switch"], "random entrant": 1 / sm["n_entrants"],
+               "winning score median": sm["field_max_8w_median"]}
+        for t in TRACKED:
+            if t in res.index:
+                row[f"{t} P(win)"] = res.at[t, "p_win_8w_switch"]
+                row[f"{t} rank"] = int(res.at[t, "rank"])
+        rows.append(row)
+    tab = pd.DataFrame(rows)
+    tab.to_csv(out / "summary.csv", index=False, float_format="%.6g")
+    (out / "summary.md").write_text(report.stress_markdown(tab))
+    print(tab.to_string(index=False))
+    print(f"wrote {out}/summary.md")
+    return tab
