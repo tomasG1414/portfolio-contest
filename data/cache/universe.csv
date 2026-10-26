@@ -54,6 +54,7 @@ DB1.DE,Deutsche Börse,SX5E,EUR,Financials,0.3
 DHL.DE,Deutsche Post,SX5E,EUR,Industrials,0.3
 DTE.DE,Deutsche Telekom,SX5E,EUR,Communication,1.0
 ENEL.MI,Enel,SX5E,EUR,Utilities,1.0
+ENGI.PA,Engie,SX5E,EUR,Utilities,0.3
 ENI.MI,Eni,SX5E,EUR,Energy,0.3
 EL.PA,EssilorLuxottica,SX5E,EUR,Health Care,1.0
 RACE.MI,Ferrari,SX5E,EUR,Consumer Discretionary,3.0
@@ -65,6 +66,7 @@ OR.PA,L'Oréal,SX5E,EUR,Consumer Staples,2.5
 MC.PA,LVMH Moët Hennessy Louis Vuitton,SX5E,EUR,Consumer Discretionary,4.0
 MBG.DE,Mercedes-Benz Group,SX5E,EUR,Consumer Discretionary,1.5
 MUV2.DE,Munich Re,SX5E,EUR,Financials,0.3
+NOKIA.HE,Nokia,SX5E,EUR,Information Technology,0.3
 NDA-FI.HE,Nordea,SX5E,EUR,Financials,0.3
 PRX.AS,Prosus,SX5E,EUR,Consumer Discretionary,0.3
 RHM.DE,Rheinmetall,SX5E,EUR,Industrials,3.5
@@ -78,8 +80,6 @@ ENR.DE,Siemens Energy,SX5E,EUR,Industrials,1.5
 TTE.PA,TotalEnergies,SX5E,EUR,Energy,1.0
 DG.PA,Vinci SA,SX5E,EUR,Industrials,0.3
 UCG.MI,UniCredit,SX5E,EUR,Financials,1.0
-VOW3.DE,Volkswagen Group,SX5E,EUR,Consumer Discretionary,1.5
-WKL.AS,Wolters Kluwer,SX5E,EUR,Industrials,0.3
 AAPL,Apple Inc. Common Stock,NDX,USD,,8.0
 AMAT,"Applied Materials, Inc. Common Stock",NDX,USD,,0.8
 AMGN,Amgen Inc. Common Stock,NDX,USD,,0.3

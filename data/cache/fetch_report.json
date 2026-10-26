@@ -1,6 +1,6 @@
 {
- "fetched_at_utc": "2026-10-23T21:49:31+00:00",
- "last_price_date": "2026-10-23",
+ "fetched_at_utc": "2026-10-26T07:27:54+00:00",
+ "last_price_date": "2026-10-26",
  "universe": {
   "IBEX": {
    "source": "scraped",
@@ -11,8 +11,14 @@
   "SX5E": {
    "source": "scraped",
    "count": 50,
-   "added_vs_snapshot": [],
-   "removed_vs_snapshot": []
+   "added_vs_snapshot": [
+    "ENGI.PA",
+    "NOKIA.HE"
+   ],
+   "removed_vs_snapshot": [
+    "VOW3.DE",
+    "WKL.AS"
+   ]
   },
   "NDX": {
    "source": "scraped",
@@ -27,9 +33,10 @@
  "meta_errors": {},
  "nasdaq_calendar_errors": [],
  "nasdaq_dividend_errors": [],
- "option_chain_rows": 25314,
+ "option_chain_rows": 27452,
  "term_structure_names": [
   "ABNB",
+  "ADSK",
   "ALAB",
   "ALNY",
   "AMAT",
@@ -57,7 +64,6 @@
   "NBIS",
   "PANW",
   "PLTR",
-  "QCOM",
   "RKLB",
   "SHOP",
   "SNDK",
