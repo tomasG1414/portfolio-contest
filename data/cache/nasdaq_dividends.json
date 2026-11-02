@@ -149,6 +149,15 @@
  ],
  "AMGN": [
   {
+   "exOrEffDate": "11/20/2026",
+   "type": "Cash",
+   "amount": "$2.52",
+   "declarationDate": "10/27/2026",
+   "recordDate": "11/20/2026",
+   "paymentDate": "12/11/2026",
+   "currency": "USD"
+  },
+  {
    "exOrEffDate": "08/21/2026",
    "type": "Cash",
    "amount": "$2.52",
@@ -210,18 +219,18 @@
    "recordDate": "02/14/2025",
    "paymentDate": "03/07/2025",
    "currency": "USD"
-  },
-  {
-   "exOrEffDate": "11/18/2024",
-   "type": "Cash",
-   "amount": "$2.25",
-   "declarationDate": "10/25/2024",
-   "recordDate": "11/18/2024",
-   "paymentDate": "12/09/2024",
-   "currency": "USD"
   }
  ],
  "CMCSA": [
+  {
+   "exOrEffDate": "01/06/2027",
+   "type": "Cash",
+   "amount": "$0.33",
+   "declarationDate": "10/20/2026",
+   "recordDate": "01/06/2027",
+   "paymentDate": "01/27/2027",
+   "currency": "USD"
+  },
   {
    "exOrEffDate": "10/07/2026",
    "type": "Cash",
@@ -283,15 +292,6 @@
    "declarationDate": "01/28/2025",
    "recordDate": "04/02/2025",
    "paymentDate": "04/23/2025",
-   "currency": "USD"
-  },
-  {
-   "exOrEffDate": "01/08/2025",
-   "type": "Cash",
-   "amount": "$0.31",
-   "declarationDate": "10/23/2024",
-   "recordDate": "01/08/2025",
-   "paymentDate": "01/29/2025",
    "currency": "USD"
   }
  ],
@@ -519,6 +519,15 @@
  ],
  "CTAS": [
   {
+   "exOrEffDate": "11/13/2026",
+   "type": "Cash",
+   "amount": "$0.52",
+   "declarationDate": "10/27/2026",
+   "recordDate": "11/13/2026",
+   "paymentDate": "12/15/2026",
+   "currency": "USD"
+  },
+  {
    "exOrEffDate": "08/14/2026",
    "type": "Cash",
    "amount": "$0.52",
@@ -579,15 +588,6 @@
    "declarationDate": "01/14/2025",
    "recordDate": "02/14/2025",
    "paymentDate": "03/14/2025",
-   "currency": "USD"
-  },
-  {
-   "exOrEffDate": "11/15/2024",
-   "type": "Cash",
-   "amount": "$0.39",
-   "declarationDate": "10/29/2024",
-   "recordDate": "11/15/2024",
-   "paymentDate": "12/13/2024",
    "currency": "USD"
   }
  ],
@@ -2074,6 +2074,15 @@
  ],
  "AEP": [
   {
+   "exOrEffDate": "11/10/2026",
+   "type": "Cash",
+   "amount": "$0.97",
+   "declarationDate": "10/20/2026",
+   "recordDate": "11/10/2026",
+   "paymentDate": "12/10/2026",
+   "currency": "USD"
+  },
+  {
    "exOrEffDate": "08/10/2026",
    "type": "Cash",
    "amount": "$0.95",
@@ -2134,15 +2143,6 @@
    "declarationDate": "01/21/2025",
    "recordDate": "02/10/2025",
    "paymentDate": "03/10/2025",
-   "currency": "USD"
-  },
-  {
-   "exOrEffDate": "11/08/2024",
-   "type": "Cash",
-   "amount": "$0.93",
-   "declarationDate": "10/22/2024",
-   "recordDate": "11/08/2024",
-   "paymentDate": "12/10/2024",
    "currency": "USD"
   }
  ],
@@ -2964,6 +2964,15 @@
  ],
  "WDC": [
   {
+   "exOrEffDate": "12/04/2026",
+   "type": "Cash",
+   "amount": "$0.175",
+   "declarationDate": "10/21/2026",
+   "recordDate": "12/04/2026",
+   "paymentDate": "12/17/2026",
+   "currency": "USD"
+  },
+  {
    "exOrEffDate": "09/08/2026",
    "type": "Cash",
    "amount": "$0.15",
@@ -3024,15 +3033,6 @@
    "declarationDate": "02/13/2020",
    "recordDate": "04/03/2020",
    "paymentDate": "04/17/2020",
-   "currency": "USD"
-  },
-  {
-   "exOrEffDate": "01/02/2020",
-   "type": "Cash",
-   "amount": "$0.50",
-   "declarationDate": "11/14/2019",
-   "recordDate": "01/03/2020",
-   "paymentDate": "01/21/2020",
    "currency": "USD"
   }
  ],
@@ -3188,6 +3188,15 @@
  "NFLX": [],
  "STX": [
   {
+   "exOrEffDate": "12/23/2026",
+   "type": "Cash",
+   "amount": "$0.76",
+   "declarationDate": "10/27/2026",
+   "recordDate": "12/23/2026",
+   "paymentDate": "01/07/2027",
+   "currency": "USD"
+  },
+  {
    "exOrEffDate": "09/24/2026",
    "type": "Cash",
    "amount": "$0.74",
@@ -3248,15 +3257,6 @@
    "declarationDate": "01/21/2025",
    "recordDate": "03/19/2025",
    "paymentDate": "04/02/2025",
-   "currency": "USD"
-  },
-  {
-   "exOrEffDate": "12/13/2024",
-   "type": "Cash",
-   "amount": "$0.72",
-   "declarationDate": "10/22/2024",
-   "recordDate": "12/15/2024",
-   "paymentDate": "01/06/2025",
    "currency": "USD"
   }
  ],
@@ -4009,6 +4009,15 @@
  ],
  "PYPL": [
   {
+   "exOrEffDate": "12/04/2026",
+   "type": "Cash",
+   "amount": "$0.14",
+   "declarationDate": "10/26/2026",
+   "recordDate": "12/04/2026",
+   "paymentDate": "12/24/2026",
+   "currency": "USD"
+  },
+  {
    "exOrEffDate": "09/04/2026",
    "type": "Cash",
    "amount": "$0.14",
@@ -4123,6 +4132,15 @@
  ],
  "BKR": [
   {
+   "exOrEffDate": "11/10/2026",
+   "type": "Cash",
+   "amount": "$0.23",
+   "declarationDate": "10/27/2026",
+   "recordDate": "11/10/2026",
+   "paymentDate": "11/20/2026",
+   "currency": "USD"
+  },
+  {
    "exOrEffDate": "08/07/2026",
    "type": "Cash",
    "amount": "$0.23",
@@ -4183,15 +4201,6 @@
    "declarationDate": "01/30/2025",
    "recordDate": "02/11/2025",
    "paymentDate": "02/21/2025",
-   "currency": "USD"
-  },
-  {
-   "exOrEffDate": "11/04/2024",
-   "type": "Cash",
-   "amount": "$0.21",
-   "declarationDate": "10/22/2024",
-   "recordDate": "11/04/2024",
-   "paymentDate": "11/14/2024",
    "currency": "USD"
   }
  ],
@@ -4354,6 +4363,15 @@
  ],
  "LIN": [
   {
+   "exOrEffDate": "12/03/2026",
+   "type": "Cash",
+   "amount": "$1.60",
+   "declarationDate": "10/26/2026",
+   "recordDate": "12/03/2026",
+   "paymentDate": "12/17/2026",
+   "currency": "USD"
+  },
+  {
    "exOrEffDate": "09/03/2026",
    "type": "Cash",
    "amount": "$1.60",
@@ -4414,15 +4432,6 @@
    "declarationDate": "02/25/2025",
    "recordDate": "03/13/2025",
    "paymentDate": "03/27/2025",
-   "currency": "USD"
-  },
-  {
-   "exOrEffDate": "12/03/2024",
-   "type": "Cash",
-   "amount": "$1.39",
-   "declarationDate": "10/28/2024",
-   "recordDate": "12/03/2024",
-   "paymentDate": "12/17/2024",
    "currency": "USD"
   }
  ],
