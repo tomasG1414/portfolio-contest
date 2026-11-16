@@ -1,6 +1,6 @@
 {
- "fetched_at_utc": "2026-11-09T07:26:09+00:00",
- "last_price_date": "2026-11-09",
+ "fetched_at_utc": "2026-11-16T07:21:09+00:00",
+ "last_price_date": "2026-11-16",
  "universe": {
   "IBEX": {
    "source": "scraped",
@@ -33,7 +33,7 @@
  "meta_errors": {},
  "nasdaq_calendar_errors": [],
  "nasdaq_dividend_errors": [],
- "option_chain_rows": 28809,
+ "option_chain_rows": 30377,
  "term_structure_names": [
   "ALAB",
   "ALNY",
@@ -41,6 +41,7 @@
   "AMD",
   "APP",
   "ARM",
+  "AVGO",
   "AXON",
   "CEG",
   "CRWD",
@@ -54,7 +55,6 @@
   "LITE",
   "LRCX",
   "MCHP",
-  "MELI",
   "MPWR",
   "MRNA",
   "MRVL",
