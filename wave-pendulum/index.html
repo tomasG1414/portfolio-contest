@@ -1,0 +1,1355 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Péndulo de Ondas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=STIX+Two+Text:ital@0;1&display=swap">
+<style>
+/* Layout: banco de trabajo. La maqueta viva sobre una plancha de corte (izquierda),
+   el carril de controles (derecha); debajo, la ficha de física y la hoja de montaje. */
+:root {
+  --bg: #e6e9e7;
+  --surface: #f4f5f4;
+  --ink: #15201c;
+  --muted: #55625d;
+  --line: #c6cfcb;
+  --accent: #b8283a;          /* hilo de coser */
+  --accent-soft: rgba(184, 40, 58, .10);
+  --focus: #1d6a86;
+  --code-bg: #e8ecea;
+
+  /* escenario: banco oscuro en los dos temas */
+  --wall-top: #26332f;
+  --wall-bottom: #161f1c;
+  --mat: #2d6450;
+  --mat-line: rgba(222, 242, 232, .13);
+  --mat-line-major: rgba(222, 242, 232, .30);
+  --stage-ink: #dce6e1;
+  --stage-dim: rgba(220, 230, 225, .62);
+  --stage-chip: rgba(255, 255, 255, .07);
+  --stage-chip-line: rgba(255, 255, 255, .16);
+  --thread-3d: #ff5b61;
+  --hole: #0b1210;
+  --shadow: rgba(0, 0, 0, .34);
+  --zinc-rgb: 186 193 199;
+  --wood-rgb: 172 124 78;
+  --peg-rgb: 214 178 96;
+
+  --font-display: "Archivo", "Arial Narrow", Arial, sans-serif;
+  --font-body: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-math: "STIX Two Text", "Cambria Math", "Times New Roman", serif;
+
+  --radius: 14px;
+  color-scheme: light;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1211;
+    --surface: #141b19;
+    --ink: #e1e8e5;
+    --muted: #8f9d98;
+    --line: #27322f;
+    --accent: #f2636c;
+    --accent-soft: rgba(242, 99, 108, .14);
+    --focus: #6cc0dc;
+    --code-bg: #0f1614;
+    --wall-top: #151d1b;
+    --wall-bottom: #0a0f0e;
+    --mat: #214a3b;
+    --mat-line: rgba(222, 242, 232, .10);
+    --mat-line-major: rgba(222, 242, 232, .22);
+    --thread-3d: #ff6a6f;
+    --hole: #050807;
+    --shadow: rgba(0, 0, 0, .45);
+    --zinc-rgb: 172 179 186;
+    --wood-rgb: 152 109 68;
+    --peg-rgb: 196 162 86;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1211;
+  --surface: #141b19;
+  --ink: #e1e8e5;
+  --muted: #8f9d98;
+  --line: #27322f;
+  --accent: #f2636c;
+  --accent-soft: rgba(242, 99, 108, .14);
+  --focus: #6cc0dc;
+  --code-bg: #0f1614;
+  --wall-top: #151d1b;
+  --wall-bottom: #0a0f0e;
+  --mat: #214a3b;
+  --mat-line: rgba(222, 242, 232, .10);
+  --mat-line-major: rgba(222, 242, 232, .22);
+  --thread-3d: #ff6a6f;
+  --hole: #050807;
+  --shadow: rgba(0, 0, 0, .45);
+  --zinc-rgb: 172 179 186;
+  --wood-rgb: 152 109 68;
+  --peg-rgb: 196 162 86;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+[hidden] { display: none !important; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.wrap {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 22px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* cabecera */
+.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 28px; }
+.top > div { min-width: 0; }
+.kicker {
+  margin: 0 0 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .03em;
+  color: var(--muted);
+}
+.kicker b { color: var(--accent); font-weight: 500; }
+h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: clamp(30px, 4.8vw, 50px);
+  line-height: 1;
+  letter-spacing: -.012em;
+  text-wrap: balance;
+}
+.lead { margin: 10px 0 0; max-width: 64ch; color: var(--muted); }
+.lan {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  font-size: 13px;
+}
+.lan code { font-family: var(--font-mono); font-size: 13px; color: var(--ink); word-break: break-all; }
+.lan small { display: block; color: var(--muted); font-size: 12px; }
+
+/* banco: escenario + carril */
+.bench { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; align-items: start; }
+@media (max-width: 940px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+
+.stage {
+  min-width: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--wall-top), var(--wall-bottom));
+  color: var(--stage-ink);
+}
+.viewport { position: relative; }
+#scene { display: block; width: 100%; height: clamp(330px, 62vh, 640px); touch-action: none; cursor: grab; }
+#scene.dragging { cursor: grabbing; }
+.view-tools {
+  position: absolute; top: 10px; left: 10px; right: 10px;
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px;
+  pointer-events: none;
+}
+.view-tools > * { pointer-events: auto; }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.chip {
+  font: 500 12px/1 var(--font-body);
+  color: var(--stage-ink);
+  background: var(--stage-chip);
+  border: 1px solid var(--stage-chip-line);
+  border-radius: 999px;
+  padding: 7px 11px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+.chip:hover { border-color: var(--stage-dim); }
+.chip[aria-pressed="true"] { border-color: var(--thread-3d); color: var(--thread-3d); }
+.chip.sq { width: 30px; padding: 7px 0; text-align: center; font-family: var(--font-mono); }
+.hint {
+  position: absolute; left: 12px; right: 12px; bottom: 8px;
+  margin: 0;
+  font-size: 11.5px;
+  color: var(--stage-dim);
+  pointer-events: none;
+}
+
+.transport { display: grid; gap: 12px; padding: 12px 14px 14px; border-top: 1px solid var(--stage-chip-line); }
+.transport-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.tbtn {
+  display: inline-flex; align-items: center; gap: 7px;
+  font: 600 13px/1 var(--font-body);
+  color: var(--stage-ink);
+  background: var(--stage-chip);
+  border: 1px solid var(--stage-chip-line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.tbtn:hover { border-color: var(--stage-dim); }
+.tbtn.primary { background: var(--thread-3d); border-color: var(--thread-3d); color: #1b0b0c; }
+.tbtn svg { fill: currentColor; }
+.timeline { position: relative; flex: 1 1 260px; min-width: 0; height: 36px; cursor: pointer; touch-action: none; }
+.timeline:focus-visible { outline-offset: 4px; border-radius: 4px; }
+.tl-track { position: absolute; left: 0; right: 0; top: 22px; height: 4px; border-radius: 2px; background: var(--stage-chip-line); overflow: hidden; }
+.tl-fill { height: 100%; width: 0; background: var(--thread-3d); }
+.tl-head { position: absolute; top: 16px; width: 2px; height: 16px; margin-left: -1px; background: var(--stage-ink); border-radius: 1px; }
+.tl-tick {
+  position: absolute; top: 0;
+  transform: translateX(-50%);
+  font: 500 11px/1 var(--font-mono);
+  color: var(--stage-dim);
+}
+.tl-tick::after { content: ""; position: absolute; left: 50%; top: 15px; width: 1px; height: 15px; background: var(--stage-dim); opacity: .7; }
+.readouts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px 16px; margin: 0; }
+@media (max-width: 620px) {
+  .readouts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .timeline { flex-basis: 100%; }
+}
+.readouts div { min-width: 0; }
+.readouts dt { font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--stage-dim); }
+.readouts dd { margin: 3px 0 0; font-family: var(--font-mono); font-size: 14px; font-variant-numeric: tabular-nums; }
+
+/* carril de controles */
+.rail {
+  min-width: 0;
+  display: flex; flex-direction: column; gap: 22px;
+  padding: 16px 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.group { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.group h2 {
+  display: flex; align-items: center; gap: 10px;
+  margin: 0;
+  font: 700 11.5px/1.2 var(--font-body);
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.group h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.ctl { display: grid; gap: 6px; }
+.ctl-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.ctl-head label, .ctl-head .lbl { font-weight: 600; font-size: 14px; }
+.ctl output { font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.note { margin: 0; font-size: 12.5px; line-height: 1.45; color: var(--muted); }
+.note .num { font-size: 12px; }
+
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; margin: 0;
+  background: transparent;
+  cursor: pointer;
+  --fill: 50%;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 2px; border-radius: 1px;
+  background: linear-gradient(to right, var(--accent) var(--fill), var(--line) var(--fill));
+}
+input[type="range"]::-moz-range-track { height: 2px; border-radius: 1px; background: var(--line); }
+input[type="range"]::-moz-range-progress { height: 2px; background: var(--accent); }
+/* el tirador es una tuerca: hexágono con agujero */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 20px; height: 18px; margin-top: -8px;
+  border: 0;
+  background: radial-gradient(circle, var(--surface) 0 3.2px, var(--ink) 3.8px);
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 20px; height: 18px;
+  border: 0; border-radius: 0;
+  background: radial-gradient(circle, var(--surface) 0 3.2px, var(--ink) 3.8px);
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+}
+input[type="range"]:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+
+.seg { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label {
+  flex: 1;
+  padding: 8px 4px;
+  text-align: center;
+  font: 600 13px/1 var(--font-body);
+  color: var(--muted);
+  border-left: 1px solid var(--line);
+  cursor: pointer;
+}
+.seg label:first-of-type { border-left: 0; }
+.seg input:checked + label { background: var(--ink); color: var(--surface); }
+.seg input:focus-visible + label { outline: 2px solid var(--focus); outline-offset: -3px; }
+.btn {
+  justify-self: start;
+  font: 600 13px/1 var(--font-body);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+}
+.btn:hover { border-color: var(--muted); }
+.facts { display: grid; gap: 6px; margin: 0; padding: 10px 12px; border-radius: 8px; background: var(--code-bg); }
+.facts div { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; font-family: var(--font-mono); font-size: 12.5px; font-variant-numeric: tabular-nums; text-align: right; }
+
+/* hojas */
+.sheet {
+  min-width: 0;
+  padding: clamp(18px, 3vw, 32px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.sheet-head { margin-bottom: 22px; }
+.sheet h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-stretch: 112%;
+  font-weight: 750;
+  font-size: clamp(23px, 2.7vw, 30px);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+.sheet-sub { margin: 8px 0 0; max-width: 72ch; color: var(--muted); }
+.num { font-family: var(--font-mono); font-size: .92em; font-variant-numeric: tabular-nums; color: var(--accent); white-space: nowrap; }
+
+.physics { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 28px 36px; }
+.physics section { min-width: 0; }
+.physics h3 { margin: 0 0 8px; font: 700 16.5px/1.3 var(--font-body); text-wrap: balance; }
+.physics p { margin: 0 0 10px; max-width: 65ch; }
+.physics ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; }
+.physics li::marker { color: var(--accent); }
+.m { font-family: var(--font-math); font-size: 1.1em; white-space: nowrap; }
+.eq {
+  margin: 8px 0 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--code-bg);
+  font-family: var(--font-math);
+  font-size: 19px;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+.eq i, .m i { font-style: italic; }
+.eq .gap { display: inline-block; width: 1.2em; }
+.frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; font-size: .9em; line-height: 1.15; margin: 0 2px; }
+.frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 3px 1px; }
+.frac > span:last-child { padding: 1px 3px 0; }
+.big { font-size: 1.7em; line-height: 0; vertical-align: -.12em; font-weight: 300; }
+.rad { border-top: 1px solid currentColor; padding: 1px 2px 0; }
+
+.build-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px 24px; margin: 0 0 18px; }
+.build-facts dt { font-size: 11.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+.build-facts dd { margin: 3px 0 0; font-family: var(--font-mono); font-size: 15px; font-variant-numeric: tabular-nums; }
+.build-facts dd small { display: block; font-family: var(--font-body); font-size: 12px; color: var(--muted); }
+.table-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.table-tools p { margin: 0; font-size: 13px; color: var(--muted); max-width: 70ch; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+th, td { padding: 7px 14px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line); }
+th { font: 600 12px/1.3 var(--font-body); color: var(--muted); background: var(--code-bg); vertical-align: bottom; }
+td { font-family: var(--font-mono); }
+th:first-child, td:first-child { text-align: left; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover td { background: var(--accent-soft); }
+td.key { color: var(--accent); font-weight: 500; }
+
+footer { font-size: 12.5px; color: var(--muted); max-width: 90ch; }
+footer p { margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <p class="kicker">Tuercas <b data-f="nut">M8</b> · hilo de coser · barra de madera</p>
+      <h1>Péndulo de ondas</h1>
+      <p class="lead"><span data-f="N">15</span> péndulos sueltos, cada uno un poco más corto que el anterior. Ninguno toca a otro y aun así aparecen ondas, serpientes y filas que se deshacen y vuelven a alinearse cada <span data-f="gamma">60 s</span>.</p>
+    </div>
+    <div class="lan" id="lan" hidden>
+      <div>
+        <small>Ábrelo en otro dispositivo de la misma red</small>
+        <code id="lan-url"></code>
+      </div>
+      <button class="btn" id="lan-copy" type="button">Copiar</button>
+    </div>
+  </header>
+
+  <div class="bench">
+    <section class="stage" aria-label="Simulación">
+      <div class="viewport">
+        <canvas id="scene" aria-label="Vista 3D del péndulo de ondas. Arrastra para girar la vista."></canvas>
+        <div class="view-tools">
+          <div class="chips" role="group" aria-label="Vista">
+            <button class="chip" type="button" data-view="iso" aria-pressed="true">3D</button>
+            <button class="chip" type="button" data-view="end" aria-pressed="false">Desde el extremo</button>
+            <button class="chip" type="button" data-view="top" aria-pressed="false">Desde arriba</button>
+            <button class="chip" type="button" data-view="front" aria-pressed="false">De frente</button>
+          </div>
+          <div class="chips" role="group" aria-label="Zoom">
+            <button class="chip sq" type="button" id="zoom-out" aria-label="Alejar">−</button>
+            <button class="chip sq" type="button" id="zoom-in" aria-label="Acercar">+</button>
+          </div>
+        </div>
+        <p class="hint">Arrastra para girar · pellizca o Ctrl + rueda para acercar</p>
+      </div>
+      <div class="transport">
+        <div class="transport-row">
+          <button class="tbtn primary" id="play" type="button">
+            <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path id="icon-pause" d="M3.5 2.5h3.2v11H3.5zM9.3 2.5h3.2v11H9.3z"/><path id="icon-play" d="M4 2v12l10-6z" hidden/></svg>
+            <span id="play-label">Pausa</span>
+          </button>
+          <button class="tbtn" id="release" type="button" title="Vuelve a t = 0 y suelta todas las tuercas a la vez">Soltar de nuevo</button>
+          <div class="timeline" id="timeline" role="slider" tabindex="0" aria-label="Momento dentro del ciclo" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="tl-track"><div class="tl-fill" id="tl-fill"></div></div>
+            <div class="tl-head" id="tl-head"></div>
+          </div>
+        </div>
+        <dl class="readouts">
+          <div><dt>Tiempo</dt><dd id="ro-time">0,0 s</dd></div>
+          <div><dt>Ciclo</dt><dd id="ro-cycle">1</dd></div>
+          <div><dt>Desfase entre vecinos</dt><dd id="ro-phase">0°</dd></div>
+          <div><dt>Patrón</dt><dd id="ro-pattern">Todos en fase</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <aside class="rail" id="rail" aria-label="Parámetros">
+      <div class="group">
+        <h2>Diseño</h2>
+        <div class="ctl">
+          <div class="ctl-head"><label for="n-pend">Número de péndulos</label><output id="n-pend-out" for="n-pend">15</output></div>
+          <input type="range" id="n-pend" min="3" max="30" step="1" value="15">
+        </div>
+        <div class="ctl">
+          <div class="ctl-head"><label for="cycle">Ciclo del patrón, Γ</label><output id="cycle-out" for="cycle">60 s</output></div>
+          <input type="range" id="cycle" min="20" max="180" step="5" value="60">
+          <p class="note">Tiempo que tardan en volver a alinearse todos.</p>
+        </div>
+        <div class="ctl">
+          <div class="ctl-head"><label for="lmax">Péndulo más largo</label><output id="lmax-out" for="lmax">34,5 cm</output></div>
+          <input type="range" id="lmax" min="10" max="80" step="0.5" value="34.5">
+          <p class="note" id="lmax-note"></p>
+        </div>
+        <dl class="facts">
+          <div><dt>Oscilaciones en Γ</dt><dd data-f="oscRange">51 → 65</dd></div>
+          <div><dt>Longitudes</dt><dd data-f="LRange">343,8 → 211,6 mm</dd></div>
+          <div><dt>Periodos</dt><dd data-f="TRange">1,176 → 0,923 s</dd></div>
+        </dl>
+      </div>
+
+      <div class="group">
+        <h2>Tuercas e hilo</h2>
+        <div class="ctl">
+          <div class="ctl-head"><span class="lbl" id="nut-lbl">Tuerca (DIN 934)</span></div>
+          <div class="seg" role="radiogroup" aria-labelledby="nut-lbl">
+            <input type="radio" name="nut" id="nut-m5" value="M5"><label for="nut-m5">M5</label>
+            <input type="radio" name="nut" id="nut-m6" value="M6"><label for="nut-m6">M6</label>
+            <input type="radio" name="nut" id="nut-m8" value="M8" checked><label for="nut-m8">M8</label>
+            <input type="radio" name="nut" id="nut-m10" value="M10"><label for="nut-m10">M10</label>
+            <input type="radio" name="nut" id="nut-m12" value="M12"><label for="nut-m12">M12</label>
+          </div>
+          <p class="note" id="nut-note"></p>
+        </div>
+        <div class="ctl">
+          <div class="ctl-head"><label for="spacing">Separación entre tuercas</label><output id="spacing-out" for="spacing">3,0 cm</output></div>
+          <input type="range" id="spacing" min="1.5" max="6" step="0.1" value="3">
+        </div>
+        <div class="ctl">
+          <div class="ctl-head"><label for="spread">Apertura de la V, d</label><output id="spread-out" for="spread">12 cm</output></div>
+          <input type="range" id="spread" min="4" max="30" step="1" value="12">
+          <p class="note">Distancia entre los dos puntos de la barra de los que cuelga cada tuerca. No cambia el periodo, solo cuánto hilo hace falta.</p>
+        </div>
+        <div class="ctl">
+          <div class="ctl-head"><label for="err">Error de montaje</label><output id="err-out" for="err">exacto</output></div>
+          <input type="range" id="err" min="0" max="5" step="0.1" value="0">
+          <p class="note" id="err-note"></p>
+          <button class="btn" id="reroll" type="button">Rehacer montaje</button>
+        </div>
+      </div>
+
+      <div class="group">
+        <h2>Lanzamiento</h2>
+        <div class="ctl">
+          <div class="ctl-head"><span class="lbl" id="mode-lbl">Cómo se sueltan</span></div>
+          <div class="seg" role="radiogroup" aria-labelledby="mode-lbl">
+            <input type="radio" name="mode" id="mode-ruler" value="ruler" checked><label for="mode-ruler">Con una regla</label>
+            <input type="radio" name="mode" id="mode-angle" value="angle"><label for="mode-angle">Mismo ángulo</label>
+          </div>
+        </div>
+        <div class="ctl">
+          <div class="ctl-head"><label for="amp">Amplitud inicial</label><output id="amp-out" for="amp">8°</output></div>
+          <input type="range" id="amp" min="2" max="35" step="1" value="8">
+          <p class="note" id="amp-note"></p>
+        </div>
+        <div class="ctl">
+          <div class="ctl-head"><label for="tau">Rozamiento, τ</label><output id="tau-out" for="tau">180 s</output></div>
+          <input type="range" id="tau" min="0" max="11" step="1" value="6">
+          <p class="note" id="tau-note"></p>
+        </div>
+      </div>
+
+      <div class="group">
+        <h2>Simulación</h2>
+        <div class="ctl">
+          <div class="ctl-head"><label for="speed">Velocidad</label><output id="speed-out" for="speed">×1</output></div>
+          <input type="range" id="speed" min="0" max="8" step="1" value="4">
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <article class="sheet" aria-labelledby="phys-title">
+    <header class="sheet-head">
+      <h2 id="phys-title">La física</h2>
+      <p class="sheet-sub">Por qué unas tuercas colgadas de hilos sueltos dibujan ondas, y qué cambia por estar hechas con tuercas e hilo de coser. Los <span class="num">números en color</span> salen de los controles actuales.</p>
+    </header>
+    <div class="physics">
+      <section>
+        <h3>Ningún péndulo empuja a otro</h3>
+        <p>Cada tuerca cuelga de su propio hilo y oscila a su propio ritmo. No hay muelles ni hilos que las unan, así que ninguna onda viaja de una a otra.</p>
+        <p>Lo que ves es la diferencia de fase entre vecinos, que cambia poco a poco. Es el mismo efecto que hace que una rueda filmada parezca girar hacia atrás.</p>
+      </section>
+
+      <section>
+        <h3>La receta de las longitudes</h3>
+        <p>En oscilaciones pequeñas, el periodo de un péndulo depende solo de su longitud:</p>
+        <div class="eq"><i>T</i> = 2π<span class="big">√</span><span class="rad"><i>L</i> / <i>g</i></span></div>
+        <p>La masa no aparece en la fórmula, así que da igual que la tuerca pese 2 g o 16 g. Se elige un tiempo Γ y se exige que el péndulo <span class="m"><i>n</i></span> (de 0 a <span class="m"><i>N</i> − 1</span>) complete exactamente <span class="m"><i>K</i> + <i>n</i></span> oscilaciones en ese tiempo:</p>
+        <div class="eq"><i>T<sub>n</sub></i> = <span class="frac"><span>Γ</span><span><i>K</i> + <i>n</i></span></span><span class="gap"></span>⟹<span class="gap"></span><i>L<sub>n</sub></i> = <i>g</i><span class="big">(</span><span class="frac"><span>Γ</span><span>2π(<i>K</i> + <i>n</i>)</span></span><span class="big">)</span><sup>2</sup></div>
+        <p>Con Γ = <span class="num" data-f="gamma">60 s</span> y <span class="m"><i>K</i></span> = <span class="num" data-f="K">51</span>, el más largo mide <span class="num" data-f="Lmax">343,8 mm</span> y el más corto, que da <span class="num" data-f="Kmax">65</span> oscilaciones, <span class="num" data-f="Lmin">211,6 mm</span>.</p>
+      </section>
+
+      <section>
+        <h3>De dónde salen las ondas</h3>
+        <p>El ángulo del péndulo <span class="m"><i>n</i></span> es <span class="m"><i>θ<sub>n</sub></i>(<i>t</i>) = <i>θ</i><sub>0</sub> cos(2π(<i>K</i> + <i>n</i>)<i>t</i>/Γ)</span>. Entre dos vecinos la fase difiere en</p>
+        <div class="eq">Δ<i>φ</i> = 2π <span class="frac"><span><i>t</i></span><span>Γ</span></span></div>
+        <p>La diferencia es igual para todas las parejas y crece con el tiempo, así que la fila dibuja una onda cada vez más corta. A <span class="m">Γ/4</span> la posición se repite cada cuatro péndulos y se ven cuatro grupos; a <span class="m">Γ/3</span>, tres; a <span class="m">Γ/2</span> los alternos van en contrafase y se ven dos filas. A <span class="m"><i>t</i> = Γ</span> la diferencia es una vuelta completa y todos vuelven a estar alineados. Las marcas de la línea de tiempo señalan esos momentos.</p>
+      </section>
+
+      <section>
+        <h3>Por qué tuercas e hilo de coser</h3>
+        <ul>
+          <li><b>La masa está en la tuerca.</b> Un metro de hilo de poliéster pesa unos 0,03 g. El hilo de cada péndulo pesa ≈<span class="num" data-f="threadMass">0,02 g</span>, el <span class="num" data-f="threadRatio">0,4 %</span> de una tuerca <span data-f="nut">M8</span> de ≈<span class="num" data-f="mass">5,4 g</span>, y el modelo de péndulo simple funciona bien.</li>
+          <li><b>Densa y compacta.</b> El acero tiene 7,85 g/cm³: mucha inercia en poco volumen. El aire la frena poco y el balanceo dura minutos.</li>
+          <li><b>Colgada en V.</b> El hilo baja desde un punto de la barra, atraviesa el agujero de la tuerca y sube a otro punto separado <span class="m"><i>d</i></span>. La V solo deja oscilar en el plano perpendicular a la barra e impide que la tuerca gire o trace elipses. La longitud que cuenta es la distancia vertical de la barra al centro de la tuerca, no la del hilo.</li>
+          <li><b>No es un punto.</b> La tuerca es un péndulo físico, <span class="m"><i>T</i> = 2π√((<i>L</i>² + <i>k</i>²)/(<i>gL</i>))</span>, con <span class="m"><i>k</i></span> ≈ <span class="num" data-f="k">5,4 mm</span> su radio de giro alrededor del agujero. En el péndulo más corto alarga el periodo <span class="num" data-f="ppm">323 ppm</span>. Es poco, y la tabla de montaje ya lo corrige.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Cuánta precisión hace falta</h3>
+        <p>Un error <span class="m">Δ<i>L</i></span> cambia el periodo en <span class="m">Δ<i>T</i>/<i>T</i> = Δ<i>L</i>/(2<i>L</i>)</span>. Al acabar el ciclo, el péndulo más corto ha dado <span class="num" data-f="Kmax">65</span> oscilaciones y acumula ese error relativo en cada una. Para que el desfase final no pase de una décima de oscilación, cada longitud debe quedar a <span class="num" data-f="tol">±0,65 mm</span> de su valor.</p>
+        <p>Lo que estropea el patrón son los errores distintos en cada péndulo: pruébalo con «Error de montaje». Un error igual en todos, como medir siempre hasta el borde de la tuerca en vez de hasta su centro, casi solo retrasa unos segundos el momento en que se realinean.</p>
+      </section>
+
+      <section>
+        <h3>Amplitud, regla y rozamiento</h3>
+        <p>La fórmula del periodo vale para ángulos pequeños. Con amplitud <span class="m"><i>θ</i><sub>0</sub></span> el periodo crece aproximadamente así:</p>
+        <div class="eq"><i>T</i> ≈ <i>T</i><sub>0</sub><span class="big">(</span>1 + <span class="frac"><span><i>θ</i><sub>0</sub><sup>2</sup></span><span>16</span></span><span class="big">)</span></div>
+        <p>Es un 0,2 % a 10° y un 0,8 % a 20°. Si todas las tuercas salen con el mismo ángulo, todas se retrasan en la misma proporción y el patrón se conserva, algo más lento. Si las sueltas empujándolas con una regla, salen desde la misma distancia y las cortas con más ángulo, así que se retrasan más. En el diseño clásico de 15 péndulos y 60 s, a 15° en el más largo se realinean unos 2 s tarde, y a 30° el patrón casi se pierde.</p>
+        <p>El rozamiento con el aire y dentro del hilo hace que la amplitud caiga como <span class="m">e<sup>−<i>t</i>/<i>τ</i></sup></span>. Apenas cambia el periodo, y al bajar la amplitud el retraso por ángulo grande deja de crecer.</p>
+      </section>
+    </div>
+  </article>
+
+  <article class="sheet" aria-labelledby="build-title">
+    <header class="sheet-head">
+      <h2 id="build-title">Tabla de montaje</h2>
+      <p class="sheet-sub">Medidas para construirlo con los valores actuales. Ajusta cada hilo hasta que el centro de la tuerca quede a la distancia <span class="m"><i>L</i></span> por debajo de la línea de apoyos, y numera los péndulos del más largo al más corto.</p>
+    </header>
+    <dl class="build-facts">
+      <div><dt>Barra</dt><dd><span data-f="barLen">60 cm</span><small data-f="barNote"></small></dd></div>
+      <div><dt>Altura libre</dt><dd><span data-f="height">38 cm</span><small>bajo la línea de apoyos</small></dd></div>
+      <div><dt>Hilo</dt><dd><span data-f="threadTotal">10 m</span><small data-f="threadNote"></small></dd></div>
+      <div><dt>Tuercas</dt><dd><span data-f="nutsTotal">15 × M8</span><small data-f="nutsNote"></small></dd></div>
+    </dl>
+    <div class="table-tools">
+      <p>«Hilo entre apoyos» es el tramo que va de un punto de la barra al otro pasando por el agujero, sin contar los nudos.</p>
+      <button class="btn" id="copy-table" type="button">Copiar tabla</button>
+    </div>
+    <div class="table-wrap">
+      <table id="build-table">
+        <thead>
+          <tr>
+            <th scope="col">N.º</th>
+            <th scope="col">Oscilaciones en Γ</th>
+            <th scope="col">Periodo (s)</th>
+            <th scope="col">L, barra → centro de la tuerca (mm)</th>
+            <th scope="col">Hilo entre apoyos (mm)</th>
+          </tr>
+        </thead>
+        <tbody id="build-body"></tbody>
+      </table>
+    </div>
+  </article>
+
+  <footer>
+    <p>Modelo: cada tuerca es un péndulo físico con su radio de giro, ecuación completa con sen θ (sin la aproximación de ángulos pequeños) y rozamiento proporcional a la velocidad. Integración Runge-Kutta de orden 4 con paso de 2 ms, g = 9,81 m/s². Tuercas DIN 934 de acero.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- constantes ---------- */
+  const G = 9.81;              // m/s²
+  const STEEL = 7850;          // kg/m³
+  const THREAD = 0.03e-3;      // kg/m, hilo de poliéster ~Tex 30
+  const DT = 0.002;            // s, paso de integración
+  const MAXN = 30;
+  const TAU_STEPS = [20, 30, 45, 60, 90, 120, 180, 240, 300, 450, 600, Infinity];
+  const SPEED_STEPS = [0.1, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4];
+  // DIN 934: métrica d, paso p, entrecaras s, altura m (mm)
+  const NUTS = {
+    M5:  { d: 5,  p: 0.8,  s: 8,  m: 4 },
+    M6:  { d: 6,  p: 1.0,  s: 10, m: 5 },
+    M8:  { d: 8,  p: 1.25, s: 13, m: 6.5 },
+    M10: { d: 10, p: 1.5,  s: 17, m: 8 },
+    M12: { d: 12, p: 1.75, s: 19, m: 10 },
+  };
+  const VIEWS = { iso: [-0.55, 0.32], end: [1.36, 0.2], top: [0, 1.553], front: [0, 0.05] };
+  const STORE_KEY = 'pendulo-ondas-v1';
+
+  const $ = (id) => document.getElementById(id);
+  const fmt = (x, d = 0) => x.toLocaleString('es-ES', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const fmtMax = (x, d) => x.toLocaleString('es-ES', { maximumFractionDigits: d });
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function nutProps(key) {
+    const n = NUTS[key];
+    const s = n.s / 1000, h = n.m / 1000;
+    const a = s / Math.sqrt(3);                       // radio circunscrito del hexágono
+    const rh = (n.d - 1.0825 * n.p) / 2000;           // radio del agujero (diámetro interior de rosca)
+    const aHex = Math.sqrt(3) / 2 * s * s;
+    const aHole = Math.PI * rh * rh;
+    const area = aHex - aHole;
+    // radio de giro alrededor del eje del agujero: hexágono macizo (5a²/12) menos el agujero (r²/2)
+    const k2 = (aHex * 5 * a * a / 12 - aHole * rh * rh / 2) / area;
+    const mass = area * h * STEEL * 0.95;             // −5 % por los chaflanes
+    return { key, s, h, a, rh, k2, mass };
+  }
+
+  function mulberry32(seed) {
+    return function () {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  /* ---------- estado ---------- */
+  const params = {};
+  let design = null, geom = null;
+  let errSeed = 20240917;
+  let errU = makeErrors(errSeed);
+  let running = !reduceMotion;
+  const cam = { yaw: VIEWS.iso[0], pitch: VIEWS.iso[1], zoom: 1 };
+  let camAnim = null;
+
+  const sim = {
+    steps: 0, target: 0, damp: 0, cycleSteps: 1,
+    th: new Float64Array(MAXN), om: new Float64Array(MAXN),
+    w2: new Float64Array(MAXN), Lt: new Float64Array(MAXN),
+    snaps: [],
+  };
+
+  function makeErrors(seed) {
+    const r = mulberry32(seed);
+    return Float64Array.from({ length: MAXN }, () => 2 * r() - 1);
+  }
+
+  /* ---------- diseño ---------- */
+  function computeDesign(p) {
+    const nut = nutProps(p.nut);
+    const lTarget = p.lmax / 100;
+    const K = Math.max(1, Math.round(p.cycle / (2 * Math.PI * Math.sqrt(lTarget / G))));
+    const N = p.n, d = p.spread / 100;
+    const L = new Float64Array(N), osc = new Int32Array(N), T = new Float64Array(N), thread = new Float64Array(N);
+    for (let i = 0; i < N; i++) {
+      osc[i] = K + i;
+      const w = 2 * Math.PI * osc[i] / p.cycle;
+      const lam = G / (w * w);                                     // longitud de péndulo simple
+      L[i] = (lam + Math.sqrt(Math.max(0, lam * lam - 4 * nut.k2))) / 2; // corregida por el tamaño de la tuerca
+      T[i] = p.cycle / osc[i];
+      const half = Math.max(0, (d - nut.h) / 2);
+      thread[i] = 2 * Math.hypot(L[i] - nut.rh, half) + nut.h;
+    }
+    return { N, K, L, osc, T, thread, nut, cycle: p.cycle, d, spacing: p.spacing / 100 };
+  }
+
+  function computeGeom() {
+    const D = design, N = D.N;
+    const xs = Array.from({ length: N }, (_, i) => (i - (N - 1) / 2) * D.spacing);
+    const Lm = D.L[0];
+    const bh = (N - 1) / 2 * D.spacing + D.d / 2 + 0.035;
+    const zFloor = -(Lm + D.nut.a + Math.max(0.05, 0.22 * Lm));
+    const yMat = Math.max(0.14, 0.62 * Lm);
+    const xMat = bh + 0.08;
+    const span = 2 * Math.max(xMat, yMat);
+    const gridStep = span < 1.1 ? 0.01 : span < 2.2 ? 0.02 : 0.05;
+    const fitPts = [];
+    for (const sx of [-1, 1]) for (const sy of [-1, 1]) {
+      fitPts.push([sx * xMat, sy * yMat, zFloor]);
+      fitPts.push([sx * bh, sy * 0.013, 0.026]);
+    }
+    return {
+      xs, bh, zFloor, yMat, xMat, gridStep, fitPts,
+      target: [0, 0, zFloor * 0.5 + 0.01],
+      dist: 2.6 * Math.max(2 * xMat, -zFloor, 2 * yMat),
+    };
+  }
+
+  /* ---------- simulación ---------- */
+  function resetSim() {
+    const D = design, N = D.N;
+    sim.damp = isFinite(params.tau) ? 2 / params.tau : 0;
+    const A = params.amp * Math.PI / 180;
+    const x0 = D.L[0] * Math.sin(A);
+    for (let i = 0; i < N; i++) {
+      const Lt = D.L[i] + errU[i] * params.err / 1000;
+      sim.Lt[i] = Lt;
+      sim.w2[i] = G * Lt / (Lt * Lt + D.nut.k2);
+      sim.th[i] = params.mode === 'ruler' ? Math.asin(Math.min(0.98, x0 / Lt)) : A;
+      sim.om[i] = 0;
+    }
+    sim.steps = 0;
+    sim.target = 0;
+    sim.cycleSteps = Math.max(1, Math.round(D.cycle / DT));
+    sim.snaps = [{ steps: 0, th: sim.th.slice(0, N), om: sim.om.slice(0, N) }];
+  }
+
+  function stepOnce() {
+    const N = design.N, h = DT, c = sim.damp, th = sim.th, om = sim.om, w2 = sim.w2;
+    for (let i = 0; i < N; i++) {
+      const W = w2[i], x = th[i], v = om[i];
+      const a1 = -W * Math.sin(x) - c * v;
+      const x2 = x + 0.5 * h * v,  v2 = v + 0.5 * h * a1;
+      const a2 = -W * Math.sin(x2) - c * v2;
+      const x3 = x + 0.5 * h * v2, v3 = v + 0.5 * h * a2;
+      const a3 = -W * Math.sin(x3) - c * v3;
+      const x4 = x + h * v3,       v4 = v + h * a3;
+      const a4 = -W * Math.sin(x4) - c * v4;
+      th[i] = x + h / 6 * (v + 2 * v2 + 2 * v3 + v4);
+      om[i] = v + h / 6 * (a1 + 2 * a2 + 2 * a3 + a4);
+    }
+    sim.steps++;
+    if (sim.steps % sim.cycleSteps === 0 && sim.snaps[sim.snaps.length - 1].steps < sim.steps && sim.snaps.length < 5000) {
+      sim.snaps.push({ steps: sim.steps, th: th.slice(0, N), om: om.slice(0, N) });
+    }
+  }
+
+  function advanceTo(target) {
+    if (target < sim.steps) {
+      let s = sim.snaps[0];
+      for (const sn of sim.snaps) { if (sn.steps <= target) s = sn; else break; }
+      sim.th.set(s.th); sim.om.set(s.om); sim.steps = s.steps;
+    }
+    while (sim.steps < target) stepOnce();
+  }
+
+  function seekTo(t) {
+    sim.target = Math.max(0, t);
+    advanceTo(Math.floor(sim.target / DT + 1e-9));
+    updateReadouts(true);
+  }
+
+  /* ---------- colores del tema ---------- */
+  let TOK = {};
+  function readTokens() {
+    const cs = getComputedStyle(document.documentElement);
+    const g = (n) => cs.getPropertyValue(n).trim();
+    const rgb = (n) => g(n).split(/[\s,]+/).map(Number);
+    TOK = {
+      mat: g('--mat'), matLine: g('--mat-line'), matMajor: g('--mat-line-major'),
+      thread: g('--thread-3d'), hole: g('--hole'), shadow: g('--shadow'),
+      zinc: rgb('--zinc-rgb'), wood: rgb('--wood-rgb'), peg: rgb('--peg-rgb'),
+    };
+  }
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', readTokens);
+  new MutationObserver(readTokens).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  /* ---------- render 3D ---------- */
+  const canvas = $('scene');
+  const ctx = canvas.getContext('2d');
+  let W = 0, H = 0, DPR = 1;
+  function resize() {
+    const r = canvas.getBoundingClientRect();
+    DPR = Math.min(2, window.devicePixelRatio || 1);
+    W = r.width; H = r.height;
+    canvas.width = Math.max(1, Math.round(W * DPR));
+    canvas.height = Math.max(1, Math.round(H * DPR));
+  }
+  new ResizeObserver(resize).observe(canvas);
+
+  const LIGHT = (() => { const v = [-0.4, -0.55, 0.73]; const n = Math.hypot(...v); return v.map((c) => c / n); })();
+  let C = [0, 0, 0], F = [0, 1, 0], R = [1, 0, 0], U = [0, 0, 1], S = 1, CX = 0, CY = 0;
+
+  function proj(x, y, z) {
+    const dx = x - C[0], dy = y - C[1], dz = z - C[2];
+    const Z = Math.max(1e-4, dx * F[0] + dy * F[1] + dz * F[2]);
+    return [CX + S * (dx * R[0] + dy * R[1] + dz * R[2]) / Z, CY - S * (dx * U[0] + dy * U[1] + dz * U[2]) / Z, Z];
+  }
+  function depth(x, y, z) { return (x - C[0]) * F[0] + (y - C[1]) * F[1] + (z - C[2]) * F[2]; }
+  function facing(n, c) { return n[0] * (C[0] - c[0]) + n[1] * (C[1] - c[1]) + n[2] * (C[2] - c[2]) > 0; }
+
+  function shade(rgb, n, c, spec) {
+    const dif = Math.max(0, n[0] * LIGHT[0] + n[1] * LIGHT[1] + n[2] * LIGHT[2]);
+    let vx = C[0] - c[0], vy = C[1] - c[1], vz = C[2] - c[2];
+    const vl = Math.hypot(vx, vy, vz) || 1; vx /= vl; vy /= vl; vz /= vl;
+    let hx = LIGHT[0] + vx, hy = LIGHT[1] + vy, hz = LIGHT[2] + vz;
+    const hl = Math.hypot(hx, hy, hz) || 1;
+    const sp = Math.pow(Math.max(0, (n[0] * hx + n[1] * hy + n[2] * hz) / hl), 28) * spec;
+    const k = 0.36 + 0.64 * dif;
+    const ch = (v) => Math.min(255, Math.round(v * k + 255 * sp));
+    return `rgb(${ch(rgb[0])},${ch(rgb[1])},${ch(rgb[2])})`;
+  }
+
+  function fillPoly(pts, color) {
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 0.6;
+    ctx.stroke();
+  }
+
+  function drawBox(x0, x1, y0, y1, z0, z1, rgb, spec) {
+    const faces = [
+      [[1, 0, 0],  [[x1, y0, z0], [x1, y1, z0], [x1, y1, z1], [x1, y0, z1]]],
+      [[-1, 0, 0], [[x0, y0, z0], [x0, y0, z1], [x0, y1, z1], [x0, y1, z0]]],
+      [[0, 1, 0],  [[x0, y1, z0], [x0, y1, z1], [x1, y1, z1], [x1, y1, z0]]],
+      [[0, -1, 0], [[x0, y0, z0], [x1, y0, z0], [x1, y0, z1], [x0, y0, z1]]],
+      [[0, 0, 1],  [[x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]]],
+      [[0, 0, -1], [[x0, y0, z0], [x0, y1, z0], [x1, y1, z0], [x1, y0, z0]]],
+    ];
+    for (const [n, pts] of faces) {
+      const c = [(pts[0][0] + pts[2][0]) / 2, (pts[0][1] + pts[2][1]) / 2, (pts[0][2] + pts[2][2]) / 2];
+      if (!facing(n, c)) continue;
+      fillPoly(pts.map((p) => proj(p[0], p[1], p[2])), shade(rgb, n, c, spec));
+    }
+  }
+
+  function drawBar() {
+    const g = geom, D = design;
+    drawBox(-g.bh, g.bh, -0.013, 0.013, 0, 0.026, TOK.wood, 0.1);
+    // armellas: los puntos de apoyo de cada V
+    ctx.fillStyle = `rgb(${TOK.peg.join(',')})`;
+    for (const x of g.xs) {
+      for (const sx of [-1, 1]) {
+        const p = proj(x + sx * D.d / 2, 0, 0);
+        const r = Math.max(1.2, Math.min(3.2, S * 0.0022 / p[2]));
+        ctx.beginPath(); ctx.arc(p[0], p[1], r, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+  }
+
+  function drawPendulum(i) {
+    const D = design, nut = D.nut, x = geom.xs[i];
+    const L = sim.Lt[i], th = sim.th[i], s = Math.sin(th), c = Math.cos(th);
+    const yc = L * s, zc = -L * c;
+    const Lr = L - nut.rh, ye = Lr * s, ze = -Lr * c, hh = nut.h / 2;
+
+    // hilo en V: apoyo → agujero → apoyo
+    ctx.strokeStyle = TOK.thread;
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    let p = proj(x - D.d / 2, 0, 0); ctx.moveTo(p[0], p[1]);
+    p = proj(x - hh, ye, ze); ctx.lineTo(p[0], p[1]);
+    p = proj(x + hh, ye, ze); ctx.lineTo(p[0], p[1]);
+    p = proj(x + D.d / 2, 0, 0); ctx.lineTo(p[0], p[1]);
+    ctx.stroke();
+
+    // tuerca: prisma hexagonal con el eje del agujero a lo largo de la barra
+    const V0 = [], V1 = [], angs = [];
+    for (let j = 0; j < 6; j++) {
+      const ang = -Math.PI / 2 + j * Math.PI / 3 + th;
+      angs.push(ang);
+      const yy = yc + nut.a * Math.cos(ang), zz = zc + nut.a * Math.sin(ang);
+      V0.push([x - hh, yy, zz]); V1.push([x + hh, yy, zz]);
+    }
+    for (let j = 0; j < 6; j++) {
+      const k = (j + 1) % 6, na = angs[j] + Math.PI / 6;
+      const n = [0, Math.cos(na), Math.sin(na)];
+      const cc = [x, (V0[j][1] + V0[k][1]) / 2, (V0[j][2] + V0[k][2]) / 2];
+      if (!facing(n, cc)) continue;
+      fillPoly([V0[j], V0[k], V1[k], V1[j]].map((q) => proj(q[0], q[1], q[2])), shade(TOK.zinc, n, cc, 0.5));
+    }
+    for (const sx of [-1, 1]) {
+      const n = [sx, 0, 0], cc = [x + sx * hh, yc, zc];
+      if (!facing(n, cc)) continue;
+      const V = sx < 0 ? V0 : V1;
+      fillPoly(V.map((q) => proj(q[0], q[1], q[2])), shade(TOK.zinc, n, cc, 0.5));
+      const hole = [];
+      for (let j = 0; j < 14; j++) {
+        const a = j / 14 * Math.PI * 2;
+        hole.push(proj(cc[0], yc + nut.rh * Math.cos(a), zc + nut.rh * Math.sin(a)));
+      }
+      fillPoly(hole, TOK.hole);
+    }
+  }
+
+  function render() {
+    if (!W || !H || !design) return;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    const g = geom, D = design, N = D.N;
+
+    // cámara orbital
+    const cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch), cyw = Math.cos(cam.yaw), syw = Math.sin(cam.yaw);
+    const T = g.target;
+    C = [T[0] + g.dist * syw * cp, T[1] - g.dist * cyw * cp, T[2] + g.dist * sp];
+    F = [-syw * cp, cyw * cp, -sp];
+    R = [cyw, syw, 0];
+    U = [R[1] * F[2] - R[2] * F[1], R[2] * F[0] - R[0] * F[2], R[0] * F[1] - R[1] * F[0]];
+
+    // encuadre automático
+    let umin = Infinity, umax = -Infinity, vmin = Infinity, vmax = -Infinity;
+    for (const P of g.fitPts) {
+      const dx = P[0] - C[0], dy = P[1] - C[1], dz = P[2] - C[2];
+      const Z = dx * F[0] + dy * F[1] + dz * F[2];
+      const u = (dx * R[0] + dy * R[1] + dz * R[2]) / Z, v = (dx * U[0] + dy * U[1] + dz * U[2]) / Z;
+      umin = Math.min(umin, u); umax = Math.max(umax, u); vmin = Math.min(vmin, v); vmax = Math.max(vmax, v);
+    }
+    const padT = W < 520 ? 84 : 52, padB = 30, padX = 16;
+    S = Math.min((W - 2 * padX) / (umax - umin), (H - padT - padB) / (vmax - vmin)) * cam.zoom;
+    CX = W / 2 - S * (umin + umax) / 2;
+    CY = (padT + H - padB) / 2 + S * (vmin + vmax) / 2;
+
+    // plancha de corte
+    const zf = g.zFloor, xm = g.xMat, ym = g.yMat;
+    fillPoly([proj(-xm, -ym, zf), proj(xm, -ym, zf), proj(xm, ym, zf), proj(-xm, ym, zf)], TOK.mat);
+    const step = g.gridStep;
+    for (const major of [false, true]) {
+      ctx.beginPath();
+      for (let k = Math.ceil(-xm / step); k <= Math.floor(xm / step); k++) {
+        if ((k % 5 === 0) !== major) continue;
+        const a = proj(k * step, -ym, zf), b = proj(k * step, ym, zf);
+        ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]);
+      }
+      for (let k = Math.ceil(-ym / step); k <= Math.floor(ym / step); k++) {
+        if ((k % 5 === 0) !== major) continue;
+        const a = proj(-xm, k * step, zf), b = proj(xm, k * step, zf);
+        ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]);
+      }
+      ctx.strokeStyle = major ? TOK.matMajor : TOK.matLine;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // sombras
+    ctx.fillStyle = TOK.shadow;
+    for (let i = 0; i < N; i++) {
+      const y = sim.Lt[i] * Math.sin(sim.th[i]), x = g.xs[i];
+      for (const [rad, alpha] of [[D.nut.a * 2.1, 0.45], [D.nut.a * 1.2, 0.8]]) {
+        ctx.globalAlpha = alpha;
+        ctx.beginPath();
+        for (let j = 0; j < 16; j++) {
+          const a = j / 16 * Math.PI * 2;
+          const q = proj(x + rad * 0.7 * Math.cos(a), y + rad * Math.sin(a), zf);
+          if (j) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]);
+        }
+        ctx.fill();
+      }
+    }
+    ctx.globalAlpha = 1;
+
+    // objetos ordenados de lejos a cerca
+    const objs = [];
+    const postX = g.bh - 0.012;
+    for (const sx of [-1, 1]) {
+      const px = sx * postX;
+      objs.push({ z: depth(px, 0, zf / 2), draw: () => drawBox(px - 0.012, px + 0.012, -0.012, 0.012, zf, 0, TOK.wood, 0.08) });
+      objs.push({ z: depth(px, 0, zf + 0.008), draw: () => drawBox(px - 0.035, px + 0.035, -0.075, 0.075, zf, zf + 0.016, TOK.wood, 0.08) });
+    }
+    objs.push({ z: depth(0, 0, 0.013), draw: drawBar });
+    for (let i = 0; i < N; i++) {
+      const L = sim.Lt[i], th = sim.th[i];
+      objs.push({ z: depth(g.xs[i], L * Math.sin(th), -L * Math.cos(th)), draw: () => drawPendulum(i) });
+    }
+    objs.sort((a, b) => b.z - a.z);
+    for (const o of objs) o.draw();
+  }
+
+  /* ---------- cámara: vistas y arrastre ---------- */
+  const chips = document.querySelectorAll('[data-view]');
+  function markView(name) { chips.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === name))); }
+  function setView(name) {
+    const [yaw, pitch] = VIEWS[name];
+    cam.yaw = Math.atan2(Math.sin(cam.yaw), Math.cos(cam.yaw));
+    if (reduceMotion) { cam.yaw = yaw; cam.pitch = pitch; cam.zoom = 1; camAnim = null; }
+    else camAnim = { from: { ...cam }, to: { yaw, pitch, zoom: 1 }, t0: performance.now(), dur: 650 };
+    markView(name);
+  }
+  function stepCam(now) {
+    if (!camAnim) return;
+    let k = Math.min(1, (now - camAnim.t0) / camAnim.dur);
+    const e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+    for (const key of ['yaw', 'pitch', 'zoom']) cam[key] = camAnim.from[key] + (camAnim.to[key] - camAnim.from[key]) * e;
+    if (k >= 1) camAnim = null;
+  }
+  chips.forEach((b) => b.addEventListener('click', () => setView(b.dataset.view)));
+  $('zoom-in').addEventListener('click', () => { camAnim = null; cam.zoom = clamp(cam.zoom * 1.25, 0.5, 6); });
+  $('zoom-out').addEventListener('click', () => { camAnim = null; cam.zoom = clamp(cam.zoom / 1.25, 0.5, 6); });
+
+  const pointers = new Map();
+  canvas.addEventListener('pointerdown', (e) => {
+    canvas.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    canvas.classList.add('dragging');
+    camAnim = null;
+  });
+  canvas.addEventListener('pointermove', (e) => {
+    const prev = pointers.get(e.pointerId);
+    if (!prev) return;
+    if (pointers.size === 1) {
+      cam.yaw -= (e.clientX - prev.x) * 0.008;
+      cam.pitch = clamp(cam.pitch + (e.clientY - prev.y) * 0.008, -0.08, 1.553);
+      markView(null);
+    } else if (pointers.size === 2) {
+      const pts = [...pointers.values()];
+      const other = pts[0] === prev ? pts[1] : pts[0];
+      const d0 = Math.hypot(prev.x - other.x, prev.y - other.y);
+      const d1 = Math.hypot(e.clientX - other.x, e.clientY - other.y);
+      if (d0 > 0) cam.zoom = clamp(cam.zoom * d1 / d0, 0.5, 6);
+    }
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  });
+  const endPointer = (e) => { pointers.delete(e.pointerId); if (!pointers.size) canvas.classList.remove('dragging'); };
+  canvas.addEventListener('pointerup', endPointer);
+  canvas.addEventListener('pointercancel', endPointer);
+  canvas.addEventListener('wheel', (e) => {
+    if (!e.ctrlKey && !e.metaKey) return;
+    e.preventDefault();
+    camAnim = null;
+    cam.zoom = clamp(cam.zoom * Math.exp(-e.deltaY * 0.01), 0.5, 6);
+  }, { passive: false });
+  canvas.addEventListener('dblclick', () => setView('iso'));
+
+  /* ---------- transporte y lecturas ---------- */
+  const tl = $('timeline'), tlFill = $('tl-fill'), tlHead = $('tl-head');
+  const roTime = $('ro-time'), roCycle = $('ro-cycle'), roPhase = $('ro-phase'), roPattern = $('ro-pattern');
+
+  function buildTicks() {
+    tl.querySelectorAll('.tl-tick').forEach((t) => t.remove());
+    for (const [p, q] of [[1, 4], [1, 3], [1, 2], [2, 3], [3, 4]]) {
+      const el = document.createElement('span');
+      el.className = 'tl-tick';
+      el.style.left = (p / q * 100) + '%';
+      el.textContent = String(q);
+      el.title = `t = ${p === 1 ? '' : p}Γ/${q}: ${q === 2 ? 'dos filas en contrafase' : q + ' grupos'}`;
+      tl.appendChild(el);
+    }
+  }
+
+  const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+  function patternLabel(f) {
+    for (let q = 1; q <= 6; q++) {
+      for (let p = 0; p <= q; p++) {
+        if (q > 1 && gcd(p, q) !== 1) continue;
+        if (Math.abs(f - p / q) < 0.012) {
+          if (q === 1) return 'Todos en fase';
+          if (q === 2) return '2 filas en contrafase';
+          return `${q} grupos`;
+        }
+      }
+    }
+    const m = Math.min(f, 1 - f);
+    return `Onda de ${fmt(1 / m, 1)} péndulos`;
+  }
+
+  let lastRO = 0;
+  function updateReadouts(force, now = performance.now()) {
+    const t = sim.steps * DT, cyc = design.cycle;
+    const ph = t / cyc, n = Math.floor(ph + 1e-9), f = Math.max(0, ph - n);
+    tlFill.style.width = (f * 100) + '%';
+    tlHead.style.left = (f * 100) + '%';
+    if (!force && now - lastRO < 100) return;
+    lastRO = now;
+    roTime.textContent = fmt(t, 1) + ' s';
+    roCycle.textContent = String(n + 1);
+    roPhase.textContent = fmt(f * 360, 0) + '°';
+    const label = patternLabel(f);
+    roPattern.textContent = label;
+    tl.setAttribute('aria-valuenow', String(Math.round(f * 100)));
+    tl.setAttribute('aria-valuetext', `${fmt(f * cyc, 1)} s de ${cyc} s, ${label}`);
+  }
+
+  function seekFrac(f) {
+    const t = sim.steps * DT, cyc = design.cycle;
+    const n = Math.floor(t / cyc + 1e-9);
+    seekTo((n + clamp(f, 0, 0.9995)) * cyc);
+  }
+  let tlDrag = false;
+  const tlFrac = (e) => { const r = tl.getBoundingClientRect(); return (e.clientX - r.left) / r.width; };
+  tl.addEventListener('pointerdown', (e) => { tlDrag = true; tl.setPointerCapture(e.pointerId); seekFrac(tlFrac(e)); });
+  tl.addEventListener('pointermove', (e) => { if (tlDrag) seekFrac(tlFrac(e)); });
+  tl.addEventListener('pointerup', () => { tlDrag = false; });
+  tl.addEventListener('pointercancel', () => { tlDrag = false; });
+  tl.addEventListener('keydown', (e) => {
+    const t = sim.steps * DT, cyc = design.cycle;
+    let handled = true;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') seekTo(t + cyc / 100);
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') seekTo(t - cyc / 100);
+    else if (e.key === 'Home') seekFrac(0);
+    else if (e.key === 'End') seekFrac(0.9995);
+    else handled = false;
+    if (handled) e.preventDefault();
+  });
+
+  function setRunning(v) {
+    running = v;
+    $('icon-pause').toggleAttribute('hidden', !v);
+    $('icon-play').toggleAttribute('hidden', v);
+    $('play-label').textContent = v ? 'Pausa' : 'Seguir';
+  }
+  $('play').addEventListener('click', () => setRunning(!running));
+  $('release').addEventListener('click', () => { resetSim(); updateReadouts(true); setRunning(true); });
+
+  /* ---------- controles ---------- */
+  const rail = $('rail');
+  const RESET_IDS = new Set(['n-pend', 'cycle', 'lmax', 'err', 'amp', 'tau', 'nut', 'mode']);
+  const GEOM_IDS = new Set(['spacing', 'spread']);
+
+  function readParams() {
+    params.n = +$('n-pend').value;
+    params.cycle = +$('cycle').value;
+    params.lmax = +$('lmax').value;
+    params.nut = rail.querySelector('input[name="nut"]:checked').value;
+    params.spacing = +$('spacing').value;
+    params.spread = +$('spread').value;
+    params.err = +$('err').value;
+    params.mode = rail.querySelector('input[name="mode"]:checked').value;
+    params.amp = +$('amp').value;
+    params.tau = TAU_STEPS[+$('tau').value];
+    params.speed = SPEED_STEPS[+$('speed').value];
+  }
+
+  function paintRanges() {
+    rail.querySelectorAll('input[type="range"]').forEach((el) => {
+      const pct = (el.value - el.min) / (el.max - el.min) * 100;
+      el.style.setProperty('--fill', pct + '%');
+    });
+  }
+
+  function computeFacts() {
+    const D = design, N = D.N, K = D.K, nut = D.nut;
+    const Lmax = D.L[0], Lmin = D.L[N - 1];
+    const threadMass = THREAD * D.thread[0];
+    const support = (N - 1) * D.spacing + D.d;
+    const bar = support + 0.07;
+    const threadSum = D.thread.reduce((a, b) => a + b, 0);
+    return {
+      nut: nut.key, N: String(N), gamma: `${D.cycle} s`, K: String(K), Kmax: String(K + N - 1),
+      oscRange: `${K} → ${K + N - 1}`,
+      LRange: `${fmt(Lmax * 1000, 1)} → ${fmt(Lmin * 1000, 1)} mm`,
+      TRange: `${fmt(D.T[0], 3)} → ${fmt(D.T[N - 1], 3)} s`,
+      Lmax: `${fmt(Lmax * 1000, 1)} mm`, Lmin: `${fmt(Lmin * 1000, 1)} mm`,
+      mass: `${fmt(nut.mass * 1000, 1)} g`,
+      threadMass: `${fmtMax(threadMass * 1000, 3)} g`,
+      threadRatio: `${fmt(threadMass / nut.mass * 100, 1)} %`,
+      k: `${fmt(Math.sqrt(nut.k2) * 1000, 1)} mm`,
+      ppm: `${fmt(nut.k2 / (2 * Lmin * Lmin) * 1e6, 0)} ppm`,
+      tol: `±${fmt(0.2 * Lmin / (K + N - 1) * 1000, 2)} mm`,
+      barLen: `${fmt(bar * 100, 0)} cm`,
+      barNote: `${fmt(support * 100, 1)} cm entre el primer y el último apoyo`,
+      height: `${fmt((Lmax + nut.a + 0.03) * 100, 0)} cm`,
+      threadTotal: `${fmt(threadSum + N * 0.15, 1)} m`,
+      threadNote: `${fmt(threadSum, 2)} m entre apoyos + 15 cm por péndulo para nudos`,
+      nutsTotal: `${N} × ${nut.key}`,
+      nutsNote: `≈${fmt(nut.mass * N * 1000, 0)} g en total`,
+    };
+  }
+
+  function updateDesignUI() {
+    const facts = computeFacts();
+    document.querySelectorAll('[data-f]').forEach((el) => {
+      const v = facts[el.dataset.f];
+      if (v !== undefined) el.textContent = v;
+    });
+    const D = design, nut = D.nut, n = NUTS[nut.key];
+    $('n-pend-out').textContent = String(params.n);
+    $('cycle-out').textContent = `${params.cycle} s`;
+    $('lmax-out').textContent = `${fmt(params.lmax, 1)} cm`;
+    $('lmax-note').innerHTML = `Ajustado a <span class="num">${D.K}</span> oscilaciones exactas en Γ: <span class="num">${fmt(D.L[0] * 1000, 1)} mm</span>.`;
+    $('nut-note').textContent = `${n.s} mm entre caras · ${fmtMax(n.m, 1)} mm de alto · ≈${fmt(nut.mass * 1000, 1)} g de acero`;
+    $('spacing-out').textContent = `${fmt(params.spacing, 1)} cm`;
+    $('spread-out').textContent = `${params.spread} cm`;
+    $('err-out').textContent = params.err === 0 ? 'exacto' : `±${fmt(params.err, 1)} mm`;
+    $('err-note').innerHTML = params.err === 0
+      ? `Cada longitud exacta. Prueba a desviarlas al azar; la tolerancia es <span class="num">${facts.tol}</span>.`
+      : `Cada longitud se desvía al azar hasta este valor. La tolerancia es <span class="num">${facts.tol}</span>.`;
+    $('reroll').hidden = params.err === 0;
+    $('amp-out').textContent = `${params.amp}°`;
+    const A = params.amp * Math.PI / 180, x0 = D.L[0] * Math.sin(A);
+    const thShort = Math.asin(Math.min(0.98, x0 / D.L[D.N - 1])) * 180 / Math.PI;
+    $('amp-note').innerHTML = params.mode === 'ruler'
+      ? `Todas salen desde <span class="num">${fmt(x0 * 100, 1)} cm</span>: el más largo con ${params.amp}° y el más corto con <span class="num">${fmt(thShort, 1)}°</span>.`
+      : `Todas salen con ${params.amp}°: el más largo desde <span class="num">${fmt(x0 * 100, 1)} cm</span> y el más corto desde <span class="num">${fmt(D.L[D.N - 1] * Math.sin(A) * 100, 1)} cm</span>.`;
+    $('tau-out').textContent = isFinite(params.tau) ? `${params.tau} s` : 'sin rozamiento';
+    $('tau-note').innerHTML = isFinite(params.tau)
+      ? `La amplitud se reduce a la mitad cada <span class="num">${fmt(params.tau * Math.LN2, 0)} s</span>.`
+      : 'Oscilan para siempre, algo imposible con hilo y aire.';
+    $('speed-out').textContent = `×${fmtMax(params.speed, 2)}`;
+    renderTable();
+    paintRanges();
+  }
+
+  function tableRows() {
+    const D = design, rows = [];
+    for (let i = 0; i < D.N; i++) {
+      rows.push([String(i + 1), String(D.osc[i]), fmt(D.T[i], 4), fmt(D.L[i] * 1000, 1), fmt(D.thread[i] * 1000, 0)]);
+    }
+    return rows;
+  }
+  function renderTable() {
+    $('build-body').innerHTML = tableRows()
+      .map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td class="key">${r[3]}</td><td>${r[4]}</td></tr>`)
+      .join('');
+  }
+
+  $('copy-table').addEventListener('click', async (e) => {
+    const btn = e.currentTarget;
+    const head = ['N.º', 'Oscilaciones en Γ', 'Periodo (s)', 'L barra-centro tuerca (mm)', 'Hilo entre apoyos (mm)'];
+    const text = [head, ...tableRows()].map((r) => r.join('\t')).join('\n');
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.textContent = 'Copiada';
+    } catch (_) {
+      const range = document.createRange();
+      range.selectNodeContents($('build-table'));
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      btn.textContent = 'Seleccionada: pulsa Ctrl+C';
+    }
+    setTimeout(() => { btn.textContent = 'Copiar tabla'; }, 2200);
+  });
+
+  function saveInputs() {
+    try {
+      const data = {};
+      rail.querySelectorAll('input[type="range"]').forEach((el) => { data[el.id] = el.value; });
+      data.nut = params.nut; data.mode = params.mode;
+      localStorage.setItem(STORE_KEY, JSON.stringify(data));
+    } catch (_) { /* almacenamiento no disponible */ }
+  }
+  function restoreInputs() {
+    try {
+      const data = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
+      if (!data) return;
+      rail.querySelectorAll('input[type="range"]').forEach((el) => { if (data[el.id] != null) el.value = data[el.id]; });
+      for (const name of ['nut', 'mode']) {
+        const el = rail.querySelector(`input[name="${name}"][value="${data[name]}"]`);
+        if (el) el.checked = true;
+      }
+    } catch (_) { /* almacenamiento no disponible */ }
+  }
+
+  rail.addEventListener('input', (e) => {
+    const id = e.target.name === 'nut' || e.target.name === 'mode' ? e.target.name : e.target.id;
+    readParams();
+    if (RESET_IDS.has(id)) {
+      design = computeDesign(params);
+      geom = computeGeom();
+      resetSim();
+    } else if (GEOM_IDS.has(id)) {
+      design = computeDesign(params);
+      geom = computeGeom();
+    }
+    updateDesignUI();
+    updateReadouts(true);
+    saveInputs();
+  });
+  $('reroll').addEventListener('click', () => {
+    errSeed += 1;
+    errU = makeErrors(errSeed);
+    resetSim();
+    updateReadouts(true);
+  });
+
+  /* ---------- dirección en la red local ---------- */
+  (function showLan() {
+    const host = location.hostname;
+    const isIp = /^\d{1,3}(\.\d{1,3}){3}$/.test(host);
+    const isLocal = host === 'localhost' || host === '127.0.0.1' || isIp || host.endsWith('.local');
+    if (!isLocal || !/^https?:$/.test(location.protocol)) return;
+    $('lan').hidden = false;
+    const url = `${location.protocol}//${location.host}/`;
+    $('lan-url').textContent = (host === 'localhost' || host === '127.0.0.1')
+      ? 'Usa la IP que muestra serve.py al arrancar'
+      : url;
+    $('lan-copy').hidden = !isIp || host === '127.0.0.1';
+    $('lan-copy').addEventListener('click', async (e) => {
+      try { await navigator.clipboard.writeText(url); e.currentTarget.textContent = 'Copiada'; }
+      catch (_) { e.currentTarget.textContent = 'Cópiala a mano'; }
+    });
+  })();
+
+  /* ---------- arranque ---------- */
+  restoreInputs();
+  readParams();
+  design = computeDesign(params);
+  geom = computeGeom();
+  readTokens();
+  resetSim();
+  buildTicks();
+  updateDesignUI();
+  setRunning(running);
+  resize();
+  updateReadouts(true);
+
+  let last = performance.now();
+  function frame(now) {
+    const dt = Math.min(0.1, Math.max(0, (now - last) / 1000));
+    last = now;
+    if (running) {
+      sim.target += dt * params.speed;
+      advanceTo(Math.floor(sim.target / DT + 1e-9));
+    }
+    stepCam(now);
+    render();
+    updateReadouts(false, now);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
