@@ -815,6 +815,15 @@
  ],
  "ROST": [
   {
+   "exOrEffDate": "12/08/2026",
+   "type": "Cash",
+   "amount": "$0.445",
+   "declarationDate": "11/18/2026",
+   "recordDate": "12/08/2026",
+   "paymentDate": "12/31/2026",
+   "currency": "USD"
+  },
+  {
    "exOrEffDate": "09/08/2026",
    "type": "Cash",
    "amount": "$0.445",
@@ -875,15 +884,6 @@
    "declarationDate": "03/04/2025",
    "recordDate": "03/18/2025",
    "paymentDate": "03/31/2025",
-   "currency": "USD"
-  },
-  {
-   "exOrEffDate": "12/10/2024",
-   "type": "Cash",
-   "amount": "$0.3675",
-   "declarationDate": "11/20/2024",
-   "recordDate": "12/10/2024",
-   "paymentDate": "12/31/2024",
    "currency": "USD"
   }
  ],
@@ -1112,6 +1112,15 @@
  ],
  "CSCO": [
   {
+   "exOrEffDate": "01/04/2027",
+   "type": "Cash",
+   "amount": "$0.42",
+   "declarationDate": "11/12/2026",
+   "recordDate": "01/04/2027",
+   "paymentDate": "01/20/2027",
+   "currency": "USD"
+  },
+  {
    "exOrEffDate": "10/02/2026",
    "type": "Cash",
    "amount": "$0.42",
@@ -1172,15 +1181,6 @@
    "declarationDate": "02/12/2025",
    "recordDate": "04/03/2025",
    "paymentDate": "04/23/2025",
-   "currency": "USD"
-  },
-  {
-   "exOrEffDate": "01/03/2025",
-   "type": "Cash",
-   "amount": "$0.40",
-   "declarationDate": "11/13/2024",
-   "recordDate": "01/03/2025",
-   "paymentDate": "01/22/2025",
    "currency": "USD"
   }
  ],
@@ -1786,6 +1786,15 @@
  "MSTR": [],
  "NVDA": [
   {
+   "exOrEffDate": "12/02/2026",
+   "type": "Cash",
+   "amount": "$0.25",
+   "declarationDate": "11/17/2026",
+   "recordDate": "12/02/2026",
+   "paymentDate": "12/23/2026",
+   "currency": "USD"
+  },
+  {
    "exOrEffDate": "09/10/2026",
    "type": "Cash",
    "amount": "$0.25",
@@ -1846,15 +1855,6 @@
    "declarationDate": "02/26/2025",
    "recordDate": "03/12/2025",
    "paymentDate": "04/02/2025",
-   "currency": "USD"
-  },
-  {
-   "exOrEffDate": "12/05/2024",
-   "type": "Cash",
-   "amount": "$0.01",
-   "declarationDate": "11/20/2024",
-   "recordDate": "12/05/2024",
-   "paymentDate": "12/27/2024",
    "currency": "USD"
   }
  ],
@@ -2677,6 +2677,15 @@
  ],
  "PEP": [
   {
+   "exOrEffDate": "12/04/2026",
+   "type": "Cash",
+   "amount": "$1.48",
+   "declarationDate": "11/18/2026",
+   "recordDate": "12/04/2026",
+   "paymentDate": "01/06/2027",
+   "currency": "USD"
+  },
+  {
    "exOrEffDate": "09/04/2026",
    "type": "Cash",
    "amount": "$1.48",
@@ -2737,15 +2746,6 @@
    "declarationDate": "02/05/2025",
    "recordDate": "03/07/2025",
    "paymentDate": "03/31/2025",
-   "currency": "USD"
-  },
-  {
-   "exOrEffDate": "12/06/2024",
-   "type": "Cash",
-   "amount": "$1.355",
-   "declarationDate": "11/19/2024",
-   "recordDate": "12/06/2024",
-   "paymentDate": "01/06/2025",
    "currency": "USD"
   }
  ],
