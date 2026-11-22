@@ -1,0 +1,6 @@
+my_score_after_p1,scenario,p_leading_now,best,p_win_best,best_concentrated,p_win_concentrated,best_consensus_like,p_win_consensus_like,best_low_vol,p_win_low_vol,p_win_consensus_basket,rule_says,model_says
+0.7463,actual,0,MRVL,0.0328,MRVL,0.0328,Consensus basket,0,BKT.MC,0,0,concentrate,concentrate
+1.05787,field-max q10,0.1,MRVL,0.2315,MRVL,0.2315,Magnificent 7 (EW),0.01975,ABI.BR,0.0879,0.0063,concentrate,concentrate
+1.12575,field-max q50,0.5,CRWV,0.298,CRWV,0.298,Magnificent 7 (EW),0.13925,ABI.BR,0.2187,0.1103,concentrate,concentrate
+1.36799,field-max q90,0.8212,Consensus basket,0.7567,SNPS 80% + SPCX 20%,0.668,Consensus basket,0.7567,Consensus basket,0.7567,0.7567,de-risk,de-risk
+1.18204,field-max q50 +5%,0.6571,STX,0.3721,STX,0.3721,Top-10 popular (EW),0.31115,ABI.BR,0.351,0.29815,de-risk,concentrate
