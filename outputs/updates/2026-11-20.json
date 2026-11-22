@@ -1,0 +1,1336 @@
+{
+ "asof": "2026-11-20",
+ "portfolio": "206x CRWV",
+ "my_return": -0.25367201636096426,
+ "conditional": null,
+ "table": [
+  {
+   "ticker": "CRWV",
+   "name": "CoreWeave, Inc. Class A Common Stock",
+   "since Oct 23": -0.2547857026575333,
+   "last week": -0.250895902374071,
+   "popularity": 2.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "MRNA",
+   "name": "Moderna, Inc. Common Stock",
+   "since Oct 23": -0.0031235579199623276,
+   "last week": -0.12060343287053354,
+   "popularity": 2.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "NBIS",
+   "name": "Nebius Group N.V. Class A Ordinary Shares",
+   "since Oct 23": -0.4760240134661189,
+   "last week": -0.29317733987594174,
+   "popularity": 1.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ALAB",
+   "name": "Astera Labs, Inc. Common Stock",
+   "since Oct 23": -0.2825914296905633,
+   "last week": -0.18102458070673033,
+   "popularity": 0.8,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "SNDK",
+   "name": "Sandisk Corporation Common Stock",
+   "since Oct 23": -0.37603302037755126,
+   "last week": -0.1404606350388865,
+   "popularity": 2.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "APP",
+   "name": "Applovin Corporation Class A Common Stock",
+   "since Oct 23": 0.3690020599620656,
+   "last week": -0.14239654945123226,
+   "popularity": 2.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "IDXX",
+   "name": "IDEXX Laboratories, Inc. Common Stock",
+   "since Oct 23": 0.23439113926523758,
+   "last week": -0.03274255197181586,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "BAYN.DE",
+   "name": "Bayer",
+   "since Oct 23": 0.21327878581173265,
+   "last week": -0.055909394904458676,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "FER.MC",
+   "name": "Ferrovial",
+   "since Oct 23": 0.18892139157847332,
+   "last week": -0.05070118753508068,
+   "popularity": 2.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "REGN",
+   "name": "Regeneron Pharmaceuticals, Inc. Common Stock",
+   "since Oct 23": 0.16993186378539127,
+   "last week": -0.029330522005417192,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "TMUS",
+   "name": "T-Mobile US, Inc. Common Stock",
+   "since Oct 23": 0.15600045496840398,
+   "last week": -0.018446047953007638,
+   "popularity": 0.8,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "GEHC",
+   "name": "GE HealthCare Technologies Inc. Common Stock ",
+   "since Oct 23": 0.1545217582849565,
+   "last week": -0.02154064596484362,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "SAN.PA",
+   "name": "Sanofi",
+   "since Oct 23": 0.14570958665503575,
+   "last week": -0.030593608004420236,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "COST",
+   "name": "Costco Wholesale Corporation Common Stock",
+   "since Oct 23": 0.12371212042962632,
+   "last week": 0.003640408911319337,
+   "popularity": 2.0,
+   "next earnings": "2026-12-11"
+  },
+  {
+   "ticker": "CMCSA",
+   "name": "Comcast Corporation Class A Common Stock",
+   "since Oct 23": 0.12258350203499213,
+   "last week": -0.0030722169116875753,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "IAG.MC",
+   "name": "International Airlines Group",
+   "since Oct 23": 0.10951069688625292,
+   "last week": -0.03357933579335781,
+   "popularity": 3.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "BN.PA",
+   "name": "Danone",
+   "since Oct 23": 0.0970436504806027,
+   "last week": -0.021776560668629208,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "CPRT",
+   "name": "Copart, Inc. (DE) Common Stock",
+   "since Oct 23": 0.0966714750962745,
+   "last week": -0.01608162215991149,
+   "popularity": 0.3,
+   "next earnings": "2026-12-01"
+  },
+  {
+   "ticker": "RED.MC",
+   "name": "Redeia Corporaci\u00f3n",
+   "since Oct 23": 0.09238037761294682,
+   "last week": -0.006134847002137844,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "WMT",
+   "name": "Walmart Inc. Common Stock",
+   "since Oct 23": 0.09171969889779352,
+   "last week": 0.00623647739593447,
+   "popularity": 2.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "GILD",
+   "name": "Gilead Sciences, Inc. Common Stock",
+   "since Oct 23": 0.09106216532702072,
+   "last week": -0.002551367109768332,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ARGX.BR",
+   "name": "Argenx",
+   "since Oct 23": 0.09025821390552458,
+   "last week": -0.029143938183681106,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "UCG.MI",
+   "name": "UniCredit",
+   "since Oct 23": 0.08661851628791628,
+   "last week": -0.06453156070745703,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "PDD",
+   "name": "PDD Holdings Inc. American Depositary Shares",
+   "since Oct 23": 0.08300025213105422,
+   "last week": 0.06741798768799634,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "CS.PA",
+   "name": "Axa",
+   "since Oct 23": 0.0822344781163864,
+   "last week": -0.04161356864601129,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "SAF.PA",
+   "name": "Safran",
+   "since Oct 23": 0.07689486726540995,
+   "last week": -0.04533592213954485,
+   "popularity": 0.8,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "AI.PA",
+   "name": "Air Liquide",
+   "since Oct 23": 0.07384937896121868,
+   "last week": -0.029691727664793666,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ROP",
+   "name": "Roper Technologies, Inc. Common Stock",
+   "since Oct 23": 0.07358934866513178,
+   "last week": -0.03495152823175263,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "GRF.MC",
+   "name": "Grifols",
+   "since Oct 23": 0.07227138643067832,
+   "last week": -0.0639484978540773,
+   "popularity": 1.5,
+   "next earnings": "2026-11-10"
+  },
+  {
+   "ticker": "BNP.PA",
+   "name": "BNP Paribas",
+   "since Oct 23": 0.07219835029448096,
+   "last week": -0.06299044679292654,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "CCEP",
+   "name": "Coca-Cola Europacific Partners plc Ordinary Shares",
+   "since Oct 23": 0.06623293023152876,
+   "last week": -0.018489525240390825,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "MAR",
+   "name": "Marriott International Class A Common Stock",
+   "since Oct 23": 0.06465627740085989,
+   "last week": -0.03198856140159523,
+   "popularity": 0.8,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "SGO.PA",
+   "name": "Saint-Gobain",
+   "since Oct 23": 0.06425587460418014,
+   "last week": -0.05418329133399913,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ENGI.PA",
+   "name": "Engie",
+   "since Oct 23": 0.06356865688595614,
+   "last week": -0.04034813922673486,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "MDLZ",
+   "name": "Mondelez International, Inc. Class A Common Stock",
+   "since Oct 23": 0.06271214672958725,
+   "last week": -0.011455055261640812,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "NDA-FI.HE",
+   "name": "Nordea",
+   "since Oct 23": 0.06221342501637217,
+   "last week": -0.05339953311934642,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "PEP",
+   "name": "PepsiCo, Inc. Common Stock",
+   "since Oct 23": 0.05888774015827947,
+   "last week": -0.026600665939827794,
+   "popularity": 1.2,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ALV.DE",
+   "name": "Allianz",
+   "since Oct 23": 0.05585415829662299,
+   "last week": -0.05322720737903086,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "AMS.MC",
+   "name": "Amadeus IT Group",
+   "since Oct 23": 0.05547710443381981,
+   "last week": -0.03893175675675675,
+   "popularity": 1.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "TTWO",
+   "name": "Take-Two Interactive Software, Inc. Common Stock",
+   "since Oct 23": 0.054637975943855555,
+   "last week": -0.07145613921224137,
+   "popularity": 2.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ORLY",
+   "name": "O'Reilly Automotive, Inc. Common Stock",
+   "since Oct 23": 0.05400571996502723,
+   "last week": 0.012363777611583027,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "EXC",
+   "name": "Exelon Corporation Common Stock",
+   "since Oct 23": 0.052188908945832724,
+   "last week": -0.00464165573772557,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ROVI.MC",
+   "name": "Laboratorios Rovi\u00a0[es]",
+   "since Oct 23": 0.049043988394214866,
+   "last week": -0.08815027838801781,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ADS.DE",
+   "name": "Adidas",
+   "since Oct 23": 0.04761904761904767,
+   "last week": -0.07120739897126027,
+   "popularity": 2.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "SBUX",
+   "name": "Starbucks Corporation Common Stock",
+   "since Oct 23": 0.04659410293318755,
+   "last week": -0.02398808354156101,
+   "popularity": 1.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "AD.AS",
+   "name": "Ahold Delhaize",
+   "since Oct 23": 0.043452113562224115,
+   "last week": -0.04077661694248591,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "DBK.DE",
+   "name": "Deutsche Bank",
+   "since Oct 23": 0.04315129966522124,
+   "last week": -0.12219381882796987,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "AENA.MC",
+   "name": "AENA",
+   "since Oct 23": 0.043018830188679136,
+   "last week": -0.039610908978078174,
+   "popularity": 2.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "DG.PA",
+   "name": "Vinci SA",
+   "since Oct 23": 0.042743101251567106,
+   "last week": -0.038961038961038974,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "MUV2.DE",
+   "name": "Munich Re",
+   "since Oct 23": 0.04204100792127963,
+   "last week": -0.01894453953427866,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "UNI.MC",
+   "name": "Unicaja",
+   "since Oct 23": 0.04131697869593287,
+   "last week": -0.06438515081206497,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "DXCM",
+   "name": "DexCom, Inc. Common Stock",
+   "since Oct 23": 0.04106085348466593,
+   "last week": -0.04113757032522014,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "XEL",
+   "name": "Xcel Energy Inc. Common Stock",
+   "since Oct 23": 0.03933153082704388,
+   "last week": -0.02117554863011195,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "DTE.DE",
+   "name": "Deutsche Telekom",
+   "since Oct 23": 0.03905325443786967,
+   "last week": -0.009774436090225658,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "RACE.MI",
+   "name": "Ferrari",
+   "since Oct 23": 0.038912749642346256,
+   "last week": -0.02339962958793851,
+   "popularity": 3.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "IBE.MC",
+   "name": "Iberdrola",
+   "since Oct 23": 0.035159817351598344,
+   "last week": -0.043459955972153685,
+   "popularity": 5.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "PUIG.MC",
+   "name": "Puig",
+   "since Oct 23": 0.028735738178460757,
+   "last week": -0.03480387254901962,
+   "popularity": 1.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "SAB.MC",
+   "name": "Banco Sabadell",
+   "since Oct 23": 0.027826086956521667,
+   "last week": -0.054400000000000004,
+   "popularity": 2.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "KDP",
+   "name": "Keurig Dr Pepper Inc. Common Stock",
+   "since Oct 23": 0.027668112016822066,
+   "last week": -0.03424222668995447,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "SCYR.MC",
+   "name": "Sacyr",
+   "since Oct 23": 0.026315789473684292,
+   "last week": -0.045647058823529374,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "MPWR",
+   "name": "Monolithic Power Systems, Inc. Common Stock",
+   "since Oct 23": 0.024680326109635775,
+   "last week": -0.17267408661254546,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "NXPI",
+   "name": "NXP Semiconductors N.V. Common Stock",
+   "since Oct 23": 0.023950133150473674,
+   "last week": -0.106434026991169,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "CABK.MC",
+   "name": "CaixaBank",
+   "since Oct 23": 0.02277802590442146,
+   "last week": -0.0641601961585615,
+   "popularity": 3.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ENEL.MI",
+   "name": "Enel",
+   "since Oct 23": 0.02147971360381873,
+   "last week": -0.05414364640883973,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ITX.MC",
+   "name": "Inditex",
+   "since Oct 23": 0.018329167489278486,
+   "last week": -0.031187123259341587,
+   "popularity": 7.0,
+   "next earnings": "2026-12-02"
+  },
+  {
+   "ticker": "AMZN",
+   "name": "Amazon.com, Inc. Common Stock",
+   "since Oct 23": 0.018081399168766277,
+   "last week": -0.0676102982805239,
+   "popularity": 7.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ADP",
+   "name": "Automatic Data Processing, Inc. Common Stock",
+   "since Oct 23": 0.014708760655415709,
+   "last week": -0.01937925948339847,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "AMGN",
+   "name": "Amgen Inc. Common Stock",
+   "since Oct 23": 0.014518382201787805,
+   "last week": -0.057623427252851966,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ABNB",
+   "name": "Airbnb, Inc. Class A Common Stock",
+   "since Oct 23": 0.01313606179331206,
+   "last week": -0.08121847387971548,
+   "popularity": 1.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "LIN",
+   "name": "Linde plc Ordinary Shares",
+   "since Oct 23": 0.010886263351634451,
+   "last week": -0.03714502287905441,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "AAPL",
+   "name": "Apple Inc. Common Stock",
+   "since Oct 23": 0.007739533952825672,
+   "last week": -0.031426916015590556,
+   "popularity": 8.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ENG.MC",
+   "name": "Enag\u00e1s",
+   "since Oct 23": 0.007411573123627724,
+   "last week": -0.039673913043478115,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ISP.MI",
+   "name": "Intesa Sanpaolo",
+   "since Oct 23": 0.0069965870307167055,
+   "last week": -0.057799776464952934,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "VRTX",
+   "name": "Vertex Pharmaceuticals Incorporated Common Stock",
+   "since Oct 23": 0.005552323373386736,
+   "last week": -0.0367638554266877,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "CTAS",
+   "name": "Cintas Corporation Common Stock",
+   "since Oct 23": 0.0042789648980752215,
+   "last week": -0.020401754719167386,
+   "popularity": 0.3,
+   "next earnings": "2026-12-17"
+  },
+  {
+   "ticker": "SLR.MC",
+   "name": "Solaria",
+   "since Oct 23": 0.0036429872495447047,
+   "last week": -0.1253968253968254,
+   "popularity": 1.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "DB1.DE",
+   "name": "Deutsche B\u00f6rse",
+   "since Oct 23": 0.003183699397955486,
+   "last week": -0.04630747057459084,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "FAST",
+   "name": "Fastenal Company Common Stock",
+   "since Oct 23": -0.0026694090270645843,
+   "last week": -0.07625745012831486,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "MC.PA",
+   "name": "LVMH Mo\u00ebt Hennessy Louis Vuitton",
+   "since Oct 23": -0.0027414830287205705,
+   "last week": -0.05329036896893191,
+   "popularity": 4.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "OR.PA",
+   "name": "L'Or\u00e9al",
+   "since Oct 23": -0.002979573769779642,
+   "last week": -0.03590428095999254,
+   "popularity": 2.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ENR.DE",
+   "name": "Siemens Energy",
+   "since Oct 23": -0.0030333670374116384,
+   "last week": -0.09872028563924662,
+   "popularity": 1.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "DHL.DE",
+   "name": "Deutsche Post",
+   "since Oct 23": -0.0031424756135208787,
+   "last week": -0.062397436374468485,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "FDR.MC",
+   "name": "Fluidra",
+   "since Oct 23": -0.003867348066298515,
+   "last week": -0.07253086046651958,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ADSK",
+   "name": "Autodesk, Inc. Common Stock",
+   "since Oct 23": -0.008364476876177696,
+   "last week": -0.06862624340113987,
+   "popularity": 0.3,
+   "next earnings": "2026-11-25"
+  },
+  {
+   "ticker": "SIE.DE",
+   "name": "Siemens",
+   "since Oct 23": -0.00837225117004281,
+   "last week": -0.08858267906763095,
+   "popularity": 1.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "RMS.PA",
+   "name": "Herm\u00e8s",
+   "since Oct 23": -0.010496568429551822,
+   "last week": -0.08647036898993665,
+   "popularity": 2.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "CSX",
+   "name": "CSX Corporation Common Stock",
+   "since Oct 23": -0.011089299180756296,
+   "last week": -0.04975468297740604,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "AEP",
+   "name": "American Electric Power Company, Inc. Common Stock",
+   "since Oct 23": -0.012940180104360488,
+   "last week": -0.02416614865063904,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "AIR.PA",
+   "name": "Airbus",
+   "since Oct 23": -0.012989711675527427,
+   "last week": -0.08076451722519773,
+   "popularity": 2.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ELE.MC",
+   "name": "Endesa",
+   "since Oct 23": -0.013272356675689823,
+   "last week": -0.062404933141772756,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "LOG.MC",
+   "name": "Logista",
+   "since Oct 23": -0.014586709886547977,
+   "last week": -0.034409715045254474,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "TEF.MC",
+   "name": "Telef\u00f3nica",
+   "since Oct 23": -0.015803336259877065,
+   "last week": -0.03389830508474578,
+   "popularity": 4.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "HON",
+   "name": "Honeywell International Inc. Common Stock",
+   "since Oct 23": -0.016415099796091015,
+   "last week": -0.03712922754693415,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "BBVA.MC",
+   "name": "BBVA",
+   "since Oct 23": -0.01799370220422858,
+   "last week": -0.07382265591854065,
+   "popularity": 5.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "SU.PA",
+   "name": "Schneider Electric",
+   "since Oct 23": -0.020959339350717476,
+   "last week": -0.06941874803144887,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "PCAR",
+   "name": "PACCAR Inc. Common Stock",
+   "since Oct 23": -0.02257528542606224,
+   "last week": -0.03478452436555601,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "BKT.MC",
+   "name": "Bankinter",
+   "since Oct 23": -0.023205997857908,
+   "last week": -0.06557377049180335,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "PAYX",
+   "name": "Paychex, Inc. Common Stock",
+   "since Oct 23": -0.023935109412122957,
+   "last week": -0.019221850688964537,
+   "popularity": 0.3,
+   "next earnings": "2026-12-18"
+  },
+  {
+   "ticker": "MRL.MC",
+   "name": "Merlin Properties",
+   "since Oct 23": -0.028444444444444494,
+   "last week": -0.0658119658119658,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "MTS.MC",
+   "name": "ArcelorMittal",
+   "since Oct 23": -0.031144465875130645,
+   "last week": -0.09435287618379518,
+   "popularity": 0.8,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ABI.BR",
+   "name": "Anheuser-Busch InBev",
+   "since Oct 23": -0.03183026440768533,
+   "last week": -0.05120875874164921,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "AVGO",
+   "name": "Broadcom Inc. Common Stock",
+   "since Oct 23": -0.031970274607897364,
+   "last week": -0.11632634600233294,
+   "popularity": 3.0,
+   "next earnings": "2026-12-10"
+  },
+  {
+   "ticker": "MNST",
+   "name": "Monster Beverage Corporation",
+   "since Oct 23": -0.03241772227360029,
+   "last week": -0.05272117868145043,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "REP.MC",
+   "name": "Repsol",
+   "since Oct 23": -0.03394433244889117,
+   "last week": -0.07866623757417412,
+   "popularity": 4.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "NTGY.MC",
+   "name": "Naturgy",
+   "since Oct 23": -0.03472668810289392,
+   "last week": -0.03223726627981949,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "EL.PA",
+   "name": "EssilorLuxottica",
+   "since Oct 23": -0.036423791993771326,
+   "last week": -0.04250068409649521,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "COL.MC",
+   "name": "Inmobiliaria Colonial",
+   "since Oct 23": -0.04133858267716539,
+   "last week": -0.045098039215686225,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "CEG",
+   "name": "Constellation Energy Corporation Common Stock ",
+   "since Oct 23": -0.04179033249022035,
+   "last week": -0.14649542210586397,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "PYPL",
+   "name": "PayPal Holdings, Inc. Common Stock",
+   "since Oct 23": -0.04396819897065907,
+   "last week": -0.09444980210990295,
+   "popularity": 1.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "INGA.AS",
+   "name": "ING Group",
+   "since Oct 23": -0.044448314984129156,
+   "last week": -0.09726141078838169,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ROST",
+   "name": "Ross Stores, Inc. Common Stock",
+   "since Oct 23": -0.04771645015907788,
+   "last week": -0.0718824669303818,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "BKNG",
+   "name": "Booking Holdings Inc. Common Stock",
+   "since Oct 23": -0.04873588165482956,
+   "last week": -0.08526585354633032,
+   "popularity": 1.2,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "TSLA",
+   "name": "Tesla, Inc. Common Stock",
+   "since Oct 23": -0.04960480360277142,
+   "last week": -0.10727935445417602,
+   "popularity": 8.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "CLNX.MC",
+   "name": "Cellnex Telecom",
+   "since Oct 23": -0.049618356884795656,
+   "last week": -0.07297099504947901,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "TXN",
+   "name": "Texas Instruments Incorporated Common Stock",
+   "since Oct 23": -0.052293026894154826,
+   "last week": -0.12488388449151822,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ACS.MC",
+   "name": "ACS",
+   "since Oct 23": -0.05425470973427604,
+   "last week": -0.0906095522039686,
+   "popularity": 1.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "MSFT",
+   "name": "Microsoft Corporation Common Stock",
+   "since Oct 23": -0.05504366456951604,
+   "last week": -0.06834554553543426,
+   "popularity": 7.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "HONA",
+   "name": "Honeywell Aerospace Inc. Common Stock ",
+   "since Oct 23": -0.05597577336904036,
+   "last week": -0.07995974866189215,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "SNPS",
+   "name": "Synopsys, Inc. Common Stock",
+   "since Oct 23": -0.057838014901269275,
+   "last week": -0.12329330321816523,
+   "popularity": 0.3,
+   "next earnings": "2026-12-09"
+  },
+  {
+   "ticker": "ODFL",
+   "name": "Old Dominion Freight Line, Inc. Common Stock",
+   "since Oct 23": -0.058853676784919484,
+   "last week": -0.02988794416532392,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "BAS.DE",
+   "name": "BASF",
+   "since Oct 23": -0.058913249591739825,
+   "last week": -0.09047353970886318,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "TTE.PA",
+   "name": "TotalEnergies",
+   "since Oct 23": -0.06303169789209206,
+   "last week": -0.04843612141745457,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "IFX.DE",
+   "name": "Infineon Technologies",
+   "since Oct 23": -0.066365299624627,
+   "last week": -0.0889223258145363,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "MAP.MC",
+   "name": "Mapfre",
+   "since Oct 23": -0.06879271070615023,
+   "last week": -0.058931860036832484,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "BMW.DE",
+   "name": "BMW",
+   "since Oct 23": -0.06896550222798681,
+   "last week": -0.07058416203059803,
+   "popularity": 2.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "MBG.DE",
+   "name": "Mercedes-Benz Group",
+   "since Oct 23": -0.07658328048192042,
+   "last week": -0.07692312410935775,
+   "popularity": 1.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "PANW",
+   "name": "Palo Alto Networks, Inc. Common Stock",
+   "since Oct 23": -0.07712852328683462,
+   "last week": 0.07323460232435486,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "CRWD",
+   "name": "CrowdStrike Holdings, Inc. Class A Common Stock",
+   "since Oct 23": -0.08877070938708587,
+   "last week": 0.019917524783801266,
+   "popularity": 1.5,
+   "next earnings": "2026-12-02"
+  },
+  {
+   "ticker": "CDNS",
+   "name": "Cadence Design Systems, Inc. Common Stock",
+   "since Oct 23": -0.08988634752853775,
+   "last week": -0.1218660005993335,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ADI",
+   "name": "Analog Devices, Inc. Common Stock",
+   "since Oct 23": -0.0951533085643953,
+   "last week": -0.12441091008587035,
+   "popularity": 0.3,
+   "next earnings": "2026-11-24"
+  },
+  {
+   "ticker": "ISRG",
+   "name": "Intuitive Surgical, Inc. Common Stock",
+   "since Oct 23": -0.09746483727536659,
+   "last week": -0.09380732376121825,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ANA.MC",
+   "name": "Acciona",
+   "since Oct 23": -0.10077895620581179,
+   "last week": -0.09014779802955664,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "SAN.MC",
+   "name": "Santander",
+   "since Oct 23": -0.10338835794960899,
+   "last week": -0.06943192064923354,
+   "popularity": 7.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "META",
+   "name": "Meta Platforms, Inc. Class A Common Stock",
+   "since Oct 23": -0.10723205096752453,
+   "last week": -0.11958239562509598,
+   "popularity": 6.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "KLAC",
+   "name": "KLA Corporation Common Stock",
+   "since Oct 23": -0.1087047981621363,
+   "last week": -0.16097096857224868,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "SPCX",
+   "name": "Space Exploration Technologies Corp. Class A Common Stock",
+   "since Oct 23": -0.11368498549583272,
+   "last week": -0.0746340631632666,
+   "popularity": 7.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "PRX.AS",
+   "name": "Prosus",
+   "since Oct 23": -0.11647636034394859,
+   "last week": -0.15410473953781845,
+   "popularity": 0.3,
+   "next earnings": "2026-11-25"
+  },
+  {
+   "ticker": "RKLB",
+   "name": "Rocket Lab Corporation Common Stock",
+   "since Oct 23": -0.11668581165386305,
+   "last week": -0.25640717289303894,
+   "popularity": 2.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "NFLX",
+   "name": "Netflix, Inc. Common Stock",
+   "since Oct 23": -0.11872623679227479,
+   "last week": -0.08051081450437403,
+   "popularity": 4.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ACX.MC",
+   "name": "Acerinox",
+   "since Oct 23": -0.1256009089904392,
+   "last week": -0.07911392405063289,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "NOKIA.HE",
+   "name": "Nokia",
+   "since Oct 23": -0.12564450474898237,
+   "last week": -0.11653413764738141,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "FANG",
+   "name": "Diamondback Energy, Inc. Common Stock",
+   "since Oct 23": -0.12620548727197967,
+   "last week": -0.042667132474561664,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ENI.MI",
+   "name": "Eni",
+   "since Oct 23": -0.12640141048824594,
+   "last week": -0.070067333974976,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "QCOM",
+   "name": "QUALCOMM Incorporated Common Stock",
+   "since Oct 23": -0.128071653011826,
+   "last week": -0.12425244095690868,
+   "popularity": 1.2,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "CSCO",
+   "name": "Cisco Systems, Inc. Common Stock (DE)",
+   "since Oct 23": -0.12938908521660109,
+   "last week": -0.045325509210296766,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "DASH",
+   "name": "DoorDash, Inc. Class A Common Stock",
+   "since Oct 23": -0.12976941636851635,
+   "last week": -0.10372742949737279,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ANE.MC",
+   "name": "Acciona Energ\u00eda",
+   "since Oct 23": -0.13150552973977703,
+   "last week": -0.07749254689042462,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "SAP.DE",
+   "name": "SAP",
+   "since Oct 23": -0.14328359076353336,
+   "last week": -0.1394706227145086,
+   "popularity": 2.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "GOOG",
+   "name": "Alphabet Inc. Class C Capital Stock",
+   "since Oct 23": -0.14883245689438973,
+   "last week": -0.09087548787386446,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "WDAY",
+   "name": "Workday, Inc. Class A Common Stock",
+   "since Oct 23": -0.14984049704753988,
+   "last week": -0.10511304599085447,
+   "popularity": 0.3,
+   "next earnings": "2026-11-25"
+  },
+  {
+   "ticker": "GOOGL",
+   "name": "Alphabet Inc. Class A Common Stock",
+   "since Oct 23": -0.15249974146100476,
+   "last week": -0.09647166166640675,
+   "popularity": 6.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ADBE",
+   "name": "Adobe Inc. Common Stock",
+   "since Oct 23": -0.1558405481535281,
+   "last week": -0.0977972436598259,
+   "popularity": 1.2,
+   "next earnings": "2026-12-10"
+  },
+  {
+   "ticker": "TRI",
+   "name": "Thomson Reuters Corporation Common Shares",
+   "since Oct 23": -0.15652624760287892,
+   "last week": -0.06399644364083046,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "AMD",
+   "name": "Advanced Micro Devices, Inc. Common Stock",
+   "since Oct 23": -0.1599504612098206,
+   "last week": -0.19952071689190842,
+   "popularity": 5.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ADYEN.AS",
+   "name": "Adyen",
+   "since Oct 23": -0.16067275242633172,
+   "last week": -0.08488061127567137,
+   "popularity": 1.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "ASML.AS",
+   "name": "ASML Holding",
+   "since Oct 23": -0.16998291595307202,
+   "last week": -0.12757696649890093,
+   "popularity": 5.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "IDR.MC",
+   "name": "Indra",
+   "since Oct 23": -0.17106142092995402,
+   "last week": -0.15527212849102257,
+   "popularity": 4.0,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "AMAT",
+   "name": "Applied Materials, Inc. Common Stock",
+   "since Oct 23": -0.17936868846578946,
+   "last week": -0.1771915146563825,
+   "popularity": 0.8,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "BKR",
+   "name": "Baker Hughes Company Class A Common Stock",
+   "since Oct 23": -0.1794069436652258,
+   "last week": -0.08699850351669447,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "LRCX",
+   "name": "Lam Research Corporation Common Stock",
+   "since Oct 23": -0.18524209533482328,
+   "last week": -0.18283133881849245,
+   "popularity": 0.8,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "INTU",
+   "name": "Intuit Inc. Common Stock",
+   "since Oct 23": -0.194367289853272,
+   "last week": -0.20273825564487735,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "WDC",
+   "name": "Western Digital Corporation Common Stock",
+   "since Oct 23": -0.2227948606256961,
+   "last week": -0.11034710900030653,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "MCHP",
+   "name": "Microchip Technology Incorporated Common Stock",
+   "since Oct 23": -0.2341354693208958,
+   "last week": -0.09457217294287101,
+   "popularity": 0.3,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "MELI",
+   "name": "MercadoLibre, Inc. Common Stock",
+   "since Oct 23": -0.23426491193871235,
+   "last week": -0.08484650781246605,
+   "popularity": 1.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "SHOP",
+   "name": "Shopify Inc. Class A Subordinate Voting Shares",
+   "since Oct 23": -0.24970826259418877,
+   "last week": -0.15271061063434765,
+   "popularity": 1.5,
+   "next earnings": NaN
+  },
+  {
+   "ticker": "PLTR",
+   "name": "Palantir Technologies Inc. Class A Common Stock",
+   "since Oct 23": -0.2539623713418424,
+   "last week": -0.13957465076942976,
+   "popularity": 6.0,
+   "next earnings": NaN
+  }
+ ]
+}
