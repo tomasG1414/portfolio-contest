@@ -7,386 +7,367 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=STIX+Two+Text:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&display=swap">
 <style>
-/* Layout: banco de trabajo. La maqueta viva sobre una plancha de corte (izquierda),
-   el carril de controles (derecha); debajo, la ficha de física y la hoja de montaje. */
+/* Layout: apuntes de clase + lámina técnica. La figura viva va sobre el papel, sin caja;
+   los controles son una hoja de datos al lado; la física, un recuadro de libro de texto
+   con figuras al margen; el montaje, una lámina con cotas y cajetín.
+   Claro = tinta sobre papel. Oscuro = tiza sobre pizarra. Un solo acento: el hilo rojo. */
 :root {
-  --bg: #e6e9e7;
-  --surface: #f4f5f4;
-  --ink: #15201c;
-  --muted: #55625d;
-  --line: #c6cfcb;
-  --accent: #b8283a;          /* hilo de coser */
-  --accent-soft: rgba(184, 40, 58, .10);
-  --focus: #1d6a86;
-  --code-bg: #e8ecea;
+  --paper: #f6f7f6;
+  --card: #ffffff;
+  --ink: #1b1f21;
+  --ink-2: #596166;
+  --rule: #c7cccf;
+  --rule-soft: #e3e6e7;
+  --red: #c8202e;
+  --red-soft: rgba(200, 32, 46, .08);
+  --focus: #1f5fa8;
+  /* figura 3D */
+  --floor: #eef0ef;
+  --grid: rgba(27, 31, 33, .07);
+  --grid-major: rgba(27, 31, 33, .15);
+  --outline: rgba(27, 31, 33, .72);
+  --shadow: rgba(27, 31, 33, .14);
+  --hole: #2b3033;
+  --zinc-hi: 226 229 231;
+  --zinc-lo: 146 154 160;
+  --wood-hi: 222 190 150;
+  --wood-lo: 156 118 80;
 
-  /* escenario: banco oscuro en los dos temas */
-  --wall-top: #26332f;
-  --wall-bottom: #161f1c;
-  --mat: #2d6450;
-  --mat-line: rgba(222, 242, 232, .13);
-  --mat-line-major: rgba(222, 242, 232, .30);
-  --stage-ink: #dce6e1;
-  --stage-dim: rgba(220, 230, 225, .62);
-  --stage-chip: rgba(255, 255, 255, .07);
-  --stage-chip-line: rgba(255, 255, 255, .16);
-  --thread-3d: #ff5b61;
-  --hole: #0b1210;
-  --shadow: rgba(0, 0, 0, .34);
-  --zinc-rgb: 186 193 199;
-  --wood-rgb: 172 124 78;
-  --peg-rgb: 214 178 96;
+  --font-text: "Source Serif 4", "Source Serif Pro", Georgia, "Times New Roman", serif;
+  --font-label: "Barlow Semi Condensed", "Bahnschrift", "DIN Alternate", "Arial Narrow", sans-serif;
 
-  --font-display: "Archivo", "Arial Narrow", Arial, sans-serif;
-  --font-body: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --font-math: "STIX Two Text", "Cambria Math", "Times New Roman", serif;
-
-  --radius: 14px;
   color-scheme: light;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0d1211;
-    --surface: #141b19;
-    --ink: #e1e8e5;
-    --muted: #8f9d98;
-    --line: #27322f;
-    --accent: #f2636c;
-    --accent-soft: rgba(242, 99, 108, .14);
-    --focus: #6cc0dc;
-    --code-bg: #0f1614;
-    --wall-top: #151d1b;
-    --wall-bottom: #0a0f0e;
-    --mat: #214a3b;
-    --mat-line: rgba(222, 242, 232, .10);
-    --mat-line-major: rgba(222, 242, 232, .22);
-    --thread-3d: #ff6a6f;
-    --hole: #050807;
-    --shadow: rgba(0, 0, 0, .45);
-    --zinc-rgb: 172 179 186;
-    --wood-rgb: 152 109 68;
-    --peg-rgb: 196 162 86;
+    --paper: #1e2724;
+    --card: #232e2a;
+    --ink: #e7ece6;
+    --ink-2: #a3b0aa;
+    --rule: #43524c;
+    --rule-soft: #2e3a36;
+    --red: #f2867a;
+    --red-soft: rgba(242, 134, 122, .12);
+    --focus: #8ec5ff;
+    --floor: #232e2a;
+    --grid: rgba(231, 236, 230, .06);
+    --grid-major: rgba(231, 236, 230, .13);
+    --outline: rgba(231, 236, 230, .7);
+    --shadow: rgba(0, 0, 0, .32);
+    --hole: #121816;
+    --zinc-hi: 200 207 210;
+    --zinc-lo: 108 118 122;
+    --wood-hi: 166 133 98;
+    --wood-lo: 96 74 52;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0d1211;
-  --surface: #141b19;
-  --ink: #e1e8e5;
-  --muted: #8f9d98;
-  --line: #27322f;
-  --accent: #f2636c;
-  --accent-soft: rgba(242, 99, 108, .14);
-  --focus: #6cc0dc;
-  --code-bg: #0f1614;
-  --wall-top: #151d1b;
-  --wall-bottom: #0a0f0e;
-  --mat: #214a3b;
-  --mat-line: rgba(222, 242, 232, .10);
-  --mat-line-major: rgba(222, 242, 232, .22);
-  --thread-3d: #ff6a6f;
-  --hole: #050807;
-  --shadow: rgba(0, 0, 0, .45);
-  --zinc-rgb: 172 179 186;
-  --wood-rgb: 152 109 68;
-  --peg-rgb: 196 162 86;
+  --paper: #1e2724;
+  --card: #232e2a;
+  --ink: #e7ece6;
+  --ink-2: #a3b0aa;
+  --rule: #43524c;
+  --rule-soft: #2e3a36;
+  --red: #f2867a;
+  --red-soft: rgba(242, 134, 122, .12);
+  --focus: #8ec5ff;
+  --floor: #232e2a;
+  --grid: rgba(231, 236, 230, .06);
+  --grid-major: rgba(231, 236, 230, .13);
+  --outline: rgba(231, 236, 230, .7);
+  --shadow: rgba(0, 0, 0, .32);
+  --hole: #121816;
+  --zinc-hi: 200 207 210;
+  --zinc-lo: 108 118 122;
+  --wood-hi: 166 133 98;
+  --wood-lo: 96 74 52;
   color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; }
 body {
-  background: var(--bg);
+  background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-body);
-  font-size: 15px;
+  font-family: var(--font-text);
+  font-size: 17px;
   line-height: 1.55;
+  font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
 }
 [hidden] { display: none !important; }
 button { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+a:hover { text-decoration-color: var(--ink); }
 
 .wrap {
-  max-width: 1320px;
+  max-width: 1240px;
   margin: 0 auto;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: 22px 48px;
+  padding-block: 28px 56px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 40px;
+}
+
+/* etiquetas y controles: letra de rotulación técnica */
+.label, .btn, .seg label, .ctl-head, figcaption .fig, .tl-tick, .meta, .lan, th, .cajetin, .nut-pick {
+  font-family: var(--font-label);
 }
 
 /* cabecera */
-.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 28px; }
-.top > div { min-width: 0; }
-.kicker {
-  margin: 0 0 6px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: .03em;
-  color: var(--muted);
-}
-.kicker b { color: var(--accent); font-weight: 500; }
+.top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 32px; align-items: start; }
+@media (max-width: 760px) { .top { grid-template-columns: minmax(0, 1fr); } }
 h1 {
   margin: 0;
-  font-family: var(--font-display);
-  font-stretch: 125%;
-  font-weight: 800;
-  font-size: clamp(30px, 4.8vw, 50px);
-  line-height: 1;
-  letter-spacing: -.012em;
+  font-weight: 600;
+  font-size: clamp(38px, 6vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -.015em;
+  font-variation-settings: "opsz" 60;
   text-wrap: balance;
 }
-.lead { margin: 10px 0 0; max-width: 64ch; color: var(--muted); }
-.lan {
-  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-  padding: 9px 12px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--surface);
-  font-size: 13px;
+.standfirst {
+  margin: 14px 0 0;
+  max-width: 40em;
+  font-size: clamp(18px, 2vw, 21px);
+  line-height: 1.45;
+  color: var(--ink-2);
+  text-wrap: pretty;
 }
-.lan code { font-family: var(--font-mono); font-size: 13px; color: var(--ink); word-break: break-all; }
-.lan small { display: block; color: var(--muted); font-size: 12px; }
+.lan { font-size: 14px; color: var(--ink-2); text-align: right; line-height: 1.35; }
+.lan code { display: block; font-family: var(--font-label); font-size: 17px; font-weight: 600; color: var(--ink); letter-spacing: .01em; }
+.lan button { margin-top: 6px; }
+@media (max-width: 760px) { .lan { text-align: left; } }
 
-/* banco: escenario + carril */
-.bench { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; align-items: start; }
-@media (max-width: 940px) { .bench { grid-template-columns: minmax(0, 1fr); } }
-
-.stage {
-  min-width: 0;
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: linear-gradient(180deg, var(--wall-top), var(--wall-bottom));
-  color: var(--stage-ink);
-}
-.viewport { position: relative; }
-#scene { display: block; width: 100%; height: clamp(330px, 62vh, 640px); touch-action: none; cursor: grab; }
+/* figura 1 + hoja de datos */
+.bench { display: grid; grid-template-columns: minmax(0, 1fr) 312px; gap: 28px 40px; align-items: start; }
+@media (max-width: 980px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+figure { margin: 0; min-width: 0; }
+/* en escritorio la figura acompaña al lector mientras recorre los controles */
+@media (min-width: 981px) and (min-height: 760px) { .bench > figure { position: sticky; top: 16px; } }
+.fig-tools { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+#scene { display: block; width: 100%; height: clamp(320px, 56vh, 580px); touch-action: none; cursor: grab; }
 #scene.dragging { cursor: grabbing; }
-.view-tools {
-  position: absolute; top: 10px; left: 10px; right: 10px;
-  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px;
-  pointer-events: none;
-}
-.view-tools > * { pointer-events: auto; }
-.chips { display: flex; flex-wrap: wrap; gap: 4px; }
-.chip {
-  font: 500 12px/1 var(--font-body);
-  color: var(--stage-ink);
-  background: var(--stage-chip);
-  border: 1px solid var(--stage-chip-line);
-  border-radius: 999px;
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 15px; font-weight: 500; line-height: 1;
   padding: 7px 11px;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
-}
-.chip:hover { border-color: var(--stage-dim); }
-.chip[aria-pressed="true"] { border-color: var(--thread-3d); color: var(--thread-3d); }
-.chip.sq { width: 30px; padding: 7px 0; text-align: center; font-family: var(--font-mono); }
-.hint {
-  position: absolute; left: 12px; right: 12px; bottom: 8px;
-  margin: 0;
-  font-size: 11.5px;
-  color: var(--stage-dim);
-  pointer-events: none;
-}
-
-.transport { display: grid; gap: 12px; padding: 12px 14px 14px; border-top: 1px solid var(--stage-chip-line); }
-.transport-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.tbtn {
-  display: inline-flex; align-items: center; gap: 7px;
-  font: 600 13px/1 var(--font-body);
-  color: var(--stage-ink);
-  background: var(--stage-chip);
-  border: 1px solid var(--stage-chip-line);
-  border-radius: 8px;
-  padding: 8px 12px;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  background: transparent;
   cursor: pointer;
 }
-.tbtn:hover { border-color: var(--stage-dim); }
-.tbtn.primary { background: var(--thread-3d); border-color: var(--thread-3d); color: #1b0b0c; }
-.tbtn svg { fill: currentColor; }
-.timeline { position: relative; flex: 1 1 260px; min-width: 0; height: 36px; cursor: pointer; touch-action: none; }
-.timeline:focus-visible { outline-offset: 4px; border-radius: 4px; }
-.tl-track { position: absolute; left: 0; right: 0; top: 22px; height: 4px; border-radius: 2px; background: var(--stage-chip-line); overflow: hidden; }
-.tl-fill { height: 100%; width: 0; background: var(--thread-3d); }
-.tl-head { position: absolute; top: 16px; width: 2px; height: 16px; margin-left: -1px; background: var(--stage-ink); border-radius: 1px; }
-.tl-tick {
-  position: absolute; top: 0;
-  transform: translateX(-50%);
-  font: 500 11px/1 var(--font-mono);
-  color: var(--stage-dim);
-}
-.tl-tick::after { content: ""; position: absolute; left: 50%; top: 15px; width: 1px; height: 15px; background: var(--stage-dim); opacity: .7; }
-.readouts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px 16px; margin: 0; }
-@media (max-width: 620px) {
-  .readouts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .timeline { flex-basis: 100%; }
-}
-.readouts div { min-width: 0; }
-.readouts dt { font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--stage-dim); }
-.readouts dd { margin: 3px 0 0; font-family: var(--font-mono); font-size: 14px; font-variant-numeric: tabular-nums; }
+.btn:hover { background: var(--red-soft); }
+.btn.solid { background: var(--ink); color: var(--paper); }
+.btn.solid:hover { opacity: .88; }
+.btn svg { fill: currentColor; }
+.btn.sq { width: 32px; justify-content: center; padding-inline: 0; }
 
-/* carril de controles */
-.rail {
-  min-width: 0;
-  display: flex; flex-direction: column; gap: 22px;
-  padding: 16px 16px 18px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+.seg { display: inline-flex; border: 1px solid var(--ink); border-radius: 2px; }
+.seg button, .seg label {
+  font-family: var(--font-label);
+  font-size: 15px; font-weight: 500; line-height: 1;
+  padding: 7px 11px;
+  border: 0;
+  border-left: 1px solid var(--ink);
+  background: transparent;
+  cursor: pointer;
 }
-.group { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-.group h2 {
-  display: flex; align-items: center; gap: 10px;
-  margin: 0;
-  font: 700 11.5px/1.2 var(--font-body);
-  letter-spacing: .09em;
-  text-transform: uppercase;
-  color: var(--muted);
+.seg > :first-child { border-left: 0; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+.transport { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: 6px; }
+.timeline { position: relative; flex: 1 1 260px; min-width: 0; height: 38px; cursor: pointer; touch-action: none; }
+.timeline:focus-visible { outline-offset: 3px; }
+.tl-track { position: absolute; left: 0; right: 0; top: 26px; height: 1px; background: var(--ink); }
+.tl-fill { position: absolute; left: 0; top: 25px; height: 3px; width: 0; background: var(--red); }
+.tl-head { position: absolute; top: 18px; width: 2px; height: 17px; margin-left: -1px; background: var(--red); }
+.tl-tick { position: absolute; top: 0; transform: translateX(-50%); font-size: 13px; line-height: 1; color: var(--ink-2); white-space: nowrap; }
+.tl-tick::after { content: ""; position: absolute; left: 50%; top: 17px; width: 1px; height: 13px; background: var(--ink); }
+.tl-end { position: absolute; top: 21px; width: 1px; height: 11px; background: var(--ink); }
+
+figcaption { margin-top: 10px; font-size: 16px; line-height: 1.5; color: var(--ink-2); max-width: 46em; }
+figcaption .fig { font-weight: 600; color: var(--ink); letter-spacing: .01em; }
+.live { color: var(--ink); font-variant-numeric: tabular-nums; }
+.hint { font-style: italic; }
+
+/* hoja de datos */
+.sheetform { display: flex; flex-direction: column; gap: 26px; min-width: 0; }
+@media (min-width: 981px) { .sheetform { border-left: 1px solid var(--rule); padding-left: 28px; } }
+fieldset { border: 0; margin: 0; padding: 0; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+legend {
+  padding: 0 0 6px; margin-bottom: 4px; width: 100%;
+  font-weight: 600; font-size: 19px;
+  border-bottom: 2px solid var(--ink);
 }
-.group h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-.ctl { display: grid; gap: 6px; }
-.ctl-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-.ctl-head label, .ctl-head .lbl { font-weight: 600; font-size: 14px; }
-.ctl output { font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.note { margin: 0; font-size: 12.5px; line-height: 1.45; color: var(--muted); }
-.note .num { font-size: 12px; }
+.ctl { display: grid; gap: 5px; }
+.ctl-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 16px; }
+.ctl-head label, .ctl-head .lbl { font-weight: 500; }
+.ctl output { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.note { margin: 0; font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
+.num { color: var(--red); font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; }
 
 input[type="range"] {
   -webkit-appearance: none; appearance: none;
   width: 100%; height: 22px; margin: 0;
-  background: transparent;
-  cursor: pointer;
+  background: transparent; cursor: pointer;
   --fill: 50%;
 }
 input[type="range"]::-webkit-slider-runnable-track {
-  height: 2px; border-radius: 1px;
-  background: linear-gradient(to right, var(--accent) var(--fill), var(--line) var(--fill));
+  height: 3px;
+  background: linear-gradient(to bottom, transparent 1px, var(--ink) 1px, var(--ink) 2px, transparent 2px),
+              linear-gradient(to right, var(--red) var(--fill), transparent var(--fill));
 }
-input[type="range"]::-moz-range-track { height: 2px; border-radius: 1px; background: var(--line); }
-input[type="range"]::-moz-range-progress { height: 2px; background: var(--accent); }
-/* el tirador es una tuerca: hexágono con agujero */
+input[type="range"]::-moz-range-track { height: 1px; background: var(--ink); }
+input[type="range"]::-moz-range-progress { height: 3px; background: var(--red); }
+/* el tirador es una tuerca */
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none; appearance: none;
-  width: 20px; height: 18px; margin-top: -8px;
-  border: 0;
-  background: radial-gradient(circle, var(--surface) 0 3.2px, var(--ink) 3.8px);
+  width: 18px; height: 16px; margin-top: -6.5px; border: 0;
+  background: radial-gradient(circle, var(--paper) 0 3px, var(--ink) 3.6px);
   clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
 }
 input[type="range"]::-moz-range-thumb {
-  width: 20px; height: 18px;
-  border: 0; border-radius: 0;
-  background: radial-gradient(circle, var(--surface) 0 3.2px, var(--ink) 3.8px);
+  width: 18px; height: 16px; border: 0; border-radius: 0;
+  background: radial-gradient(circle, var(--paper) 0 3px, var(--ink) 3.6px);
   clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
 }
-input[type="range"]:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+input[type="range"]:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 
-.seg { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-.seg input { position: absolute; opacity: 0; pointer-events: none; }
-.seg label {
-  flex: 1;
-  padding: 8px 4px;
-  text-align: center;
-  font: 600 13px/1 var(--font-body);
-  color: var(--muted);
-  border-left: 1px solid var(--line);
-  cursor: pointer;
-}
-.seg label:first-of-type { border-left: 0; }
-.seg input:checked + label { background: var(--ink); color: var(--surface); }
-.seg input:focus-visible + label { outline: 2px solid var(--focus); outline-offset: -3px; }
-.btn {
-  justify-self: start;
-  font: 600 13px/1 var(--font-body);
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--line);
-  background: transparent;
-  cursor: pointer;
-}
-.btn:hover { border-color: var(--muted); }
-.facts { display: grid; gap: 6px; margin: 0; padding: 10px 12px; border-radius: 8px; background: var(--code-bg); }
-.facts div { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
-.facts dt { color: var(--muted); }
-.facts dd { margin: 0; font-family: var(--font-mono); font-size: 12.5px; font-variant-numeric: tabular-nums; text-align: right; }
+/* selector de tuercas dibujadas a escala */
+.nut-pick { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.nut-pick input { position: absolute; opacity: 0; pointer-events: none; }
+.nut-pick label { display: grid; justify-items: center; gap: 2px; padding: 8px 0 6px; cursor: pointer; color: var(--ink-2); font-size: 14px; font-weight: 500; }
+.nut-pick label svg { width: 44px; height: 44px; }
+.nut-pick label:hover { background: var(--red-soft); }
+.nut-pick input:checked + label { color: var(--ink); box-shadow: inset 0 -3px 0 var(--red); }
+.nut-pick input:focus-visible + label { outline: 2px solid var(--focus); outline-offset: -2px; }
+.mode-pick { display: grid; grid-template-columns: 1fr 1fr; }
+.mode-pick input { position: absolute; opacity: 0; pointer-events: none; }
+.mode-pick label { text-align: center; }
+.mode-pick label:first-of-type { border-left: 0; }
+.mode-pick input:checked + label { background: var(--ink); color: var(--paper); }
+.mode-pick input:focus-visible + label { outline: 2px solid var(--focus); outline-offset: -3px; }
+.facts { display: grid; gap: 3px; margin: 2px 0 0; font-size: 15px; }
+.facts div { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px dotted var(--rule); padding-bottom: 3px; }
+.facts dt { color: var(--ink-2); }
+.facts dd { margin: 0; font-variant-numeric: tabular-nums; text-align: right; }
 
-/* hojas */
-.sheet {
+/* dibujos SVG */
+.dw { display: block; width: 100%; height: auto; overflow: visible; }
+.dw * { vector-effect: non-scaling-stroke; }
+.dw text { font-family: var(--font-label); fill: var(--ink); stroke: none; }
+.dw .t-dim { fill: var(--ink-2); }
+.dw .t-red { fill: var(--red); }
+.dw .ln { stroke: var(--ink); stroke-width: 1.1; fill: none; }
+.dw .ln-thin { stroke: var(--ink); stroke-width: .6; fill: none; }
+.dw .ln-hidden { stroke: var(--ink); stroke-width: .7; fill: none; stroke-dasharray: 3 2; }
+.dw .ln-center { stroke: var(--ink-2); stroke-width: .6; fill: none; stroke-dasharray: 9 2.5 1.5 2.5; }
+.dw .part { stroke: var(--ink); stroke-width: 1.1; fill: var(--card); }
+.dw .nutf { stroke: var(--ink); stroke-width: 1.1; fill: rgb(var(--zinc-hi)); }
+.dw .thread { stroke: var(--red); stroke-width: 1.2; fill: none; }
+.dw .ink { fill: var(--ink); stroke: none; }
+.dw .redfill { fill: var(--red); stroke: none; }
+.dw .hatch { stroke: var(--ink); stroke-width: .5; }
+.dw .paper { fill: var(--paper); stroke: none; }
+
+/* recuadro de física */
+.card {
   min-width: 0;
-  padding: clamp(18px, 3vw, 32px);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  background: var(--card);
+  border: 1px solid var(--ink);
+  border-top-width: 4px;
 }
-.sheet-head { margin-bottom: 22px; }
-.sheet h2 {
+.card-head { padding: 22px clamp(18px, 3vw, 36px) 18px; border-bottom: 1px solid var(--rule); }
+.card h2, .lamina h2 {
   margin: 0;
-  font-family: var(--font-display);
-  font-stretch: 112%;
-  font-weight: 750;
-  font-size: clamp(23px, 2.7vw, 30px);
+  font-weight: 600;
+  font-size: clamp(28px, 3.4vw, 36px);
   line-height: 1.1;
+  font-variation-settings: "opsz" 48;
   text-wrap: balance;
 }
-.sheet-sub { margin: 8px 0 0; max-width: 72ch; color: var(--muted); }
-.num { font-family: var(--font-mono); font-size: .92em; font-variant-numeric: tabular-nums; color: var(--accent); white-space: nowrap; }
-
-.physics { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 28px 36px; }
-.physics section { min-width: 0; }
-.physics h3 { margin: 0 0 8px; font: 700 16.5px/1.3 var(--font-body); text-wrap: balance; }
-.physics p { margin: 0 0 10px; max-width: 65ch; }
-.physics ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; }
-.physics li::marker { color: var(--accent); }
-.m { font-family: var(--font-math); font-size: 1.1em; white-space: nowrap; }
+.card-sub { margin: 8px 0 0; color: var(--ink-2); max-width: 44em; }
+.rows { display: flex; flex-direction: column; }
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 360px);
+  gap: 18px 40px;
+  padding: 24px clamp(18px, 3vw, 36px);
+  border-bottom: 1px solid var(--rule-soft);
+}
+.row:last-child { border-bottom: 0; }
+@media (max-width: 860px) { .row { grid-template-columns: minmax(0, 1fr); } }
+.row > div { min-width: 0; }
+.row h3 { margin: 0 0 8px; font-size: 21px; font-weight: 600; line-height: 1.25; text-wrap: balance; }
+.row p { margin: 0 0 10px; max-width: 36em; }
+.row p:last-child { margin-bottom: 0; }
+.row ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 36em; }
+.row li::marker { color: var(--red); }
+.margin { font-size: 15.5px; color: var(--ink-2); }
+.margin figcaption { margin-top: 6px; font-size: 14.5px; }
+.m { font-family: var(--font-text); white-space: nowrap; }
+.m i, .eq i { font-style: italic; }
 .eq {
-  margin: 8px 0 12px;
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: var(--code-bg);
-  font-family: var(--font-math);
-  font-size: 19px;
+  margin: 4px 0 14px;
+  font-size: 21px;
   line-height: 1.4;
   white-space: nowrap;
   overflow-x: auto;
+  color: var(--ink);
 }
-.eq i, .m i { font-style: italic; }
-.eq .gap { display: inline-block; width: 1.2em; }
-.frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; font-size: .9em; line-height: 1.15; margin: 0 2px; }
+.eq:last-child { margin-bottom: 0; }
+.eq-label { display: block; font-family: var(--font-label); font-size: 14px; color: var(--ink-2); margin-bottom: 2px; }
+.frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; font-size: .88em; line-height: 1.15; margin: 0 2px; }
 .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 3px 1px; }
 .frac > span:last-child { padding: 1px 3px 0; }
-.big { font-size: 1.7em; line-height: 0; vertical-align: -.12em; font-weight: 300; }
+.big { font-size: 1.6em; line-height: 0; vertical-align: -.1em; font-weight: 300; }
 .rad { border-top: 1px solid currentColor; padding: 1px 2px 0; }
+.aside-note { border-left: 2px solid var(--red); padding-left: 12px; }
 
-.build-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px 24px; margin: 0 0 18px; }
-.build-facts dt { font-size: 11.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
-.build-facts dd { margin: 3px 0 0; font-family: var(--font-mono); font-size: 15px; font-variant-numeric: tabular-nums; }
-.build-facts dd small { display: block; font-family: var(--font-body); font-size: 12px; color: var(--muted); }
-.table-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
-.table-tools p { margin: 0; font-size: 13px; color: var(--muted); max-width: 70ch; }
-.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
-table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
-th, td { padding: 7px 14px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line); }
-th { font: 600 12px/1.3 var(--font-body); color: var(--muted); background: var(--code-bg); vertical-align: bottom; }
-td { font-family: var(--font-mono); }
-th:first-child, td:first-child { text-align: left; }
-tbody tr:last-child td { border-bottom: 0; }
-tbody tr:hover td { background: var(--accent-soft); }
-td.key { color: var(--accent); font-weight: 500; }
-
-footer { font-size: 12.5px; color: var(--muted); max-width: 90ch; }
-footer p { margin: 0; }
-
-@media (prefers-reduced-motion: reduce) {
-  * { scroll-behavior: auto !important; }
+/* lámina de montaje */
+.lamina { min-width: 0; display: flex; flex-direction: column; gap: 22px; }
+.lamina-head { border-bottom: 2px solid var(--ink); padding-bottom: 10px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 24px; }
+.lamina-head p { margin: 0; color: var(--ink-2); }
+.drawing { border: 1px solid var(--ink); background: var(--card); }
+.drawing-scroll { overflow-x: auto; }
+.drawing-scroll svg { min-width: 640px; padding: 12px; }
+.cajetin {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  border-top: 1px solid var(--ink);
 }
+.cajetin div { padding: 6px 10px 8px; border-left: 1px solid var(--ink); border-top: 1px solid var(--rule-soft); margin-left: -1px; margin-top: -1px; }
+.cajetin span { display: block; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.cajetin b { font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.howto { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 28px 44px; }
+.howto section { min-width: 0; }
+.howto h3 { margin: 0 0 8px; font-size: 20px; font-weight: 600; }
+.howto ul, .howto ol { margin: 0; padding-left: 22px; display: grid; gap: 7px; }
+.howto ol li::marker { font-family: var(--font-label); font-weight: 600; }
+.howto p { margin: 0 0 10px; }
+.table-tools { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px; }
+.table-tools h3 { margin: 0; font-size: 20px; font-weight: 600; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums lining-nums; }
+th, td { padding: 6px 14px; text-align: right; white-space: nowrap; }
+th { font-size: 14.5px; font-weight: 600; vertical-align: bottom; border-bottom: 2px solid var(--ink); }
+td { font-size: 16.5px; border-bottom: 1px solid var(--rule-soft); }
+th:first-child, td:first-child { text-align: left; padding-left: 0; }
+tbody tr:hover td { background: var(--red-soft); }
+td.key { color: var(--red); font-weight: 600; }
+
+footer { font-size: 14.5px; color: var(--ink-2); border-top: 1px solid var(--rule); padding-top: 14px; display: grid; gap: 6px; max-width: 60em; }
+footer p { margin: 0; }
 </style>
 </head>
 <body>
@@ -394,61 +375,53 @@ footer p { margin: 0; }
 
   <header class="top">
     <div>
-      <p class="kicker">Tuercas <b data-f="nut">M8</b> · hilo de coser · barra de madera</p>
       <h1>Péndulo de ondas</h1>
-      <p class="lead"><span data-f="N">15</span> péndulos sueltos, cada uno un poco más corto que el anterior. Ninguno toca a otro y aun así aparecen ondas, serpientes y filas que se deshacen y vuelven a alinearse cada <span data-f="gamma">60 s</span>.</p>
+      <p class="standfirst"><span data-f="N">15</span> tuercas colgadas de hilo de coser, cada una un poco más corta que la anterior. Ninguna toca a otra y aun así forman ondas, serpientes y filas que se deshacen y vuelven a alinearse cada <span data-f="gammaLong">60 segundos</span>.</p>
     </div>
     <div class="lan" id="lan" hidden>
-      <div>
-        <small>Ábrelo en otro dispositivo de la misma red</small>
-        <code id="lan-url"></code>
-      </div>
-      <button class="btn" id="lan-copy" type="button">Copiar</button>
+      Ábrelo en otro dispositivo de la misma red:
+      <code id="lan-url"></code>
+      <button class="btn" id="lan-copy" type="button">Copiar dirección</button>
     </div>
   </header>
 
   <div class="bench">
-    <section class="stage" aria-label="Simulación">
-      <div class="viewport">
-        <canvas id="scene" aria-label="Vista 3D del péndulo de ondas. Arrastra para girar la vista."></canvas>
-        <div class="view-tools">
-          <div class="chips" role="group" aria-label="Vista">
-            <button class="chip" type="button" data-view="iso" aria-pressed="true">3D</button>
-            <button class="chip" type="button" data-view="end" aria-pressed="false">Desde el extremo</button>
-            <button class="chip" type="button" data-view="top" aria-pressed="false">Desde arriba</button>
-            <button class="chip" type="button" data-view="front" aria-pressed="false">De frente</button>
-          </div>
-          <div class="chips" role="group" aria-label="Zoom">
-            <button class="chip sq" type="button" id="zoom-out" aria-label="Alejar">−</button>
-            <button class="chip sq" type="button" id="zoom-in" aria-label="Acercar">+</button>
-          </div>
+    <figure>
+      <div class="fig-tools">
+        <div class="seg" role="group" aria-label="Vista">
+          <button type="button" data-view="iso" aria-pressed="true">3D</button>
+          <button type="button" data-view="end" aria-pressed="false">Extremo</button>
+          <button type="button" data-view="top" aria-pressed="false">Arriba</button>
+          <button type="button" data-view="front" aria-pressed="false">Frente</button>
         </div>
-        <p class="hint">Arrastra para girar · pellizca o Ctrl + rueda para acercar</p>
+        <div class="seg" role="group" aria-label="Zoom">
+          <button type="button" id="zoom-out" aria-label="Alejar">−</button>
+          <button type="button" id="zoom-in" aria-label="Acercar">+</button>
+        </div>
       </div>
+      <canvas id="scene" aria-label="Vista 3D del péndulo de ondas. Arrastra para girar la vista."></canvas>
       <div class="transport">
-        <div class="transport-row">
-          <button class="tbtn primary" id="play" type="button">
-            <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path id="icon-pause" d="M3.5 2.5h3.2v11H3.5zM9.3 2.5h3.2v11H9.3z"/><path id="icon-play" d="M4 2v12l10-6z" hidden/></svg>
-            <span id="play-label">Pausa</span>
-          </button>
-          <button class="tbtn" id="release" type="button" title="Vuelve a t = 0 y suelta todas las tuercas a la vez">Soltar de nuevo</button>
-          <div class="timeline" id="timeline" role="slider" tabindex="0" aria-label="Momento dentro del ciclo" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-            <div class="tl-track"><div class="tl-fill" id="tl-fill"></div></div>
-            <div class="tl-head" id="tl-head"></div>
-          </div>
+        <button class="btn solid" id="play" type="button">
+          <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path id="icon-pause" d="M3.5 2.5h3.2v11H3.5zM9.3 2.5h3.2v11H9.3z"/><path id="icon-play" d="M4 2v12l10-6z" hidden/></svg>
+          <span id="play-label">Pausa</span>
+        </button>
+        <button class="btn" id="release" type="button" title="Vuelve a t = 0 y suelta todas las tuercas a la vez">Soltar de nuevo</button>
+        <div class="timeline" id="timeline" role="slider" tabindex="0" aria-label="Momento dentro del ciclo" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="tl-track"></div>
+          <span class="tl-end" style="left:0"></span><span class="tl-end" style="right:0"></span>
+          <div class="tl-fill" id="tl-fill"></div>
+          <div class="tl-head" id="tl-head"></div>
         </div>
-        <dl class="readouts">
-          <div><dt>Tiempo</dt><dd id="ro-time">0,0 s</dd></div>
-          <div><dt>Ciclo</dt><dd id="ro-cycle">1</dd></div>
-          <div><dt>Desfase entre vecinos</dt><dd id="ro-phase">0°</dd></div>
-          <div><dt>Patrón</dt><dd id="ro-pattern">Todos en fase</dd></div>
-        </dl>
       </div>
-    </section>
+      <figcaption>
+        <span class="fig">Fig. 1.</span> <span class="live" id="ro-line">t = 0,0 s, ciclo 1. Todas en fase.</span>
+        <span class="hint">Arrastra para girar; pellizca o usa Ctrl + rueda para acercar. Las marcas de la línea de tiempo señalan Γ/4, Γ/3, Γ/2…</span>
+      </figcaption>
+    </figure>
 
-    <aside class="rail" id="rail" aria-label="Parámetros">
-      <div class="group">
-        <h2>Diseño</h2>
+    <form class="sheetform" id="rail" aria-label="Parámetros" onsubmit="return false">
+      <fieldset>
+        <legend>Diseño</legend>
         <div class="ctl">
           <div class="ctl-head"><label for="n-pend">Número de péndulos</label><output id="n-pend-out" for="n-pend">15</output></div>
           <input type="range" id="n-pend" min="3" max="30" step="1" value="15">
@@ -456,7 +429,7 @@ footer p { margin: 0; }
         <div class="ctl">
           <div class="ctl-head"><label for="cycle">Ciclo del patrón, Γ</label><output id="cycle-out" for="cycle">60 s</output></div>
           <input type="range" id="cycle" min="20" max="180" step="5" value="60">
-          <p class="note">Tiempo que tardan en volver a alinearse todos.</p>
+          <p class="note">Lo que tardan en volver a alinearse todas.</p>
         </div>
         <div class="ctl">
           <div class="ctl-head"><label for="lmax">Péndulo más largo</label><output id="lmax-out" for="lmax">34,5 cm</output></div>
@@ -468,44 +441,38 @@ footer p { margin: 0; }
           <div><dt>Longitudes</dt><dd data-f="LRange">343,8 → 211,6 mm</dd></div>
           <div><dt>Periodos</dt><dd data-f="TRange">1,176 → 0,923 s</dd></div>
         </dl>
-      </div>
+      </fieldset>
 
-      <div class="group">
-        <h2>Tuercas e hilo</h2>
+      <fieldset>
+        <legend>Tuercas e hilo</legend>
         <div class="ctl">
-          <div class="ctl-head"><span class="lbl" id="nut-lbl">Tuerca (DIN 934)</span></div>
-          <div class="seg" role="radiogroup" aria-labelledby="nut-lbl">
-            <input type="radio" name="nut" id="nut-m5" value="M5"><label for="nut-m5">M5</label>
-            <input type="radio" name="nut" id="nut-m6" value="M6"><label for="nut-m6">M6</label>
-            <input type="radio" name="nut" id="nut-m8" value="M8" checked><label for="nut-m8">M8</label>
-            <input type="radio" name="nut" id="nut-m10" value="M10"><label for="nut-m10">M10</label>
-            <input type="radio" name="nut" id="nut-m12" value="M12"><label for="nut-m12">M12</label>
-          </div>
+          <div class="ctl-head"><span class="lbl" id="nut-lbl">Tuerca DIN 934, a escala</span></div>
+          <div class="nut-pick" role="radiogroup" aria-labelledby="nut-lbl" id="nut-pick"></div>
           <p class="note" id="nut-note"></p>
         </div>
         <div class="ctl">
-          <div class="ctl-head"><label for="spacing">Separación entre tuercas</label><output id="spacing-out" for="spacing">3,0 cm</output></div>
+          <div class="ctl-head"><label for="spacing">Separación entre tuercas, s</label><output id="spacing-out" for="spacing">3,0 cm</output></div>
           <input type="range" id="spacing" min="1.5" max="6" step="0.1" value="3">
         </div>
         <div class="ctl">
           <div class="ctl-head"><label for="spread">Apertura de la V, d</label><output id="spread-out" for="spread">12 cm</output></div>
           <input type="range" id="spread" min="4" max="30" step="1" value="12">
-          <p class="note">Distancia entre los dos puntos de la barra de los que cuelga cada tuerca. No cambia el periodo, solo cuánto hilo hace falta.</p>
+          <p class="note">No cambia el periodo, solo el hilo que hace falta y lo firme que queda el plano de oscilación.</p>
         </div>
         <div class="ctl">
           <div class="ctl-head"><label for="err">Error de montaje</label><output id="err-out" for="err">exacto</output></div>
           <input type="range" id="err" min="0" max="5" step="0.1" value="0">
           <p class="note" id="err-note"></p>
-          <button class="btn" id="reroll" type="button">Rehacer montaje</button>
+          <div><button class="btn" id="reroll" type="button">Rehacer montaje</button></div>
         </div>
-      </div>
+      </fieldset>
 
-      <div class="group">
-        <h2>Lanzamiento</h2>
+      <fieldset>
+        <legend>Lanzamiento</legend>
         <div class="ctl">
           <div class="ctl-head"><span class="lbl" id="mode-lbl">Cómo se sueltan</span></div>
-          <div class="seg" role="radiogroup" aria-labelledby="mode-lbl">
-            <input type="radio" name="mode" id="mode-ruler" value="ruler" checked><label for="mode-ruler">Con una regla</label>
+          <div class="seg mode-pick" role="radiogroup" aria-labelledby="mode-lbl">
+            <input type="radio" name="mode" id="mode-ruler" value="ruler" checked><label for="mode-ruler">Con un listón</label>
             <input type="radio" name="mode" id="mode-angle" value="angle"><label for="mode-angle">Mismo ángulo</label>
           </div>
         </div>
@@ -519,92 +486,157 @@ footer p { margin: 0; }
           <input type="range" id="tau" min="0" max="11" step="1" value="6">
           <p class="note" id="tau-note"></p>
         </div>
-      </div>
-
-      <div class="group">
-        <h2>Simulación</h2>
         <div class="ctl">
-          <div class="ctl-head"><label for="speed">Velocidad</label><output id="speed-out" for="speed">×1</output></div>
+          <div class="ctl-head"><label for="speed">Velocidad de la simulación</label><output id="speed-out" for="speed">×1</output></div>
           <input type="range" id="speed" min="0" max="8" step="1" value="4">
         </div>
-      </div>
-    </aside>
+      </fieldset>
+    </form>
   </div>
 
-  <article class="sheet" aria-labelledby="phys-title">
-    <header class="sheet-head">
+  <article class="card" aria-labelledby="phys-title">
+    <header class="card-head">
       <h2 id="phys-title">La física</h2>
-      <p class="sheet-sub">Por qué unas tuercas colgadas de hilos sueltos dibujan ondas, y qué cambia por estar hechas con tuercas e hilo de coser. Los <span class="num">números en color</span> salen de los controles actuales.</p>
+      <p class="card-sub">Qué está pasando y qué cambia por hacerlo con tuercas e hilo de coser. Los <span class="num">valores en rojo</span> salen de los controles de arriba.</p>
     </header>
-    <div class="physics">
-      <section>
-        <h3>Ningún péndulo empuja a otro</h3>
-        <p>Cada tuerca cuelga de su propio hilo y oscila a su propio ritmo. No hay muelles ni hilos que las unan, así que ninguna onda viaja de una a otra.</p>
-        <p>Lo que ves es la diferencia de fase entre vecinos, que cambia poco a poco. Es el mismo efecto que hace que una rueda filmada parezca girar hacia atrás.</p>
+    <div class="rows">
+      <section class="row">
+        <div>
+          <h3>Ninguna tuerca empuja a otra</h3>
+          <p>Cada tuerca cuelga de su propio hilo y oscila a su propio ritmo. No hay muelles ni hilos que las unan, así que ninguna onda viaja de una a otra.</p>
+          <p>Lo que se ve es la diferencia de fase entre vecinas, que cambia poco a poco. Es el mismo efecto que hace que una rueda filmada parezca girar hacia atrás: la fila «muestrea» una onda continua en los puntos donde hay tuercas.</p>
+        </div>
+        <div class="margin aside-note">
+          <p>Harvard atribuye el aparato original a Ernst Mach, que lo construyó en Praga hacia 1867. En checo aún se llama <i>Machův vlnostroj</i>, la máquina de ondas de Mach.</p>
+        </div>
       </section>
 
-      <section>
-        <h3>La receta de las longitudes</h3>
-        <p>En oscilaciones pequeñas, el periodo de un péndulo depende solo de su longitud:</p>
-        <div class="eq"><i>T</i> = 2π<span class="big">√</span><span class="rad"><i>L</i> / <i>g</i></span></div>
-        <p>La masa no aparece en la fórmula, así que da igual que la tuerca pese 2 g o 16 g. Se elige un tiempo Γ y se exige que el péndulo <span class="m"><i>n</i></span> (de 0 a <span class="m"><i>N</i> − 1</span>) complete exactamente <span class="m"><i>K</i> + <i>n</i></span> oscilaciones en ese tiempo:</p>
-        <div class="eq"><i>T<sub>n</sub></i> = <span class="frac"><span>Γ</span><span><i>K</i> + <i>n</i></span></span><span class="gap"></span>⟹<span class="gap"></span><i>L<sub>n</sub></i> = <i>g</i><span class="big">(</span><span class="frac"><span>Γ</span><span>2π(<i>K</i> + <i>n</i>)</span></span><span class="big">)</span><sup>2</sup></div>
-        <p>Con Γ = <span class="num" data-f="gamma">60 s</span> y <span class="m"><i>K</i></span> = <span class="num" data-f="K">51</span>, el más largo mide <span class="num" data-f="Lmax">343,8 mm</span> y el más corto, que da <span class="num" data-f="Kmax">65</span> oscilaciones, <span class="num" data-f="Lmin">211,6 mm</span>.</p>
+      <section class="row">
+        <div>
+          <h3>La receta de las longitudes</h3>
+          <p>En oscilaciones pequeñas, el periodo de un péndulo solo depende de su longitud. La masa no aparece en la fórmula, así que da igual que la tuerca pese 2 g o 16 g.</p>
+          <p>Se elige un tiempo Γ y se pide que el péndulo <span class="m"><i>n</i></span> (de 0 a <span class="m"><i>N</i> − 1</span>) dé exactamente <span class="m"><i>K</i> + <i>n</i></span> oscilaciones en ese tiempo. Con Γ = <span class="num" data-f="gamma">60 s</span> y <span class="m"><i>K</i></span> = <span class="num" data-f="K">51</span>, la más larga mide <span class="num" data-f="Lmax">343,8 mm</span> y la más corta, que da <span class="num" data-f="Kmax">65</span> oscilaciones, <span class="num" data-f="Lmin">211,6 mm</span>.</p>
+        </div>
+        <div class="margin">
+          <span class="eq-label">Periodo</span>
+          <div class="eq"><i>T</i> = 2π<span class="big">√</span><span class="rad"><i>L</i> / <i>g</i></span></div>
+          <span class="eq-label">Condición de diseño y longitud</span>
+          <div class="eq"><i>T<sub>n</sub></i> = <span class="frac"><span>Γ</span><span><i>K</i> + <i>n</i></span></span>&nbsp;&nbsp;⟹&nbsp;&nbsp;<i>L<sub>n</sub></i> = <i>g</i><span class="big">(</span><span class="frac"><span>Γ</span><span>2π(<i>K</i> + <i>n</i>)</span></span><span class="big">)</span><sup>2</sup></div>
+        </div>
       </section>
 
-      <section>
-        <h3>De dónde salen las ondas</h3>
-        <p>El ángulo del péndulo <span class="m"><i>n</i></span> es <span class="m"><i>θ<sub>n</sub></i>(<i>t</i>) = <i>θ</i><sub>0</sub> cos(2π(<i>K</i> + <i>n</i>)<i>t</i>/Γ)</span>. Entre dos vecinos la fase difiere en</p>
-        <div class="eq">Δ<i>φ</i> = 2π <span class="frac"><span><i>t</i></span><span>Γ</span></span></div>
-        <p>La diferencia es igual para todas las parejas y crece con el tiempo, así que la fila dibuja una onda cada vez más corta. A <span class="m">Γ/4</span> la posición se repite cada cuatro péndulos y se ven cuatro grupos; a <span class="m">Γ/3</span>, tres; a <span class="m">Γ/2</span> los alternos van en contrafase y se ven dos filas. A <span class="m"><i>t</i> = Γ</span> la diferencia es una vuelta completa y todos vuelven a estar alineados. Las marcas de la línea de tiempo señalan esos momentos.</p>
+      <section class="row">
+        <div>
+          <h3>De dónde salen las ondas</h3>
+          <p>El ángulo del péndulo <span class="m"><i>n</i></span> es <span class="m"><i>θ<sub>n</sub></i>(<i>t</i>) = <i>θ</i><sub>0</sub> cos(2π(<i>K</i> + <i>n</i>)<i>t</i>/Γ)</span>. Entre dos vecinos la fase difiere en <span class="m">Δ<i>φ</i> = 2π<i>t</i>/Γ</span>, igual para todas las parejas y cada vez mayor.</p>
+          <p>Por eso la fila dibuja una onda cada vez más corta. A Γ/4 la posición se repite cada cuatro tuercas y se ven cuatro grupos; a Γ/3, tres; a Γ/2 las alternas van en contrafase y se ven dos filas. A <span class="m"><i>t</i> = Γ</span> la diferencia es una vuelta entera y todas vuelven a estar en línea.</p>
+        </div>
+        <figure class="margin">
+          <div id="fig-patterns"></div>
+          <figcaption><span class="fig">Fig. 2.</span> Vistas desde arriba, calculadas para el diseño actual.</figcaption>
+        </figure>
       </section>
 
-      <section>
-        <h3>Por qué tuercas e hilo de coser</h3>
-        <ul>
-          <li><b>La masa está en la tuerca.</b> Un metro de hilo de poliéster pesa unos 0,03 g. El hilo de cada péndulo pesa ≈<span class="num" data-f="threadMass">0,02 g</span>, el <span class="num" data-f="threadRatio">0,4 %</span> de una tuerca <span data-f="nut">M8</span> de ≈<span class="num" data-f="mass">5,4 g</span>, y el modelo de péndulo simple funciona bien.</li>
-          <li><b>Densa y compacta.</b> El acero tiene 7,85 g/cm³: mucha inercia en poco volumen. El aire la frena poco y el balanceo dura minutos.</li>
-          <li><b>Colgada en V.</b> El hilo baja desde un punto de la barra, atraviesa el agujero de la tuerca y sube a otro punto separado <span class="m"><i>d</i></span>. La V solo deja oscilar en el plano perpendicular a la barra e impide que la tuerca gire o trace elipses. La longitud que cuenta es la distancia vertical de la barra al centro de la tuerca, no la del hilo.</li>
-          <li><b>No es un punto.</b> La tuerca es un péndulo físico, <span class="m"><i>T</i> = 2π√((<i>L</i>² + <i>k</i>²)/(<i>gL</i>))</span>, con <span class="m"><i>k</i></span> ≈ <span class="num" data-f="k">5,4 mm</span> su radio de giro alrededor del agujero. En el péndulo más corto alarga el periodo <span class="num" data-f="ppm">323 ppm</span>. Es poco, y la tabla de montaje ya lo corrige.</li>
-        </ul>
+      <section class="row">
+        <div>
+          <h3>Por qué tuercas e hilo de coser</h3>
+          <ul>
+            <li><b>La masa está en la tuerca.</b> Un metro de hilo de poliéster pesa unos 0,03 g. El de cada péndulo pesa ≈<span class="num" data-f="threadMass">0,02 g</span>, el <span class="num" data-f="threadRatio">0,4 %</span> de una tuerca <span data-f="nut">M8</span> de ≈<span class="num" data-f="mass">5,4 g</span>, y el modelo de péndulo simple funciona bien.</li>
+            <li><b>Densa y compacta.</b> El acero tiene 7,85 g/cm³: mucha inercia en poco volumen. El aire la frena poco y el balanceo dura minutos.</li>
+            <li><b>Colgada en V.</b> El hilo baja de un apoyo, atraviesa el agujero de la tuerca y sube a otro apoyo separado <span class="m"><i>d</i></span>. La V solo deja oscilar en el plano perpendicular a la barra y evita que la tuerca gire o trace elipses. La longitud que cuenta es la vertical de la barra al centro de la tuerca, no la del hilo.</li>
+            <li><b>No es un punto.</b> La tuerca es un péndulo físico, <span class="m"><i>T</i> = 2π√((<i>L</i>² + <i>k</i>²)/(<i>gL</i>))</span>, con <span class="m"><i>k</i></span> ≈ <span class="num" data-f="k">5,4 mm</span> su radio de giro alrededor del agujero. En el péndulo más corto alarga el periodo <span class="num" data-f="ppm">323 ppm</span>; poco, y la lámina de montaje ya lo corrige.</li>
+          </ul>
+        </div>
+        <figure class="margin">
+          <div id="fig-detail"></div>
+          <figcaption><span class="fig">Fig. 3.</span> Péndulo 1 en alzado y perfil, con el hilo interrumpido para que quepa. El agujero roscado se dibuja como manda la norma: círculo del núcleo y tres cuartos de circunferencia exterior.</figcaption>
+        </figure>
       </section>
 
-      <section>
-        <h3>Cuánta precisión hace falta</h3>
-        <p>Un error <span class="m">Δ<i>L</i></span> cambia el periodo en <span class="m">Δ<i>T</i>/<i>T</i> = Δ<i>L</i>/(2<i>L</i>)</span>. Al acabar el ciclo, el péndulo más corto ha dado <span class="num" data-f="Kmax">65</span> oscilaciones y acumula ese error relativo en cada una. Para que el desfase final no pase de una décima de oscilación, cada longitud debe quedar a <span class="num" data-f="tol">±0,65 mm</span> de su valor.</p>
-        <p>Lo que estropea el patrón son los errores distintos en cada péndulo: pruébalo con «Error de montaje». Un error igual en todos, como medir siempre hasta el borde de la tuerca en vez de hasta su centro, casi solo retrasa unos segundos el momento en que se realinean.</p>
+      <section class="row">
+        <div>
+          <h3>Cuánta precisión hace falta</h3>
+          <p>Al acabar el ciclo, la tuerca más corta ha dado <span class="num" data-f="Kmax">65</span> oscilaciones y en cada una arrastra el mismo error relativo. Para que el desfase final no pase de una décima de oscilación, cada longitud debe quedar a <span class="num" data-f="tol">±0,65 mm</span> de su valor.</p>
+          <p>Lo que estropea el patrón son los errores distintos en cada péndulo; pruébalo con «Error de montaje». Un error igual en todos, como medir siempre hasta el borde de la tuerca en vez de hasta su centro, casi solo retrasa unos segundos la realineación.</p>
+        </div>
+        <div class="margin">
+          <span class="eq-label">Error de longitud → error de periodo</span>
+          <div class="eq"><span class="frac"><span>Δ<i>T</i></span><span><i>T</i></span></span> = <span class="frac"><span>Δ<i>L</i></span><span>2<i>L</i></span></span></div>
+          <span class="eq-label">Tolerancia para 1/10 de oscilación</span>
+          <div class="eq">|Δ<i>L</i>| &lt; <span class="frac"><span>0,2 <i>L</i></span><span><i>K</i> + <i>N</i> − 1</span></span></div>
+        </div>
       </section>
 
-      <section>
-        <h3>Amplitud, regla y rozamiento</h3>
-        <p>La fórmula del periodo vale para ángulos pequeños. Con amplitud <span class="m"><i>θ</i><sub>0</sub></span> el periodo crece aproximadamente así:</p>
-        <div class="eq"><i>T</i> ≈ <i>T</i><sub>0</sub><span class="big">(</span>1 + <span class="frac"><span><i>θ</i><sub>0</sub><sup>2</sup></span><span>16</span></span><span class="big">)</span></div>
-        <p>Es un 0,2 % a 10° y un 0,8 % a 20°. Si todas las tuercas salen con el mismo ángulo, todas se retrasan en la misma proporción y el patrón se conserva, algo más lento. Si las sueltas empujándolas con una regla, salen desde la misma distancia y las cortas con más ángulo, así que se retrasan más. En el diseño clásico de 15 péndulos y 60 s, a 15° en el más largo se realinean unos 2 s tarde, y a 30° el patrón casi se pierde.</p>
-        <p>El rozamiento con el aire y dentro del hilo hace que la amplitud caiga como <span class="m">e<sup>−<i>t</i>/<i>τ</i></sup></span>. Apenas cambia el periodo, y al bajar la amplitud el retraso por ángulo grande deja de crecer.</p>
+      <section class="row">
+        <div>
+          <h3>Amplitud, listón y rozamiento</h3>
+          <p>La fórmula del periodo vale para ángulos pequeños; a 10° el periodo ya es un 0,2 % mayor y a 20°, un 0,8 %. Si todas las tuercas salen con el mismo ángulo, todas se retrasan en la misma proporción y el patrón se conserva, algo más lento.</p>
+          <p>Si las sueltas apartándolas con un listón, salen desde la misma distancia y las cortas con más ángulo, así que se retrasan más. En el diseño clásico de 15 péndulos y 60 s, a 15° en la más larga se realinean unos 2 s tarde, y a 30° el patrón casi se pierde.</p>
+          <p>El aire y el propio hilo hacen que la amplitud caiga como <span class="m">e<sup>−<i>t</i>/<i>τ</i></sup></span>. Eso apenas cambia el periodo, y al bajar la amplitud el retraso por ángulo grande deja de crecer.</p>
+        </div>
+        <div class="margin">
+          <span class="eq-label">Corrección por amplitud</span>
+          <div class="eq"><i>T</i> ≈ <i>T</i><sub>0</sub><span class="big">(</span>1 + <span class="frac"><span><i>θ</i><sub>0</sub><sup>2</sup></span><span>16</span></span><span class="big">)</span></div>
+        </div>
       </section>
     </div>
   </article>
 
-  <article class="sheet" aria-labelledby="build-title">
-    <header class="sheet-head">
-      <h2 id="build-title">Tabla de montaje</h2>
-      <p class="sheet-sub">Medidas para construirlo con los valores actuales. Ajusta cada hilo hasta que el centro de la tuerca quede a la distancia <span class="m"><i>L</i></span> por debajo de la línea de apoyos, y numera los péndulos del más largo al más corto.</p>
-    </header>
-    <dl class="build-facts">
-      <div><dt>Barra</dt><dd><span data-f="barLen">60 cm</span><small data-f="barNote"></small></dd></div>
-      <div><dt>Altura libre</dt><dd><span data-f="height">38 cm</span><small>bajo la línea de apoyos</small></dd></div>
-      <div><dt>Hilo</dt><dd><span data-f="threadTotal">10 m</span><small data-f="threadNote"></small></dd></div>
-      <div><dt>Tuercas</dt><dd><span data-f="nutsTotal">15 × M8</span><small data-f="nutsNote"></small></dd></div>
-    </dl>
+  <section class="lamina" aria-labelledby="build-title">
+    <div class="lamina-head">
+      <h2 id="build-title">Lámina de montaje</h2>
+      <p>Para los valores actuales. Cotas en milímetros.</p>
+    </div>
+
+    <div class="drawing">
+      <div class="drawing-scroll" id="fig-elevation"></div>
+      <div class="cajetin">
+        <div><span>Título</span><b>Péndulo de ondas</b></div>
+        <div><span>Piezas</span><b data-f="nutsTotal">15 × M8</b></div>
+        <div><span>Ciclo</span><b data-f="cycleSpec">60 s · K = 51</b></div>
+        <div><span>Material</span><b>Acero · poliéster · madera</b></div>
+        <div><span>Cotas</span><b>mm</b></div>
+        <div><span>Fecha</span><b id="cajetin-date">—</b></div>
+      </div>
+    </div>
+
+    <div class="howto">
+      <section>
+        <h3>Materiales</h3>
+        <ul>
+          <li><span data-f="nutsTotal">15 × M8</span> tuercas DIN 934, <span data-f="nutsMass">≈81 g</span> en total.</li>
+          <li>Hilo de coser de poliéster: <span data-f="threadTotal">10,5 m</span> (incluye 15 cm por péndulo para los nudos). El de algodón se estira más.</li>
+          <li>Un listón recto de <span data-f="barLen">61 cm</span> como barra y un marco que deje <span data-f="height">38 cm</span> libres por debajo.</li>
+          <li><span data-f="pegs">30</span> armellas, clavos finos o tornillos pequeños para los apoyos.</li>
+          <li>Regla con milímetros y otro listón para soltarlas a la vez.</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Montaje</h3>
+        <ol>
+          <li>Marca los apoyos en la cara inferior de la barra: dos por tuerca, separados <span data-f="dmm">120 mm</span>, con las tuercas vecinas cada <span data-f="smm">30 mm</span>.</li>
+          <li>Pon una armella o un clavo en cada marca.</li>
+          <li>Corta cada hilo con la medida de la tabla más 15 cm.</li>
+          <li>Pasa el hilo por la tuerca y ata los extremos a sus dos apoyos, de la 1 (la más larga) a la <span data-f="N">15</span>.</li>
+          <li>Ajusta cada hilo hasta que el centro del agujero quede a la distancia <span class="m"><i>L</i></span> de la barra, medida a mitad de camino entre sus dos apoyos.</li>
+        </ol>
+      </section>
+      <section>
+        <h3>Qué hacer y qué observar</h3>
+        <p>Aparta todas las tuercas a la vez con un listón y retíralo de golpe. Primero oscilan juntas; después aparece una serpiente, un aparente desorden, dos filas en contrafase a los <span data-f="halfGamma">30 s</span> y, a los <span data-f="gamma">60 s</span>, de nuevo una línea.</p>
+        <p><b>Afinado.</b> Si en la realineación una tuerca llega antes que las demás, alarga un poco su hilo; si llega tarde, acórtalo.</p>
+      </section>
+    </div>
+
     <div class="table-tools">
-      <p>«Hilo entre apoyos» es el tramo que va de un punto de la barra al otro pasando por el agujero, sin contar los nudos.</p>
+      <h3>Tabla de longitudes</h3>
       <button class="btn" id="copy-table" type="button">Copiar tabla</button>
     </div>
     <div class="table-wrap">
       <table id="build-table">
         <thead>
           <tr>
-            <th scope="col">N.º</th>
+            <th scope="col">Péndulo</th>
             <th scope="col">Oscilaciones en Γ</th>
             <th scope="col">Periodo (s)</th>
             <th scope="col">L, barra → centro de la tuerca (mm)</th>
@@ -614,10 +646,11 @@ footer p { margin: 0; }
         <tbody id="build-body"></tbody>
       </table>
     </div>
-  </article>
+  </section>
 
   <footer>
-    <p>Modelo: cada tuerca es un péndulo físico con su radio de giro, ecuación completa con sen θ (sin la aproximación de ángulos pequeños) y rozamiento proporcional a la velocidad. Integración Runge-Kutta de orden 4 con paso de 2 ms, g = 9,81 m/s². Tuercas DIN 934 de acero.</p>
+    <p>Modelo: cada tuerca es un péndulo físico con su radio de giro, con la ecuación completa en sen θ (sin aproximar ángulos pequeños) y rozamiento proporcional a la velocidad. Integración Runge-Kutta de orden 4 con paso de 2 ms y g = 9,81 m/s².</p>
+    <p>Referencias: <a href="https://sciencedemonstrations.fas.harvard.edu/presentations/pendulum-waves" target="_blank" rel="noopener">Harvard Natural Sciences Lecture Demonstrations, «Pendulum Waves»</a>; <a href="https://www.exploratorium.edu/snacks/pendulum-snake" target="_blank" rel="noopener">Exploratorium, «Pendulum Snake»</a>; R. E. Berg, <i>Am. J. Phys.</i> 59, 186 (1991); J. A. Flaten y K. A. Parendo, <i>Am. J. Phys.</i> 69, 778 (2001).</p>
   </footer>
 </div>
 
@@ -642,7 +675,7 @@ footer p { margin: 0; }
     M12: { d: 12, p: 1.75, s: 19, m: 10 },
   };
   const VIEWS = { iso: [-0.55, 0.32], end: [1.36, 0.2], top: [0, 1.553], front: [0, 0.05] };
-  const STORE_KEY = 'pendulo-ondas-v1';
+  const STORE_KEY = 'pendulo-ondas-v2';
 
   const $ = (id) => document.getElementById(id);
   const fmt = (x, d = 0) => x.toLocaleString('es-ES', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -654,7 +687,7 @@ footer p { margin: 0; }
     const n = NUTS[key];
     const s = n.s / 1000, h = n.m / 1000;
     const a = s / Math.sqrt(3);                       // radio circunscrito del hexágono
-    const rh = (n.d - 1.0825 * n.p) / 2000;           // radio del agujero (diámetro interior de rosca)
+    const rh = (n.d - 1.0825 * n.p) / 2000;           // radio del agujero (núcleo de la rosca)
     const aHex = Math.sqrt(3) / 2 * s * s;
     const aHole = Math.PI * rh * rh;
     const area = aHex - aHole;
@@ -704,7 +737,7 @@ footer p { margin: 0; }
     for (let i = 0; i < N; i++) {
       osc[i] = K + i;
       const w = 2 * Math.PI * osc[i] / p.cycle;
-      const lam = G / (w * w);                                     // longitud de péndulo simple
+      const lam = G / (w * w);                                          // longitud de péndulo simple
       L[i] = (lam + Math.sqrt(Math.max(0, lam * lam - 4 * nut.k2))) / 2; // corregida por el tamaño de la tuerca
       T[i] = p.cycle / osc[i];
       const half = Math.max(0, (d - nut.h) / 2);
@@ -796,15 +829,18 @@ footer p { margin: 0; }
     const g = (n) => cs.getPropertyValue(n).trim();
     const rgb = (n) => g(n).split(/[\s,]+/).map(Number);
     TOK = {
-      mat: g('--mat'), matLine: g('--mat-line'), matMajor: g('--mat-line-major'),
-      thread: g('--thread-3d'), hole: g('--hole'), shadow: g('--shadow'),
-      zinc: rgb('--zinc-rgb'), wood: rgb('--wood-rgb'), peg: rgb('--peg-rgb'),
+      floor: g('--floor'), grid: g('--grid'), gridMajor: g('--grid-major'),
+      outline: g('--outline'), shadow: g('--shadow'), hole: g('--hole'),
+      thread: g('--red'), ink: g('--ink'),
+      zincHi: rgb('--zinc-hi'), zincLo: rgb('--zinc-lo'),
+      woodHi: rgb('--wood-hi'), woodLo: rgb('--wood-lo'),
     };
   }
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', readTokens);
-  new MutationObserver(readTokens).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { readTokens(); redrawFigures(); });
+  new MutationObserver(() => { readTokens(); redrawFigures(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
-  /* ---------- render 3D ---------- */
+  /* ---------- render 3D, a tinta ---------- */
   const canvas = $('scene');
   const ctx = canvas.getContext('2d');
   let W = 0, H = 0, DPR = 1;
@@ -828,31 +864,24 @@ footer p { margin: 0; }
   function depth(x, y, z) { return (x - C[0]) * F[0] + (y - C[1]) * F[1] + (z - C[2]) * F[2]; }
   function facing(n, c) { return n[0] * (C[0] - c[0]) + n[1] * (C[1] - c[1]) + n[2] * (C[2] - c[2]) > 0; }
 
-  function shade(rgb, n, c, spec) {
+  // sombreado plano en tres tonos, como un dibujo coloreado: mezcla entre el tono claro y el oscuro
+  function shade(hi, lo, n) {
     const dif = Math.max(0, n[0] * LIGHT[0] + n[1] * LIGHT[1] + n[2] * LIGHT[2]);
-    let vx = C[0] - c[0], vy = C[1] - c[1], vz = C[2] - c[2];
-    const vl = Math.hypot(vx, vy, vz) || 1; vx /= vl; vy /= vl; vz /= vl;
-    let hx = LIGHT[0] + vx, hy = LIGHT[1] + vy, hz = LIGHT[2] + vz;
-    const hl = Math.hypot(hx, hy, hz) || 1;
-    const sp = Math.pow(Math.max(0, (n[0] * hx + n[1] * hy + n[2] * hz) / hl), 28) * spec;
-    const k = 0.36 + 0.64 * dif;
-    const ch = (v) => Math.min(255, Math.round(v * k + 255 * sp));
-    return `rgb(${ch(rgb[0])},${ch(rgb[1])},${ch(rgb[2])})`;
+    const k = dif > 0.66 ? 1 : dif > 0.25 ? 0.6 : 0.18;
+    const ch = (i) => Math.round(lo[i] + (hi[i] - lo[i]) * k);
+    return `rgb(${ch(0)},${ch(1)},${ch(2)})`;
   }
 
-  function fillPoly(pts, color) {
+  function poly(pts, fill, stroke, lw) {
     ctx.beginPath();
     ctx.moveTo(pts[0][0], pts[0][1]);
     for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
     ctx.closePath();
-    ctx.fillStyle = color;
-    ctx.fill();
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 0.6;
-    ctx.stroke();
+    if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+    if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = lw || 1; ctx.stroke(); }
   }
 
-  function drawBox(x0, x1, y0, y1, z0, z1, rgb, spec) {
+  function drawBox(x0, x1, y0, y1, z0, z1) {
     const faces = [
       [[1, 0, 0],  [[x1, y0, z0], [x1, y1, z0], [x1, y1, z1], [x1, y0, z1]]],
       [[-1, 0, 0], [[x0, y0, z0], [x0, y0, z1], [x0, y1, z1], [x0, y1, z0]]],
@@ -864,19 +893,18 @@ footer p { margin: 0; }
     for (const [n, pts] of faces) {
       const c = [(pts[0][0] + pts[2][0]) / 2, (pts[0][1] + pts[2][1]) / 2, (pts[0][2] + pts[2][2]) / 2];
       if (!facing(n, c)) continue;
-      fillPoly(pts.map((p) => proj(p[0], p[1], p[2])), shade(rgb, n, c, spec));
+      poly(pts.map((p) => proj(p[0], p[1], p[2])), shade(TOK.woodHi, TOK.woodLo, n), TOK.outline, 1);
     }
   }
 
   function drawBar() {
     const g = geom, D = design;
-    drawBox(-g.bh, g.bh, -0.013, 0.013, 0, 0.026, TOK.wood, 0.1);
-    // armellas: los puntos de apoyo de cada V
-    ctx.fillStyle = `rgb(${TOK.peg.join(',')})`;
+    drawBox(-g.bh, g.bh, -0.013, 0.013, 0, 0.026);
+    ctx.fillStyle = TOK.ink;
     for (const x of g.xs) {
       for (const sx of [-1, 1]) {
         const p = proj(x + sx * D.d / 2, 0, 0);
-        const r = Math.max(1.2, Math.min(3.2, S * 0.0022 / p[2]));
+        const r = Math.max(1.1, Math.min(2.8, S * 0.0019 / p[2]));
         ctx.beginPath(); ctx.arc(p[0], p[1], r, 0, Math.PI * 2); ctx.fill();
       }
     }
@@ -888,9 +916,8 @@ footer p { margin: 0; }
     const yc = L * s, zc = -L * c;
     const Lr = L - nut.rh, ye = Lr * s, ze = -Lr * c, hh = nut.h / 2;
 
-    // hilo en V: apoyo → agujero → apoyo
     ctx.strokeStyle = TOK.thread;
-    ctx.lineWidth = 1.2;
+    ctx.lineWidth = 1.15;
     ctx.beginPath();
     let p = proj(x - D.d / 2, 0, 0); ctx.moveTo(p[0], p[1]);
     p = proj(x - hh, ye, ze); ctx.lineTo(p[0], p[1]);
@@ -898,7 +925,6 @@ footer p { margin: 0; }
     p = proj(x + D.d / 2, 0, 0); ctx.lineTo(p[0], p[1]);
     ctx.stroke();
 
-    // tuerca: prisma hexagonal con el eje del agujero a lo largo de la barra
     const V0 = [], V1 = [], angs = [];
     for (let j = 0; j < 6; j++) {
       const ang = -Math.PI / 2 + j * Math.PI / 3 + th;
@@ -911,19 +937,19 @@ footer p { margin: 0; }
       const n = [0, Math.cos(na), Math.sin(na)];
       const cc = [x, (V0[j][1] + V0[k][1]) / 2, (V0[j][2] + V0[k][2]) / 2];
       if (!facing(n, cc)) continue;
-      fillPoly([V0[j], V0[k], V1[k], V1[j]].map((q) => proj(q[0], q[1], q[2])), shade(TOK.zinc, n, cc, 0.5));
+      poly([V0[j], V0[k], V1[k], V1[j]].map((q) => proj(q[0], q[1], q[2])), shade(TOK.zincHi, TOK.zincLo, n), TOK.outline, 0.9);
     }
     for (const sx of [-1, 1]) {
       const n = [sx, 0, 0], cc = [x + sx * hh, yc, zc];
       if (!facing(n, cc)) continue;
       const V = sx < 0 ? V0 : V1;
-      fillPoly(V.map((q) => proj(q[0], q[1], q[2])), shade(TOK.zinc, n, cc, 0.5));
+      poly(V.map((q) => proj(q[0], q[1], q[2])), shade(TOK.zincHi, TOK.zincLo, n), TOK.outline, 0.9);
       const hole = [];
       for (let j = 0; j < 14; j++) {
         const a = j / 14 * Math.PI * 2;
         hole.push(proj(cc[0], yc + nut.rh * Math.cos(a), zc + nut.rh * Math.sin(a)));
       }
-      fillPoly(hole, TOK.hole);
+      poly(hole, TOK.hole, null);
     }
   }
 
@@ -931,9 +957,9 @@ footer p { margin: 0; }
     if (!W || !H || !design) return;
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     ctx.clearRect(0, 0, W, H);
+    ctx.lineJoin = 'round';
     const g = geom, D = design, N = D.N;
 
-    // cámara orbital
     const cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch), cyw = Math.cos(cam.yaw), syw = Math.sin(cam.yaw);
     const T = g.target;
     C = [T[0] + g.dist * syw * cp, T[1] - g.dist * cyw * cp, T[2] + g.dist * sp];
@@ -941,7 +967,6 @@ footer p { margin: 0; }
     R = [cyw, syw, 0];
     U = [R[1] * F[2] - R[2] * F[1], R[2] * F[0] - R[0] * F[2], R[0] * F[1] - R[1] * F[0]];
 
-    // encuadre automático
     let umin = Infinity, umax = -Infinity, vmin = Infinity, vmax = -Infinity;
     for (const P of g.fitPts) {
       const dx = P[0] - C[0], dy = P[1] - C[1], dz = P[2] - C[2];
@@ -949,14 +974,14 @@ footer p { margin: 0; }
       const u = (dx * R[0] + dy * R[1] + dz * R[2]) / Z, v = (dx * U[0] + dy * U[1] + dz * U[2]) / Z;
       umin = Math.min(umin, u); umax = Math.max(umax, u); vmin = Math.min(vmin, v); vmax = Math.max(vmax, v);
     }
-    const padT = W < 520 ? 84 : 52, padB = 30, padX = 16;
-    S = Math.min((W - 2 * padX) / (umax - umin), (H - padT - padB) / (vmax - vmin)) * cam.zoom;
+    const pad = 10;
+    S = Math.min((W - 2 * pad) / (umax - umin), (H - 2 * pad) / (vmax - vmin)) * cam.zoom;
     CX = W / 2 - S * (umin + umax) / 2;
-    CY = (padT + H - padB) / 2 + S * (vmin + vmax) / 2;
+    CY = H / 2 + S * (vmin + vmax) / 2;
 
-    // plancha de corte
+    // papel milimetrado en el suelo
     const zf = g.zFloor, xm = g.xMat, ym = g.yMat;
-    fillPoly([proj(-xm, -ym, zf), proj(xm, -ym, zf), proj(xm, ym, zf), proj(-xm, ym, zf)], TOK.mat);
+    poly([proj(-xm, -ym, zf), proj(xm, -ym, zf), proj(xm, ym, zf), proj(-xm, ym, zf)], TOK.floor, TOK.gridMajor, 1);
     const step = g.gridStep;
     for (const major of [false, true]) {
       ctx.beginPath();
@@ -970,35 +995,29 @@ footer p { margin: 0; }
         const a = proj(-xm, k * step, zf), b = proj(xm, k * step, zf);
         ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]);
       }
-      ctx.strokeStyle = major ? TOK.matMajor : TOK.matLine;
+      ctx.strokeStyle = major ? TOK.gridMajor : TOK.grid;
       ctx.lineWidth = 1;
       ctx.stroke();
     }
 
-    // sombras
     ctx.fillStyle = TOK.shadow;
     for (let i = 0; i < N; i++) {
       const y = sim.Lt[i] * Math.sin(sim.th[i]), x = g.xs[i];
-      for (const [rad, alpha] of [[D.nut.a * 2.1, 0.45], [D.nut.a * 1.2, 0.8]]) {
-        ctx.globalAlpha = alpha;
-        ctx.beginPath();
-        for (let j = 0; j < 16; j++) {
-          const a = j / 16 * Math.PI * 2;
-          const q = proj(x + rad * 0.7 * Math.cos(a), y + rad * Math.sin(a), zf);
-          if (j) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]);
-        }
-        ctx.fill();
+      ctx.beginPath();
+      for (let j = 0; j < 16; j++) {
+        const a = j / 16 * Math.PI * 2, rad = D.nut.a * 1.5;
+        const q = proj(x + rad * 0.7 * Math.cos(a), y + rad * Math.sin(a), zf);
+        if (j) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]);
       }
+      ctx.fill();
     }
-    ctx.globalAlpha = 1;
 
-    // objetos ordenados de lejos a cerca
     const objs = [];
     const postX = g.bh - 0.012;
     for (const sx of [-1, 1]) {
       const px = sx * postX;
-      objs.push({ z: depth(px, 0, zf / 2), draw: () => drawBox(px - 0.012, px + 0.012, -0.012, 0.012, zf, 0, TOK.wood, 0.08) });
-      objs.push({ z: depth(px, 0, zf + 0.008), draw: () => drawBox(px - 0.035, px + 0.035, -0.075, 0.075, zf, zf + 0.016, TOK.wood, 0.08) });
+      objs.push({ z: depth(px, 0, zf / 2), draw: () => drawBox(px - 0.012, px + 0.012, -0.012, 0.012, zf, 0) });
+      objs.push({ z: depth(px, 0, zf + 0.008), draw: () => drawBox(px - 0.035, px + 0.035, -0.075, 0.075, zf, zf + 0.016) });
     }
     objs.push({ z: depth(0, 0, 0.013), draw: drawBar });
     for (let i = 0; i < N; i++) {
@@ -1009,9 +1028,9 @@ footer p { margin: 0; }
     for (const o of objs) o.draw();
   }
 
-  /* ---------- cámara: vistas y arrastre ---------- */
-  const chips = document.querySelectorAll('[data-view]');
-  function markView(name) { chips.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === name))); }
+  /* ---------- cámara ---------- */
+  const viewBtns = document.querySelectorAll('[data-view]');
+  function markView(name) { viewBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === name))); }
   function setView(name) {
     const [yaw, pitch] = VIEWS[name];
     cam.yaw = Math.atan2(Math.sin(cam.yaw), Math.cos(cam.yaw));
@@ -1021,12 +1040,12 @@ footer p { margin: 0; }
   }
   function stepCam(now) {
     if (!camAnim) return;
-    let k = Math.min(1, (now - camAnim.t0) / camAnim.dur);
+    const k = Math.min(1, (now - camAnim.t0) / camAnim.dur);
     const e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
     for (const key of ['yaw', 'pitch', 'zoom']) cam[key] = camAnim.from[key] + (camAnim.to[key] - camAnim.from[key]) * e;
     if (k >= 1) camAnim = null;
   }
-  chips.forEach((b) => b.addEventListener('click', () => setView(b.dataset.view)));
+  viewBtns.forEach((b) => b.addEventListener('click', () => setView(b.dataset.view)));
   $('zoom-in').addEventListener('click', () => { camAnim = null; cam.zoom = clamp(cam.zoom * 1.25, 0.5, 6); });
   $('zoom-out').addEventListener('click', () => { camAnim = null; cam.zoom = clamp(cam.zoom / 1.25, 0.5, 6); });
 
@@ -1064,18 +1083,16 @@ footer p { margin: 0; }
   }, { passive: false });
   canvas.addEventListener('dblclick', () => setView('iso'));
 
-  /* ---------- transporte y lecturas ---------- */
-  const tl = $('timeline'), tlFill = $('tl-fill'), tlHead = $('tl-head');
-  const roTime = $('ro-time'), roCycle = $('ro-cycle'), roPhase = $('ro-phase'), roPattern = $('ro-pattern');
+  /* ---------- transporte y pie de figura ---------- */
+  const tl = $('timeline'), tlFill = $('tl-fill'), tlHead = $('tl-head'), roLine = $('ro-line');
 
   function buildTicks() {
-    tl.querySelectorAll('.tl-tick').forEach((t) => t.remove());
     for (const [p, q] of [[1, 4], [1, 3], [1, 2], [2, 3], [3, 4]]) {
       const el = document.createElement('span');
       el.className = 'tl-tick';
       el.style.left = (p / q * 100) + '%';
-      el.textContent = String(q);
-      el.title = `t = ${p === 1 ? '' : p}Γ/${q}: ${q === 2 ? 'dos filas en contrafase' : q + ' grupos'}`;
+      el.textContent = `${p === 1 ? '' : p}Γ/${q}`;
+      el.title = q === 2 ? 'Dos filas en contrafase' : `${q} grupos`;
       tl.appendChild(el);
     }
   }
@@ -1086,14 +1103,14 @@ footer p { margin: 0; }
       for (let p = 0; p <= q; p++) {
         if (q > 1 && gcd(p, q) !== 1) continue;
         if (Math.abs(f - p / q) < 0.012) {
-          if (q === 1) return 'Todos en fase';
-          if (q === 2) return '2 filas en contrafase';
-          return `${q} grupos`;
+          if (q === 1) return 'Todas en fase.';
+          if (q === 2) return 'Dos filas en contrafase.';
+          return `${['', '', '', 'Tres', 'Cuatro', 'Cinco', 'Seis'][q]} grupos.`;
         }
       }
     }
     const m = Math.min(f, 1 - f);
-    return `Onda de ${fmt(1 / m, 1)} péndulos`;
+    return `Onda de ${fmt(1 / m, 1)} péndulos de longitud.`;
   }
 
   let lastRO = 0;
@@ -1104,13 +1121,10 @@ footer p { margin: 0; }
     tlHead.style.left = (f * 100) + '%';
     if (!force && now - lastRO < 100) return;
     lastRO = now;
-    roTime.textContent = fmt(t, 1) + ' s';
-    roCycle.textContent = String(n + 1);
-    roPhase.textContent = fmt(f * 360, 0) + '°';
     const label = patternLabel(f);
-    roPattern.textContent = label;
+    roLine.textContent = `t = ${fmt(t, 1)} s, ciclo ${n + 1}. Desfase entre vecinas: ${fmt(f * 360, 0)}°. ${label}`;
     tl.setAttribute('aria-valuenow', String(Math.round(f * 100)));
-    tl.setAttribute('aria-valuetext', `${fmt(f * cyc, 1)} s de ${cyc} s, ${label}`);
+    tl.setAttribute('aria-valuetext', `${fmt(f * cyc, 1)} s de ${cyc} s. ${label}`);
   }
 
   function seekFrac(f) {
@@ -1144,6 +1158,182 @@ footer p { margin: 0; }
   $('play').addEventListener('click', () => setRunning(!running));
   $('release').addEventListener('click', () => { resetSim(); updateReadouts(true); setRunning(true); });
 
+  /* ---------- dibujos SVG ---------- */
+  const r1 = (v) => Math.round(v * 10) / 10;
+  const sub = (n) => String(n).split('').map((c) => String.fromCharCode(0x2080 + Number(c))).join('');
+  const svgPoly = (pts, cls) => `<polygon class="${cls}" points="${pts.map((p) => `${r1(p[0])},${r1(p[1])}`).join(' ')}"/>`;
+  const line = (x1, y1, x2, y2, cls) => `<line class="${cls}" x1="${r1(x1)}" y1="${r1(y1)}" x2="${r1(x2)}" y2="${r1(y2)}"/>`;
+  function hexPts(cx, cy, a, rot) {
+    return Array.from({ length: 6 }, (_, j) => [cx + a * Math.cos(rot + j * Math.PI / 3), cy + a * Math.sin(rot + j * Math.PI / 3)]);
+  }
+  // agujero roscado en vista frontal: núcleo entero + 3/4 de la circunferencia exterior (convención de dibujo)
+  function threadedHole(cx, cy, rMinor, rMajor) {
+    return `<circle class="ln" cx="${r1(cx)}" cy="${r1(cy)}" r="${r1(rMinor)}"/>` +
+      `<path class="ln-thin" d="M${r1(cx + rMajor)} ${r1(cy)} A${r1(rMajor)} ${r1(rMajor)} 0 1 1 ${r1(cx)} ${r1(cy - rMajor)}"/>`;
+  }
+  function arrow(x, y, dx, dy, size) {
+    const l = Math.hypot(dx, dy) || 1, ux = dx / l, uy = dy / l;
+    const bx = x - ux * size, by = y - uy * size, w = size * 0.32;
+    return svgPoly([[x, y], [bx - uy * w, by + ux * w], [bx + uy * w, by - ux * w]], 'ink');
+  }
+  function dimH(x1, x2, y, text, fs, anchor) {
+    const a = fs * 0.75;
+    let s = line(x1, y, x2, y, 'ln-thin') + arrow(x1, y, -1, 0, a) + arrow(x2, y, 1, 0, a);
+    if (anchor === 'right') s += `<text x="${r1(x2 + fs * 0.5)}" y="${r1(y + fs * 0.35)}" font-size="${r1(fs)}">${text}</text>`;
+    else s += `<text x="${r1((x1 + x2) / 2)}" y="${r1(y - fs * 0.35)}" font-size="${r1(fs)}" text-anchor="middle">${text}</text>`;
+    return s;
+  }
+  function dimV(x, y1, y2, text, fs, side) {
+    const a = fs * 0.75;
+    const tx = side === 'left' ? x - fs * 0.45 : x + fs * 0.45 + fs * 0.6;
+    const ty = (y1 + y2) / 2;
+    return line(x, y1, x, y2, 'ln-thin') + arrow(x, y1, 0, -1, a) + arrow(x, y2, 0, 1, a) +
+      `<text x="${r1(tx)}" y="${r1(ty)}" font-size="${r1(fs)}" text-anchor="middle" transform="rotate(-90 ${r1(tx)} ${r1(ty)})">${text}</text>`;
+  }
+
+  function renderNutPicker() {
+    const wrap = $('nut-pick');
+    const aMax = 19 / Math.sqrt(3);
+    const k = 19 / aMax;                       // la M12 ocupa casi toda la caja de 44
+    wrap.innerHTML = Object.entries(NUTS).map(([key, n]) => {
+      const a = n.s / Math.sqrt(3) * k, rMin = (n.d - 1.0825 * n.p) / 2 * k, rMaj = n.d / 2 * k;
+      const id = `nut-${key.toLowerCase()}`;
+      return `<input type="radio" name="nut" id="${id}" value="${key}"${key === 'M8' ? ' checked' : ''}>` +
+        `<label for="${id}"><svg class="dw" viewBox="0 0 44 44" aria-hidden="true">` +
+        svgPoly(hexPts(22, 22, a, 0), 'nutf') + `<circle class="paper" cx="22" cy="22" r="${r1(rMin)}"/>` + threadedHole(22, 22, rMin, rMaj) +
+        `</svg>${key}</label>`;
+    }).join('');
+  }
+
+  function renderPatterns() {
+    const D = design, N = D.N, K = D.K;
+    const rows = [[0, 't = 0', 'en línea'], [1 / 4, 'Γ/4', '4 grupos'], [1 / 3, 'Γ/3', '3 grupos'], [1 / 2, 'Γ/2', '2 filas'], [1, 'Γ', 'otra vez en línea']];
+    const Wv = 360, rowH = 50, left = 78, right = 8, A = 15;
+    const Hv = rows.length * rowH;
+    const xAt = (i) => left + (N === 1 ? 0 : i / (N - 1)) * (Wv - left - right);
+    let s = `<svg class="dw" viewBox="0 0 ${Wv} ${Hv}" role="img" aria-label="Posición de las tuercas vistas desde arriba en t = 0, Γ/4, Γ/3, Γ/2 y Γ">`;
+    rows.forEach(([f, lab, note], r) => {
+      const cy = r * rowH + rowH / 2;
+      s += `<text x="0" y="${cy - 2}" font-size="15" font-weight="600">${lab}</text>`;
+      s += `<text x="0" y="${cy + 14}" font-size="12.5" class="t-dim">${note}</text>`;
+      s += line(left - 6, cy, Wv - right + 4, cy, 'ln-center');
+      for (let i = 0; i < N; i++) {
+        const y = cy - A * Math.cos(2 * Math.PI * (K + i) * f);
+        s += line(xAt(i), cy, xAt(i), y, 'thread');
+        s += svgPoly(hexPts(xAt(i), y, 3.6, Math.PI / 6), 'nutf');
+      }
+    });
+    $('fig-patterns').innerHTML = s + '</svg>';
+  }
+
+  function renderDetail() {
+    const D = design, nut = D.nut, n = NUTS[nut.key];
+    const L1 = D.L[0] * 1000, dmm = D.d * 1000;
+    const k = 2.3;                                 // px por mm para la tuerca
+    const a = n.s / Math.sqrt(3) * k, hw = n.m / 2 * k, rMin = (n.d - 1.0825 * n.p) / 2 * k, rMaj = n.d / 2 * k;
+    const Wv = 360, Hv = 270;
+    let s = `<svg class="dw" viewBox="0 0 ${Wv} ${Hv}" role="img" aria-label="Detalle de la suspensión en V del péndulo 1">`;
+    // --- alzado ---
+    const cx = 95, barY = 34, yc = 196, dd = 118, sx1 = cx - dd / 2, sx2 = cx + dd / 2;
+    const ent = yc - rMin;
+    s += `<rect class="part" x="${cx - 80}" y="${barY - 14}" width="160" height="14"/>`;
+    // cota d
+    s += line(sx1, barY - 15, sx1, 4, 'ln-thin') + line(sx2, barY - 15, sx2, 4, 'ln-thin');
+    s += dimH(sx1, sx2, 10, `d = ${fmt(dmm, 0)}`, 12.5);
+    // hilos con rotura
+    const brk1 = 104, brk2 = 116;
+    const along = (xa, ya, xb, yb, y) => xa + (xb - xa) * (y - ya) / (yb - ya);
+    for (const [xs, xe] of [[sx1, cx - hw], [sx2, cx + hw]]) {
+      s += line(xs, barY, along(xs, barY, xe, ent, brk1), brk1, 'thread');
+      s += line(along(xs, barY, xe, ent, brk2), brk2, xe, ent, 'thread');
+    }
+    s += line(cx - hw, ent, cx + hw, ent, 'thread');
+    // líneas de rotura
+    const zig = (y) => `<path class="ln-thin" d="M${cx - 72} ${y} L${cx - 8} ${y} L${cx - 3} ${y - 6} L${cx + 3} ${y + 6} L${cx + 8} ${y} L${cx + 72} ${y}"/>`;
+    s += zig(brk1) + zig(brk2);
+    // tuerca de canto: rectángulo, aristas y agujero oculto
+    s += `<rect class="nutf" x="${r1(cx - hw)}" y="${r1(yc - a)}" width="${r1(2 * hw)}" height="${r1(2 * a)}"/>`;
+    s += line(cx - hw, yc - a / 2, cx + hw, yc - a / 2, 'ln-thin') + line(cx - hw, yc + a / 2, cx + hw, yc + a / 2, 'ln-thin');
+    s += line(cx - hw, yc - rMin, cx + hw, yc - rMin, 'ln-hidden') + line(cx - hw, yc + rMin, cx + hw, yc + rMin, 'ln-hidden');
+    s += line(cx - 40, yc, 172, yc, 'ln-center') + line(cx, barY - 18, cx, yc + a + 10, 'ln-center');
+    // cota L
+    s += line(cx + 80, barY, 176, barY, 'ln-thin');
+    s += dimV(168, barY, yc, `L₁ = ${fmt(L1, 1)}`, 12.5, 'left');
+    s += `<text x="${cx}" y="${Hv - 6}" font-size="13" text-anchor="middle" class="t-dim">Alzado</text>`;
+    // --- perfil ---
+    const px = 286;
+    s += `<defs><clipPath id="barsec"><rect x="${px - 7}" y="${barY - 14}" width="14" height="14"/></clipPath></defs>`;
+    s += `<rect class="part" x="${px - 7}" y="${barY - 14}" width="14" height="14"/>`;
+    let hatch = '';
+    for (let o = -14; o <= 14; o += 3.5) hatch += line(px - 7 + o, barY, px + 7 + o, barY - 14, 'hatch');
+    s += `<g clip-path="url(#barsec)">${hatch}</g>`;
+    s += line(px, barY, px, brk1, 'thread') + line(px, brk2, px, yc - rMin, 'thread');
+    s += `<path class="ln-thin" d="M${px - 40} ${brk1} L${px - 5} ${brk1} L${px - 2} ${brk1 - 5} L${px + 2} ${brk1 + 5} L${px + 5} ${brk1} L${px + 40} ${brk1}"/>`;
+    s += `<path class="ln-thin" d="M${px - 40} ${brk2} L${px - 5} ${brk2} L${px - 2} ${brk2 - 5} L${px + 2} ${brk2 + 5} L${px + 5} ${brk2} L${px + 40} ${brk2}"/>`;
+    s += svgPoly(hexPts(px, yc, a, Math.PI / 2), 'nutf');
+    s += `<circle class="paper" cx="${px}" cy="${yc}" r="${r1(rMin)}"/>` + threadedHole(px, yc, rMin, rMaj);
+    s += `<circle class="redfill" cx="${px}" cy="${r1(yc - rMin + 1.6)}" r="1.6"/>`;
+    s += line(px - a - 10, yc, px + a + 10, yc, 'ln-center') + line(px, yc - a - 10, px, yc + a + 10, 'ln-center');
+    // vaivén
+    const ar = a + 18;
+    s += `<path class="ln-thin" d="M${r1(px - ar * Math.sin(0.5))} ${r1(yc + ar * Math.cos(0.5) - 6)} A${ar} ${ar} 0 0 0 ${r1(px + ar * Math.sin(0.5))} ${r1(yc + ar * Math.cos(0.5) - 6)}"/>`;
+    s += arrow(px - ar * Math.sin(0.5), yc + ar * Math.cos(0.5) - 6, -Math.cos(0.5), -Math.sin(0.5), 7);
+    s += arrow(px + ar * Math.sin(0.5), yc + ar * Math.cos(0.5) - 6, Math.cos(0.5), -Math.sin(0.5), 7);
+    s += `<text x="${px}" y="${Hv - 6}" font-size="13" text-anchor="middle" class="t-dim">Perfil</text>`;
+    $('fig-detail').innerHTML = s + '</svg>';
+  }
+
+  function renderElevation() {
+    const D = design, N = D.N, nut = D.nut;
+    const s = D.spacing * 1000, d = D.d * 1000, a = nut.a * 1000, h = nut.h * 1000, rh = nut.rh * 1000;
+    const xs = Array.from({ length: N }, (_, i) => (i - (N - 1) / 2) * s);
+    const L = Array.from(D.L, (v) => v * 1000);
+    const bh = (N - 1) / 2 * s + d / 2 + 35, barH = 26;
+    const fs = Math.max(8, (2 * bh + 140) / 64);
+    const yNum = (i) => L[i] + a + fs * 1.25;
+    const ySdim = L[0] + a + fs * 3.4;
+    const x0 = -bh - fs * 5.5, x1 = bh + fs * 5.5;
+    const y0 = -barH - fs * 4.6, y1 = ySdim + fs * 1.2;
+    let o = `<svg class="dw" viewBox="${r1(x0)} ${r1(y0)} ${r1(x1 - x0)} ${r1(y1 - y0)}" role="img" aria-label="Alzado acotado del péndulo de ondas">`;
+    // barra
+    o += `<rect class="part" x="${r1(-bh)}" y="${-barH}" width="${r1(2 * bh)}" height="${barH}"/>`;
+    // cotas superiores: longitud total y d de la última tuerca
+    const yTot = -barH - fs * 3.2, yD = -barH - fs * 1.3;
+    o += line(-bh, -barH - 2, -bh, yTot - fs * 0.4, 'ln-thin') + line(bh, -barH - 2, bh, yTot - fs * 0.4, 'ln-thin');
+    o += dimH(-bh, bh, yTot, fmt(2 * bh, 0), fs);
+    const xl = xs[N - 1] - d / 2, xr = xs[N - 1] + d / 2;
+    o += line(xl, 0, xl, yD - fs * 0.4, 'ln-thin') + line(xr, 0, xr, yD - fs * 0.4, 'ln-thin');
+    o += dimH(xl, xr, yD, `d = ${fmt(d, 0)}`, fs);
+    // hilos y tuercas
+    for (let i = 0; i < N; i++) {
+      const x = xs[i], yc = L[i], ye = yc - rh;
+      o += `<polyline class="thread" points="${r1(x - d / 2)},0 ${r1(x - h / 2)},${r1(ye)} ${r1(x + h / 2)},${r1(ye)} ${r1(x + d / 2)},0"/>`;
+    }
+    for (let i = 0; i < N; i++) {
+      const x = xs[i], yc = L[i];
+      o += `<rect class="nutf" x="${r1(x - h / 2)}" y="${r1(yc - a)}" width="${r1(h)}" height="${r1(2 * a)}"/>`;
+      o += line(x - h / 2, yc - a / 2, x + h / 2, yc - a / 2, 'ln-thin') + line(x - h / 2, yc + a / 2, x + h / 2, yc + a / 2, 'ln-thin');
+      const show = N <= 20 || i === 0 || i === N - 1 || (i + 1) % 5 === 0;
+      if (show) o += `<text x="${r1(x)}" y="${r1(yNum(i))}" font-size="${r1(fs * 0.85)}" text-anchor="middle" class="t-dim">${i + 1}</text>`;
+      for (const sx of [-1, 1]) o += `<circle class="ink" cx="${r1(x + sx * d / 2)}" cy="0" r="${r1(fs * 0.16)}"/>`;
+    }
+    // ejes y cotas L₁ y L_N
+    const xL = -bh - fs * 2.6, xR = bh + fs * 2.6;
+    o += line(xs[0] - fs * 1.2, L[0], xL - fs * 0.5, L[0], 'ln-center') + line(-bh - 2, 0, xL - fs * 0.5, 0, 'ln-thin');
+    o += dimV(xL, 0, L[0], `L₁ = ${fmt(L[0], 1)}`, fs, 'left');
+    o += line(xs[N - 1] + fs * 1.2, L[N - 1], xR + fs * 0.5, L[N - 1], 'ln-center') + line(bh + 2, 0, xR + fs * 0.5, 0, 'ln-thin');
+    o += dimV(xR, 0, L[N - 1], `L${sub(N)} = ${fmt(L[N - 1], 1)}`, fs, 'right');
+    o += line(xs[0], -barH - 4, xs[0], L[0] + a + 4, 'ln-center');
+    // cota s entre las dos primeras
+    if (N > 1) {
+      o += line(xs[0], yNum(0) + fs * 0.4, xs[0], ySdim + fs * 0.5, 'ln-thin') + line(xs[1], yNum(1) + fs * 0.4, xs[1], ySdim + fs * 0.5, 'ln-thin');
+      o += dimH(xs[0], xs[1], ySdim, `s = ${fmt(s, 0)}`, fs, 'right');
+    }
+    $('fig-elevation').innerHTML = o + '</svg>';
+  }
+
+  function redrawFigures() { /* los SVG usan variables CSS: no hace falta regenerarlos al cambiar de tema */ }
+
   /* ---------- controles ---------- */
   const rail = $('rail');
   const RESET_IDS = new Set(['n-pend', 'cycle', 'lmax', 'err', 'amp', 'tau', 'nut', 'mode']);
@@ -1165,8 +1355,7 @@ footer p { margin: 0; }
 
   function paintRanges() {
     rail.querySelectorAll('input[type="range"]').forEach((el) => {
-      const pct = (el.value - el.min) / (el.max - el.min) * 100;
-      el.style.setProperty('--fill', pct + '%');
+      el.style.setProperty('--fill', ((el.value - el.min) / (el.max - el.min) * 100) + '%');
     });
   }
 
@@ -1176,9 +1365,10 @@ footer p { margin: 0; }
     const threadMass = THREAD * D.thread[0];
     const support = (N - 1) * D.spacing + D.d;
     const bar = support + 0.07;
-    const threadSum = D.thread.reduce((a, b) => a + b, 0);
+    const threadSum = D.thread.reduce((x, y) => x + y, 0);
     return {
-      nut: nut.key, N: String(N), gamma: `${D.cycle} s`, K: String(K), Kmax: String(K + N - 1),
+      nut: nut.key, N: String(N), gamma: `${D.cycle} s`, gammaLong: `${D.cycle} segundos`, halfGamma: `${fmtMax(D.cycle / 2, 1)} s`,
+      K: String(K), Kmax: String(K + N - 1),
       oscRange: `${K} → ${K + N - 1}`,
       LRange: `${fmt(Lmax * 1000, 1)} → ${fmt(Lmin * 1000, 1)} mm`,
       TRange: `${fmt(D.T[0], 3)} → ${fmt(D.T[N - 1], 3)} s`,
@@ -1190,12 +1380,14 @@ footer p { margin: 0; }
       ppm: `${fmt(nut.k2 / (2 * Lmin * Lmin) * 1e6, 0)} ppm`,
       tol: `±${fmt(0.2 * Lmin / (K + N - 1) * 1000, 2)} mm`,
       barLen: `${fmt(bar * 100, 0)} cm`,
-      barNote: `${fmt(support * 100, 1)} cm entre el primer y el último apoyo`,
       height: `${fmt((Lmax + nut.a + 0.03) * 100, 0)} cm`,
       threadTotal: `${fmt(threadSum + N * 0.15, 1)} m`,
-      threadNote: `${fmt(threadSum, 2)} m entre apoyos + 15 cm por péndulo para nudos`,
       nutsTotal: `${N} × ${nut.key}`,
-      nutsNote: `≈${fmt(nut.mass * N * 1000, 0)} g en total`,
+      nutsMass: `≈${fmt(nut.mass * N * 1000, 0)} g`,
+      cycleSpec: `${D.cycle} s · K = ${K}`,
+      pegs: String(2 * N),
+      dmm: `${fmt(D.d * 1000, 0)} mm`,
+      smm: `${fmt(D.spacing * 1000, 0)} mm`,
     };
   }
 
@@ -1210,26 +1402,29 @@ footer p { margin: 0; }
     $('cycle-out').textContent = `${params.cycle} s`;
     $('lmax-out').textContent = `${fmt(params.lmax, 1)} cm`;
     $('lmax-note').innerHTML = `Ajustado a <span class="num">${D.K}</span> oscilaciones exactas en Γ: <span class="num">${fmt(D.L[0] * 1000, 1)} mm</span>.`;
-    $('nut-note').textContent = `${n.s} mm entre caras · ${fmtMax(n.m, 1)} mm de alto · ≈${fmt(nut.mass * 1000, 1)} g de acero`;
+    $('nut-note').textContent = `${n.s} mm entre caras, ${fmtMax(n.m, 1)} mm de alto, ≈${fmt(nut.mass * 1000, 1)} g.`;
     $('spacing-out').textContent = `${fmt(params.spacing, 1)} cm`;
     $('spread-out').textContent = `${params.spread} cm`;
     $('err-out').textContent = params.err === 0 ? 'exacto' : `±${fmt(params.err, 1)} mm`;
     $('err-note').innerHTML = params.err === 0
-      ? `Cada longitud exacta. Prueba a desviarlas al azar; la tolerancia es <span class="num">${facts.tol}</span>.`
+      ? `Longitudes exactas. Desvíalas al azar para ver qué pasa; la tolerancia es <span class="num">${facts.tol}</span>.`
       : `Cada longitud se desvía al azar hasta este valor. La tolerancia es <span class="num">${facts.tol}</span>.`;
     $('reroll').hidden = params.err === 0;
     $('amp-out').textContent = `${params.amp}°`;
     const A = params.amp * Math.PI / 180, x0 = D.L[0] * Math.sin(A);
     const thShort = Math.asin(Math.min(0.98, x0 / D.L[D.N - 1])) * 180 / Math.PI;
     $('amp-note').innerHTML = params.mode === 'ruler'
-      ? `Todas salen desde <span class="num">${fmt(x0 * 100, 1)} cm</span>: el más largo con ${params.amp}° y el más corto con <span class="num">${fmt(thShort, 1)}°</span>.`
-      : `Todas salen con ${params.amp}°: el más largo desde <span class="num">${fmt(x0 * 100, 1)} cm</span> y el más corto desde <span class="num">${fmt(D.L[D.N - 1] * Math.sin(A) * 100, 1)} cm</span>.`;
+      ? `Todas salen desde <span class="num">${fmt(x0 * 100, 1)} cm</span>: la más larga con ${params.amp}° y la más corta con <span class="num">${fmt(thShort, 1)}°</span>.`
+      : `Todas salen con ${params.amp}°: la más larga desde <span class="num">${fmt(x0 * 100, 1)} cm</span> y la más corta desde <span class="num">${fmt(D.L[D.N - 1] * Math.sin(A) * 100, 1)} cm</span>.`;
     $('tau-out').textContent = isFinite(params.tau) ? `${params.tau} s` : 'sin rozamiento';
     $('tau-note').innerHTML = isFinite(params.tau)
       ? `La amplitud se reduce a la mitad cada <span class="num">${fmt(params.tau * Math.LN2, 0)} s</span>.`
       : 'Oscilan para siempre, algo imposible con hilo y aire.';
     $('speed-out').textContent = `×${fmtMax(params.speed, 2)}`;
     renderTable();
+    renderPatterns();
+    renderDetail();
+    renderElevation();
     paintRanges();
   }
 
@@ -1248,7 +1443,7 @@ footer p { margin: 0; }
 
   $('copy-table').addEventListener('click', async (e) => {
     const btn = e.currentTarget;
-    const head = ['N.º', 'Oscilaciones en Γ', 'Periodo (s)', 'L barra-centro tuerca (mm)', 'Hilo entre apoyos (mm)'];
+    const head = ['Péndulo', 'Oscilaciones en Γ', 'Periodo (s)', 'L barra-centro tuerca (mm)', 'Hilo entre apoyos (mm)'];
     const text = [head, ...tableRows()].map((r) => r.join('\t')).join('\n');
     try {
       await navigator.clipboard.writeText(text);
@@ -1308,14 +1503,12 @@ footer p { margin: 0; }
   (function showLan() {
     const host = location.hostname;
     const isIp = /^\d{1,3}(\.\d{1,3}){3}$/.test(host);
-    const isLocal = host === 'localhost' || host === '127.0.0.1' || isIp || host.endsWith('.local');
-    if (!isLocal || !/^https?:$/.test(location.protocol)) return;
+    const isLoop = host === 'localhost' || host === '127.0.0.1';
+    if (!(isLoop || isIp || host.endsWith('.local')) || !/^https?:$/.test(location.protocol)) return;
     $('lan').hidden = false;
     const url = `${location.protocol}//${location.host}/`;
-    $('lan-url').textContent = (host === 'localhost' || host === '127.0.0.1')
-      ? 'Usa la IP que muestra serve.py al arrancar'
-      : url;
-    $('lan-copy').hidden = !isIp || host === '127.0.0.1';
+    $('lan-url').textContent = isLoop ? 'la IP que muestra serve.py' : url;
+    $('lan-copy').hidden = isLoop;
     $('lan-copy').addEventListener('click', async (e) => {
       try { await navigator.clipboard.writeText(url); e.currentTarget.textContent = 'Copiada'; }
       catch (_) { e.currentTarget.textContent = 'Cópiala a mano'; }
@@ -1323,13 +1516,15 @@ footer p { margin: 0; }
   })();
 
   /* ---------- arranque ---------- */
+  renderNutPicker();
+  buildTicks();
   restoreInputs();
   readParams();
   design = computeDesign(params);
   geom = computeGeom();
   readTokens();
   resetSim();
-  buildTicks();
+  $('cajetin-date').textContent = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
   updateDesignUI();
   setRunning(running);
   resize();
