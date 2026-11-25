@@ -6,3 +6,5 @@ __pycache__/
 outputs/period1/stress/*/candidates_ranked.csv
 outputs/period1/stress/*/stock_features.csv
 outputs/period1/stress/*/*.png
+# registro local del servidor del péndulo
+wave-pendulum/*.log

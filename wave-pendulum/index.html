@@ -154,6 +154,8 @@ figure { margin: 0; min-width: 0; }
 /* en escritorio la figura acompaña al lector mientras recorre los controles */
 @media (min-width: 981px) and (min-height: 760px) { .bench > figure { position: sticky; top: 16px; } }
 .fig-tools { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+.tools-right { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn[aria-pressed="true"], .btn[aria-pressed="true"]:hover { background: var(--ink); color: var(--paper); }
 #scene { display: block; width: 100%; height: clamp(320px, 56vh, 580px); touch-action: none; cursor: grab; }
 #scene.dragging { cursor: grabbing; }
 
@@ -395,9 +397,12 @@ footer p { margin: 0; }
           <button type="button" data-view="top" aria-pressed="false">Arriba</button>
           <button type="button" data-view="front" aria-pressed="false">Frente</button>
         </div>
-        <div class="seg" role="group" aria-label="Zoom">
-          <button type="button" id="zoom-out" aria-label="Alejar">−</button>
-          <button type="button" id="zoom-in" aria-label="Acercar">+</button>
+        <div class="tools-right">
+          <button class="btn" type="button" id="wood-ghost" aria-pressed="false" title="Deja ver las tuercas y los hilos que quedan detrás de la barra y los postes">Madera transparente</button>
+          <div class="seg" role="group" aria-label="Zoom">
+            <button type="button" id="zoom-out" aria-label="Alejar">−</button>
+            <button type="button" id="zoom-in" aria-label="Acercar">+</button>
+          </div>
         </div>
       </div>
       <canvas id="scene" aria-label="Vista 3D del péndulo de ondas. Arrastra para girar la vista."></canvas>
@@ -716,6 +721,7 @@ footer p { margin: 0; }
   let running = !reduceMotion;
   const cam = { yaw: VIEWS.iso[0], pitch: VIEWS.iso[1], zoom: 1 };
   let camAnim = null;
+  let woodGhost = false;
 
   const sim = {
     steps: 0, target: 0, damp: 0, cycleSteps: 1,
@@ -988,8 +994,23 @@ footer p { margin: 0; }
     ];
     for (const [n, pts] of faces) {
       const c = [(pts[0][0] + pts[2][0]) / 2, (pts[0][1] + pts[2][1]) / 2, (pts[0][2] + pts[2][2]) / 2];
-      if (!facing(n, c)) continue;
-      poly(pts.map((p) => proj(p[0], p[1], p[2])), shade(TOK.woodHi, TOK.woodLo, n), TOK.outline, 1);
+      const front = facing(n, c);
+      if (!woodGhost) {
+        if (front) poly(pts.map((p) => proj(p[0], p[1], p[2])), shade(TOK.woodHi, TOK.woodLo, n), TOK.outline, 1);
+        continue;
+      }
+      // madera transparente: un velo muy leve en las caras visibles y las aristas ocultas
+      // a trazos, como en un dibujo técnico
+      const pp = pts.map((p) => proj(p[0], p[1], p[2]));
+      if (front) {
+        ctx.globalAlpha = 0.14;
+        poly(pp, shade(TOK.woodHi, TOK.woodLo, n), null);
+      }
+      ctx.globalAlpha = front ? 0.75 : 0.4;
+      ctx.setLineDash(front ? [] : [4, 3]);
+      poly(pp, null, TOK.outline, 1);
+      ctx.setLineDash([]);
+      ctx.globalAlpha = 1;
     }
   }
 
@@ -1171,6 +1192,11 @@ footer p { margin: 0; }
   viewBtns.forEach((b) => b.addEventListener('click', () => setView(b.dataset.view)));
   $('zoom-in').addEventListener('click', () => { camAnim = null; cam.zoom = clamp(cam.zoom * 1.25, 0.5, 6); });
   $('zoom-out').addEventListener('click', () => { camAnim = null; cam.zoom = clamp(cam.zoom / 1.25, 0.5, 6); });
+  function setWoodGhost(v) {
+    woodGhost = v;
+    $('wood-ghost').setAttribute('aria-pressed', String(v));
+  }
+  $('wood-ghost').addEventListener('click', () => { setWoodGhost(!woodGhost); saveInputs(); });
 
   const pointers = new Map();
   canvas.addEventListener('pointerdown', (e) => {
@@ -1591,7 +1617,7 @@ footer p { margin: 0; }
     try {
       const data = {};
       rail.querySelectorAll('input[type="range"]').forEach((el) => { data[el.id] = el.value; });
-      data.nut = params.nut; data.mode = params.mode;
+      data.nut = params.nut; data.mode = params.mode; data.woodGhost = woodGhost;
       localStorage.setItem(STORE_KEY, JSON.stringify(data));
     } catch (_) { /* almacenamiento no disponible */ }
   }
@@ -1604,6 +1630,7 @@ footer p { margin: 0; }
         const el = rail.querySelector(`input[name="${name}"][value="${data[name]}"]`);
         if (el) el.checked = true;
       }
+      if (data.woodGhost) setWoodGhost(true);
     } catch (_) { /* almacenamiento no disponible */ }
   }
 

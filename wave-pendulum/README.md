@@ -40,6 +40,8 @@ de esta carpeta.
 
 La línea de tiempo se puede arrastrar para saltar a Γ/4, Γ/3, Γ/2… y la vista
 3D se gira arrastrando (presets: 3D, desde el extremo, desde arriba, de frente).
+El botón «Madera transparente» deja ver lo que tapan la barra y los postes; las
+aristas ocultas de la madera se dibujan a trazos.
 
 Debajo hay una tarjeta con la física y una **tabla de montaje** con la
 distancia de la barra al centro de cada tuerca y el hilo que hace falta.
