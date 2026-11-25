@@ -254,6 +254,13 @@ input[type="range"]:focus-visible { outline: 2px solid var(--focus); outline-off
 .nut-pick label:hover { background: var(--red-soft); }
 .nut-pick input:checked + label { color: var(--ink); box-shadow: inset 0 -3px 0 var(--red); }
 .nut-pick input:focus-visible + label { outline: 2px solid var(--focus); outline-offset: -2px; }
+.setup-pick { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.setup-pick input { position: absolute; opacity: 0; pointer-events: none; }
+.setup-pick label { display: grid; grid-template-columns: 40px minmax(0, 1fr); align-items: center; gap: 8px; padding: 8px 6px; cursor: pointer; font-family: var(--font-label); font-size: 15px; font-weight: 500; line-height: 1.2; color: var(--ink-2); }
+.setup-pick label svg { width: 40px; height: 40px; }
+.setup-pick label:hover { background: var(--red-soft); }
+.setup-pick input:checked + label { color: var(--ink); box-shadow: inset 0 -3px 0 var(--red); }
+.setup-pick input:focus-visible + label { outline: 2px solid var(--focus); outline-offset: -2px; }
 .mode-pick { display: grid; grid-template-columns: 1fr 1fr; }
 .mode-pick input { position: absolute; opacity: 0; pointer-events: none; }
 .mode-pick label { text-align: center; }
@@ -282,6 +289,7 @@ input[type="range"]:focus-visible { outline: 2px solid var(--focus); outline-off
 .dw .redfill { fill: var(--red); stroke: none; }
 .dw .hatch { stroke: var(--ink); stroke-width: .5; }
 .dw .paper { fill: var(--paper); stroke: none; }
+.dw .ballp { stroke: var(--ink); stroke-width: 1; }
 
 /* recuadro de física */
 .card {
@@ -368,6 +376,9 @@ td { font-size: 16.5px; border-bottom: 1px solid var(--rule-soft); }
 th:first-child, td:first-child { text-align: left; padding-left: 0; }
 tbody tr:hover td { background: var(--red-soft); }
 td.key { color: var(--red); font-weight: 600; }
+td.paint { text-align: left; }
+.sw { display: inline-block; width: .8em; height: .8em; border-radius: 50%; border: 1px solid var(--ink); vertical-align: -.06em; margin: 0 5px 0 0; }
+td.paint .sw:nth-of-type(2) { margin-left: 2px; }
 
 footer { font-size: 14.5px; color: var(--ink-2); border-top: 1px solid var(--rule); padding-top: 14px; display: grid; gap: 6px; max-width: 60em; }
 footer p { margin: 0; }
@@ -379,7 +390,7 @@ footer p { margin: 0; }
   <header class="top">
     <div>
       <h1>Péndulo de ondas</h1>
-      <p class="standfirst"><span data-f="N">15</span> tuercas colgadas de hilo de coser, cada una un poco más corta que la anterior. Ninguna toca a otra y aun así forman ondas, serpientes y filas que se deshacen y vuelven a alinearse cada <span data-f="gammaLong">60 segundos</span>.</p>
+      <p class="standfirst"><span data-f="N">15</span> <span data-f="standBob">tuercas colgadas de hilo de coser</span>, cada una un poco más corta que la anterior. Ninguna toca a otra y aun así forman ondas, serpientes y filas que se deshacen y vuelven a alinearse cada <span data-f="gammaLong">60 segundos</span>.</p>
     </div>
     <div class="lan" id="lan" hidden>
       Ábrelo en otro dispositivo de la misma red:
@@ -396,9 +407,10 @@ footer p { margin: 0; }
           <button type="button" data-view="end" aria-pressed="false">Extremo</button>
           <button type="button" data-view="top" aria-pressed="false">Arriba</button>
           <button type="button" data-view="front" aria-pressed="false">Frente</button>
+          <button type="button" data-view="side" aria-pressed="false" title="Mirando a lo largo de la barra, perpendicular a las vistas de arriba y de frente">Perfil</button>
         </div>
         <div class="tools-right">
-          <button class="btn" type="button" id="wood-ghost" aria-pressed="false" title="Deja ver las tuercas y los hilos que quedan detrás de la barra y los postes">Madera transparente</button>
+          <button class="btn" type="button" id="wood-ghost" aria-pressed="false" title="Deja ver los péndulos y los hilos que quedan detrás de la barra y los postes">Madera transparente</button>
           <div class="seg" role="group" aria-label="Zoom">
             <button type="button" id="zoom-out" aria-label="Alejar">−</button>
             <button type="button" id="zoom-in" aria-label="Acercar">+</button>
@@ -411,7 +423,7 @@ footer p { margin: 0; }
           <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path id="icon-pause" d="M3.5 2.5h3.2v11H3.5zM9.3 2.5h3.2v11H9.3z"/><path id="icon-play" d="M4 2v12l10-6z" hidden/></svg>
           <span id="play-label">Pausa</span>
         </button>
-        <button class="btn" id="release" type="button" title="Vuelve a t = 0 y suelta todas las tuercas a la vez">Soltar de nuevo</button>
+        <button class="btn" id="release" type="button" title="Vuelve a t = 0 y suelta todos los péndulos a la vez">Soltar de nuevo</button>
         <div class="timeline" id="timeline" role="slider" tabindex="0" aria-label="Momento dentro del ciclo" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
           <div class="tl-track"></div>
           <span class="tl-end" style="left:0"></span><span class="tl-end" style="right:0"></span>
@@ -426,6 +438,16 @@ footer p { margin: 0; }
     </figure>
 
     <form class="sheetform" id="rail" aria-label="Parámetros" onsubmit="return false">
+      <fieldset>
+        <legend>Montaje</legend>
+        <div class="setup-pick" role="radiogroup" aria-label="Montaje">
+          <input type="radio" name="setup" id="setup-nut" value="nut" checked><label for="setup-nut"><svg class="dw" viewBox="0 0 40 40" aria-hidden="true"><polygon class="nutf" points="35,20 27.5,33 12.5,33 5,20 12.5,7 27.5,7"/><circle class="paper" cx="20" cy="20" r="6"/><circle class="ln" cx="20" cy="20" r="6"/></svg><span>Tuercas e hilo de coser</span></label>
+          <input type="radio" name="setup" id="setup-ball" value="ball"><label for="setup-ball"><svg class="dw" viewBox="0 0 40 40" aria-hidden="true"><path class="ballp" fill="#d63a2f" d="M7 23 A13 13 0 0 1 33 23 Z"/><path class="ballp" fill="#26282b" d="M7 23 A13 13 0 0 0 33 23 Z"/><circle class="ln" cx="20" cy="7" r="2.3"/></svg><span>Pelotas de golf pintadas</span></label>
+        </div>
+        <p class="note" data-setup="ball" hidden>Como el «<a href="https://otos3.blogspot.com/2013/10/pendol-dones.html" target="_blank" rel="noopener">Pèndol d’ones</a>» de Joan Olivares: pelotas de golf cada 6 cm, colgadas de dos hilos. Arriba, rojo, verde y azul alternos; abajo, negro y amarillo.</p>
+        <p class="note">Cada montaje guarda sus propios valores de diseño.</p>
+      </fieldset>
+
       <fieldset>
         <legend>Diseño</legend>
         <div class="ctl">
@@ -450,14 +472,14 @@ footer p { margin: 0; }
       </fieldset>
 
       <fieldset>
-        <legend>Tuercas e hilo</legend>
-        <div class="ctl">
+        <legend><span data-f="legendBob">Tuercas e hilo</span></legend>
+        <div class="ctl" data-setup="nut">
           <div class="ctl-head"><span class="lbl" id="nut-lbl">Tuerca DIN 934, a escala</span></div>
           <div class="nut-pick" role="radiogroup" aria-labelledby="nut-lbl" id="nut-pick"></div>
           <p class="note" id="nut-note"></p>
         </div>
         <div class="ctl">
-          <div class="ctl-head"><label for="spacing">Separación entre tuercas, s</label><output id="spacing-out" for="spacing">3,0 cm</output></div>
+          <div class="ctl-head"><label for="spacing">Separación entre <span data-f="bobs">tuercas</span>, s</label><output id="spacing-out" for="spacing">3,0 cm</output></div>
           <input type="range" id="spacing" min="1.5" max="8" step="0.1" value="4">
         </div>
         <div class="ctl">
@@ -503,14 +525,14 @@ footer p { margin: 0; }
   <article class="card" aria-labelledby="phys-title">
     <header class="card-head">
       <h2 id="phys-title">La física</h2>
-      <p class="card-sub">Qué está pasando y qué cambia por hacerlo con tuercas e hilo de coser. Los <span class="num">valores en rojo</span> salen de los controles de arriba.</p>
+      <p class="card-sub">Qué está pasando y qué cambia por hacerlo con <span data-f="setupPhrase">tuercas e hilo de coser</span>. Los <span class="num">valores en rojo</span> salen de los controles de arriba.</p>
     </header>
     <div class="rows">
       <section class="row">
         <div>
-          <h3>Ninguna tuerca empuja a otra</h3>
-          <p>Cada tuerca cuelga de su propio hilo y oscila a su propio ritmo. No hay muelles ni hilos que las unan, así que ninguna onda viaja de una a otra.</p>
-          <p>Lo que se ve es la diferencia de fase entre vecinas, que cambia poco a poco. Es el mismo efecto que hace que una rueda filmada parezca girar hacia atrás: la fila «muestrea» una onda continua en los puntos donde hay tuercas.</p>
+          <h3>Ninguna <span data-f="bob">tuerca</span> empuja a otra</h3>
+          <p>Cada <span data-f="bob">tuerca</span> cuelga de su propio hilo y oscila a su propio ritmo. No hay muelles ni hilos que las unan, así que ninguna onda viaja de una a otra.</p>
+          <p>Lo que se ve es la diferencia de fase entre vecinas, que cambia poco a poco. Es el mismo efecto que hace que una rueda filmada parezca girar hacia atrás: la fila «muestrea» una onda continua en los puntos donde hay <span data-f="bobs">tuercas</span>.</p>
         </div>
         <div class="margin aside-note">
           <p>Harvard atribuye el aparato original a Ernst Mach, que lo construyó en Praga hacia 1867. En checo aún se llama <i>Machův vlnostroj</i>, la máquina de ondas de Mach.</p>
@@ -520,7 +542,7 @@ footer p { margin: 0; }
       <section class="row">
         <div>
           <h3>La receta de las longitudes</h3>
-          <p>En oscilaciones pequeñas, el periodo de un péndulo solo depende de su longitud. La masa no aparece en la fórmula, así que da igual que la tuerca pese 2 g o 16 g.</p>
+          <p>En oscilaciones pequeñas, el periodo de un péndulo solo depende de su longitud. La masa no aparece en la fórmula, así que da igual que el peso sea una tuerca de 2 g o una pelota de golf de 46 g.</p>
           <p>Se elige un tiempo Γ y se pide que el péndulo <span class="m"><i>n</i></span> (de 0 a <span class="m"><i>N</i> − 1</span>) dé exactamente <span class="m"><i>K</i> + <i>n</i></span> oscilaciones en ese tiempo. Con Γ = <span class="num" data-f="gamma">60 s</span> y <span class="m"><i>K</i></span> = <span class="num" data-f="K">51</span>, la más larga mide <span class="num" data-f="Lmax">343,8 mm</span> y la más corta, que da <span class="num" data-f="Kmax">65</span> oscilaciones, <span class="num" data-f="Lmin">211,6 mm</span>.</p>
         </div>
         <div class="margin">
@@ -535,7 +557,8 @@ footer p { margin: 0; }
         <div>
           <h3>De dónde salen las ondas</h3>
           <p>El ángulo del péndulo <span class="m"><i>n</i></span> es <span class="m"><i>θ<sub>n</sub></i>(<i>t</i>) = <i>θ</i><sub>0</sub> cos(2π(<i>K</i> + <i>n</i>)<i>t</i>/Γ)</span>. Entre dos vecinos la fase difiere en <span class="m">Δ<i>φ</i> = 2π<i>t</i>/Γ</span>, igual para todas las parejas y cada vez mayor.</p>
-          <p>Por eso la fila dibuja una onda cada vez más corta. A Γ/4 la posición se repite cada cuatro tuercas y se ven cuatro grupos; a Γ/3, tres; a Γ/2 las alternas van en contrafase y se ven dos filas. A <span class="m"><i>t</i> = Γ</span> la diferencia es una vuelta entera y todas vuelven a estar en línea.</p>
+          <p>Por eso la fila dibuja una onda cada vez más corta. A Γ/4 la posición se repite cada cuatro <span data-f="bobs">tuercas</span> y se ven cuatro grupos; a Γ/3, tres; a Γ/2 las alternas van en contrafase y se ven dos filas. A <span class="m"><i>t</i> = Γ</span> la diferencia es una vuelta entera y todas vuelven a estar en línea.</p>
+          <p data-setup="ball" hidden>Las pelotas pintadas lo hacen visible: el color de arriba se repite cada tres y el de abajo cada dos. A Γ/3 y 2Γ/3 cada grupo enseña arriba un solo color; a Γ/2 una fila es negra y la otra amarilla.</p>
         </div>
         <figure class="margin">
           <div id="fig-patterns"></div>
@@ -545,26 +568,30 @@ footer p { margin: 0; }
 
       <section class="row">
         <div>
-          <h3>Por qué tuercas e hilo de coser</h3>
+          <h3 data-setup="nut">Por qué tuercas e hilo de coser</h3>
+          <h3 data-setup="ball" hidden>Pelotas de golf pintadas</h3>
           <ul>
-            <li><b>La masa está en la tuerca.</b> Un metro de hilo de poliéster pesa unos 0,03 g. El de cada péndulo pesa ≈<span class="num" data-f="threadMass">0,02 g</span>, el <span class="num" data-f="threadRatio">0,4 %</span> de una tuerca <span data-f="nut">M8</span> de ≈<span class="num" data-f="mass">5,4 g</span>, y el modelo de péndulo simple funciona bien.</li>
-            <li><b>Densa y compacta.</b> El acero tiene 7,85 g/cm³: mucha inercia en poco volumen. El aire la frena poco y el balanceo dura minutos.</li>
-            <li><b>Colgada en V.</b> El hilo baja de un apoyo, atraviesa el agujero de la tuerca y sube a otro apoyo separado <span class="m"><i>d</i></span>. Así la tuerca oscila alrededor de la línea que une los dos apoyos y no da vueltas sobre sí misma. La longitud que cuenta es la vertical de la barra al centro de la tuerca, no la del hilo.</li>
-            <li><b>La V, más estrecha que la separación.</b> Si <span class="m"><i>d</i></span> es mayor que la distancia <span class="m"><i>s</i></span> entre tuercas, los hilos de vecinas se cruzan. Como todas las V giran alrededor de la misma línea, dos hilos cruzados se encuentran en cuanto sus tuercas pasan por el mismo ángulo, y no pueden atravesarse: uno dobla al otro y los dos péndulos quedan unidos por la rigidez del hilo tenso. La simulación lo incluye. Con <span class="m"><i>d</i> &gt; <i>s</i></span> las tuercas se arrastran unas a otras, se mueven casi en bloque y las ondas no llegan a formarse. Con <span class="m"><i>d</i> &lt; <i>s</i></span> no se cruza ningún hilo.</li>
-            <li><b>No es un punto.</b> La tuerca es un péndulo físico, <span class="m"><i>T</i> = 2π√((<i>L</i>² + <i>k</i>²)/(<i>gL</i>))</span>, con <span class="m"><i>k</i></span> ≈ <span class="num" data-f="k">5,4 mm</span> su radio de giro alrededor del agujero. En el péndulo más corto alarga el periodo <span class="num" data-f="ppm">323 ppm</span>; poco, y la lámina de montaje ya lo corrige.</li>
+            <li data-setup="nut"><b>La masa está en la tuerca.</b> Un metro de hilo de poliéster pesa unos 0,03 g. El de cada péndulo pesa ≈<span class="num" data-f="threadMass">0,02 g</span>, el <span class="num" data-f="threadRatio">0,4 %</span> de una tuerca <span data-f="nut">M8</span> de ≈<span class="num" data-f="mass">5,4 g</span>, y el modelo de péndulo simple funciona bien.</li>
+            <li data-setup="nut"><b>Densa y compacta.</b> El acero tiene 7,85 g/cm³: mucha inercia en poco volumen. El aire la frena poco y el balanceo dura minutos.</li>
+            <li data-setup="nut"><b>Colgada en V.</b> El hilo baja de un apoyo, atraviesa el agujero de la tuerca y sube a otro apoyo separado <span class="m"><i>d</i></span>. Así la tuerca oscila alrededor de la línea que une los dos apoyos y no da vueltas sobre sí misma. La longitud que cuenta es la vertical de la barra al centro de la tuerca, no la del hilo.</li>
+            <li data-setup="ball" hidden><b>Colores que delatan los grupos.</b> La mitad de arriba alterna rojo, verde y azul, así que se repite cada tres pelotas; la de abajo alterna negro y amarillo, y se repite cada dos. Cuando la fila se parte en tres grupos, a Γ/3 y 2Γ/3, cada grupo enseña arriba un solo color. Cuando se parte en dos filas, a Γ/2, una es negra y la otra amarilla.</li>
+            <li data-setup="ball" hidden><b>Mucha masa.</b> Una pelota de golf pesa ≈<span class="num" data-f="mass">45,9 g</span>. El hilo de cada péndulo pesa ≈<span class="num" data-f="threadMass">0,03 g</span>, el <span class="num" data-f="threadRatio">0,1 %</span>, y el modelo de péndulo simple funciona muy bien.</li>
+            <li data-setup="ball" hidden><b>Colgada de una armella.</b> En lo alto de cada pelota se enrosca una armella y el hilo pasa por ella en V hacia dos apoyos separados <span class="m"><i>d</i></span>. El blog la deja a medio enroscar: girándola se afina la longitud. La que cuenta es la vertical de la barra al centro de la pelota.</li>
+            <li><b>La V, más estrecha que la separación.</b> Si <span class="m"><i>d</i></span> es mayor que la distancia <span class="m"><i>s</i></span> entre <span data-f="bobs">tuercas</span>, los hilos de vecinas se cruzan. Como todas las V giran alrededor de la misma línea, dos hilos cruzados se encuentran en cuanto sus <span data-f="bobs">tuercas</span> pasan por el mismo ángulo, y no pueden atravesarse: uno dobla al otro y los dos péndulos quedan unidos por la rigidez del hilo tenso. La simulación lo incluye. Con <span class="m"><i>d</i> &gt; <i>s</i></span> las <span data-f="bobs">tuercas</span> se arrastran unas a otras, se mueven casi en bloque y las ondas no llegan a formarse. Con <span class="m"><i>d</i> &lt; <i>s</i></span> no se cruza ningún hilo.</li>
+            <li><b>No es un punto.</b> La <span data-f="bob">tuerca</span> es un péndulo físico, <span class="m"><i>T</i> = 2π√((<i>L</i>² + <i>k</i>²)/(<i>gL</i>))</span>, con <span class="m"><i>k</i></span> ≈ <span class="num" data-f="k">5,4 mm</span> su radio de giro <span data-f="kWhere">alrededor del agujero</span>. En el péndulo más corto alarga el periodo <span class="num" data-f="ppm">323 ppm</span>; poco, y la lámina de montaje ya lo corrige.</li>
           </ul>
         </div>
         <figure class="margin">
           <div id="fig-detail"></div>
-          <figcaption><span class="fig">Fig. 3.</span> Péndulo 1 en alzado y perfil, con el hilo interrumpido para que quepa. El agujero roscado se dibuja como manda la norma: círculo del núcleo y tres cuartos de circunferencia exterior.</figcaption>
+          <figcaption><span class="fig">Fig. 3.</span> <span data-setup="nut">Péndulo 1 en alzado y perfil, con el hilo interrumpido para que quepa. El agujero roscado se dibuja como manda la norma: círculo del núcleo y tres cuartos de circunferencia exterior.</span><span data-setup="ball" hidden>Pelota 1 en alzado y perfil, con el hilo interrumpido para que quepa. Arriba, la armella por la que pasa el hilo.</span></figcaption>
         </figure>
       </section>
 
       <section class="row">
         <div>
           <h3>Cuánta precisión hace falta</h3>
-          <p>Al acabar el ciclo, la tuerca más corta ha dado <span class="num" data-f="Kmax">65</span> oscilaciones y en cada una arrastra el mismo error relativo. Para que el desfase final no pase de una décima de oscilación, cada longitud debe quedar a <span class="num" data-f="tol">±0,65 mm</span> de su valor.</p>
-          <p>Lo que estropea el patrón son los errores distintos en cada péndulo; pruébalo con «Error de montaje». Un error igual en todos, como medir siempre hasta el borde de la tuerca en vez de hasta su centro, casi solo retrasa unos segundos la realineación.</p>
+          <p>Al acabar el ciclo, la <span data-f="bob">tuerca</span> más corta ha dado <span class="num" data-f="Kmax">65</span> oscilaciones y en cada una arrastra el mismo error relativo. Para que el desfase final no pase de una décima de oscilación, cada longitud debe quedar a <span class="num" data-f="tol">±0,65 mm</span> de su valor.</p>
+          <p>Lo que estropea el patrón son los errores distintos en cada péndulo; pruébalo con «Error de montaje». Un error igual en todos, como medir siempre hasta el borde de la <span data-f="bob">tuerca</span> en vez de hasta su centro, casi solo retrasa unos segundos la realineación.</p>
         </div>
         <div class="margin">
           <span class="eq-label">Error de longitud → error de periodo</span>
@@ -577,7 +604,7 @@ footer p { margin: 0; }
       <section class="row">
         <div>
           <h3>Amplitud, listón y rozamiento</h3>
-          <p>La fórmula del periodo vale para ángulos pequeños; a 10° el periodo ya es un 0,2 % mayor y a 20°, un 0,8 %. Si todas las tuercas salen con el mismo ángulo, todas se retrasan en la misma proporción y el patrón se conserva, algo más lento.</p>
+          <p>La fórmula del periodo vale para ángulos pequeños; a 10° el periodo ya es un 0,2 % mayor y a 20°, un 0,8 %. Si todas las <span data-f="bobs">tuercas</span> salen con el mismo ángulo, todas se retrasan en la misma proporción y el patrón se conserva, algo más lento.</p>
           <p>Si las sueltas apartándolas con un listón, salen desde la misma distancia y las cortas con más ángulo, así que se retrasan más. En el diseño clásico de 15 péndulos y 60 s, a 15° en la más larga se realinean unos 2 s tarde, y a 30° el patrón casi se pierde.</p>
           <p>El aire y el propio hilo hacen que la amplitud caiga como <span class="m">e<sup>−<i>t</i>/<i>τ</i></sup></span>. Eso apenas cambia el periodo, y al bajar la amplitud el retraso por ángulo grande deja de crecer.</p>
         </div>
@@ -601,7 +628,7 @@ footer p { margin: 0; }
         <div><span>Título</span><b>Péndulo de ondas</b></div>
         <div><span>Piezas</span><b data-f="nutsTotal">15 × M8</b></div>
         <div><span>Ciclo</span><b data-f="cycleSpec">60 s · K = 51</b></div>
-        <div><span>Material</span><b>Acero · poliéster · madera</b></div>
+        <div><span>Material</span><b data-f="material">Acero · poliéster · madera</b></div>
         <div><span>Cotas</span><b>mm</b></div>
         <div><span>Fecha</span><b id="cajetin-date">—</b></div>
       </div>
@@ -611,7 +638,9 @@ footer p { margin: 0; }
       <section>
         <h3>Materiales</h3>
         <ul>
-          <li><span data-f="nutsTotal">15 × M8</span> tuercas DIN 934, <span data-f="nutsMass">≈81 g</span> en total.</li>
+          <li data-setup="nut"><span data-f="nutsTotal">15 × M8</span> tuercas DIN 934, <span data-f="nutsMass">≈81 g</span> en total.</li>
+          <li data-setup="ball" hidden><span data-f="nutsTotal">15 pelotas de golf</span> (<span data-f="nutsMass">≈689 g</span>) y otras tantas armellas pequeñas.</li>
+          <li data-setup="ball" hidden>Pintura roja, verde, azul, negra y amarilla.</li>
           <li>Hilo de coser de poliéster: <span data-f="threadTotal">10,5 m</span> (incluye 15 cm por péndulo para los nudos). El de algodón se estira más.</li>
           <li>Un listón recto de <span data-f="barLen">61 cm</span> como barra y un marco que deje <span data-f="height">38 cm</span> libres por debajo.</li>
           <li><span data-f="pegs">30</span> armellas, clavos finos o tornillos pequeños para los apoyos.</li>
@@ -621,17 +650,21 @@ footer p { margin: 0; }
       <section>
         <h3>Montaje</h3>
         <ol>
-          <li>Marca los apoyos en la cara inferior de la barra: dos por tuerca, separados <span data-f="dmm">30 mm</span>, con las tuercas vecinas cada <span data-f="smm">40 mm</span>. La V tiene que ser más estrecha que la separación entre tuercas para que los hilos no se crucen.</li>
+          <li data-setup="ball" hidden>Pinta cada pelota en el orden de la tabla: la mitad de arriba roja, verde o azul y la de abajo negra o amarilla.</li>
+          <li data-setup="ball" hidden>Enrosca una armella en lo alto de cada pelota, sin apretarla del todo: girándola se afina la longitud.</li>
+          <li>Marca los apoyos en la cara inferior de la barra: dos por <span data-f="bob">tuerca</span>, separados <span data-f="dmm">30 mm</span>, con las <span data-f="bobs">tuercas</span> vecinas cada <span data-f="smm">40 mm</span>. La V tiene que ser más estrecha que la separación entre <span data-f="bobs">tuercas</span> para que los hilos no se crucen.</li>
           <li>Pon una armella o un clavo en cada marca.</li>
           <li>Corta cada hilo con la medida de la tabla más 15 cm.</li>
-          <li>Pasa el hilo por la tuerca y ata los extremos a sus dos apoyos, de la 1 (la más larga) a la <span data-f="N">15</span>.</li>
-          <li>Ajusta cada hilo hasta que el centro del agujero quede a la distancia <span class="m"><i>L</i></span> de la barra, medida a mitad de camino entre sus dos apoyos.</li>
+          <li data-setup="ball" hidden>Pasa el hilo por la armella y ata los extremos a sus dos apoyos, de la 1 (la más larga) a la <span data-f="N">15</span>.</li>
+          <li data-setup="nut">Pasa el hilo por la tuerca y ata los extremos a sus dos apoyos, de la 1 (la más larga) a la <span data-f="N">15</span>.</li>
+          <li>Ajusta cada hilo hasta que <span data-f="centerPhrase">el centro del agujero</span> quede a la distancia <span class="m"><i>L</i></span> de la barra, medida a mitad de camino entre sus dos apoyos.</li>
         </ol>
       </section>
       <section>
         <h3>Qué hacer y qué observar</h3>
-        <p>Aparta todas las tuercas a la vez con un listón, en perpendicular a la barra, y retíralo de golpe; un empujón de lado las haría balancearse también a lo largo de la barra. Primero oscilan juntas; después aparece una serpiente, un aparente desorden, dos filas en contrafase a los <span data-f="halfGamma">30 s</span> y, a los <span data-f="gamma">60 s</span>, de nuevo una línea.</p>
-        <p><b>Afinado.</b> Si en la realineación una tuerca llega antes que las demás, alarga un poco su hilo; si llega tarde, acórtalo.</p>
+        <p>Aparta todas las <span data-f="bobs">tuercas</span> a la vez con un listón, en perpendicular a la barra, y retíralo de golpe; un empujón de lado las haría balancearse también a lo largo de la barra. Primero oscilan juntas; después aparece una serpiente, un aparente desorden, dos filas en contrafase a los <span data-f="halfGamma">30 s</span> y, a los <span data-f="gamma">60 s</span>, de nuevo una línea.</p>
+        <p data-setup="ball" hidden>Fíjate en los colores: a los <span data-f="thirdGamma">20 s</span> cada grupo enseña arriba un solo color, y a los <span data-f="halfGamma">30 s</span> una fila es negra y la otra amarilla.</p>
+        <p><b>Afinado.</b> Si en la realineación una <span data-f="bob">tuerca</span> llega antes que las demás, alarga un poco su hilo; si llega tarde, acórtalo.<span data-setup="ball" hidden> Con las pelotas basta con enroscar o desenroscar un poco la armella.</span></p>
       </section>
     </div>
 
@@ -641,23 +674,15 @@ footer p { margin: 0; }
     </div>
     <div class="table-wrap">
       <table id="build-table">
-        <thead>
-          <tr>
-            <th scope="col">Péndulo</th>
-            <th scope="col">Oscilaciones en Γ</th>
-            <th scope="col">Periodo (s)</th>
-            <th scope="col">L, barra → centro de la tuerca (mm)</th>
-            <th scope="col">Hilo entre apoyos (mm)</th>
-          </tr>
-        </thead>
+        <thead id="build-head"></thead>
         <tbody id="build-body"></tbody>
       </table>
     </div>
   </section>
 
   <footer>
-    <p>Modelo: cada tuerca es un péndulo físico con su radio de giro, con la ecuación completa en sen θ (sin aproximar ángulos pequeños) y rozamiento proporcional a la velocidad. Integración Runge-Kutta de orden 4 con paso de 2 ms y g = 9,81 m/s². Si la V es más ancha que la separación, cada cruce de hilos es un muelle que solo empuja, con la rigidez transversal de los dos hilos tensos, <i>T</i>(1/<i>a</i> + 1/<i>b</i>), más un amortiguamiento estimado para el roce entre hilos.</p>
-    <p>Referencias: <a href="https://sciencedemonstrations.fas.harvard.edu/presentations/pendulum-waves" target="_blank" rel="noopener">Harvard Natural Sciences Lecture Demonstrations, «Pendulum Waves»</a>; <a href="https://www.exploratorium.edu/snacks/pendulum-snake" target="_blank" rel="noopener">Exploratorium, «Pendulum Snake»</a>; R. E. Berg, <i>Am. J. Phys.</i> 59, 186 (1991); J. A. Flaten y K. A. Parendo, <i>Am. J. Phys.</i> 69, 778 (2001).</p>
+    <p>Modelo: cada peso, tuerca o pelota, es un péndulo físico con su radio de giro, con la ecuación completa en sen θ (sin aproximar ángulos pequeños) y rozamiento proporcional a la velocidad. Integración Runge-Kutta de orden 4 con paso de 2 ms y g = 9,81 m/s². Si la V es más ancha que la separación, cada cruce de hilos es un muelle que solo empuja, con la rigidez transversal de los dos hilos tensos, <i>T</i>(1/<i>a</i> + 1/<i>b</i>), más un amortiguamiento estimado para el roce entre hilos.</p>
+    <p>Referencias: <a href="https://sciencedemonstrations.fas.harvard.edu/presentations/pendulum-waves" target="_blank" rel="noopener">Harvard Natural Sciences Lecture Demonstrations, «Pendulum Waves»</a>; <a href="https://www.exploratorium.edu/snacks/pendulum-snake" target="_blank" rel="noopener">Exploratorium, «Pendulum Snake»</a>; R. E. Berg, <i>Am. J. Phys.</i> 59, 186 (1991); J. A. Flaten y K. A. Parendo, <i>Am. J. Phys.</i> 69, 778 (2001); Joan Olivares, <a href="https://otos3.blogspot.com/2013/10/pendol-dones.html" target="_blank" rel="noopener">«Pèndol d’ones»</a> (2013), para el montaje con pelotas de golf.</p>
   </footer>
 </div>
 
@@ -681,7 +706,8 @@ footer p { margin: 0; }
     M10: { d: 10, p: 1.5,  s: 17, m: 8 },
     M12: { d: 12, p: 1.75, s: 19, m: 10 },
   };
-  const VIEWS = { iso: [-0.55, 0.32], end: [1.36, 0.2], top: [0, 1.553], front: [0, 0.05] };
+  // perfil: mirando a lo largo de la barra, perpendicular a las vistas de arriba y de frente
+  const VIEWS = { iso: [-0.55, 0.32], end: [1.36, 0.2], top: [0, 1.553], front: [0, 0.05], side: [Math.PI / 2, 0] };
   const STORE_KEY = 'pendulo-ondas-v3';
 
   const $ = (id) => document.getElementById(id);
@@ -701,7 +727,31 @@ footer p { margin: 0; }
     // radio de giro alrededor del eje del agujero: hexágono macizo (5a²/12) menos el agujero (r²/2)
     const k2 = (aHex * 5 * a * a / 12 - aHole * rh * rh / 2) / area;
     const mass = area * h * STEEL * 0.95;             // −5 % por los chaflanes
-    return { key, s, h, a, rh, k2, mass };
+    return { kind: 'nut', key, s, h, a, rh, k2, mass };
+  }
+
+  // Montaje del blog «Pèndol d'ones» (otos3): pelotas de golf colgadas de una armella.
+  // Reglamento de golf: diámetro ≥ 42,67 mm, masa ≤ 45,93 g. El hilo pasa por la armella,
+  // que sobresale ~7 mm por encima de la pelota.
+  const BALL = { D: 0.04267, mass: 0.04593, eye: 0.007 };
+  // Pintura del blog: mitad de arriba roja-verde-azul alternas, mitad de abajo negra-amarilla.
+  const PAINT = {
+    rojo:     { hi: [228, 70, 58],  lo: [150, 32, 26],  css: '#d63a2f' },
+    verde:    { hi: [86, 182, 98],  lo: [32, 104, 50],  css: '#3f9a52' },
+    azul:     { hi: [78, 112, 214], lo: [28, 50, 128],  css: '#3557b7' },
+    negro:    { hi: [92, 95, 100],  lo: [20, 21, 24],   css: '#26282b' },
+    amarillo: { hi: [250, 214, 76], lo: [176, 134, 22], css: '#efc531' },
+  };
+  const TOP_PAINT = ['rojo', 'verde', 'azul'];
+  const BOTTOM_PAINT = ['negro', 'amarillo'];
+  const paintOf = (i) => [TOP_PAINT[i % 3], BOTTOM_PAINT[i % 2]];
+
+  function bobProps(setup, nutKey) {
+    if (setup !== 'ball') return nutProps(nutKey);
+    const r = BALL.D / 2;
+    // Para el hilo, la pelota se comporta como una tuerca de grosor 0 cuyo «agujero» está en la
+    // armella: h = 0 y rh = distancia del centro al punto donde el hilo la sujeta.
+    return { kind: 'ball', key: 'golf', r, a: r, h: 0, rh: r + BALL.eye, eye: BALL.eye, k2: 0.4 * r * r, mass: BALL.mass };
   }
 
   function mulberry32(seed) {
@@ -723,6 +773,16 @@ footer p { margin: 0; }
   let camAnim = null;
   let woodGhost = false;
 
+  // Montajes: cada uno guarda sus propios valores de diseño. El de pelotas parte de los del blog
+  // (15 pelotas cada 6 cm, la más larga de 44,1 cm, que da 45 oscilaciones por minuto).
+  const SETUP_KEYS = ['n-pend', 'cycle', 'lmax', 'spacing', 'spread'];
+  const PRESETS = {
+    nut:  { 'n-pend': '15', cycle: '60', lmax: '34.5', spacing: '4', spread: '3' },
+    ball: { 'n-pend': '15', cycle: '60', lmax: '44', spacing: '6', spread: '4' },
+  };
+  let setup = 'nut';
+  const setupValues = { nut: { ...PRESETS.nut }, ball: { ...PRESETS.ball } };
+
   const sim = {
     steps: 0, target: 0, damp: 0, cycleSteps: 1,
     th: new Float64Array(MAXN), om: new Float64Array(MAXN),
@@ -737,7 +797,7 @@ footer p { margin: 0; }
 
   /* ---------- diseño ---------- */
   function computeDesign(p) {
-    const nut = nutProps(p.nut);
+    const nut = bobProps(p.setup, p.nut);
     const lTarget = p.lmax / 100;
     const K = Math.max(1, Math.round(p.cycle / (2 * Math.PI * Math.sqrt(lTarget / G))));
     const N = p.n, d = p.spread / 100;
@@ -751,7 +811,7 @@ footer p { margin: 0; }
       const half = Math.max(0, (d - nut.h) / 2);
       thread[i] = 2 * Math.hypot(L[i] - nut.rh, half) + nut.h;
     }
-    return { N, K, L, osc, T, thread, nut, cycle: p.cycle, d, spacing: p.spacing / 100 };
+    return { N, K, L, osc, T, thread, nut, setup: nut.kind, cycle: p.cycle, d, spacing: p.spacing / 100 };
   }
 
   function computeGeom() {
@@ -1047,6 +1107,8 @@ footer p { margin: 0; }
     for (let q = 1; q < pts.length; q++) ctx.lineTo(pts[q][0], pts[q][1]);
     ctx.stroke();
 
+    if (nut.kind === 'ball') { drawBall(i, x, yc, zc, th); return; }
+
     const V0 = [], V1 = [], angs = [];
     for (let j = 0; j < 6; j++) {
       const ang = -Math.PI / 2 + j * Math.PI / 3 + th;
@@ -1073,6 +1135,48 @@ footer p { margin: 0; }
       }
       poly(hole, TOK.hole, null);
     }
+  }
+
+  // Pelota de golf: malla en latitudes contadas desde la armella. Cada trozo lleva la pintura de
+  // su mitad (arriba roja/verde/azul, abajo negra/amarilla) y gira con el péndulo.
+  const BALL_LAT = 10, BALL_LON = 18;
+  const PSI = Array.from({ length: BALL_LAT + 1 }, (_, a) => a / BALL_LAT * Math.PI);
+  const PHI = Array.from({ length: BALL_LON + 1 }, (_, b) => b / BALL_LON * 2 * Math.PI);
+  function drawBall(i, x, yc, zc, th) {
+    const r = design.nut.r;
+    const uy = -Math.sin(th), uz = Math.cos(th);          // hacia la armella
+    const ey = Math.cos(th), ez = Math.sin(th);           // perpendicular, en el plano de oscilación
+    const [top, bot] = paintOf(i).map((k) => PAINT[k]);
+    const dir = (psi, phi) => {
+      const sp = Math.sin(psi), cq = Math.cos(psi);
+      return [sp * Math.cos(phi), sp * Math.sin(phi) * ey + cq * uy, sp * Math.sin(phi) * ez + cq * uz];
+    };
+    const at = (v) => proj(x + r * v[0], yc + r * v[1], zc + r * v[2]);
+    for (let a = 0; a < BALL_LAT; a++) {
+      const paint = a < BALL_LAT / 2 ? top : bot;
+      for (let b = 0; b < BALL_LON; b++) {
+        const n = dir((PSI[a] + PSI[a + 1]) / 2, (PHI[b] + PHI[b + 1]) / 2);
+        if (!facing(n, [x + r * n[0], yc + r * n[1], zc + r * n[2]])) continue;
+        const fill = shade(paint.hi, paint.lo, n);
+        poly([at(dir(PSI[a], PHI[b])), at(dir(PSI[a], PHI[b + 1])), at(dir(PSI[a + 1], PHI[b + 1])), at(dir(PSI[a + 1], PHI[b]))], fill, fill, 0.6);
+      }
+    }
+    // contorno
+    const pc = proj(x, yc, zc);
+    ctx.strokeStyle = TOK.outline;
+    ctx.lineWidth = 0.9;
+    ctx.beginPath(); ctx.arc(pc[0], pc[1], S * r / pc[2], 0, Math.PI * 2); ctx.stroke();
+    // armella: anilla en lo alto, con el hilo pasando a lo largo de la barra
+    const e = design.nut.eye, rc = r + e * 0.55, rr = e * 0.42;
+    ctx.strokeStyle = TOK.ink;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let j = 0; j <= 12; j++) {
+      const f = j / 12 * Math.PI * 2;
+      const q = proj(x, yc + rc * uy + rr * (Math.cos(f) * uy + Math.sin(f) * ey), zc + rc * uz + rr * (Math.cos(f) * uz + Math.sin(f) * ez));
+      if (j) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]);
+    }
+    ctx.stroke();
   }
 
   function render() {
@@ -1127,7 +1231,7 @@ footer p { margin: 0; }
       const y = sim.Lt[i] * Math.sin(sim.th[i]), x = g.xs[i];
       ctx.beginPath();
       for (let j = 0; j < 16; j++) {
-        const a = j / 16 * Math.PI * 2, rad = D.nut.a * 1.5;
+        const a = j / 16 * Math.PI * 2, rad = D.nut.kind === 'ball' ? D.nut.r * 1.15 : D.nut.a * 1.5;
         const q = proj(x + rad * 0.7 * Math.cos(a), y + rad * Math.sin(a), zf);
         if (j) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]);
       }
@@ -1363,7 +1467,8 @@ footer p { margin: 0; }
     const Wv = 360, rowH = 50, left = 78, right = 8, A = 15;
     const Hv = rows.length * rowH;
     const xAt = (i) => left + (N === 1 ? 0 : i / (N - 1)) * (Wv - left - right);
-    let s = `<svg class="dw" viewBox="0 0 ${Wv} ${Hv}" role="img" aria-label="Posición de las tuercas vistas desde arriba en t = 0, Γ/4, Γ/3, Γ/2 y Γ">`;
+    const ball = D.setup === 'ball';
+    let s = `<svg class="dw" viewBox="0 0 ${Wv} ${Hv}" role="img" aria-label="Posición de las ${ball ? 'pelotas' : 'tuercas'} vistas desde arriba en t = 0, Γ/4, Γ/3, Γ/2 y Γ">`;
     rows.forEach(([f, lab, note], r) => {
       const cy = r * rowH + rowH / 2;
       s += `<text x="0" y="${cy - 2}" font-size="15" font-weight="600">${lab}</text>`;
@@ -1372,13 +1477,69 @@ footer p { margin: 0; }
       for (let i = 0; i < N; i++) {
         const y = cy - A * Math.cos(2 * Math.PI * (K + i) * f);
         s += line(xAt(i), cy, xAt(i), y, 'thread');
-        s += svgPoly(hexPts(xAt(i), y, 3.6, Math.PI / 6), 'nutf');
+        if (ball) s += `<circle class="ballp" cx="${r1(xAt(i))}" cy="${r1(y)}" r="4.3" fill="${PAINT[paintOf(i)[0]].css}"/>`;
+        else s += svgPoly(hexPts(xAt(i), y, 3.6, Math.PI / 6), 'nutf');
       }
     });
     $('fig-patterns').innerHTML = s + '</svg>';
   }
 
+  // media pelota pintada: arriba (sweep 1) o abajo (sweep 0)
+  function ballHalves(x, y, R, i) {
+    const [top, bot] = paintOf(i).map((k) => PAINT[k].css);
+    const half = (sw, col) => `<path class="ballp" fill="${col}" d="M${r1(x - R)} ${r1(y)} A${r1(R)} ${r1(R)} 0 0 ${sw} ${r1(x + R)} ${r1(y)} Z"/>`;
+    return half(1, top) + half(0, bot);
+  }
+
+  function renderDetailBall() {
+    const D = design, b = D.nut;
+    const L1 = D.L[0] * 1000, dmm = D.d * 1000;
+    const k = 1.55;                                // px por mm para la pelota
+    const R = b.r * 1000 * k, eyeC = (b.r + b.eye * 0.55) * 1000 * k, eyeR = b.eye * 1000 * 0.42 * k, apexOff = b.rh * 1000 * k;
+    const Wv = 360, Hv = 270;
+    let s = `<svg class="dw" viewBox="0 0 ${Wv} ${Hv}" role="img" aria-label="Detalle de la pelota 1 colgada en V de su armella">`;
+    // --- alzado ---
+    const cx = 95, barY = 34, yc = 200, dd = clamp(dmm * k, 40, 150), sx1 = cx - dd / 2, sx2 = cx + dd / 2;
+    const apex = yc - apexOff;
+    s += `<rect class="part" x="${cx - 80}" y="${barY - 14}" width="160" height="14"/>`;
+    s += line(sx1, barY - 15, sx1, 4, 'ln-thin') + line(sx2, barY - 15, sx2, 4, 'ln-thin');
+    s += dimH(sx1, sx2, 10, `d = ${fmt(dmm, 0)}`, 12.5);
+    const brk1 = 96, brk2 = 108;
+    const along = (xa, ya, xb, yb, y) => xa + (xb - xa) * (y - ya) / (yb - ya);
+    for (const xs of [sx1, sx2]) {
+      s += line(xs, barY, along(xs, barY, cx, apex, brk1), brk1, 'thread');
+      s += line(along(xs, barY, cx, apex, brk2), brk2, cx, apex, 'thread');
+    }
+    const zig = (y) => `<path class="ln-thin" d="M${cx - 72} ${y} L${cx - 8} ${y} L${cx - 3} ${y - 6} L${cx + 3} ${y + 6} L${cx + 8} ${y} L${cx + 72} ${y}"/>`;
+    s += zig(brk1) + zig(brk2);
+    s += ballHalves(cx, yc, R, 0) + line(cx - R, yc, cx + R, yc, 'ln-thin');
+    s += `<circle class="ln" cx="${cx}" cy="${r1(yc - eyeC)}" r="${r1(eyeR)}"/>`;
+    s += line(cx - R - 10, yc, 172, yc, 'ln-center') + line(cx, barY - 18, cx, yc + R + 10, 'ln-center');
+    s += line(cx + 80, barY, 176, barY, 'ln-thin');
+    s += dimV(168, barY, yc, `L₁ = ${fmt(L1, 1)}`, 12.5, 'left');
+    s += `<text x="${cx}" y="${Hv - 6}" font-size="13" text-anchor="middle" class="t-dim">Alzado</text>`;
+    // --- perfil ---
+    const px = 286;
+    s += `<defs><clipPath id="barsec"><rect x="${px - 7}" y="${barY - 14}" width="14" height="14"/></clipPath></defs>`;
+    s += `<rect class="part" x="${px - 7}" y="${barY - 14}" width="14" height="14"/>`;
+    let hatch = '';
+    for (let o = -14; o <= 14; o += 3.5) hatch += line(px - 7 + o, barY, px + 7 + o, barY - 14, 'hatch');
+    s += `<g clip-path="url(#barsec)">${hatch}</g>`;
+    s += line(px, barY, px, brk1, 'thread') + line(px, brk2, px, apex, 'thread');
+    for (const y of [brk1, brk2]) s += `<path class="ln-thin" d="M${px - 40} ${y} L${px - 5} ${y} L${px - 2} ${y - 5} L${px + 2} ${y + 5} L${px + 5} ${y} L${px + 40} ${y}"/>`;
+    s += ballHalves(px, yc, R, 0) + line(px - R, yc, px + R, yc, 'ln-thin');
+    s += `<circle class="ln" cx="${px}" cy="${r1(yc - eyeC)}" r="${r1(eyeR)}"/>`;
+    s += line(px - R - 8, yc, px + R + 8, yc, 'ln-center') + line(px, yc - R - 14, px, yc + R + 8, 'ln-center');
+    const ar = R + 12;
+    s += `<path class="ln-thin" d="M${r1(px - ar * Math.sin(0.5))} ${r1(yc + ar * Math.cos(0.5) - 6)} A${r1(ar)} ${r1(ar)} 0 0 0 ${r1(px + ar * Math.sin(0.5))} ${r1(yc + ar * Math.cos(0.5) - 6)}"/>`;
+    s += arrow(px - ar * Math.sin(0.5), yc + ar * Math.cos(0.5) - 6, -Math.cos(0.5), -Math.sin(0.5), 7);
+    s += arrow(px + ar * Math.sin(0.5), yc + ar * Math.cos(0.5) - 6, Math.cos(0.5), -Math.sin(0.5), 7);
+    s += `<text x="${px}" y="${Hv - 6}" font-size="13" text-anchor="middle" class="t-dim">Perfil</text>`;
+    $('fig-detail').innerHTML = s + '</svg>';
+  }
+
   function renderDetail() {
+    if (design.setup === 'ball') { renderDetailBall(); return; }
     const D = design, nut = D.nut, n = NUTS[nut.key];
     const L1 = D.L[0] * 1000, dmm = D.d * 1000;
     const k = 2.3;                                 // px por mm para la tuerca
@@ -1463,8 +1624,14 @@ footer p { margin: 0; }
     }
     for (let i = 0; i < N; i++) {
       const x = xs[i], yc = L[i];
-      o += `<rect class="nutf" x="${r1(x - h / 2)}" y="${r1(yc - a)}" width="${r1(h)}" height="${r1(2 * a)}"/>`;
-      o += line(x - h / 2, yc - a / 2, x + h / 2, yc - a / 2, 'ln-thin') + line(x - h / 2, yc + a / 2, x + h / 2, yc + a / 2, 'ln-thin');
+      if (nut.kind === 'ball') {
+        const e = nut.eye * 1000;
+        o += ballHalves(x, yc, a, i) + line(x - a, yc, x + a, yc, 'ln-thin');
+        o += `<circle class="ln" cx="${r1(x)}" cy="${r1(yc - a - e * 0.55)}" r="${r1(e * 0.42)}"/>`;
+      } else {
+        o += `<rect class="nutf" x="${r1(x - h / 2)}" y="${r1(yc - a)}" width="${r1(h)}" height="${r1(2 * a)}"/>`;
+        o += line(x - h / 2, yc - a / 2, x + h / 2, yc - a / 2, 'ln-thin') + line(x - h / 2, yc + a / 2, x + h / 2, yc + a / 2, 'ln-thin');
+      }
       const show = N <= 20 || i === 0 || i === N - 1 || (i + 1) % 5 === 0;
       if (show) o += `<text x="${r1(x)}" y="${r1(yNum(i))}" font-size="${r1(fs * 0.85)}" text-anchor="middle" class="t-dim">${i + 1}</text>`;
       for (const sx of [-1, 1]) o += `<circle class="ink" cx="${r1(x + sx * d / 2)}" cy="0" r="${r1(fs * 0.16)}"/>`;
@@ -1488,9 +1655,22 @@ footer p { margin: 0; }
 
   /* ---------- controles ---------- */
   const rail = $('rail');
-  const RESET_IDS = new Set(['n-pend', 'cycle', 'lmax', 'err', 'amp', 'tau', 'nut', 'mode', 'spacing', 'spread']);
+  const RESET_IDS = new Set(['n-pend', 'cycle', 'lmax', 'err', 'amp', 'tau', 'nut', 'mode', 'spacing', 'spread', 'setup']);
+
+  function showSetup() {
+    document.querySelectorAll('[data-setup]').forEach((el) => { el.hidden = el.dataset.setup !== setup; });
+    const radio = rail.querySelector(`input[name="setup"][value="${setup}"]`);
+    if (radio) radio.checked = true;
+  }
+  function applySetup(next) {
+    for (const id of SETUP_KEYS) setupValues[setup][id] = $(id).value;
+    setup = next;
+    for (const id of SETUP_KEYS) $(id).value = setupValues[setup][id];
+    showSetup();
+  }
 
   function readParams() {
+    params.setup = setup;
     params.n = +$('n-pend').value;
     params.cycle = +$('cycle').value;
     params.lmax = +$('lmax').value;
@@ -1517,7 +1697,16 @@ footer p { margin: 0; }
     const support = (N - 1) * D.spacing + D.d;
     const bar = support + 0.07;
     const threadSum = D.thread.reduce((x, y) => x + y, 0);
+    const ball = nut.kind === 'ball';
     return {
+      bob: ball ? 'pelota' : 'tuerca', bobs: ball ? 'pelotas' : 'tuercas',
+      standBob: ball ? 'pelotas de golf pintadas, colgadas de hilo' : 'tuercas colgadas de hilo de coser',
+      setupPhrase: ball ? 'pelotas de golf pintadas' : 'tuercas e hilo de coser',
+      legendBob: ball ? 'Pelotas e hilo' : 'Tuercas e hilo',
+      material: ball ? 'Pelota de golf · poliéster · madera' : 'Acero · poliéster · madera',
+      kWhere: ball ? 'alrededor de su centro' : 'alrededor del agujero',
+      centerPhrase: ball ? 'el centro de la pelota' : 'el centro del agujero',
+      thirdGamma: `${fmtMax(D.cycle / 3, 1)} s`,
       nut: nut.key, N: String(N), gamma: `${D.cycle} s`, gammaLong: `${D.cycle} segundos`, halfGamma: `${fmtMax(D.cycle / 2, 1)} s`,
       K: String(K), Kmax: String(K + N - 1),
       oscRange: `${K} → ${K + N - 1}`,
@@ -1533,7 +1722,7 @@ footer p { margin: 0; }
       barLen: `${fmt(bar * 100, 0)} cm`,
       height: `${fmt((Lmax + nut.a + 0.03) * 100, 0)} cm`,
       threadTotal: `${fmt(threadSum + N * 0.15, 1)} m`,
-      nutsTotal: `${N} × ${nut.key}`,
+      nutsTotal: ball ? `${N} pelotas de golf` : `${N} × ${nut.key}`,
       nutsMass: `≈${fmt(nut.mass * N * 1000, 0)} g`,
       cycleSpec: `${D.cycle} s · K = ${K}`,
       pegs: String(2 * N),
@@ -1553,14 +1742,14 @@ footer p { margin: 0; }
     $('cycle-out').textContent = `${params.cycle} s`;
     $('lmax-out').textContent = `${fmt(params.lmax, 1)} cm`;
     $('lmax-note').innerHTML = `Ajustado a <span class="num">${D.K}</span> oscilaciones exactas en Γ: <span class="num">${fmt(D.L[0] * 1000, 1)} mm</span>.`;
-    $('nut-note').textContent = `${n.s} mm entre caras, ${fmtMax(n.m, 1)} mm de alto, ≈${fmt(nut.mass * 1000, 1)} g.`;
+    if (nut.kind === 'nut') $('nut-note').textContent = `${n.s} mm entre caras, ${fmtMax(n.m, 1)} mm de alto, ≈${fmt(nut.mass * 1000, 1)} g.`;
     $('spacing-out').textContent = `${fmt(params.spacing, 1)} cm`;
     $('spread-out').textContent = `${fmtMax(params.spread, 1)} cm`;
     $('spread-note').innerHTML = crossings.length
-      ? `<span class="warn">Más ancha que la separación entre tuercas (${fmt(params.spacing, 1)}&nbsp;cm): los hilos de vecinas se cruzan y, como no pueden atravesarse, se empujan. Las tuercas acaban moviéndose casi en bloque y no aparecen las ondas.</span> Déjala por debajo de s.`
+      ? `<span class="warn">Más ancha que la separación entre ${facts.bobs} (${fmt(params.spacing, 1)}&nbsp;cm): los hilos de vecinas se cruzan y, como no pueden atravesarse, se empujan. Las ${facts.bobs} acaban moviéndose casi en bloque y no aparecen las ondas.</span> Déjala por debajo de s.`
       : params.spread >= params.spacing
         ? 'Igual a la separación: los hilos de vecinas comparten apoyo pero no se cruzan.'
-        : 'Más estrecha que la separación entre tuercas, así que los hilos de vecinas no se cruzan. No cambia el periodo.';
+        : `Más estrecha que la separación entre ${facts.bobs}, así que los hilos de vecinas no se cruzan. No cambia el periodo.`;
     $('err-out').textContent = params.err === 0 ? 'exacto' : `±${fmt(params.err, 1)} mm`;
     $('err-note').innerHTML = params.err === 0
       ? `Longitudes exactas. Desvíalas al azar para ver qué pasa; la tolerancia es <span class="num">${facts.tol}</span>.`
@@ -1584,22 +1773,34 @@ footer p { margin: 0; }
     paintRanges();
   }
 
+  function tableHead() {
+    const ball = design.setup === 'ball';
+    const h = ['Péndulo', 'Oscilaciones en Γ', 'Periodo (s)', `L, barra → centro de la ${ball ? 'pelota' : 'tuerca'} (mm)`, 'Hilo entre apoyos (mm)'];
+    if (ball) h.push('Pintura, arriba / abajo');
+    return h;
+  }
   function tableRows() {
     const D = design, rows = [];
     for (let i = 0; i < D.N; i++) {
-      rows.push([String(i + 1), String(D.osc[i]), fmt(D.T[i], 4), fmt(D.L[i] * 1000, 1), fmt(D.thread[i] * 1000, 0)]);
+      const row = [String(i + 1), String(D.osc[i]), fmt(D.T[i], 4), fmt(D.L[i] * 1000, 1), fmt(D.thread[i] * 1000, 0)];
+      if (D.setup === 'ball') row.push(paintOf(i).join(' / '));
+      rows.push(row);
     }
     return rows;
   }
   function renderTable() {
-    $('build-body').innerHTML = tableRows()
-      .map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td class="key">${r[3]}</td><td>${r[4]}</td></tr>`)
-      .join('');
+    $('build-head').innerHTML = `<tr>${tableHead().map((h) => `<th scope="col">${h}</th>`).join('')}</tr>`;
+    const sw = (k) => `<i class="sw" style="background:${PAINT[k].css}"></i>`;
+    $('build-body').innerHTML = tableRows().map((r, i) => {
+      let tr = `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td class="key">${r[3]}</td><td>${r[4]}</td>`;
+      if (r.length > 5) { const [t, b] = paintOf(i); tr += `<td class="paint">${sw(t)}${t} / ${sw(b)}${b}</td>`; }
+      return tr + '</tr>';
+    }).join('');
   }
 
   $('copy-table').addEventListener('click', async (e) => {
     const btn = e.currentTarget;
-    const head = ['Péndulo', 'Oscilaciones en Γ', 'Periodo (s)', 'L barra-centro tuerca (mm)', 'Hilo entre apoyos (mm)'];
+    const head = tableHead();
     const text = [head, ...tableRows()].map((r) => r.join('\t')).join('\n');
     try {
       await navigator.clipboard.writeText(text);
@@ -1618,6 +1819,8 @@ footer p { margin: 0; }
       const data = {};
       rail.querySelectorAll('input[type="range"]').forEach((el) => { data[el.id] = el.value; });
       data.nut = params.nut; data.mode = params.mode; data.woodGhost = woodGhost;
+      for (const id of SETUP_KEYS) setupValues[setup][id] = $(id).value;
+      data.setup = setup; data.setupValues = setupValues;
       localStorage.setItem(STORE_KEY, JSON.stringify(data));
     } catch (_) { /* almacenamiento no disponible */ }
   }
@@ -1631,11 +1834,14 @@ footer p { margin: 0; }
         if (el) el.checked = true;
       }
       if (data.woodGhost) setWoodGhost(true);
+      if (data.setupValues) for (const k of ['nut', 'ball']) Object.assign(setupValues[k], data.setupValues[k] || {});
+      if (data.setup === 'ball' || data.setup === 'nut') setup = data.setup;
     } catch (_) { /* almacenamiento no disponible */ }
   }
 
   rail.addEventListener('input', (e) => {
-    const id = e.target.name === 'nut' || e.target.name === 'mode' ? e.target.name : e.target.id;
+    const id = ['nut', 'mode', 'setup'].includes(e.target.name) ? e.target.name : e.target.id;
+    if (id === 'setup') applySetup(e.target.value);
     readParams();
     if (RESET_IDS.has(id)) {
       design = computeDesign(params);
@@ -1674,6 +1880,7 @@ footer p { margin: 0; }
   renderNutPicker();
   buildTicks();
   restoreInputs();
+  showSetup();
   readParams();
   design = computeDesign(params);
   geom = computeGeom();

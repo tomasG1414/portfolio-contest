@@ -29,6 +29,18 @@ conexiones entrantes a Python.
 Sin el script también vale: `python3 -m http.server 8000 --bind 0.0.0.0` dentro
 de esta carpeta.
 
+## Dos montajes
+
+- **Tuercas e hilo de coser**: tuercas DIN 934 colgadas en V por el agujero.
+- **Pelotas de golf pintadas**: como el [«Pèndol d'ones»](https://otos3.blogspot.com/2013/10/pendol-dones.html)
+  de Joan Olivares. 15 pelotas cada 6 cm, cada una colgada de una armella con dos hilos.
+  La mitad de arriba alterna rojo, verde y azul y la de abajo negro y amarillo, así que
+  a Γ/3 cada grupo enseña arriba un solo color y a Γ/2 una fila es negra y la otra
+  amarilla. La tabla de montaje dice de qué color va cada pelota.
+
+Cada montaje guarda sus propios valores de diseño (número, ciclo, longitud, separación
+y apertura de la V).
+
 ## Qué se puede variar
 
 | Grupo | Control | Efecto |
@@ -39,7 +51,8 @@ de esta carpeta.
 | Simulación | velocidad ×0,1–×4 | — |
 
 La línea de tiempo se puede arrastrar para saltar a Γ/4, Γ/3, Γ/2… y la vista
-3D se gira arrastrando (presets: 3D, desde el extremo, desde arriba, de frente).
+3D se gira arrastrando (vistas: 3D, desde el extremo, desde arriba, de frente y de
+perfil, esta última mirando a lo largo de la barra).
 El botón «Madera transparente» deja ver lo que tapan la barra y los postes; las
 aristas ocultas de la madera se dibujan a trazos.
 
