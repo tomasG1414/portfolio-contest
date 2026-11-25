@@ -38,8 +38,13 @@ de esta carpeta.
   a Γ/3 cada grupo enseña arriba un solo color y a Γ/2 una fila es negra y la otra
   amarilla. La tabla de montaje dice de qué color va cada pelota.
 
-Cada montaje guarda sus propios valores de diseño (número, ciclo, longitud, separación
-y apertura de la V).
+Hay dos montajes, **A** y **B**, cada uno con su peso (tuercas o pelotas) y todos sus
+parámetros. Los botones «Montaje A / Montaje B» eligen cuál editan los controles, y la
+física y la lámina de montaje muestran el elegido. Con «Ver los dos a la vez» el lienzo
+se parte en dos (en el móvil, uno encima del otro): los dos se sueltan juntos y comparten
+el tiempo, así que se ve en directo cómo cambia el patrón con otros parámetros. Por
+defecto A lleva tuercas y B las pelotas del blog. Dentro de cada montaje, cada tipo de
+peso recuerda sus propios valores de diseño.
 
 ## Qué se puede variar
 

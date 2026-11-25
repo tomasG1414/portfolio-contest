@@ -262,6 +262,11 @@ input[type="range"]:focus-visible { outline: 2px solid var(--focus); outline-off
 .setup-pick input:checked + label { color: var(--ink); box-shadow: inset 0 -3px 0 var(--red); }
 .setup-pick input:focus-visible + label { outline: 2px solid var(--focus); outline-offset: -2px; }
 .mode-pick { display: grid; grid-template-columns: 1fr 1fr; }
+.slot-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; }
+.slots button[aria-selected="true"] { background: var(--ink); color: var(--paper); }
+.check { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-label); font-size: 15px; font-weight: 500; cursor: pointer; }
+.check input { width: 16px; height: 16px; margin: 0; accent-color: var(--red); }
+@media (max-width: 639px) { figure.comparing #scene { height: clamp(520px, 88vh, 780px); } }
 .mode-pick input { position: absolute; opacity: 0; pointer-events: none; }
 .mode-pick label { text-align: center; }
 .mode-pick label:first-of-type { border-left: 0; }
@@ -440,12 +445,19 @@ footer p { margin: 0; }
     <form class="sheetform" id="rail" aria-label="Parámetros" onsubmit="return false">
       <fieldset>
         <legend>Montaje</legend>
-        <div class="setup-pick" role="radiogroup" aria-label="Montaje">
+        <div class="slot-row">
+          <div class="seg slots" role="group" aria-label="Montaje que editas">
+            <button type="button" data-slot="0" aria-selected="true">Montaje A</button>
+            <button type="button" data-slot="1" aria-selected="false">Montaje B</button>
+          </div>
+          <label class="check" for="compare"><input type="checkbox" id="compare"> Ver los dos a la vez</label>
+        </div>
+        <div class="setup-pick" role="radiogroup" aria-label="Peso del montaje">
           <input type="radio" name="setup" id="setup-nut" value="nut" checked><label for="setup-nut"><svg class="dw" viewBox="0 0 40 40" aria-hidden="true"><polygon class="nutf" points="35,20 27.5,33 12.5,33 5,20 12.5,7 27.5,7"/><circle class="paper" cx="20" cy="20" r="6"/><circle class="ln" cx="20" cy="20" r="6"/></svg><span>Tuercas e hilo de coser</span></label>
           <input type="radio" name="setup" id="setup-ball" value="ball"><label for="setup-ball"><svg class="dw" viewBox="0 0 40 40" aria-hidden="true"><path class="ballp" fill="#d63a2f" d="M7 23 A13 13 0 0 1 33 23 Z"/><path class="ballp" fill="#26282b" d="M7 23 A13 13 0 0 0 33 23 Z"/><circle class="ln" cx="20" cy="7" r="2.3"/></svg><span>Pelotas de golf pintadas</span></label>
         </div>
         <p class="note" data-setup="ball" hidden>Como el «<a href="https://otos3.blogspot.com/2013/10/pendol-dones.html" target="_blank" rel="noopener">Pèndol d’ones</a>» de Joan Olivares: pelotas de golf cada 6 cm, colgadas de dos hilos. Arriba, rojo, verde y azul alternos; abajo, negro y amarillo.</p>
-        <p class="note">Cada montaje guarda sus propios valores de diseño.</p>
+        <p class="note">A y B tienen cada uno su peso y sus valores; los controles de abajo cambian el que esté elegido. Al comparar se sueltan a la vez, uno al lado del otro.</p>
       </fieldset>
 
       <fieldset>
@@ -525,7 +537,7 @@ footer p { margin: 0; }
   <article class="card" aria-labelledby="phys-title">
     <header class="card-head">
       <h2 id="phys-title">La física</h2>
-      <p class="card-sub">Qué está pasando y qué cambia por hacerlo con <span data-f="setupPhrase">tuercas e hilo de coser</span>. Los <span class="num">valores en rojo</span> salen de los controles de arriba.</p>
+      <p class="card-sub">Qué está pasando y qué cambia por hacerlo con <span data-f="setupPhrase">tuercas e hilo de coser</span>. Los <span class="num">valores en rojo</span> salen del montaje <span data-f="slot">A</span>.</p>
     </header>
     <div class="rows">
       <section class="row">
@@ -619,7 +631,7 @@ footer p { margin: 0; }
   <section class="lamina" aria-labelledby="build-title">
     <div class="lamina-head">
       <h2 id="build-title">Lámina de montaje</h2>
-      <p>Para los valores actuales. Cotas en milímetros.</p>
+      <p>Montaje <span data-f="slot">A</span>, con los valores actuales. Cotas en milímetros.</p>
     </div>
 
     <div class="drawing">
@@ -708,7 +720,7 @@ footer p { margin: 0; }
   };
   // perfil: mirando a lo largo de la barra, perpendicular a las vistas de arriba y de frente
   const VIEWS = { iso: [-0.55, 0.32], end: [1.36, 0.2], top: [0, 1.553], front: [0, 0.05], side: [Math.PI / 2, 0] };
-  const STORE_KEY = 'pendulo-ondas-v3';
+  const STORE_KEY = 'pendulo-ondas-v4';
 
   const $ = (id) => document.getElementById(id);
   const fmt = (x, d = 0) => x.toLocaleString('es-ES', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -763,8 +775,10 @@ footer p { margin: 0; }
     };
   }
 
-  /* ---------- estado ---------- */
-  const params = {};
+  /* ---------- estado ----------
+     Hay dos montajes, A y B. Las funciones de diseño, simulación y dibujo trabajan sobre «el
+     montaje en uso»: estas variables apuntan a él y withRig() las cambia de uno a otro. */
+  let params = {};
   let design = null, geom = null;
   let errSeed = 20240917;
   let errU = makeErrors(errSeed);
@@ -781,14 +795,17 @@ footer p { margin: 0; }
     ball: { 'n-pend': '15', cycle: '60', lmax: '44', spacing: '6', spread: '4' },
   };
   let setup = 'nut';
-  const setupValues = { nut: { ...PRESETS.nut }, ball: { ...PRESETS.ball } };
+  let setupValues = { nut: { ...PRESETS.nut }, ball: { ...PRESETS.ball } };
 
-  const sim = {
-    steps: 0, target: 0, damp: 0, cycleSteps: 1,
-    th: new Float64Array(MAXN), om: new Float64Array(MAXN),
-    w2: new Float64Array(MAXN), Lt: new Float64Array(MAXN), I: new Float64Array(MAXN),
-    snaps: [],
-  };
+  function makeSim() {
+    return {
+      steps: 0, target: 0, damp: 0, cycleSteps: 1,
+      th: new Float64Array(MAXN), om: new Float64Array(MAXN),
+      w2: new Float64Array(MAXN), Lt: new Float64Array(MAXN), I: new Float64Array(MAXN),
+      snaps: [],
+    };
+  }
+  let sim = makeSim();
 
   function makeErrors(seed) {
     const r = mulberry32(seed);
@@ -978,8 +995,8 @@ footer p { margin: 0; }
   }
 
   function seekTo(t) {
-    sim.target = Math.max(0, t);
-    advanceTo(Math.floor(sim.target / DT + 1e-9));
+    const go = () => { sim.target = Math.max(0, t); advanceTo(Math.floor(sim.target / DT + 1e-9)); };
+    for (const r of rigs) withRig(r, go);
     updateReadouts(true);
   }
 
@@ -1179,10 +1196,10 @@ footer p { margin: 0; }
     ctx.stroke();
   }
 
-  function render() {
-    if (!W || !H || !design) return;
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    ctx.clearRect(0, 0, W, H);
+  function render(reg) {
+    if (!design) return;
+    ctx.save();
+    ctx.beginPath(); ctx.rect(reg.x, reg.y, reg.w, reg.h); ctx.clip();
     ctx.lineJoin = 'round';
     const g = geom, D = design, N = D.N;
 
@@ -1200,10 +1217,10 @@ footer p { margin: 0; }
       const u = (dx * R[0] + dy * R[1] + dz * R[2]) / Z, v = (dx * U[0] + dy * U[1] + dz * U[2]) / Z;
       umin = Math.min(umin, u); umax = Math.max(umax, u); vmin = Math.min(vmin, v); vmax = Math.max(vmax, v);
     }
-    const pad = 10;
-    S = Math.min((W - 2 * pad) / (umax - umin), (H - 2 * pad) / (vmax - vmin)) * cam.zoom;
-    CX = W / 2 - S * (umin + umax) / 2;
-    CY = H / 2 + S * (vmin + vmax) / 2;
+    const pad = 10, padT = compare ? 32 : 10;
+    S = Math.min((reg.w - 2 * pad) / (umax - umin), (reg.h - pad - padT) / (vmax - vmin)) * cam.zoom;
+    CX = reg.x + reg.w / 2 - S * (umin + umax) / 2;
+    CY = reg.y + (padT + reg.h - pad) / 2 + S * (vmin + vmax) / 2;
 
     // papel milimetrado en el suelo
     const zf = g.zFloor, xm = g.xMat, ym = g.yMat;
@@ -1274,6 +1291,34 @@ footer p { margin: 0; }
       const p = proj(c.x, c.r * Math.sin(phi), -c.r * Math.cos(phi));
       ctx.beginPath(); ctx.arc(p[0], p[1], 5, 0, Math.PI * 2); ctx.stroke();
     }
+    if (cur) cur.contactsNow = activeContacts.length;
+    ctx.restore();
+  }
+
+  // Un montaje ocupa todo el lienzo; al comparar, A y B se reparten el lienzo con la misma cámara.
+  function drawScene() {
+    if (!W || !H) return;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    if (!compare) { render({ x: 0, y: 0, w: W, h: H }); return; }
+    const side = W >= 640;
+    const regs = side
+      ? [{ x: 0, y: 0, w: W / 2, h: H }, { x: W / 2, y: 0, w: W / 2, h: H }]
+      : [{ x: 0, y: 0, w: W, h: H / 2 }, { x: 0, y: H / 2, w: W, h: H / 2 }];
+    rigs.forEach((r, i) => withRig(r, () => render(regs[i])));
+    ctx.strokeStyle = TOK.gridMajor;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    if (side) { ctx.moveTo(W / 2, 6); ctx.lineTo(W / 2, H - 6); } else { ctx.moveTo(6, H / 2); ctx.lineTo(W - 6, H / 2); }
+    ctx.stroke();
+    ctx.font = '600 15px "Barlow Semi Condensed", "Arial Narrow", sans-serif';
+    ctx.textBaseline = 'top';
+    rigs.forEach((r, i) => {
+      const t = rigCaption(r), x = regs[i].x + 10, y = regs[i].y + 8;
+      ctx.fillStyle = TOK.ink;
+      ctx.fillText(t, x, y);
+      if (i === active) { ctx.fillStyle = TOK.thread; ctx.fillRect(x, y + 19, ctx.measureText(t).width, 2); }
+    });
   }
 
   /* ---------- cámara ---------- */
@@ -1375,9 +1420,17 @@ footer p { margin: 0; }
     if (!force && now - lastRO < 100) return;
     lastRO = now;
     const label = patternLabel(f);
-    roLine.textContent = crossings.length
+    const lc = (x) => x.charAt(0).toLowerCase() + x.slice(1);
+    const describe = (r) => {
+      if (r.crossings.length) return `los hilos se cruzan y se empujan en ${r.contactsNow} puntos.`;
+      const q = r.sim.steps * DT / r.design.cycle;
+      return lc(patternLabel(Math.max(0, q - Math.floor(q + 1e-9))));
+    };
+    if (compare) {
+      roLine.textContent = `t = ${fmt(t, 1)} s. ` + rigs.map((r) => `${r.name} (Γ = ${r.design.cycle} s): ${describe(r)}`).join(' ');
+    } else roLine.textContent = crossings.length
       // con hilos cruzados el desfase de diseño ya no describe lo que pasa
-      ? `t = ${fmt(t, 1)} s, ciclo ${n + 1}. Los hilos de vecinas se cruzan en ${crossings.length} puntos y ahora se empujan en ${activeContacts.length} (círculos): las tuercas se arrastran unas a otras y no siguen el patrón de diseño.`
+      ? `t = ${fmt(t, 1)} s, ciclo ${n + 1}. Los hilos de vecinas se cruzan en ${crossings.length} puntos y ahora se empujan en ${cur ? cur.contactsNow : 0} (círculos): las ${design.setup === 'ball' ? 'pelotas' : 'tuercas'} se arrastran unas a otras y no siguen el patrón de diseño.`
       : `t = ${fmt(t, 1)} s, ciclo ${n + 1}. Desfase entre vecinas: ${fmt(f * 360, 0)}°. ${label}`;
     tl.setAttribute('aria-valuenow', String(Math.round(f * 100)));
     tl.setAttribute('aria-valuetext', `${fmt(f * cyc, 1)} s de ${cyc} s. ${label}`);
@@ -1412,7 +1465,7 @@ footer p { margin: 0; }
     $('play-label').textContent = v ? 'Pausa' : 'Seguir';
   }
   $('play').addEventListener('click', () => setRunning(!running));
-  $('release').addEventListener('click', () => { resetSim(); updateReadouts(true); setRunning(true); });
+  $('release').addEventListener('click', () => { resetAll(); updateReadouts(true); setRunning(true); });
 
   /* ---------- dibujos SVG ---------- */
   const r1 = (v) => Math.round(v * 10) / 10;
@@ -1669,6 +1722,80 @@ footer p { margin: 0; }
     showSetup();
   }
 
+  /* ---------- montajes A y B ----------
+     Cada uno tiene su peso (tuercas o pelotas), sus valores y su propia simulación. Comparten
+     el tiempo: cualquier cambio los suelta de nuevo a los dos a la vez. */
+  function makeRig(name, kind, seed) {
+    return {
+      name, params: {}, design: null, geom: null, crossings: [], sim: makeSim(),
+      errSeed: seed, errU: makeErrors(seed), setup: kind,
+      setupValues: { nut: { ...PRESETS.nut }, ball: { ...PRESETS.ball } }, inputs: {}, contactsNow: 0,
+    };
+  }
+  let rigs = [], active = 0, compare = false, cur = null;
+  function useRig(r) {
+    cur = r; params = r.params; design = r.design; geom = r.geom; crossings = r.crossings;
+    sim = r.sim; errU = r.errU; errSeed = r.errSeed; setup = r.setup; setupValues = r.setupValues;
+  }
+  function storeRig() {
+    if (!cur) return;
+    cur.design = design; cur.geom = geom; cur.crossings = crossings; cur.errU = errU; cur.errSeed = errSeed; cur.setup = setup;
+  }
+  function withRig(r, fn) {
+    const prev = cur;
+    storeRig(); useRig(r);
+    try { return fn(); } finally { storeRig(); useRig(prev); }
+  }
+  const rigRanges = () => [...rail.querySelectorAll('input[type="range"]')].filter((el) => el.id !== 'speed');
+  function formToRig(r) {
+    rigRanges().forEach((el) => { r.inputs[el.id] = el.value; });
+    r.inputs.nut = rail.querySelector('input[name="nut"]:checked').value;
+    r.inputs.mode = rail.querySelector('input[name="mode"]:checked').value;
+  }
+  function rigToForm(r) {
+    rigRanges().forEach((el) => { if (r.inputs[el.id] != null) el.value = r.inputs[el.id]; });
+    for (const name of ['nut', 'mode']) {
+      const el = rail.querySelector(`input[name="${name}"][value="${r.inputs[name]}"]`);
+      if (el) el.checked = true;
+    }
+  }
+  function rebuild() {
+    readParams();
+    design = computeDesign(params);
+    geom = computeGeom();
+    computeCrossings();
+    storeRig();
+  }
+  function resetAll() { for (const r of rigs) withRig(r, resetSim); }
+  function rigCaption(r) {
+    const D = r.design;
+    return `${r.name} · ${D.N} ${D.setup === 'ball' ? 'pelotas de golf' : 'tuercas ' + D.nut.key} · Γ = ${D.cycle} s`;
+  }
+  const slotBtns = document.querySelectorAll('[data-slot]');
+  function markSlot() { slotBtns.forEach((b) => b.setAttribute('aria-selected', String(+b.dataset.slot === active))); }
+  function selectSlot(i) {
+    if (i === active) return;
+    formToRig(cur);
+    for (const id of SETUP_KEYS) setupValues[setup][id] = $(id).value;
+    storeRig();
+    active = i;
+    useRig(rigs[i]);
+    rigToForm(cur);
+    showSetup();
+    readParams();
+    markSlot();
+    updateDesignUI();
+    updateReadouts(true);
+    saveInputs();
+  }
+  slotBtns.forEach((b) => b.addEventListener('click', () => selectSlot(+b.dataset.slot)));
+  function setCompare(v) {
+    compare = v;
+    $('compare').checked = v;
+    document.querySelector('.bench > figure').classList.toggle('comparing', v);
+    resize();
+  }
+
   function readParams() {
     params.setup = setup;
     params.n = +$('n-pend').value;
@@ -1699,6 +1826,7 @@ footer p { margin: 0; }
     const threadSum = D.thread.reduce((x, y) => x + y, 0);
     const ball = nut.kind === 'ball';
     return {
+      slot: cur ? cur.name : 'A',
       bob: ball ? 'pelota' : 'tuerca', bobs: ball ? 'pelotas' : 'tuercas',
       standBob: ball ? 'pelotas de golf pintadas, colgadas de hilo' : 'tuercas colgadas de hilo de coser',
       setupPhrase: ball ? 'pelotas de golf pintadas' : 'tuercas e hilo de coser',
@@ -1816,39 +1944,59 @@ footer p { margin: 0; }
 
   function saveInputs() {
     try {
-      const data = {};
-      rail.querySelectorAll('input[type="range"]').forEach((el) => { data[el.id] = el.value; });
-      data.nut = params.nut; data.mode = params.mode; data.woodGhost = woodGhost;
+      formToRig(cur);
       for (const id of SETUP_KEYS) setupValues[setup][id] = $(id).value;
-      data.setup = setup; data.setupValues = setupValues;
+      storeRig();
+      const data = {
+        active, compare, woodGhost, speed: $('speed').value,
+        rigs: rigs.map((r) => ({ inputs: r.inputs, setup: r.setup, setupValues: r.setupValues })),
+      };
       localStorage.setItem(STORE_KEY, JSON.stringify(data));
     } catch (_) { /* almacenamiento no disponible */ }
   }
   function restoreInputs() {
     try {
       const data = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
-      if (!data) return;
-      rail.querySelectorAll('input[type="range"]').forEach((el) => { if (data[el.id] != null) el.value = data[el.id]; });
-      for (const name of ['nut', 'mode']) {
-        const el = rail.querySelector(`input[name="${name}"][value="${data[name]}"]`);
-        if (el) el.checked = true;
+      if (data && Array.isArray(data.rigs)) {
+        data.rigs.slice(0, 2).forEach((d, i) => {
+          const r = rigs[i];
+          Object.assign(r.inputs, d.inputs || {});
+          if (d.setup === 'nut' || d.setup === 'ball') r.setup = d.setup;
+          if (d.setupValues) for (const k of ['nut', 'ball']) Object.assign(r.setupValues[k], d.setupValues[k] || {});
+        });
+        if (data.active === 0 || data.active === 1) active = data.active;
+        if (data.speed != null) $('speed').value = data.speed;
+        if (data.woodGhost) setWoodGhost(true);
+        compare = !!data.compare;
+        return;
       }
-      if (data.woodGhost) setWoodGhost(true);
-      if (data.setupValues) for (const k of ['nut', 'ball']) Object.assign(setupValues[k], data.setupValues[k] || {});
-      if (data.setup === 'ball' || data.setup === 'nut') setup = data.setup;
+      // versión anterior, con un solo montaje: pasa a ser el montaje A
+      const old = JSON.parse(localStorage.getItem('pendulo-ondas-v3') || 'null');
+      if (!old) return;
+      const A = rigs[0];
+      rigRanges().forEach((el) => { if (old[el.id] != null) A.inputs[el.id] = old[el.id]; });
+      for (const k of ['nut', 'mode']) if (old[k]) A.inputs[k] = old[k];
+      if (old.setup === 'nut' || old.setup === 'ball') A.setup = old.setup;
+      if (old.setupValues) for (const k of ['nut', 'ball']) Object.assign(A.setupValues[k], old.setupValues[k] || {});
+      if (old.speed != null) $('speed').value = old.speed;
+      if (old.woodGhost) setWoodGhost(true);
     } catch (_) { /* almacenamiento no disponible */ }
   }
 
   rail.addEventListener('input', (e) => {
-    const id = ['nut', 'mode', 'setup'].includes(e.target.name) ? e.target.name : e.target.id;
-    if (id === 'setup') applySetup(e.target.value);
-    readParams();
-    if (RESET_IDS.has(id)) {
-      design = computeDesign(params);
-      geom = computeGeom();
-      computeCrossings();
-      resetSim();
+    const t = e.target;
+    if (t.id === 'compare') { setCompare(t.checked); updateReadouts(true); saveInputs(); return; }
+    if (t.id === 'speed') {
+      readParams();
+      $('speed-out').textContent = `×${fmtMax(params.speed, 2)}`;
+      paintRanges();
+      saveInputs();
+      return;
     }
+    const id = ['nut', 'mode', 'setup'].includes(t.name) ? t.name : t.id;
+    if (id === 'setup') applySetup(t.value);
+    formToRig(cur);
+    if (RESET_IDS.has(id)) { rebuild(); resetAll(); } else readParams();
     updateDesignUI();
     updateReadouts(true);
     saveInputs();
@@ -1856,7 +2004,8 @@ footer p { margin: 0; }
   $('reroll').addEventListener('click', () => {
     errSeed += 1;
     errU = makeErrors(errSeed);
-    resetSim();
+    storeRig();
+    resetAll();
     updateReadouts(true);
   });
 
@@ -1879,14 +2028,22 @@ footer p { margin: 0; }
   /* ---------- arranque ---------- */
   renderNutPicker();
   buildTicks();
+  // de partida, A con tuercas y B con las pelotas del blog
+  rigs = [makeRig('A', 'nut', 20240917), makeRig('B', 'ball', 20240931)];
+  const baseInputs = {};
+  rigRanges().forEach((el) => { baseInputs[el.id] = el.value; });
+  baseInputs.nut = 'M8';
+  baseInputs.mode = 'ruler';
+  rigs.forEach((r) => Object.assign(r.inputs, baseInputs, PRESETS[r.setup]));
   restoreInputs();
+  readTokens();
+  for (const r of rigs) { useRig(r); rigToForm(r); rebuild(); resetSim(); storeRig(); }
+  useRig(rigs[active]);
+  rigToForm(cur);
   showSetup();
   readParams();
-  design = computeDesign(params);
-  geom = computeGeom();
-  computeCrossings();
-  readTokens();
-  resetSim();
+  markSlot();
+  setCompare(compare);
   $('cajetin-date').textContent = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
   updateDesignUI();
   setRunning(running);
@@ -1898,11 +2055,11 @@ footer p { margin: 0; }
     const dt = Math.min(0.1, Math.max(0, (now - last) / 1000));
     last = now;
     if (running) {
-      sim.target += dt * params.speed;
-      advanceTo(Math.floor(sim.target / DT + 1e-9));
+      const spd = SPEED_STEPS[+$('speed').value];
+      for (const r of rigs) withRig(r, () => { sim.target += dt * spd; advanceTo(Math.floor(sim.target / DT + 1e-9)); });
     }
     stepCam(now);
-    render();
+    drawScene();
     updateReadouts(false, now);
     requestAnimationFrame(frame);
   }
