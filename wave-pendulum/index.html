@@ -215,6 +215,7 @@ legend {
 .ctl output { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .note { margin: 0; font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
 .num { color: var(--red); font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; }
+.warn { color: var(--red); font-weight: 600; }
 
 input[type="range"] {
   -webkit-appearance: none; appearance: none;
@@ -452,12 +453,12 @@ footer p { margin: 0; }
         </div>
         <div class="ctl">
           <div class="ctl-head"><label for="spacing">Separación entre tuercas, s</label><output id="spacing-out" for="spacing">3,0 cm</output></div>
-          <input type="range" id="spacing" min="1.5" max="6" step="0.1" value="3">
+          <input type="range" id="spacing" min="1.5" max="8" step="0.1" value="4">
         </div>
         <div class="ctl">
-          <div class="ctl-head"><label for="spread">Apertura de la V, d</label><output id="spread-out" for="spread">12 cm</output></div>
-          <input type="range" id="spread" min="4" max="30" step="1" value="12">
-          <p class="note">No cambia el periodo, solo el hilo que hace falta y lo firme que queda el plano de oscilación.</p>
+          <div class="ctl-head"><label for="spread">Apertura de la V, d</label><output id="spread-out" for="spread">3 cm</output></div>
+          <input type="range" id="spread" min="1" max="20" step="0.5" value="3">
+          <p class="note" id="spread-note"></p>
         </div>
         <div class="ctl">
           <div class="ctl-head"><label for="err">Error de montaje</label><output id="err-out" for="err">exacto</output></div>
@@ -543,7 +544,8 @@ footer p { margin: 0; }
           <ul>
             <li><b>La masa está en la tuerca.</b> Un metro de hilo de poliéster pesa unos 0,03 g. El de cada péndulo pesa ≈<span class="num" data-f="threadMass">0,02 g</span>, el <span class="num" data-f="threadRatio">0,4 %</span> de una tuerca <span data-f="nut">M8</span> de ≈<span class="num" data-f="mass">5,4 g</span>, y el modelo de péndulo simple funciona bien.</li>
             <li><b>Densa y compacta.</b> El acero tiene 7,85 g/cm³: mucha inercia en poco volumen. El aire la frena poco y el balanceo dura minutos.</li>
-            <li><b>Colgada en V.</b> El hilo baja de un apoyo, atraviesa el agujero de la tuerca y sube a otro apoyo separado <span class="m"><i>d</i></span>. La V solo deja oscilar en el plano perpendicular a la barra y evita que la tuerca gire o trace elipses. La longitud que cuenta es la vertical de la barra al centro de la tuerca, no la del hilo.</li>
+            <li><b>Colgada en V.</b> El hilo baja de un apoyo, atraviesa el agujero de la tuerca y sube a otro apoyo separado <span class="m"><i>d</i></span>. Así la tuerca oscila alrededor de la línea que une los dos apoyos y no da vueltas sobre sí misma. La longitud que cuenta es la vertical de la barra al centro de la tuerca, no la del hilo.</li>
+            <li><b>La V, más estrecha que la separación.</b> Si <span class="m"><i>d</i></span> es mayor que la distancia <span class="m"><i>s</i></span> entre tuercas, los hilos de vecinas se cruzan. Como todas las V giran alrededor de la misma línea, dos hilos cruzados se tocan cada vez que sus tuercas pasan por el mismo ángulo, unas dos veces por oscilación, y el roce acopla y frena los péndulos. Con <span class="m"><i>d</i> &lt; <i>s</i></span> no se cruza ninguno.</li>
             <li><b>No es un punto.</b> La tuerca es un péndulo físico, <span class="m"><i>T</i> = 2π√((<i>L</i>² + <i>k</i>²)/(<i>gL</i>))</span>, con <span class="m"><i>k</i></span> ≈ <span class="num" data-f="k">5,4 mm</span> su radio de giro alrededor del agujero. En el péndulo más corto alarga el periodo <span class="num" data-f="ppm">323 ppm</span>; poco, y la lámina de montaje ya lo corrige.</li>
           </ul>
         </div>
@@ -614,7 +616,7 @@ footer p { margin: 0; }
       <section>
         <h3>Montaje</h3>
         <ol>
-          <li>Marca los apoyos en la cara inferior de la barra: dos por tuerca, separados <span data-f="dmm">120 mm</span>, con las tuercas vecinas cada <span data-f="smm">30 mm</span>.</li>
+          <li>Marca los apoyos en la cara inferior de la barra: dos por tuerca, separados <span data-f="dmm">30 mm</span>, con las tuercas vecinas cada <span data-f="smm">40 mm</span>. La V tiene que ser más estrecha que la separación entre tuercas para que los hilos no se crucen.</li>
           <li>Pon una armella o un clavo en cada marca.</li>
           <li>Corta cada hilo con la medida de la tabla más 15 cm.</li>
           <li>Pasa el hilo por la tuerca y ata los extremos a sus dos apoyos, de la 1 (la más larga) a la <span data-f="N">15</span>.</li>
@@ -623,7 +625,7 @@ footer p { margin: 0; }
       </section>
       <section>
         <h3>Qué hacer y qué observar</h3>
-        <p>Aparta todas las tuercas a la vez con un listón y retíralo de golpe. Primero oscilan juntas; después aparece una serpiente, un aparente desorden, dos filas en contrafase a los <span data-f="halfGamma">30 s</span> y, a los <span data-f="gamma">60 s</span>, de nuevo una línea.</p>
+        <p>Aparta todas las tuercas a la vez con un listón, en perpendicular a la barra, y retíralo de golpe; un empujón de lado las haría balancearse también a lo largo de la barra. Primero oscilan juntas; después aparece una serpiente, un aparente desorden, dos filas en contrafase a los <span data-f="halfGamma">30 s</span> y, a los <span data-f="gamma">60 s</span>, de nuevo una línea.</p>
         <p><b>Afinado.</b> Si en la realineación una tuerca llega antes que las demás, alarga un poco su hilo; si llega tarde, acórtalo.</p>
       </section>
     </div>
@@ -675,7 +677,7 @@ footer p { margin: 0; }
     M12: { d: 12, p: 1.75, s: 19, m: 10 },
   };
   const VIEWS = { iso: [-0.55, 0.32], end: [1.36, 0.2], top: [0, 1.553], front: [0, 0.05] };
-  const STORE_KEY = 'pendulo-ondas-v2';
+  const STORE_KEY = 'pendulo-ondas-v3';
 
   const $ = (id) => document.getElementById(id);
   const fmt = (x, d = 0) => x.toLocaleString('es-ES', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -816,7 +818,45 @@ footer p { margin: 0; }
     while (sim.steps < target) stepOnce();
   }
 
+  /* ---------- hilos que se cruzan (V más ancha que la separación) ----------
+     Cada hilo está en un semiplano que contiene la línea de apoyos y gira con su tuerca.
+     Dos hilos que se cruzan en el alzado coinciden en el espacio cuando sus tuercas tienen
+     el mismo ángulo: ahí se tocan. */
+  let crossings = [];
+  function segCross(a, b, c, d) {
+    const den = (b[0] - a[0]) * (d[1] - c[1]) - (b[1] - a[1]) * (d[0] - c[0]);
+    if (Math.abs(den) < 1e-12) return null;
+    const t = ((c[0] - a[0]) * (d[1] - c[1]) - (c[1] - a[1]) * (d[0] - c[0])) / den;
+    const u = ((c[0] - a[0]) * (b[1] - a[1]) - (c[1] - a[1]) * (b[0] - a[0])) / den;
+    return t > 0 && t < 1 && u > 0 && u < 1 ? [a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])] : null;
+  }
+  function computeCrossings() {
+    const D = design, N = D.N, h = D.nut.h, rh = D.nut.rh, xs = geom.xs, out = [];
+    const strands = (i) => [
+      [[xs[i] - D.d / 2, 0], [xs[i] - h / 2, -(D.L[i] - rh)]],
+      [[xs[i] + D.d / 2, 0], [xs[i] + h / 2, -(D.L[i] - rh)]],
+    ];
+    for (let i = 0; i < N; i++) {
+      for (let j = i + 1; j < N; j++) {
+        for (const a of strands(i)) for (const b of strands(j)) {
+          const X = segCross(a[0], a[1], b[0], b[1]);
+          if (X) out.push({ i, j, x: X[0], r: -X[1], prev: 0, flash: -1e9 });
+        }
+      }
+    }
+    crossings = out;
+  }
+  function checkContacts(now) {
+    for (const c of crossings) {
+      const dth = sim.th[c.i] - sim.th[c.j];
+      const sg = dth > 0 ? 1 : dth < 0 ? -1 : 0;
+      if (sg && c.prev && sg !== c.prev) c.flash = now;
+      if (sg) c.prev = sg;
+    }
+  }
+
   function seekTo(t) {
+    for (const c of crossings) c.prev = 0;
     sim.target = Math.max(0, t);
     advanceTo(Math.floor(sim.target / DT + 1e-9));
     updateReadouts(true);
@@ -1026,6 +1066,19 @@ footer p { margin: 0; }
     }
     objs.sort((a, b) => b.z - a.z);
     for (const o of objs) o.draw();
+
+    // roces: un círculo donde dos hilos cruzados acaban de tocarse
+    if (crossings.length) {
+      const now = performance.now();
+      ctx.strokeStyle = TOK.ink;
+      ctx.lineWidth = 1.5;
+      for (const c of crossings) {
+        if (now - c.flash > 320) continue;
+        const th = sim.th[c.i];
+        const p = proj(c.x, c.r * Math.sin(th), -c.r * Math.cos(th));
+        ctx.beginPath(); ctx.arc(p[0], p[1], 5.5, 0, Math.PI * 2); ctx.stroke();
+      }
+    }
   }
 
   /* ---------- cámara ---------- */
@@ -1122,7 +1175,10 @@ footer p { margin: 0; }
     if (!force && now - lastRO < 100) return;
     lastRO = now;
     const label = patternLabel(f);
-    roLine.textContent = `t = ${fmt(t, 1)} s, ciclo ${n + 1}. Desfase entre vecinas: ${fmt(f * 360, 0)}°. ${label}`;
+    const touch = crossings.length
+      ? ` Los hilos de vecinas se cruzan en ${crossings.length} puntos y se rozan donde aparece un círculo.`
+      : '';
+    roLine.textContent = `t = ${fmt(t, 1)} s, ciclo ${n + 1}. Desfase entre vecinas: ${fmt(f * 360, 0)}°. ${label}${touch}`;
     tl.setAttribute('aria-valuenow', String(Math.round(f * 100)));
     tl.setAttribute('aria-valuetext', `${fmt(f * cyc, 1)} s de ${cyc} s. ${label}`);
   }
@@ -1185,7 +1241,7 @@ footer p { margin: 0; }
   }
   function dimV(x, y1, y2, text, fs, side) {
     const a = fs * 0.75;
-    const tx = side === 'left' ? x - fs * 0.45 : x + fs * 0.45 + fs * 0.6;
+    const tx = side === 'left' ? x - fs * 0.75 : x + fs * 0.45 + fs * 0.6;
     const ty = (y1 + y2) / 2;
     return line(x, y1, x, y2, 'ln-thin') + arrow(x, y1, 0, -1, a) + arrow(x, y2, 0, 1, a) +
       `<text x="${r1(tx)}" y="${r1(ty)}" font-size="${r1(fs)}" text-anchor="middle" transform="rotate(-90 ${r1(tx)} ${r1(ty)})">${text}</text>`;
@@ -1234,7 +1290,7 @@ footer p { margin: 0; }
     const Wv = 360, Hv = 270;
     let s = `<svg class="dw" viewBox="0 0 ${Wv} ${Hv}" role="img" aria-label="Detalle de la suspensión en V del péndulo 1">`;
     // --- alzado ---
-    const cx = 95, barY = 34, yc = 196, dd = 118, sx1 = cx - dd / 2, sx2 = cx + dd / 2;
+    const cx = 95, barY = 34, yc = 196, dd = clamp(dmm * k, 44, 150), sx1 = cx - dd / 2, sx2 = cx + dd / 2;
     const ent = yc - rMin;
     s += `<rect class="part" x="${cx - 80}" y="${barY - 14}" width="160" height="14"/>`;
     // cota d
@@ -1303,7 +1359,7 @@ footer p { margin: 0; }
     o += dimH(-bh, bh, yTot, fmt(2 * bh, 0), fs);
     const xl = xs[N - 1] - d / 2, xr = xs[N - 1] + d / 2;
     o += line(xl, 0, xl, yD - fs * 0.4, 'ln-thin') + line(xr, 0, xr, yD - fs * 0.4, 'ln-thin');
-    o += dimH(xl, xr, yD, `d = ${fmt(d, 0)}`, fs);
+    o += dimH(xl, xr, yD, `d = ${fmtMax(d, 0)}`, fs, xr - xl < fs * 4.5 ? 'right' : undefined);
     // hilos y tuercas
     for (let i = 0; i < N; i++) {
       const x = xs[i], yc = L[i], ye = yc - rh;
@@ -1404,7 +1460,12 @@ footer p { margin: 0; }
     $('lmax-note').innerHTML = `Ajustado a <span class="num">${D.K}</span> oscilaciones exactas en Γ: <span class="num">${fmt(D.L[0] * 1000, 1)} mm</span>.`;
     $('nut-note').textContent = `${n.s} mm entre caras, ${fmtMax(n.m, 1)} mm de alto, ≈${fmt(nut.mass * 1000, 1)} g.`;
     $('spacing-out').textContent = `${fmt(params.spacing, 1)} cm`;
-    $('spread-out').textContent = `${params.spread} cm`;
+    $('spread-out').textContent = `${fmtMax(params.spread, 1)} cm`;
+    $('spread-note').innerHTML = crossings.length
+      ? `<span class="warn">Más ancha que la separación entre tuercas (${fmt(params.spacing, 1)}&nbsp;cm): los hilos de vecinas se cruzan y se rozan unas dos veces por oscilación.</span> Déjala por debajo de s.`
+      : params.spread >= params.spacing
+        ? 'Igual a la separación: los hilos de vecinas comparten apoyo pero no se cruzan.'
+        : 'Más estrecha que la separación entre tuercas, así que los hilos de vecinas no se cruzan. No cambia el periodo.';
     $('err-out').textContent = params.err === 0 ? 'exacto' : `±${fmt(params.err, 1)} mm`;
     $('err-note').innerHTML = params.err === 0
       ? `Longitudes exactas. Desvíalas al azar para ver qué pasa; la tolerancia es <span class="num">${facts.tol}</span>.`
@@ -1483,10 +1544,12 @@ footer p { margin: 0; }
     if (RESET_IDS.has(id)) {
       design = computeDesign(params);
       geom = computeGeom();
+      computeCrossings();
       resetSim();
     } else if (GEOM_IDS.has(id)) {
       design = computeDesign(params);
       geom = computeGeom();
+      computeCrossings();
     }
     updateDesignUI();
     updateReadouts(true);
@@ -1522,6 +1585,7 @@ footer p { margin: 0; }
   readParams();
   design = computeDesign(params);
   geom = computeGeom();
+  computeCrossings();
   readTokens();
   resetSim();
   $('cajetin-date').textContent = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
@@ -1537,6 +1601,7 @@ footer p { margin: 0; }
     if (running) {
       sim.target += dt * params.speed;
       advanceTo(Math.floor(sim.target / DT + 1e-9));
+      checkContacts(now);
     }
     stepCam(now);
     render();

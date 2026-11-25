@@ -51,3 +51,6 @@ distancia de la barra al centro de cada tuerca y el hilo que hace falta.
 - Las longitudes de diseño ya corrigen ese `k`, así que sin errores el patrón se
   realinea exactamente cada Γ.
 - Integración Runge-Kutta 4 con paso de 2 ms; g = 9,81 m/s².
+- La V de cada tuerca debe ser más estrecha que la separación entre tuercas (d < s).
+  Si no, los hilos de vecinas se cruzan y se rozan unas dos veces por oscilación; la
+  simulación marca esos roces con un círculo.
