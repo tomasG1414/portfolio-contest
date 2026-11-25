@@ -7,3 +7,4 @@ Péndulo de ondas en marcha.
 Abre la dirección de red local en el móvil (misma wifi). Ctrl+C para parar.
 
   127.0.0.1  "GET / HTTP/1.1" 200 -
+  127.0.0.1  "GET / HTTP/1.1" 200 -

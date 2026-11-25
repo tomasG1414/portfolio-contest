@@ -52,5 +52,9 @@ distancia de la barra al centro de cada tuerca y el hilo que hace falta.
   realinea exactamente cada Γ.
 - Integración Runge-Kutta 4 con paso de 2 ms; g = 9,81 m/s².
 - La V de cada tuerca debe ser más estrecha que la separación entre tuercas (d < s).
-  Si no, los hilos de vecinas se cruzan y se rozan unas dos veces por oscilación; la
-  simulación marca esos roces con un círculo.
+  Si no, los hilos de vecinas se cruzan y no pueden atravesarse. La simulación modela
+  cada cruce como un muelle que solo empuja, con la rigidez transversal de los dos
+  hilos tensos, `T(1/a + 1/b)` en serie, más un amortiguamiento estimado (ζ = 0,08)
+  para el roce. Dibuja los hilos doblados y marca con un círculo cada punto de empuje.
+  Con d > s las tuercas se arrastran unas a otras y las ondas no llegan a formarse,
+  incluso sin rozamiento.

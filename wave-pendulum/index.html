@@ -545,7 +545,7 @@ footer p { margin: 0; }
             <li><b>La masa está en la tuerca.</b> Un metro de hilo de poliéster pesa unos 0,03 g. El de cada péndulo pesa ≈<span class="num" data-f="threadMass">0,02 g</span>, el <span class="num" data-f="threadRatio">0,4 %</span> de una tuerca <span data-f="nut">M8</span> de ≈<span class="num" data-f="mass">5,4 g</span>, y el modelo de péndulo simple funciona bien.</li>
             <li><b>Densa y compacta.</b> El acero tiene 7,85 g/cm³: mucha inercia en poco volumen. El aire la frena poco y el balanceo dura minutos.</li>
             <li><b>Colgada en V.</b> El hilo baja de un apoyo, atraviesa el agujero de la tuerca y sube a otro apoyo separado <span class="m"><i>d</i></span>. Así la tuerca oscila alrededor de la línea que une los dos apoyos y no da vueltas sobre sí misma. La longitud que cuenta es la vertical de la barra al centro de la tuerca, no la del hilo.</li>
-            <li><b>La V, más estrecha que la separación.</b> Si <span class="m"><i>d</i></span> es mayor que la distancia <span class="m"><i>s</i></span> entre tuercas, los hilos de vecinas se cruzan. Como todas las V giran alrededor de la misma línea, dos hilos cruzados se tocan cada vez que sus tuercas pasan por el mismo ángulo, unas dos veces por oscilación, y el roce acopla y frena los péndulos. Con <span class="m"><i>d</i> &lt; <i>s</i></span> no se cruza ninguno.</li>
+            <li><b>La V, más estrecha que la separación.</b> Si <span class="m"><i>d</i></span> es mayor que la distancia <span class="m"><i>s</i></span> entre tuercas, los hilos de vecinas se cruzan. Como todas las V giran alrededor de la misma línea, dos hilos cruzados se encuentran en cuanto sus tuercas pasan por el mismo ángulo, y no pueden atravesarse: uno dobla al otro y los dos péndulos quedan unidos por la rigidez del hilo tenso. La simulación lo incluye. Con <span class="m"><i>d</i> &gt; <i>s</i></span> las tuercas se arrastran unas a otras, se mueven casi en bloque y las ondas no llegan a formarse. Con <span class="m"><i>d</i> &lt; <i>s</i></span> no se cruza ningún hilo.</li>
             <li><b>No es un punto.</b> La tuerca es un péndulo físico, <span class="m"><i>T</i> = 2π√((<i>L</i>² + <i>k</i>²)/(<i>gL</i>))</span>, con <span class="m"><i>k</i></span> ≈ <span class="num" data-f="k">5,4 mm</span> su radio de giro alrededor del agujero. En el péndulo más corto alarga el periodo <span class="num" data-f="ppm">323 ppm</span>; poco, y la lámina de montaje ya lo corrige.</li>
           </ul>
         </div>
@@ -651,7 +651,7 @@ footer p { margin: 0; }
   </section>
 
   <footer>
-    <p>Modelo: cada tuerca es un péndulo físico con su radio de giro, con la ecuación completa en sen θ (sin aproximar ángulos pequeños) y rozamiento proporcional a la velocidad. Integración Runge-Kutta de orden 4 con paso de 2 ms y g = 9,81 m/s².</p>
+    <p>Modelo: cada tuerca es un péndulo físico con su radio de giro, con la ecuación completa en sen θ (sin aproximar ángulos pequeños) y rozamiento proporcional a la velocidad. Integración Runge-Kutta de orden 4 con paso de 2 ms y g = 9,81 m/s². Si la V es más ancha que la separación, cada cruce de hilos es un muelle que solo empuja, con la rigidez transversal de los dos hilos tensos, <i>T</i>(1/<i>a</i> + 1/<i>b</i>), más un amortiguamiento estimado para el roce entre hilos.</p>
     <p>Referencias: <a href="https://sciencedemonstrations.fas.harvard.edu/presentations/pendulum-waves" target="_blank" rel="noopener">Harvard Natural Sciences Lecture Demonstrations, «Pendulum Waves»</a>; <a href="https://www.exploratorium.edu/snacks/pendulum-snake" target="_blank" rel="noopener">Exploratorium, «Pendulum Snake»</a>; R. E. Berg, <i>Am. J. Phys.</i> 59, 186 (1991); J. A. Flaten y K. A. Parendo, <i>Am. J. Phys.</i> 69, 778 (2001).</p>
   </footer>
 </div>
@@ -720,7 +720,7 @@ footer p { margin: 0; }
   const sim = {
     steps: 0, target: 0, damp: 0, cycleSteps: 1,
     th: new Float64Array(MAXN), om: new Float64Array(MAXN),
-    w2: new Float64Array(MAXN), Lt: new Float64Array(MAXN),
+    w2: new Float64Array(MAXN), Lt: new Float64Array(MAXN), I: new Float64Array(MAXN),
     snaps: [],
   };
 
@@ -780,16 +780,22 @@ footer p { margin: 0; }
       const Lt = D.L[i] + errU[i] * params.err / 1000;
       sim.Lt[i] = Lt;
       sim.w2[i] = G * Lt / (Lt * Lt + D.nut.k2);
+      sim.I[i] = D.nut.mass * (Lt * Lt + D.nut.k2);
       sim.th[i] = params.mode === 'ruler' ? Math.asin(Math.min(0.98, x0 / Lt)) : A;
       sim.om[i] = 0;
     }
+    // Orden de los hilos en cada cruce: el que tiene que quedar delante. En reposo los hilos
+    // están en el mismo plano; al apartarlas todas hacia el mismo lado, el que sale con más
+    // ángulo queda delante y ya no puede pasar por detrás del otro.
+    for (const c of crossings) c.sigma = sim.th[c.j] >= sim.th[c.i] ? 1 : -1;
     sim.steps = 0;
     sim.target = 0;
     sim.cycleSteps = Math.max(1, Math.round(D.cycle / DT));
     sim.snaps = [{ steps: 0, th: sim.th.slice(0, N), om: sim.om.slice(0, N) }];
   }
 
-  function stepOnce() {
+  // Péndulos independientes: RK4 por separado (el caso normal, d < s).
+  function stepFree() {
     const N = design.N, h = DT, c = sim.damp, th = sim.th, om = sim.om, w2 = sim.w2;
     for (let i = 0; i < N; i++) {
       const W = w2[i], x = th[i], v = om[i];
@@ -803,9 +809,44 @@ footer p { margin: 0; }
       th[i] = x + h / 6 * (v + 2 * v2 + 2 * v3 + v4);
       om[i] = v + h / 6 * (a1 + 2 * a2 + 2 * a3 + a4);
     }
+  }
+
+  // Con hilos cruzados: los péndulos se empujan a través de los hilos. RK4 del sistema entero.
+  const B = Array.from({ length: 10 }, () => new Float64Array(MAXN));
+  function accel(th, om, out) {
+    const N = design.N, c = sim.damp;
+    for (let i = 0; i < N; i++) out[i] = -sim.w2[i] * Math.sin(th[i]) - c * om[i];
+    for (const k of crossings) {
+      const p = k.sigma * (th[k.i] - th[k.j]);          // > 0: un hilo está doblando al otro
+      if (p <= 0) continue;
+      const F = k.K * p + k.C * k.sigma * (om[k.i] - om[k.j]);
+      if (F <= 0) continue;                               // los hilos empujan, no tiran
+      out[k.i] -= k.sigma * F / sim.I[k.i];
+      out[k.j] += k.sigma * F / sim.I[k.j];
+    }
+  }
+  function stepCoupled() {
+    const N = design.N, h = DT, th = sim.th, om = sim.om;
+    const [A1, A2, A3, A4, T2, O2, T3, O3, T4, O4] = B;
+    accel(th, om, A1);
+    for (let i = 0; i < N; i++) { T2[i] = th[i] + 0.5 * h * om[i]; O2[i] = om[i] + 0.5 * h * A1[i]; }
+    accel(T2, O2, A2);
+    for (let i = 0; i < N; i++) { T3[i] = th[i] + 0.5 * h * O2[i]; O3[i] = om[i] + 0.5 * h * A2[i]; }
+    accel(T3, O3, A3);
+    for (let i = 0; i < N; i++) { T4[i] = th[i] + h * O3[i]; O4[i] = om[i] + h * A3[i]; }
+    accel(T4, O4, A4);
+    for (let i = 0; i < N; i++) {
+      th[i] += h / 6 * (om[i] + 2 * O2[i] + 2 * O3[i] + O4[i]);
+      om[i] += h / 6 * (A1[i] + 2 * A2[i] + 2 * A3[i] + A4[i]);
+    }
+  }
+
+  function stepOnce() {
+    if (crossings.length) stepCoupled(); else stepFree();
     sim.steps++;
+    const N = design.N;
     if (sim.steps % sim.cycleSteps === 0 && sim.snaps[sim.snaps.length - 1].steps < sim.steps && sim.snaps.length < 5000) {
-      sim.snaps.push({ steps: sim.steps, th: th.slice(0, N), om: om.slice(0, N) });
+      sim.snaps.push({ steps: sim.steps, th: sim.th.slice(0, N), om: sim.om.slice(0, N) });
     }
   }
 
@@ -820,8 +861,11 @@ footer p { margin: 0; }
 
   /* ---------- hilos que se cruzan (V más ancha que la separación) ----------
      Cada hilo está en un semiplano que contiene la línea de apoyos y gira con su tuerca.
-     Dos hilos que se cruzan en el alzado coinciden en el espacio cuando sus tuercas tienen
-     el mismo ángulo: ahí se tocan. */
+     Dos hilos que se cruzan en el alzado coincidirían en el espacio cuando sus tuercas
+     tienen el mismo ángulo. Como no pueden atravesarse, uno dobla al otro: el contacto es
+     un muelle de un solo sentido con la rigidez transversal de dos hilos tensos,
+     T(1/a + 1/b) cada uno, en serie, más un amortiguamiento estimado por el roce. */
+  const CONTACT_ZETA = 0.08;
   let crossings = [];
   function segCross(a, b, c, d) {
     const den = (b[0] - a[0]) * (d[1] - c[1]) - (b[1] - a[1]) * (d[0] - c[0]);
@@ -831,32 +875,43 @@ footer p { margin: 0; }
     return t > 0 && t < 1 && u > 0 && u < 1 ? [a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])] : null;
   }
   function computeCrossings() {
-    const D = design, N = D.N, h = D.nut.h, rh = D.nut.rh, xs = geom.xs, out = [];
-    const strands = (i) => [
-      [[xs[i] - D.d / 2, 0], [xs[i] - h / 2, -(D.L[i] - rh)]],
-      [[xs[i] + D.d / 2, 0], [xs[i] + h / 2, -(D.L[i] - rh)]],
-    ];
+    const D = design, N = D.N, nut = D.nut, h = nut.h, rh = nut.rh, xs = geom.xs, out = [];
+    // hilo s (0 = izquierdo, 1 = derecho) del péndulo i: del apoyo al borde del agujero
+    const strand = (i, s) => {
+      const sx = s ? 1 : -1;
+      const a = [xs[i] + sx * D.d / 2, 0], b = [xs[i] + sx * h / 2, -(D.L[i] - rh)];
+      const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      const tension = nut.mass * G / (2 * Math.max(0.2, (D.L[i] - rh) / len));
+      return { a, b, len, tension };
+    };
     for (let i = 0; i < N; i++) {
       for (let j = i + 1; j < N; j++) {
-        for (const a of strands(i)) for (const b of strands(j)) {
-          const X = segCross(a[0], a[1], b[0], b[1]);
-          if (X) out.push({ i, j, x: X[0], r: -X[1], prev: 0, flash: -1e9 });
+        for (let si = 0; si < 2; si++) for (let sj = 0; sj < 2; sj++) {
+          const A = strand(i, si), Bs = strand(j, sj);
+          const X = segCross(A.a, A.b, Bs.a, Bs.b);
+          if (!X) continue;
+          const stiff = (S) => {
+            const a = Math.max(0.005, Math.hypot(X[0] - S.a[0], X[1] - S.a[1]));
+            const b = Math.max(0.005, S.len - a);
+            return { k: S.tension * (1 / a + 1 / b), t: a / S.len };
+          };
+          const ki = stiff(A), kj = stiff(Bs);
+          const kc = 1 / (1 / ki.k + 1 / kj.k);
+          const r = -X[1];
+          const K = kc * r * r;
+          const Ii = nut.mass * (D.L[i] ** 2 + nut.k2), Ij = nut.mass * (D.L[j] ** 2 + nut.k2);
+          out.push({
+            i, j, si, sj, x: X[0], r, K, sigma: 1,
+            C: 2 * CONTACT_ZETA * Math.sqrt(K * Ii * Ij / (Ii + Ij)),
+            ti: ki.t, tj: kj.t, fi: kc / ki.k, fj: kc / kj.k,
+          });
         }
       }
     }
     crossings = out;
   }
-  function checkContacts(now) {
-    for (const c of crossings) {
-      const dth = sim.th[c.i] - sim.th[c.j];
-      const sg = dth > 0 ? 1 : dth < 0 ? -1 : 0;
-      if (sg && c.prev && sg !== c.prev) c.flash = now;
-      if (sg) c.prev = sg;
-    }
-  }
 
   function seekTo(t) {
-    for (const c of crossings) c.prev = 0;
     sim.target = Math.max(0, t);
     advanceTo(Math.floor(sim.target / DT + 1e-9));
     updateReadouts(true);
@@ -894,6 +949,7 @@ footer p { margin: 0; }
   new ResizeObserver(resize).observe(canvas);
 
   const LIGHT = (() => { const v = [-0.4, -0.55, 0.73]; const n = Math.hypot(...v); return v.map((c) => c / n); })();
+  let kinks = new Map(), activeContacts = [];
   let C = [0, 0, 0], F = [0, 1, 0], R = [1, 0, 0], U = [0, 0, 1], S = 1, CX = 0, CY = 0;
 
   function proj(x, y, z) {
@@ -956,13 +1012,18 @@ footer p { margin: 0; }
     const yc = L * s, zc = -L * c;
     const Lr = L - nut.rh, ye = Lr * s, ze = -Lr * c, hh = nut.h / 2;
 
+    // hilo: apoyo → (dobleces donde otro hilo lo empuja) → agujero → (dobleces) → apoyo
+    const kinkPts = (s, reverse) => {
+      const list = (kinks.get(i * 2 + s) || []).slice().sort((a, b) => (reverse ? b.t - a.t : a.t - b.t));
+      return list.map((k) => proj(k.x, k.r * Math.sin(k.phi), -k.r * Math.cos(k.phi)));
+    };
+    const pts = [proj(x - D.d / 2, 0, 0), ...kinkPts(0, false), proj(x - hh, ye, ze),
+      proj(x + hh, ye, ze), ...kinkPts(1, true), proj(x + D.d / 2, 0, 0)];
     ctx.strokeStyle = TOK.thread;
     ctx.lineWidth = 1.15;
     ctx.beginPath();
-    let p = proj(x - D.d / 2, 0, 0); ctx.moveTo(p[0], p[1]);
-    p = proj(x - hh, ye, ze); ctx.lineTo(p[0], p[1]);
-    p = proj(x + hh, ye, ze); ctx.lineTo(p[0], p[1]);
-    p = proj(x + D.d / 2, 0, 0); ctx.lineTo(p[0], p[1]);
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let q = 1; q < pts.length; q++) ctx.lineTo(pts[q][0], pts[q][1]);
     ctx.stroke();
 
     const V0 = [], V1 = [], angs = [];
@@ -1052,6 +1113,20 @@ footer p { margin: 0; }
       ctx.fill();
     }
 
+    // contactos activos: dónde y con qué ángulo se doblan los hilos
+    kinks = new Map();
+    activeContacts = [];
+    for (const c of crossings) {
+      const p = c.sigma * (sim.th[c.i] - sim.th[c.j]);
+      if (p <= 0) continue;
+      const phi = sim.th[c.i] - c.sigma * p * c.fi;
+      activeContacts.push({ c, phi });
+      for (const [key, t] of [[c.i * 2 + c.si, c.ti], [c.j * 2 + c.sj, c.tj]]) {
+        if (!kinks.has(key)) kinks.set(key, []);
+        kinks.get(key).push({ t, x: c.x, r: c.r, phi });
+      }
+    }
+
     const objs = [];
     const postX = g.bh - 0.012;
     for (const sx of [-1, 1]) {
@@ -1067,17 +1142,12 @@ footer p { margin: 0; }
     objs.sort((a, b) => b.z - a.z);
     for (const o of objs) o.draw();
 
-    // roces: un círculo donde dos hilos cruzados acaban de tocarse
-    if (crossings.length) {
-      const now = performance.now();
-      ctx.strokeStyle = TOK.ink;
-      ctx.lineWidth = 1.5;
-      for (const c of crossings) {
-        if (now - c.flash > 320) continue;
-        const th = sim.th[c.i];
-        const p = proj(c.x, c.r * Math.sin(th), -c.r * Math.cos(th));
-        ctx.beginPath(); ctx.arc(p[0], p[1], 5.5, 0, Math.PI * 2); ctx.stroke();
-      }
+    // un círculo donde un hilo está empujando a otro
+    ctx.strokeStyle = TOK.ink;
+    ctx.lineWidth = 1.4;
+    for (const { c, phi } of activeContacts) {
+      const p = proj(c.x, c.r * Math.sin(phi), -c.r * Math.cos(phi));
+      ctx.beginPath(); ctx.arc(p[0], p[1], 5, 0, Math.PI * 2); ctx.stroke();
     }
   }
 
@@ -1175,10 +1245,10 @@ footer p { margin: 0; }
     if (!force && now - lastRO < 100) return;
     lastRO = now;
     const label = patternLabel(f);
-    const touch = crossings.length
-      ? ` Los hilos de vecinas se cruzan en ${crossings.length} puntos y se rozan donde aparece un círculo.`
-      : '';
-    roLine.textContent = `t = ${fmt(t, 1)} s, ciclo ${n + 1}. Desfase entre vecinas: ${fmt(f * 360, 0)}°. ${label}${touch}`;
+    roLine.textContent = crossings.length
+      // con hilos cruzados el desfase de diseño ya no describe lo que pasa
+      ? `t = ${fmt(t, 1)} s, ciclo ${n + 1}. Los hilos de vecinas se cruzan en ${crossings.length} puntos y ahora se empujan en ${activeContacts.length} (círculos): las tuercas se arrastran unas a otras y no siguen el patrón de diseño.`
+      : `t = ${fmt(t, 1)} s, ciclo ${n + 1}. Desfase entre vecinas: ${fmt(f * 360, 0)}°. ${label}`;
     tl.setAttribute('aria-valuenow', String(Math.round(f * 100)));
     tl.setAttribute('aria-valuetext', `${fmt(f * cyc, 1)} s de ${cyc} s. ${label}`);
   }
@@ -1392,8 +1462,7 @@ footer p { margin: 0; }
 
   /* ---------- controles ---------- */
   const rail = $('rail');
-  const RESET_IDS = new Set(['n-pend', 'cycle', 'lmax', 'err', 'amp', 'tau', 'nut', 'mode']);
-  const GEOM_IDS = new Set(['spacing', 'spread']);
+  const RESET_IDS = new Set(['n-pend', 'cycle', 'lmax', 'err', 'amp', 'tau', 'nut', 'mode', 'spacing', 'spread']);
 
   function readParams() {
     params.n = +$('n-pend').value;
@@ -1462,7 +1531,7 @@ footer p { margin: 0; }
     $('spacing-out').textContent = `${fmt(params.spacing, 1)} cm`;
     $('spread-out').textContent = `${fmtMax(params.spread, 1)} cm`;
     $('spread-note').innerHTML = crossings.length
-      ? `<span class="warn">Más ancha que la separación entre tuercas (${fmt(params.spacing, 1)}&nbsp;cm): los hilos de vecinas se cruzan y se rozan unas dos veces por oscilación.</span> Déjala por debajo de s.`
+      ? `<span class="warn">Más ancha que la separación entre tuercas (${fmt(params.spacing, 1)}&nbsp;cm): los hilos de vecinas se cruzan y, como no pueden atravesarse, se empujan. Las tuercas acaban moviéndose casi en bloque y no aparecen las ondas.</span> Déjala por debajo de s.`
       : params.spread >= params.spacing
         ? 'Igual a la separación: los hilos de vecinas comparten apoyo pero no se cruzan.'
         : 'Más estrecha que la separación entre tuercas, así que los hilos de vecinas no se cruzan. No cambia el periodo.';
@@ -1546,10 +1615,6 @@ footer p { margin: 0; }
       geom = computeGeom();
       computeCrossings();
       resetSim();
-    } else if (GEOM_IDS.has(id)) {
-      design = computeDesign(params);
-      geom = computeGeom();
-      computeCrossings();
     }
     updateDesignUI();
     updateReadouts(true);
@@ -1601,7 +1666,6 @@ footer p { margin: 0; }
     if (running) {
       sim.target += dt * params.speed;
       advanceTo(Math.floor(sim.target / DT + 1e-9));
-      checkContacts(now);
     }
     stepCam(now);
     render();
